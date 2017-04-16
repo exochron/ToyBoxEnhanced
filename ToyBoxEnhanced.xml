@@ -1,0 +1,27 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\..\FrameXML/UI.xsd">
+
+	<CheckButton name="ToyBoxEnhancedSpellButtonTemplate" inherits="CollectionsSpellButtonTemplate,SecureFrameTemplate,SecureActionButtonTemplate" virtual="true">
+		<Scripts>
+			<OnLoad>
+				CollectionsSpellButton_OnLoad(self, ToySpellButton_UpdateButton)
+			</OnLoad>
+			
+			<!--<OnClick>
+				if ( IsModifiedClick() ) then
+					ToySpellButton_OnModifiedClick(self, button);
+				elseif (not self.isPassive) then
+					ToySpellButton_OnClick(self, button);
+				end
+			</OnClick>-->
+			
+			<!--<OnShow function="ToySpellButton_OnShow"/>-->
+			<OnHide function="ToySpellButton_OnHide"/>
+			
+			<OnDragStart function="ToySpellButton_OnDrag"/>
+			<OnReceiveDrag function="ToySpellButton_OnDrag"/>
+			
+			<!--<OnEnter function="ToySpellButton_OnEnter"/>-->
+		</Scripts>
+	</CheckButton>
+  
+</Ui>
