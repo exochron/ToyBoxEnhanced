@@ -176,6 +176,7 @@ ToyBoxEnhancedSource = {
             [142495] = "Falsche Zähne",
             [142496] = "Dreckiger Löffel",
             [142497] = "Kleine Satteltasche",
+            [142536] = "Würfel der Erinnerung",
         },
     },
 
@@ -399,6 +400,8 @@ ToyBoxEnhancedSource = {
             [140324] = "Mobiler telemantischer Signalgeber",
             [129279] = "Verzauberte Steinpfeife",
             [140325] = "Selbstgebastelte Festmaske",
+            [142531] = "Kiste mit Schwimmern: Quietscheentchen",
+            [142532] = "Kiste mit Schwimmern: Murlockopf",
         },
     },
 
