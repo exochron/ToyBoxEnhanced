@@ -39,6 +39,7 @@ ToyBoxEnhancedSource = {
             [128223] = "Nie versiegendes Styganapilzbräu",
             [116120] = "Leckere Taladormahlzeit",
             [140780] = "Ei der Fal'dorei",
+            [143534] = "Zauberstab des simulierten Lebens",
         },
     },
 
@@ -115,6 +116,7 @@ ToyBoxEnhancedSource = {
             [86583] = "Schlachtbanner von Salyis",
             [127655] = "Vorlauter Wichtel",
             [86584] = "Gehärteter Panzer",
+            [142265] = "Große rote Strahlenkanone",
         },
     },
 
@@ -170,6 +172,10 @@ ToyBoxEnhancedSource = {
             [133998] = "Regenbogengenerator",
             [119093] = "Avianas Feder",
             [118935] = "Immergrüner Wedel",
+            [142494] = "Purpurfarbene Blüte",
+            [142495] = "Falsche Zähne",
+            [142496] = "Dreckiger Löffel",
+            [142497] = "Kleine Satteltasche",
         },
     },
 
@@ -303,7 +309,13 @@ ToyBoxEnhancedSource = {
             [44430] = "Titansiegel von Dalaran",
             [45984] = "Ungewöhnlicher Kompass",
             [85973] = "Uralter pandarischer Angelglücksbringer",
-            
+            [142528] = "Kiste mit Schwimmern: Dose Würmer",
+            [142529] = "Kiste mit Schwimmern: Katzenkopf",
+            [142530] = "Kiste mit Schwimmern: Schlepper",
+            [142531] = "Kiste mit Schwimmern: Quietscheentchen",
+            [142532] = "Kiste mit Schwimmern: Murlockopf",
+            [143662] = "Kiste mit Schwimmern: Hölzerner Pepe",
+
             -- Leatherworking
             [129956] = "Ledernes Kuschelsofa",
             [129960] = "Ledernes Haustierbett",
@@ -340,6 +352,10 @@ ToyBoxEnhancedSource = {
             -- Throne of Thunder
             [98132] = "Geysirgewehr der Shado-Pan",
             [98136] = "Schneckenhaus",
+
+            -- Nighthold
+            [143544] = "Schädel der Verderbnis",
+            [142536] = "Würfel der Erinnerung",
         },
     },
 
@@ -401,6 +417,7 @@ ToyBoxEnhancedSource = {
             -- Legion
             [43824] = "Die Schulen der arkanen Magie - Beherrschung",
             [139773] = "Smaragdwinde",
+            [143660] = "Mrgrglhjorn",
         },
     },
 
@@ -492,6 +509,7 @@ ToyBoxEnhancedSource = {
             [34480] = "Picknickkorb für Verliebte",
             [50471] = "Der Herzbrecher",
             [116651] = "Prisma der wahren Liebe",
+            [142341] = "Liebesboot",
 
             -- Children's Week
             [69895] = "Grüner Ballon",
@@ -501,6 +519,7 @@ ToyBoxEnhancedSource = {
             [34686] = "Kohlenpfanne der tanzenden Flammen",
             [116435] = "Gemütliches Lagerfeuer",
             [116440] = "Medaillon des flammenden Verteidigers",
+            [141649] = "Streichholzschächtelchen",
 
             -- Brewfest
             [33927] = "Braufestfässchen",
@@ -579,6 +598,8 @@ ToyBoxEnhancedSource = {
         Data = {
             -- Event
             [33079] = "Murlockostüm",
+            [142542] = "Foliant des Stadtportals",
+            [143543] = "Zwölfsaitige Gitarre",
 
             -- Trading Card Game
             [33219] = "Kessel mit Goblingumbo",
@@ -1426,5 +1447,26 @@ ToyBoxEnhancedConditions = {
     -- Wassersprechertotem
     [138490] = {
         Class = "SHAMAN",
+    },
+
+    -- Schädel der Verderbnis
+    [143544] = {
+        Class = "DEMONHUNTER",
+    },
+
+    -- Kiste mit Schwimmern: Quietscheentchen
+    [142531] = {
+        Reputation = {
+            Id = 1975, -- Conjurer Margoss
+            Value = 4, -- Friend
+        },
+    },
+
+    -- Kiste mit Schwimmern: Murlockopf
+    [142532] = {
+        Reputation = {
+            Id = 1975, -- Conjurer Margoss
+            Value = 4, -- Friend
+        },
     },
 };
