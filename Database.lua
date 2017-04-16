@@ -480,7 +480,8 @@ ToyBoxEnhancedSource = {
             [133511] = "Gurboggels funkelnde Kugel",
             [133542] = "Kolbenzangs megapräziser Simulationsoptiksucher",
             [129929] = "Spiegel der Möglichkeiten",
-        
+            [144393] = "Mobile Yaksalberei",
+
             -- Darkmoon Faire
             [75042] = "Gelber Luftballon",
             [90899] = "Dunkelmond-Pfeife",
@@ -504,12 +505,16 @@ ToyBoxEnhancedSource = {
             [21540] = "Elunes Laterne",
             [89999] = "Unerschöpfliches Allianzfeuerwerk",
             [90000] = "Unerschöpfliches Hordenfeuerwerk",
+            [143827] = "Drachenkopfkostüm",
+            [143828] = "Drachenkopfkostüm",
+            [143829] = "Drachenschwanzkostüm",
 
             -- Love is in the Air
             [34480] = "Picknickkorb für Verliebte",
             [50471] = "Der Herzbrecher",
             [116651] = "Prisma der wahren Liebe",
             [142341] = "Liebesboot",
+            [144339] = "Robuster Liebesschwindler",
 
             -- Children's Week
             [69895] = "Grüner Ballon",
