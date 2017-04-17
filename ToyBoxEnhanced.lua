@@ -44,15 +44,32 @@ local private = CoreFramework:GetModule("Addon", "1.0"):NewAddon(ADDON_NAME, ini
 private.filteredToyList = { };
 private.filterString = "";
 
+-- overload some core functions
+local org_GetNumFilteredToys = C_ToyBox.GetNumFilteredToys
+C_ToyBox.GetNumFilteredToys = function()
+    return #private.filteredToyList
+end
+local org_GetToyFromIndex = C_ToyBox.GetToyFromIndex
+C_ToyBox.GetToyFromIndex = function(index)
+    if (index > #private.filteredToyList) then
+        return -1;
+    end
+
+    return private.filteredToyList[index];
+end
+C_ToyBox.ForceToyRefilter = function()
+    return private:FilterToys()
+end
+local org_ToySpellButton_UpdateButton = ToySpellButton_UpdateButton
+ToySpellButton_UpdateButton = function(self)
+    org_ToySpellButton_UpdateButton(self)
+    private:ToySpellButton_UpdateButton(self)
+end
+
 function private:LoadUI()
     PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1); end end);
     
-    ToyBox:SetScript("OnEvent", nil);
-    ToyBox:SetScript("OnShow", function(sender) self:ToyBox_OnShow(sender); end);
-    ToyBox:SetScript("OnMouseWheel", function(sender, value, scrollBar) self:ToyBox_OnMouseWheel(sender, value, scrollBar); end);
     ToyBox.searchBox:SetScript("OnTextChanged", function(sender) self:ToyBox_OnSearchTextChanged(sender); end);
-    ToyBox.PagingFrame.PrevPageButton:SetScript("OnClick", function() self:ToyBoxPrevPageButton_OnClick(); end);
-    ToyBox.PagingFrame.NextPageButton:SetScript("OnClick", function() self:ToyBoxNextPageButton_OnClick(); end);
 
     hooksecurefunc(ToyBox.toyOptionsMenu, "initialize", function(sender, level) UIDropDownMenu_InitializeHelper(sender); self:ToyBoxOptionsMenu_Init(sender, level); end);
     hooksecurefunc(ToyBoxFilterDropDown, "initialize", function(sender, level) UIDropDownMenu_InitializeHelper(sender); self:ToyBoxFilterDropDown_Initialize(sender, level); end);
@@ -64,10 +81,13 @@ function private:LoadUI()
 
         local newToyButton = CreateFrame("CheckButton", nil, ToyBox.iconsFrame, "ToyBoxEnhancedSpellButtonTemplate", i);
         newToyButton:HookScript("OnClick", function(sender, button) self:ToySpellButton_OnClick(sender, button); end);
-        newToyButton:SetScript("OnShow", function(sender) self:ToySpellButton_OnShow(sender); end);
-        newToyButton:SetScript("OnEnter", function(sender) self:ToySpellButton_OnEnter(sender); end);
+        newToyButton:SetScript("OnShow", ToySpellButton_OnShow)
+        newToyButton:SetScript("OnEnter", function(sender)
+            ToySpellButton_OnEnter(sender)
+            self:ToySpellButton_OnEnter(sender);
+        end);
         newToyButton:SetScript("OnLeave", function(sender) self:ToySpellButton_OnLeave(sender); end);
-        newToyButton.updateFunction = function(sender) self:ToySpellButton_UpdateButton(sender) end;
+        newToyButton.updateFunction = ToySpellButton_UpdateButton
         
         newToyButton.IsHidden = newToyButton:CreateTexture(nil, "OVERLAY");
         newToyButton.IsHidden:SetTexture("Interface\\BUTTONS\\UI-GroupLoot-Pass-Up");
@@ -108,8 +128,8 @@ function private:LoadUI()
     self:CreateAchievementFrame();
 
     self:FilterToys();
-    self:ToyBox_UpdatePages();
-    self:ToyBox_UpdateButtons();
+    ToyBox_UpdatePages();
+    ToyBox_UpdateButtons();
 end
 
 function private:CreateToyCountFrame()
@@ -234,7 +254,7 @@ function private:LoadDebugMode()
         local toyCount = C_ToyBox.GetNumTotalDisplayedToys();
         local items = {};
         for toyIndex = 1, toyCount do
-            local itemId = C_ToyBox.GetToyInfo(C_ToyBox.GetToyFromIndex(toyIndex));
+            local itemId = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex));
             items[itemId] = true;
         end
 
@@ -306,21 +326,6 @@ function private:GetItemsFromCategory(data, name)
     return nil;
 end
 
-function private:ToyBox_OnShow(sender)
-	SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX, true);
-
-	if(C_ToyBox.HasFavorites()) then 
-		SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE, true);
-		ToyBox.favoriteHelpBox:Hide();
-	end
-
-    SetPortraitToTexture(CollectionsJournalPortrait,"Interface\\Icons\\Trade_Archaeology_ChestofTinyGlassAnimals");
-    
-    self:FilterToys();
-    self:ToyBox_UpdatePages();
-    self:ToyBox_UpdateButtons();
-end
-
 function private:ToyBox_OnSearchTextChanged(sender)
     SearchBoxTemplate_OnTextChanged(sender);
 
@@ -330,54 +335,9 @@ function private:ToyBox_OnSearchTextChanged(sender)
     if (oldText ~= self.filterString) then
         ToyBox.firstCollectedToyID = 0;
         self:FilterToys();
-        self:ToyBox_UpdatePages();
-        self:ToyBox_UpdateButtons();
+        ToyBox_UpdatePages();
+        ToyBox_UpdateButtons();
     end
-end
-
-function private:ToyBox_OnMouseWheel(sender, value, scrollBar)
-    SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_MOUSEWHEEL_PAGING, true);
-    ToyBox.mousewheelPagingHelpBox:Hide();
-    if(value > 0) then
-        self:ToyBoxPrevPageButton_OnClick()
-    else
-        self:ToyBoxNextPageButton_OnClick()
-    end
-end
-
-function private:ToyBox_UpdateButtons()
-    ToyBox.favoriteHelpBox:Hide();
-    for i = 1,TOYS_PER_PAGE do
-        local button = ToyBox.iconsFrame["spellButton" .. i];
-        self:ToySpellButton_UpdateButton(button);
-    end
-end
-
-function private:ToyBox_UpdatePages()
-    local maxPages = 1 + math.floor(math.max((#self.filteredToyList - 1), 0) / TOYS_PER_PAGE);
-    if (maxPages == nil or maxPages == 0) then
-        return;
-    end
-
-    local paging = ToyBox.PagingFrame;
-    local currentPage = paging:GetCurrentPage();
-
-    if (currentPage > maxPages) then
-        paging:SetCurrentPage(maxPages);
-        currentPage = maxPages;
-    end
-    if (currentPage == 1) then
-        paging.PrevPageButton:Disable();
-    else
-        paging.PrevPageButton:Enable();
-    end
-    if (currentPage == maxPages) then
-        paging.NextPageButton:Disable();
-    else
-        paging.NextPageButton:Enable();
-    end
-
-    paging.PageText:SetFormattedText(COLLECTION_PAGE_NUMBER, currentPage, maxPages);
 end
 
 function private:ToyBoxOptionsMenu_Init(sender, level)
@@ -393,8 +353,8 @@ function private:ToyBoxOptionsMenu_Init(sender, level)
             info.func = function()
                 C_ToyBox.SetIsFavorite(ToyBox.menuItemID, false);
                 self:FilterToys();
-                self:ToyBox_UpdatePages();
-                self:ToyBox_UpdateButtons();
+                ToyBox_UpdatePages();
+                ToyBox_UpdateButtons();
             end
         else
             info.text = BATTLE_PET_FAVORITE;
@@ -403,8 +363,8 @@ function private:ToyBoxOptionsMenu_Init(sender, level)
                 SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE, true);
                 ToyBox.favoriteHelpBox:Hide();
                 self:FilterToys();
-                self:ToyBox_UpdatePages();
-                self:ToyBox_UpdateButtons();
+                ToyBox_UpdatePages();
+                ToyBox_UpdateButtons();
             end
         end
 
@@ -419,16 +379,16 @@ function private:ToyBoxOptionsMenu_Init(sender, level)
         info.func = function()
             self.settings.hiddenToys[itemId] = nil;
             self:FilterToys();
-            self:ToyBox_UpdatePages();
-            self:ToyBox_UpdateButtons();
+            ToyBox_UpdatePages();
+            ToyBox_UpdateButtons();
         end
     else
         info.text = L["Hide"];
         info.func = function()
             self.settings.hiddenToys[itemId] = true;
             self:FilterToys();
-            self:ToyBox_UpdatePages();
-            self:ToyBox_UpdateButtons();
+            ToyBox_UpdatePages();
+            ToyBox_UpdateButtons();
         end
     end
 
@@ -450,8 +410,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
                         ToyBox.firstCollectedToyID = 0;
                         self.settings.filter.collected = value;
                         self:FilterToys();
-                        self:ToyBox_UpdatePages();
-                        self:ToyBox_UpdateButtons();
+                        ToyBox_UpdatePages();
+                        ToyBox_UpdateButtons();
 
                         if (value) then
                             UIDropDownMenu_EnableButton(1,2);
@@ -473,8 +433,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
         info.func = function(_, _, _, value)
             self.settings.filter.onlyFavorites = value;
             self:FilterToys();
-            self:ToyBox_UpdatePages();
-            self:ToyBox_UpdateButtons();
+            ToyBox_UpdatePages();
+            ToyBox_UpdateButtons();
          end
         UIDropDownMenu_AddButton(info, level);
 
@@ -486,8 +446,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
                         ToyBox.firstCollectedToyID = 0;
                         self.settings.filter.notCollected = value;
                         self:FilterToys();
-                        self:ToyBox_UpdatePages();
-                        self:ToyBox_UpdateButtons();
+                        ToyBox_UpdatePages();
+                        ToyBox_UpdateButtons();
                     end
         info.checked = function() return self.settings.filter.notCollected; end;
         info.isNotRadio = true;
@@ -497,8 +457,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
         info.func = function(_, _, _, value)
             self.settings.filter.onlyUsable = value;
             self:FilterToys();
-            self:ToyBox_UpdatePages();
-            self:ToyBox_UpdateButtons();
+            ToyBox_UpdatePages();
+            ToyBox_UpdateButtons();
         end
         info.checked = self.settings.filter.onlyUsable;
         info.isNotRadio = true;
@@ -545,8 +505,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
         info.func = function(_, _, _, value)
             self.settings.filter.hidden = value;
             self:FilterToys();
-            self:ToyBox_UpdatePages();
-            self:ToyBox_UpdateButtons();
+            ToyBox_UpdatePages();
+            ToyBox_UpdateButtons();
          end
         UIDropDownMenu_AddButton(info, level);
         
@@ -579,8 +539,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
             end
             
             self:FilterToys();
-            self:ToyBox_UpdatePages();
-            self:ToyBox_UpdateButtons();
+            ToyBox_UpdatePages();
+            ToyBox_UpdateButtons();
         end
         UIDropDownMenu_AddButton(info, level);
     else
@@ -597,8 +557,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
                             end
                             UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 1, 2);
                             self:FilterToys();
-                            self:ToyBox_UpdatePages();
-                            self:ToyBox_UpdateButtons();
+                            ToyBox_UpdatePages();
+                            ToyBox_UpdateButtons();
                         end
             UIDropDownMenu_AddButton(info, level)
 
@@ -610,8 +570,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
                             end
                             UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 1, 2);
                             self:FilterToys();
-                            self:ToyBox_UpdatePages();
-                            self:ToyBox_UpdateButtons();
+                            ToyBox_UpdatePages();
+                            ToyBox_UpdateButtons();
                         end
             UIDropDownMenu_AddButton(info, level)
 
@@ -620,8 +580,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
                 info.func = function(_, _, _, value)
                     self.settings.filter.source[source.Name] = value;
                     self:FilterToys();
-                    self:ToyBox_UpdatePages();
-                    self:ToyBox_UpdateButtons();
+                    ToyBox_UpdatePages();
+                    ToyBox_UpdateButtons();
                 end
                 info.checked = function() return self.settings.filter.source[source.Name] ~= false; end;
                 info.isNotRadio = true;
@@ -636,8 +596,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
             info.func = function(_, _, _, value)
                 self.settings.filter.faction.alliance = value;
                 self:FilterToys();
-                self:ToyBox_UpdatePages();
-                self:ToyBox_UpdateButtons();
+                ToyBox_UpdatePages();
+                ToyBox_UpdateButtons();
             end
             info.checked = self.settings.filter.faction.alliance;
             info.isNotRadio = true;
@@ -649,8 +609,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
             info.func = function(_, _, _, value)
                 self.settings.filter.faction.horde = value;
                 self:FilterToys();
-                self:ToyBox_UpdatePages();
-                self:ToyBox_UpdateButtons();
+                ToyBox_UpdatePages();
+                ToyBox_UpdateButtons();
             end
             info.checked = self.settings.filter.faction.horde;
             info.isNotRadio = true;
@@ -662,8 +622,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
             info.func = function(_, _, _, value)
                 self.settings.filter.faction.noFaction = value;
                 self:FilterToys();
-                self:ToyBox_UpdatePages();
-                self:ToyBox_UpdateButtons();
+                ToyBox_UpdatePages();
+                ToyBox_UpdateButtons();
             end
             info.checked = self.settings.filter.faction.noFaction;
             info.isNotRadio = true;
@@ -685,8 +645,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
                             end
                             UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 3, 2);
                             self:FilterToys();
-                            self:ToyBox_UpdatePages();
-                            self:ToyBox_UpdateButtons();
+                            ToyBox_UpdatePages();
+                            ToyBox_UpdateButtons();
                         end
             UIDropDownMenu_AddButton(info, level)
 
@@ -698,8 +658,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
                             end
                             UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 3, 2);
                             self:FilterToys();
-                            self:ToyBox_UpdatePages();
-                            self:ToyBox_UpdateButtons();
+                            ToyBox_UpdatePages();
+                            ToyBox_UpdateButtons();
                         end
             UIDropDownMenu_AddButton(info, level)
 
@@ -708,8 +668,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
                 info.func = function(_, _, _, value)
                     self.settings.filter.profession[profession.Name] = value;
                     self:FilterToys();
-                    self:ToyBox_UpdatePages();
-                    self:ToyBox_UpdateButtons();
+                    ToyBox_UpdatePages();
+                    ToyBox_UpdateButtons();
                 end
                 info.checked = function() return self.settings.filter.profession[profession.Name] ~= false; end;
                 info.isNotRadio = true;
@@ -732,8 +692,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
                             end
                             UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 4, 2);
                             self:FilterToys();
-                            self:ToyBox_UpdatePages();
-                            self:ToyBox_UpdateButtons();
+                            ToyBox_UpdatePages();
+                            ToyBox_UpdateButtons();
                         end
             UIDropDownMenu_AddButton(info, level)
 
@@ -745,8 +705,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
                             end
                             UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 4, 2);
                             self:FilterToys();
-                            self:ToyBox_UpdatePages();
-                            self:ToyBox_UpdateButtons();
+                            ToyBox_UpdatePages();
+                            ToyBox_UpdateButtons();
                         end
             UIDropDownMenu_AddButton(info, level)
 
@@ -755,8 +715,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
                 info.func = function(_, _, _, value)
                     self.settings.filter.worldEvent[worldEvent.Name] = value;
                     self:FilterToys();
-                    self:ToyBox_UpdatePages();
-                    self:ToyBox_UpdateButtons();
+                    ToyBox_UpdatePages();
+                    ToyBox_UpdateButtons();
                 end
                 info.checked = function() return self.settings.filter.worldEvent[worldEvent.Name] ~= false; end;
                 info.isNotRadio = true;
@@ -776,38 +736,12 @@ function private:ToySpellButton_OnClick(sender, button)
                 ChatEdit_InsertLink(itemLink);
             end
         end
-    else
-        if (sender.isPassive) then
-            return
-        end;
-        if (button ~= "LeftButton") then
-            ToyBox_ShowToyDropdown(sender.itemID, sender, 0, 0);
-        end
+    elseif (not sender.isPassive and button ~= "LeftButton") then
+        ToyBox_ShowToyDropdown(sender.itemID, sender, 0, 0);
     end
-end
-
-function private:ToySpellButton_OnShow(sender)
-    sender:RegisterEvent("SPELLS_CHANGED");
-    sender:RegisterEvent("SPELL_UPDATE_COOLDOWN");
-    sender:RegisterEvent("UPDATE_SHAPESHIFT_FORM");
-    sender:RegisterEvent("TOYS_UPDATED");
-
-    self:ToySpellButton_UpdateButton(sender);
 end
 
 function private:ToySpellButton_OnEnter(sender)
-    GameTooltip:SetOwner(sender, "ANCHOR_RIGHT");
-    if ( GameTooltip:SetToyByItemID(sender.itemID) ) then
-        sender.UpdateTooltip = function(sender) self:ToySpellButton_OnEnter(sender); end;
-    else
-        sender.UpdateTooltip = nil;
-    end
-
-    if(ToyBox.newToys[sender.itemID] ~= nil) then
-        ToyBox.newToys[sender.itemID] = nil;
-        self:ToySpellButton_UpdateButton(sender);
-    end
-
     if (not InCombatLockdown()) then
         sender:SetAttribute("type1", "toy");
         sender:SetAttribute("toy", sender.itemID);
@@ -825,90 +759,27 @@ function private:ToySpellButton_OnLeave(sender)
     GameTooltip_Hide();
 end
 
-function private:ToySpellButton_UpdateButton(sender)
-    local itemIndex = (ToyBox.PagingFrame:GetCurrentPage() - 1) * TOYS_PER_PAGE + sender:GetID();
-    sender.itemID = self:GetToyFromIndex(itemIndex);
+function private:ToySpellButton_UpdateButton(self)
 
-    local name = sender:GetName();
-    local toyString = sender.name;
-    local toyNewString = sender.new;
-    local toyNewGlow = sender.newGlow;
-    local iconTexture = sender.iconTexture;
-    local iconTextureUncollected = sender.iconTextureUncollected;
-    local slotFrameCollected = sender.slotFrameCollected;
-    local slotFrameUncollected = sender.slotFrameUncollected;
-    local slotFrameUncollectedInnerGlow = sender.slotFrameUncollectedInnerGlow;
-    local iconFavoriteTexture = sender.cooldownWrapper.slotFavorite;
-
-    if (sender.itemID == -1) then
-        sender:SetAlpha(0.0);
-        sender.cooldown:Hide();
+    if (self.itemID == -1) then
         return;
     end
 
-    sender:SetAlpha(1.0);
-
-    local itemID, toyName, icon = C_ToyBox.GetToyInfo(sender.itemID);
-    if (itemID == nil) then
+    local itemID, toyName, icon = C_ToyBox.GetToyInfo(self.itemID);
+    if (itemID == nil or toyName == nil) then
         return;
     end
 
-    if (not toyName or string.len(toyName) == 0) then
-        toyName = itemID;
-    end
+    self.slotFrameUncollectedInnerGlow:SetAlpha(0.18);
+    self.iconTextureUncollected:SetAlpha(0.18);
 
-    iconTexture:SetTexture(icon);
-    iconTextureUncollected:SetTexture(icon);
-    iconTextureUncollected:SetDesaturated(true);
-    slotFrameUncollectedInnerGlow:SetAlpha(0.18);
-    iconTextureUncollected:SetAlpha(0.18);
-    toyString:SetText(toyName);
-    toyString:Show();
+    self.IsHidden:SetShown(self.settings.hiddenToys[itemID]);
 
-    if (ToyBox.newToys[sender.itemID] ~= nil) then
-        toyNewString:Show();
-        toyNewGlow:Show();
-    else
-        toyNewString:Hide();
-        toyNewGlow:Hide();
-    end
+    local toyString = self.name;
+    local iconTexture = self.iconTexture;
+    local slotFrameCollected = self.slotFrameCollected;
 
-    if (C_ToyBox.GetIsFavorite(itemID)) then
-        iconFavoriteTexture:Show();
-    else
-        iconFavoriteTexture:Hide();
-    end
-
-    if (PlayerHasToy(sender.itemID)) then
-        iconTexture:Show();
-        iconTextureUncollected:Hide();
-        toyString:SetTextColor(1, 0.82, 0, 1);
-        toyString:SetShadowColor(0, 0, 0, 1);
-        slotFrameCollected:Show();
-        slotFrameUncollected:Hide();
-        slotFrameUncollectedInnerGlow:Hide();
-
-        if(ToyBox.firstCollectedToyID == 0) then
-            ToyBox.firstCollectedToyID = sender.itemID;
-        end
-
-        if (ToyBox.firstCollectedToyID == sender.itemID and not ToyBox.favoriteHelpBox:IsVisible() and not GetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE)) then
-            ToyBox.favoriteHelpBox:Show();
-            ToyBox.favoriteHelpBox:SetPoint("TOPLEFT", sender, "BOTTOMLEFT", -5, -20);
-        end
-    else
-        iconTexture:Hide();
-        iconTextureUncollected:Show();
-        toyString:SetTextColor(0.33, 0.27, 0.20, 1);
-        toyString:SetShadowColor(0, 0, 0, 0.33);
-        slotFrameCollected:Hide();
-        slotFrameUncollected:Show();
-        slotFrameUncollectedInnerGlow:Show();
-    end
-
-    sender.IsHidden:SetShown(self.settings.hiddenToys[itemID]);
-
-    if (PlayerHasToy(sender.itemID)) then
+    if (PlayerHasToy(self.itemID)) then
         if (self:IsToyUsable(itemID)) then
             if (InCombatLockdown()) then
                 toyString:SetAlpha(0.25);
@@ -929,40 +800,11 @@ function private:ToySpellButton_UpdateButton(sender)
         iconTexture:SetAlpha(1.0);
         slotFrameCollected:SetAlpha(1.0);
     end
-
-    CollectionsSpellButton_UpdateCooldown(sender);
-end
-
-function private:ToyBoxPrevPageButton_OnClick()
-    local currentPage = ToyBox.PagingFrame:GetCurrentPage();
-    if (currentPage > 1) then
-        PlaySound("igAbiliityPageTurn");
-        ToyBox.PagingFrame:SetCurrentPage(math.max(1, currentPage - 1), true);
-        self:ToyBox_UpdatePages();
-        self:ToyBox_UpdateButtons();
-    end
-end
-
-function private:ToyBoxNextPageButton_OnClick()
-    local maxPages = 1 + math.floor( math.max((#self.filteredToyList - 1), 0)/ TOYS_PER_PAGE);
-    if (ToyBox.PagingFrame:GetCurrentPage() < maxPages) then
-        -- show the mousewheel tip after the player's advanced a few pages
-        if(ToyBox.PagingFrame:GetCurrentPage() > 2) then
-            if(not GetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_MOUSEWHEEL_PAGING) and GetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE)) then
-                ToyBox.mousewheelPagingHelpBox:Show();
-            end
-        end
-
-        PlaySound("igAbiliityPageTurn");
-        ToyBox.PagingFrame:NextPage()
-        self:ToyBox_UpdatePages();
-        self:ToyBox_UpdateButtons();
-    end
 end
 
 function private:FilterToys()
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys();
-    if (C_ToyBox.GetNumFilteredToys() ~= toyCount) then
+    if (org_GetNumFilteredToys() ~= toyCount) then
         C_ToyBox.SetAllSourceTypeFilters(true);
         C_ToyBox.SetFilterString("");
         C_ToyBox.SetCollectedShown(true);
@@ -972,7 +814,7 @@ function private:FilterToys()
     self.filteredToyList = {};
 
     for toyIndex = 1, toyCount do
-        local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(C_ToyBox.GetToyFromIndex(toyIndex));
+        local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex));
         local collected = PlayerHasToy(itemId);
 
         if (self:FilterHiddenToys(name, itemId) and
@@ -1259,7 +1101,7 @@ end
 
 function private:GetUsableToysCount()
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys();
-    if (C_ToyBox.GetNumFilteredToys() ~= toyCount) then
+    if (org_GetNumFilteredToys() ~= toyCount) then
         C_ToyBox.SetAllSourceTypeFilters(true);
         C_ToyBox.SetFilterString("");
         C_ToyBox.SetCollectedShown(true);
@@ -1270,7 +1112,7 @@ function private:GetUsableToysCount()
 
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys();
     for toyIndex = 1, toyCount do
-        local itemId = C_ToyBox.GetToyInfo(C_ToyBox.GetToyFromIndex(toyIndex));
+        local itemId = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex));
         if (PlayerHasToy(itemId) and self:IsToyUsable(itemId)) then
             usableCount = usableCount + 1;
         end
@@ -1345,14 +1187,6 @@ function private:IsToyUsable(itemId)
     return true;
 end
 
-function private:GetToyFromIndex(index)
-    if (index > #self.filteredToyList) then
-        return -1;
-    end
-
-    return self.filteredToyList[index];
-end
-
 function private:Load()
     self:LoadUI();
     self:LoadDebugMode();
@@ -1370,12 +1204,8 @@ function private:OnToysUpdated(event, ...)
 
     if (ToyBox:IsVisible()) then
         self:FilterToys();
-        self:ToyBox_UpdatePages();
-        self:ToyBox_UpdateButtons();
-
-        if (new == 1) then
-            ToyBox.newToys[itemID] = 1;
-        end
+        ToyBox_UpdatePages();
+        ToyBox_UpdateButtons();
     end
 end
 
@@ -1386,8 +1216,8 @@ end
 function private:OnCombatStateChanged()
     if (ToyBox:IsVisible()) then
         self:FilterToys();
-        self:ToyBox_UpdatePages();
-        self:ToyBox_UpdateButtons();
+        ToyBox_UpdatePages();
+        ToyBox_UpdateButtons();
     end
 end
 
