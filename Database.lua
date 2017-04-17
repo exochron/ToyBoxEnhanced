@@ -1,45 +1,349 @@
+local function flattenTable(source)
+    local result = {}
+    for _, category in pairs(source) do
+        for id, name in pairs(category.Data) do
+            result[id] = name
+        end
+    end
+
+    return result
+end
+
+ToyBoxEnhancedWorldEvent = {
+    {
+        Name = "Timewalking",
+        Data = {
+            [129952] = "Hourglass of Eternity",
+            [129926] = "Mark of the Ashtongue",
+            [129938] = "Will of Northrend",
+            [133511] = "Gurboggle's Gleaming Bauble",
+            [133542] = "Tosselwrench's Mega-Accurate Simulation Viewfinder",
+            [129929] = "Ever-Shifting Mirror",
+            [144393] = "Portable Yak Wash",
+        },
+    },
+
+    {
+        Name = "Darkmoon Faire",
+        Data = {
+            [75042] = "Flimsy Yellow Balloon",
+            [90899] = "Darkmoon Whistle",
+            [101571] = "Moonfang Shroud",
+            [105898] = "Moonfang's Paw",
+            [116067] = "Ring of Broken Promises",
+            [116115] = "Blazing Wings",
+            [116139] = "Haunting Memento",
+            [122119] = "Everlasting Darkmoon Firework",
+            [122120] = "Gaze of the Darkmoon",
+            [122121] = "Darkmoon Gazer",
+            [122122] = "Darkmoon Tonk Controller",
+            [122123] = "Darkmoon Ring-Flinger",
+            [122126] = "Attraction Sign",
+            [122129] = "Fire-Eater's Vial",
+            [126931] = "Seafarer's Slidewhistle",
+            [97994] = "Darkmoon Seesaw",
+            [138202] = "Sparklepony XL",
+        },
+    },
+
+    {
+        Name = "Lunar Festival",
+        Data = {
+            [21540] = "Elune's Lantern",
+            [89999] = "Everlasting Alliance Firework",
+            [90000] = "Everlasting Horde Firework",
+            [143827] = "Dragon Head Costume",
+            [143828] = "Dragon Body Costume",
+            [143829] = "Dragon Tail Costume",
+        },
+    },
+
+    {
+        Name = "Love is in the Air",
+        Data = {
+            [34480] = "Romantic Picnic Basket",
+            [50471] = "The Heartbreaker",
+            [116651] = "True Love Prism",
+            [142341] = "Love Boat",
+            [144339] = "Sturdy Love Fool",
+        },
+    },
+
+    {
+        Name = "Children's Week",
+        Data = {
+            [69895] = "Green Balloon",
+            [69896] = "Yellow Balloon",
+        },
+    },
+
+    {
+        Name = "Midsummer Fire Festival",
+        Data = {
+            [34686] = "Brazier of Dancing Flames",
+            [116435] = "Cozy Bonfire",
+            [116440] = "Burning Defender's Medallion",
+            [141649] = "Set of Matches",
+        },
+    },
+
+    {
+        Name = "Brewfest",
+        Data = {
+            [33927] = "Brewfest Pony Keg",
+            [71137] = "Brewfest Keg Pony",
+            [90427] = "Pandaren Brewpack",
+            [116757] = "Steamworks Sausage Grill",
+            [116758] = "Brewfest Banner",
+            [138900] = "Gravil Goldbraid's Famous Sausage Hat",
+        },
+    },
+
+    {
+        Name = "Hallow's End",
+        Data = {
+            [70722] = "Little Wickerman",
+            [128807] = "Coin of Many Faces",
+            [128794] = "Sack of Spectral Spiders",
+        },
+    },
+
+    {
+        Name = "Day of the Dead",
+        Data = {
+            [116856] = "\"Blooming Rose\" Contender's Costume",
+            [116888] = "\"Night Demon\" Contender's Costume",
+            [116889] = "\"Purple Phantom\" Contender's Costume",
+            [116890] = "\"Santo's Sun\" Contender's Costume",
+            [116891] = "\"Snowy Owl\" Contender's Costume",
+        },
+    },
+
+    {
+        Name = "Pilgrim's Bounty",
+        Data = {
+            [116400] = "Silver-Plated Turkey Shooter",
+        },
+    },
+
+    {
+        Name = "Pirates' Day",
+        Data = {
+            [138415] = "Slightly-Chewed Insult Book",
+        },
+    },
+
+    {
+        Name = "Feast of Winter Veil",
+        Data = {
+            [17712] = "Winter Veil Disguise Kit",
+            [37710] = "Crashin' Thrashin' Racer Controller",
+            [46709] = "MiniZep Controller",
+            [90883] = "The Pigskin",
+            [90888] = "Foot Ball",
+            [104318] = "Crashin' Thrashin' Flyer Controller",
+            [116456] = "Scroll of Storytelling",
+            [116689] = "Pineapple Lounge Cushion",
+            [116690] = "Safari Lounge Cushion",
+            [116691] = "Zhevra Lounge Cushion",
+            [116692] = "Fuzzy Green Lounge Cushion",
+            [116763] = "Crashin' Thrashin' Shredder Controller",
+            [128776] = "Red Wooden Sled",
+            [108632] = "Crashin' Thrashin' Flamer Controller",
+            [108635] = "Crashin' Thrashin' Killdozer Controller",
+            [139337] = "Disposable Winter Veil Suits",
+            [128636] = "Endothermic Blaster",
+        },
+    },
+};
+
+ToyBoxEnhancedProfession = {
+    {
+        Name = "Jewelcrafting",
+        Data = {
+            [115503] = "Blazing Diamond Pendant",
+            [130251] = "JewelCraft",
+            [130254] = "Chatterstone",
+        },
+    },
+
+    {
+        Name = "Engineering",
+        Data = {
+            [17716] = "Snowmaster 9000",
+            [18660] = "World Enlarger",
+            [23767] = "Crashin' Thrashin' Robot",
+            [40895] = "Gnomish X-Ray Specs",
+            [108745] = "Personal Hologram",
+            [109183] = "World Shrinker",
+            [111821] = "Blingtron 5000",
+            [132518] = "Blingtron's Circuit Design Tutorial",
+            [40768] = "MOLL-E",
+            [87214] = "Blingtron 4000",
+            [109167] = "Findle's Loot-A-Rang",
+            [87215] = "Wormhole Generator: Pandaria",
+            [40727] = "Gnomish Gravity Well",
+            [60854] = "Loot-A-Rang",
+            [112059] = "Wormhole Centrifuge",
+            [48933] = "Wormhole Generator: Northrend",
+            [30544] = "Ultrasafe Transporter: Toshley's Station",
+            [18986] = "Ultrasafe Transporter: Gadgetzan",
+            [18984] = "Dimensional Ripper - Everlook",
+            [30542] = "Dimensional Ripper - Area 52",
+        },
+    },
+
+    {
+        Name = "Archaeology",
+        Data = {
+            [64358] = "Highborne Soul Mirror",
+            [64361] = "Druid and Priest Statue Set",
+            [64373] = "Chalice of the Mountain Kings",
+            [64383] = "Kaldorei Wind Chimes",
+            [64456] = "Arrival of the Naaru",
+            [64481] = "Blessing of the Old God",
+            [64482] = "Puzzle Box of Yogg-Saron",
+            [64646] = "Bones of Transformation",
+            [64651] = "Wisp Amulet",
+            [64881] = "Pendant of the Scarab Storm",
+            [69775] = "Vrykul Drinking Horn",
+            [69776] = "Ancient Amber",
+            [69777] = "Haunted War Drum",
+            [131724] = "Crystalline Eye of Undravius",
+            [64488] = "The Innkeeper's Daughter",
+            [89614] = "Anatomical Dummy",
+        },
+    },
+
+    {
+        Name = "Cooking",
+        Data = {
+            [88801] = "Flippable Table",
+            [134020] = "Chef's Hat",
+        },
+    },
+
+    {
+        Name = "Fishing",
+        Data = {
+            [44430] = "Titanium Seal of Dalaran",
+            [45984] = "Unusual Compass",
+            [85973] = "Ancient Pandaren Fishing Charm",
+            [142528] = "Crate of Bobbers: Can of Worms",
+            [142529] = "Crate of Bobbers: Cat Head",
+            [142530] = "Crate of Bobbers: Tugboat",
+            [143662] = "Crate of Bobbers: Wooden Pepe",
+        },
+    },
+
+    {
+        Name = "Leatherworking",
+        Data = {
+            [129956] = "Leather Love Seat",
+            [129960] = "Leather Pet Bed",
+            [129961] = "Flaming Hoop",
+            [129958] = "Leather Pet Leash",
+        },
+    },
+
+    {
+        Name = "Enchanting",
+        Data = {
+            [128536] = "Leylight Brazier",
+        },
+    },
+
+    {
+        Name = "Inscription",
+        Data = {
+            [129211] = "Steamy Romance Novel Kit",
+        },
+    },
+};
+
+ToyBoxEnhancedFaction = {
+    alliance = {
+        [45011] = "Stormwind Banner",
+        [45018] = "Ironforge Banner",
+        [45019] = "Gnomeregan Banner",
+        [45020] = "Exodar Banner",
+        [45021] = "Darnassus Banner",
+        [54651] = "Gnomeregan Pride",
+        [63141] = "Tol Barad Searchlight",
+        [89999] = "Everlasting Alliance Firework",
+        [95589] = "Glorious Standard of the Kirin Tor Offensive",
+        [119144] = "Touch of the Naaru",
+        [119182] = "Soul Evacuation Crystal",
+        [119217] = "Alliance Flag of Victory",
+        [128462] = "Karabor Councilor's Attire",
+        [95567] = "Kirin Tor Beacon",
+        [115472] = "Permanent Time Bubble",
+        [119421] = "Sha'tari Defender's Medallion",
+    },
+
+    horde = {
+        [53057] = "Faded Wizard Hat",
+        [54653] = "Darkspear Pride",
+        [45013] = "Thunder Bluff Banner",
+        [45014] = "Orgrimmar Banner",
+        [45015] = "Sen'jin Banner",
+        [45016] = "Undercity Banner",
+        [45017] = "Silvermoon City Banner",
+        [64997] = "Tol Barad Searchlight",
+        [89205] = "Mini Mana Bomb",
+        [90000] = "Everlasting Horde Firework",
+        [95590] = "Glorious Standard of the Sunreaver Onslaught",
+        [115468] = "Permanent Frost Essence",
+        [115503] = "Blazing Diamond Pendant",
+        [119145] = "Firefury Totem",
+        [119160] = "Tickle Totem",
+        [119218] = "Horde Flag of Victory",
+        [128471] = "Frostwolf Grunt's Battlegear",
+        [95568] = "Sunreaver Beacon",
+    },
+};
+
 ToyBoxEnhancedSource = {
     {
         Name = "Treasure",
         Data = {
             -- Draenor
-            [108735] = "Kriegshorn des Arenameisters",
-            [108739] = "Hübsche Draenorperle",
-            [108743] = "Deceptias schwelende Stiefel",
-            [109739] = "Sternenkarte",
-            [113375] = "Rüstungspflegeset des Verteidigers",
-            [117569] = "Riesiges Todesnetzei",
-            [117550] = "Wütender Bienenstock",
-            [118716] = "Gorenverkleidung",
-            [127859] = "Schillernde Rute",
-            [127394] = "Schotlingtarnung",
-            [127766] = "Die perfekte Blüte",
-            [127668] = "Höllenfeuerjuwel",
-            [127670] = "Verfluchter Foliant der Sargerei",
-            [127709] = "Pochende Blutkugel",
-            
+            [108735] = "Arena Master's War Horn",
+            [108739] = "Pretty Draenor Pearl",
+            [108743] = "Deceptia's Smoldering Boots",
+            [109739] = "Star Chart",
+            [113375] = "Vindicator's Armor Polish Kit",
+            [117569] = "Giant Deathweb Egg",
+            [117550] = "Angry Beehive",
+            [118716] = "Goren Garb",
+            [127859] = "Dazzling Rod",
+            [127394] = "Podling Camouflage",
+            [127766] = "The Perfect Blossom",
+            [127668] = "Jewel of Hellfire",
+            [127670] = "Accursed Tome of the Sargerei",
+            [127709] = "Throbbing Blood Orb",
+            [116120] = "Tasty Talador Lunch",
+            [128223] = "Bottomless Stygana Mushroom Brew",
+
             -- Legion
-            [130147] = "Zweig der Distelblätter",
-            [141296] = "Uraltes Manabecken",
-            [140786] = "Leyspinneneier",
-            [141299] = "Lichtkugel der Kaldorei",
-            [141301] = "Instabile Puderdose",
-            [134024] = "Verfluchter Matrosenhelm",
-            [141306] = "Irrwisch in der Flasche",
-            [122681] = "Hecktiefs Wildtierführer",
-            [102467] = "Rauchbrenner der ewigen Pein",
-            [130169] = "Turniersouvenir",
-            [131811] = "Himmelshorndrachen aus Rocfedern",
-            [129165] = "Seepockenverkrusteter Edelstein",
-            [127669] = "Schädel des irren Häuptlings",
-            [130199] = "Taschenportal der Legion",
-            [129055] = "Schuhpoliturset",
-            [141297] = "Arkandusche",
-            [141298] = "Entrückender Meditationsstein",
-            [128223] = "Nie versiegendes Styganapilzbräu",
-            [116120] = "Leckere Taladormahlzeit",
-            [140780] = "Ei der Fal'dorei",
-            [143534] = "Zauberstab des simulierten Lebens",
+            [130147] = "Thistleleaf Branch",
+            [141296] = "Ancient Mana Basin",
+            [140786] = "Ley Spider Eggs",
+            [141299] = "Kaldorei Light Globe",
+            [141301] = "Unstable Powder Box",
+            [134024] = "Cursed Swabby Helmet",
+            [141306] = "Wisp in a Bottle",
+            [122681] = "Sternfathom's Pet Journal",
+            [102467] = "Censer of Eternal Agony",
+            [130169] = "Tournament Favor",
+            [131811] = "Rocfeather Skyhorn Kite",
+            [129165] = "Barnacle-Encrusted Gem",
+            [127669] = "Skull of the Mad Chief",
+            [129055] = "Shoe Shine Kit",
+            [141297] = "Arcano-Shower",
+            [141298] = "Displacer Meditation Stone",
+            [140780] = "Fal'dorei Egg",
+            [143534] = "Wand of Simulated Life",
         },
     },
 
@@ -125,313 +429,243 @@ ToyBoxEnhancedSource = {
     {
         Name = "Quest",
         Data = {
-            [30690] = "Stromwandler",
-            [53057] = "Verblichener Zaubererhut",
-            [123851] = "Foto-B.O.M.B.E", -- Blingtron-5000
+            [30690] = "Power Converter",
+            [53057] = "Faded Wizard Hat",
+            [123851] = "Photo B.O.M.B.", -- Blingtron-5000
             
             -- Molten Front
-            [71259] = "Leyaras Medaillon",
+            [71259] = "Leyara's Locket",
 
             -- Cataclysm
-            [54651] = "Stolz von Gnomeregan",
-            [54653] = "Stolz der Dunkelspeere",
+            [54651] = "Gnomeregan Pride",
+            [54653] = "Darkspear Pride",
 
             -- Pandaria
-            [80822] = "Die Goldene Banane",
-            [82467] = "Ruthers' Geschirr",
-            [88589] = "Einäschernde Fackel",
-            [88417] = "Gokk'loks Muschel",
-            [88385] = "Ho-zen-Götze",
-            [88579] = "Jin Warmfass' Bier",
-            [88580] = "Ken-Kens Maske",
-            [88531] = "Lao-Chens letzter Humpen",
-            [88370] = "Plumpes Murmeltier",
-            [88377] = "Rübenfarbsprühpistole",
-            [88387] = "Shushens Spucknapf",
-            [88381] = "Silbersalbeiräucherwerk",
-            [88584] = "Totem der Harmonie",
+            [80822] = "The Golden Banana",
+            [82467] = "Ruthers' Harness",
+            [88589] = "Cremating Torch",
+            [88417] = "Gokk'lok's Shell",
+            [88385] = "Hozen Idol",
+            [88579] = "Jin Warmkeg's Brew",
+            [88580] = "Ken-Ken's Mask",
+            [88531] = "Lao Chin's Last Mug",
+            [88370] = "Puntable Marmot",
+            [88377] = "Turnip Paint \"Gun\"",
+            [88387] = "Shushen's Spittoon",
+            [88381] = "Silversage Incense",
+            [88584] = "Totem of Harmony",
+            [88375] = "Turnip Punching Bag",
+            [95567] = "Kirin Tor Beacon", -- Alliance
+            [95568] = "Sunreaver Beacon", -- Horde
 
             -- Draenor
-            [119001] = "Geheimnisvolles Fass",
-            [119134] = "Sargeraiverkleidung",
-            [119144] = "Berührung der Naaru",
-            [119145] = "Feuerzorntotem",
-            
+            [119001] = "Mystery Keg",
+            [119134] = "Sargerei Disguise",
+            [119144] = "Touch of the Naaru",
+            [119145] = "Firefury Totem",
+            [119093] = "Aviana's Feather",
+            [115506] = "Treessassin's Guise",
+            [118935] = "Ever-Blooming Frond",
+
             -- Legion
-            [129093] = "Rabenbärverkleidung",
-            [138873] = "Mystischer Erstsemesterhut",
-            [134021] = "Raketenhelm X-52",
+            [129093] = "Ravenbear Disguise",
+            [138873] = "Mystical Frosh Hat",
+            [134021] = "X-52 Rocket Helmet",
             [141879] = "Berglrgl Perrgl Girggrlf",
-            [95567] = "Signalgeber der Kirin Tor", -- Alliance
-            [95568] = "Signalgeber der Sonnenhäscher", -- Horde
-            [131933] = "Handliche Kleintierkanone",
-            [115506] = "Verkleidung eines Astsassinen",
-            [133997] = "Schwarzes Eis",
-            [88375] = "Rübensandsack",
-            [138876] = "Runas' Kristallschleifer",
-            [130209] = "Endlose Spielzeugkiste",
-            [138878] = "Kopie von Daglops Vertrag",
-            [133998] = "Regenbogengenerator",
-            [119093] = "Avianas Feder",
-            [118935] = "Immergrüner Wedel",
-            [142494] = "Purpurfarbene Blüte",
-            [142495] = "Falsche Zähne",
-            [142496] = "Dreckiger Löffel",
-            [142497] = "Kleine Satteltasche",
-            [147838] = "Akazamzaraks Ersatzhut", -- mage class quest
-            [143727] = "Salut eines Champions", -- class quest
+            [131933] = "Critter Hand Cannon",
+            [133997] = "Black Ice",
+            [138876] = "Runas' Crystal Grinder",
+            [130209] = "Never Ending Toy Chest",
+            [138878] = "Copy of Daglop's Contract",
+            [133998] = "Rainbow Generator",
+            [142494] = "Purple Blossom",
+            [142495] = "Fake Teeth",
+            [142496] = "Dirty Spoon",
+            [142497] = "Tiny Pack",
+            [147838] = "Akazamzarak's Spare Hat", -- mage class quest
+            [143727] = "Champion's Salute", -- class hall quest
         },
     },
 
     {
         Name = "Vendor",
         Data = {
-            [43499] = "Eiserner Flachmann",
-            [68806] = "Kalythas Spukmedaillon",
-            [88802] = "Fuchsikoptersteuerung",
-            [91904] = "Stapelbarer Hirsch",
+            [43499] = "Iron Boot Flask",
+            [68806] = "Kalytha's Haunted Locket",
+            [88802] = "Foxicopter Controller",
+            [91904] = "Stackable Stag",
 
             -- Toy vendors
-            [44606] = "Spielzeugzugset",
-            [45057] = "Aufziehbarer Zugzerstörer",
-            [54343] = "Steuerung für einen blauen Krachbummflitzer",
-            [54437] = "Winzige grüne Stoffpuppe",
-            [54438] = "Winzige blaue Stoffpuppe",
-            [104323] = "Football",
-            [104324] = "Fußball",
+            [44606] = "Toy Train Set",
+            [45057] = "Wind-Up Train Wrecker",
+            [54343] = "Blue Crashin' Thrashin' Racer Controller",
+            [54437] = "Tiny Green Ragdoll",
+            [54438] = "Tiny Blue Ragdoll",
+            [104323] = "The Pigskin",
+            [104324] = "Foot Ball",
 
             -- Argent Tournament
-            [45011] = "Banner von Sturmwind",
-            [45013] = "Banner von Donnerfels",
-            [45014] = "Banner von Orgrimmar",
-            [45015] = "Banner von Sen'jin",
-            [45016] = "Banner von Unterstadt",
-            [45017] = "Banner von Silbermond",
-            [45018] = "Banner von Eisenschmiede",
-            [45019] = "Banner von Gnomeregan",
-            [45020] = "Banner der Exodar",
-            [45021] = "Banner von Darnassus",
-            [46843] = "Banner des Argentumkreuzfahrers",
+            [45011] = "Stormwind Banner",
+            [45013] = "Thunder Bluff Banner",
+            [45014] = "Orgrimmar Banner",
+            [45015] = "Sen'jin Banner",
+            [45016] = "Undercity Banner",
+            [45017] = "Silvermoon City Banner",
+            [45018] = "Ironforge Banner",
+            [45019] = "Gnomeregan Banner",
+            [45020] = "Exodar Banner",
+            [45021] = "Darnassus Banner",
+            [46843] = "Argent Crusader's Banner",
 
             -- Molten Front
-            [70159] = "Mylunes Ruf",
-            [70161] = "Pilzstuhl",
+            [70159] = "Mylune's Call",
+            [70161] = "Mushroom Chair",
 
             -- Battlefield Barrens
-            [97919] = "Ganzkörperschrumpfa", -- no longer available
-            [97921] = "Bom'bays Farbensehsaft", -- no longer available
-            [97942] = "Geistertrommel von Sen'jin", -- no longer available
-            [98552] = "Xan'tishs Flöte", -- no longer available
+            [97919] = "Whole-Body Shrinka'",
+            [97921] = "Bom'bay's Color-Seein' Sauce", -- no longer available
+            [97942] = "Sen'jin Spirit Drum",
+            [98552] = "Xan'tish's Flute",
 
             -- Garrison
-            [113096] = "Glücksbringer der Blutmähnen",
-            [119210] = "Hearthstone-Spielbrett",
-            [119212] = "Siegerhand",
+            [113096] = "Bloodmane Charm",
+            [119210] = "Hearthstone Board",
+            [119212] = "Winning Hand",
             
-            [127695] = "Geisterzauberstab",
-            [127696] = "Magischer Haustierspiegel",
-            [127707] = "Unzerstörbarer Knochen",
-            [127864] = "Persönliches Rampenlicht",
-            [140231] = "Narzissas Spiegel",
-            [140309] = "Prismatisches Schmuckstück",
-            [137663] = "Weiches Schaumstoffschwert",
-            [130151] = "Vesperdose Teufelssaurier",
-            [44820] = "Rote Haustierleine",
-            [134004] = "Ewiges elitäres Elementiumsiegel",
-            [37460] = "Haustierleine",
-            [129057] = "Dalaranscheibe",
-            [134007] = "Ewiger schwarzer Diamantring",
-            [140336] = "Brulfaustgötze",
-            [136846] = "Familiarstein",
-            [137294] = "Anstecknadel der Initianden von Dalaran",
-            
+            [127695] = "Spirit Wand",
+            [127696] = "Magic Pet Mirror",
+            [127707] = "Indestructible Bone",
+            [127864] = "Personal Spotlight",
+            [44820] = "Red Ribbon Pet Leash",
+            [37460] = "Rope Pet Leash",
+
             -- Legion
-            [136855] = "Ruf des Jägers", -- only Hunter
-            [136849] = "Leuchtfeuer der Natur", -- only Druid
-            [136927] = "Scharlachrotes Buch der Beichten", -- only Priest
-            [136928] = "Kugel des Thaumaturgen", -- only Priest
-            [136934] = "Tobender Elementarstein", -- only Shaman
-            [136935] = "Kaulquappenwolkensaat", -- only Shaman
-            [136937] = "Vol'jins Schlangentotem", -- only Shaman
-            [138490] = "Wassersprechertotem", -- only Shaman
-            [147537] = "Ein winziges Kriegsglevenset", -- demon hunter class hall
-            [147832] = "Magische Untertasse", -- mage class hall
+            [137294] = "Dalaran Initiates' Pin",
+            [136846] = "Familiar Stone",
+            [140336] = "Brulfist Idol",
+            [134007] = "Eternal Black Diamond Ring",
+            [129057] = "Dalaran Disc",
+            [140231] = "Narcissa's Mirror",
+            [140309] = "Prismatic Bauble",
+            [137663] = "Soft Foam Sword",
+            [130151] = "The \"Devilsaur\" Lunchbox",
+            [134004] = "Noble's Eternal Elementium Signet",
+            [136855] = "Hunter's Call", -- only Hunter
+            [136849] = "Nature's Beacon", -- only Druid
+            [136927] = "Scarlet Confessional Book", -- only Priest
+            [136928] = "Thaumaturgist's Orb", -- only Priest
+            [136934] = "Raging Elemental Stone", -- only Shaman
+            [136935] = "Tadpole Cloudseeder", -- only Shaman
+            [136937] = "Vol'jin's Serpent Totem", -- only Shaman
+            [138490] = "Waterspeaker's Totem", -- only Shaman
+            [147537] = "A Tiny Set of Warglaives", -- demon hunter class hall
+            [147832] = "Magical Saucer", -- mage class hall
         },
     },
 
     {
         Name = "Profession",
-        Data = {
-            -- Jewelcrafting
-            [115503] = "Lodernder Diamantenanhänger",
-            [130251] = "JewelCraft",
-            [130254] = "Plapperstein",
-
-            -- Engineering
-            [17716] = "Schneemeister 9000",
-            [18660] = "Weltvergrößerer",
-            [23767] = "Krachbummroboter",
-            [40895] = "Gnomische Röntgenbrille",
-            [108745] = "Persönliches Hologramm",
-            [109183] = "Weltschrumpfer",
-            [111821] = "Blingtron 5000",
-            [132518] = "Blingtron-Schaltplandesignanleitung",
-            [40768] = "MOLL-E",
-            [87214] = "Blingtron 4000",
-            [109167] = "Findels Plünderang",
-            [87215] = "Wurmlochgenerator: Pandaria",
-            [40727] = "Gnomischer Gravitationsbrunnen",
-            [60854] = "Plünderang",
-            [112059] = "Wurmlochzentrifuge",
-            [48933] = "Wurmlochgenerator: Nordend",
-            [30544] = "Extrem sicherer Transporter: Toshleys Station",
-            [18986] = "Extrem sicherer Transporter: Gadgetzan",
-            [18984] = "Dimensionszerfetzer: Ewige Warte",
-            [30542] = "Dimensionszerfetzer: Area 52",
-            
-            -- Archaeology
-            [64358] = "Seelenspiegel der Hochgeborenen",
-            [64361] = "Statuenpaar: Druidin und Priester",
-            [64373] = "Kelch der Bergkönige",
-            [64383] = "Windspiel der Kaldorei",
-            [64456] = "Ankunft der Naaru",
-            [64481] = "Segen des Alten Gottes",
-            [64482] = "Puzzlebox des Yogg-Saron",
-            [64646] = "Knochen der Transformation",
-            [64651] = "Irrwischamulett",
-            [64881] = "Anhänger des Skarabäussturms",
-            [69775] = "Trinkhorn der Vrykul",
-            [69776] = "Uralter Bernstein",
-            [69777] = "Heimgesuchte Kriegstrommel",
-            [131724] = "Kristallines Auge von Undravius",
-            [64488] = "Die Tochter des Gastwirts",
-            [89614] = "Anatomische Puppe",
-
-            -- Cooking
-            [88801] = "Umdrehbarer Tisch",
-            [134020] = "Kochmütze",
-
-            -- Fishing
-            [44430] = "Titansiegel von Dalaran",
-            [45984] = "Ungewöhnlicher Kompass",
-            [85973] = "Uralter pandarischer Angelglücksbringer",
-            [142528] = "Kiste mit Schwimmern: Dose Würmer",
-            [142529] = "Kiste mit Schwimmern: Katzenkopf",
-            [142530] = "Kiste mit Schwimmern: Schlepper",
-            [142531] = "Kiste mit Schwimmern: Quietscheentchen",
-            [142532] = "Kiste mit Schwimmern: Murlockopf",
-            [143662] = "Kiste mit Schwimmern: Hölzerner Pepe",
-
-            -- Leatherworking
-            [129956] = "Ledernes Kuschelsofa",
-            [129960] = "Ledernes Haustierbett",
-            [129961] = "Brennender Reifen",
-            [129958] = "Lederne Haustierleine",
-            
-            -- Enchanting
-            [128536] = "Leylichtkohlenbecken",
-            
-            -- Inscription
-            [129211] = "Schlüpfriges Romantikschmökerset",
-        },
+        Data = flattenTable(ToyBoxEnhancedWorldEvent),
     },
 
     {
         Name = "Instance",
         Data = {
             -- Stratholme
-            [13379] = "Pikkolo des Flammenfeuers",
+            [13379] = "Piccolo of the Flaming Fire",
         
             -- Scholomance
-            [88566] = "Krastinovs Tasche der Schrecken",
+            [88566] = "Krastinov's Bag of Horrors",
 
             -- Magisters' Terrace
-            [35275] = "Kugel der Sin'dorei",
+            [35275] = "Orb of the Sin'dorei",
 
             -- Icecrown Citadel
-            [52201] = "Muradins Gunst",
-            [52253] = "Sylvanas' Spieluhr",
+            [52201] = "Muradin's Favor",
+            [52253] = "Sylvanas' Music Box",
 
             -- Firelands
-            [122304] = "Fandrals Samenbeutel",
+            [122304] = "Fandral's Seed Pouch",
             
             -- Throne of Thunder
-            [98132] = "Geysirgewehr der Shado-Pan",
-            [98136] = "Schneckenhaus",
+            [98132] = "Shado-Pan Geyser Gun",
+            [98136] = "Gastropod Shell",
 
             -- Nighthold
-            [143544] = "Schädel der Verderbnis",
-            [142536] = "Würfel der Erinnerung",
+            [143544] = "Skull of Corruption",
+            [142536] = "Memory Cube",
         },
     },
 
     {
         Name = "Reputation",
         Data = {
-            [44719] = "Wildherzengebräu",
-            [63141] = "Suchscheinwerfer von Tol Barad",
-            [64997] = "Suchscheinwerfer von Tol Barad",
-            [66888] = "Stab von Fell und Klauen",
+            [44719] = "Frenzyheart Brew",
+            [63141] = "Tol Barad Searchlight",
+            [64997] = "Tol Barad Searchlight",
+            [66888] = "Stave of Fur and Claw",
 
             -- Pandaria
-            [86596] = "Nats Angelstuhl",
-            [89222] = "Wolkenring",
-            [89869] = "Pandarenvogelscheuche",
-            [90175] = "Gin-Ji-Messersatz",
-            [95589] = "Glorreiche Standarte der Offensive der Kirin Tor",
-            [95590] = "Glorreiche Standarte des Sonnenhäscheransturms",
-            [103685] = "Medaillon des himmlischen Verteidigers",
+            [85500] = "Anglers Fishing Raft",
+            [86596] = "Nat's Fishing Chair",
+            [89222] = "Cloud Ring",
+            [89869] = "Pandaren Scarecrow",
+            [90175] = "Gin-Ji Knife Set",
+            [95589] = "Glorious Standard of the Kirin Tor Offensive",
+            [95590] = "Glorious Standard of the Sunreaver Onslaught",
+            [103685] = "Celestial Defender's Medallion",
 
             -- Draenor
-            [115468] = "Anhaltende Frostessenz",
-            [119160] = "Kitzeltotem",
-            [119182] = "Seelenrettungskristall",
-            [119421] = "Medaillon des Sha'tarbeschützers",
-            [128462] = "Gewandung des Ratsmitglieds von Karabor",
-            [128471] = "Schlachtrüstung des Frostwolfkämpfers",
-            [122283] = "Rukhmars heiliges Angedenken",
-            
+            [115468] = "Permanent Frost Essence",
+            [119160] = "Tickle Totem",
+            [119182] = "Soul Evacuation Crystal",
+            [119421] = "Sha'tari Defender's Medallion",
+            [128462] = "Karabor Councilor's Attire",
+            [128471] = "Frostwolf Grunt's Battlegear",
+            [122283] = "Rukhmar's Sacred Memory",
+            [115472] = "Permanent Time Bubble", -- Alliance
+
             -- Legion
-            [85500] = "Anglerfloß",
-            [130157] = "Syxsehnzrute",
-            [130158] = "Pfad Elothirs",
-            [130191] = "Schatztruhenfallenset",
-            [131814] = "Weißwasserkarpfen",
-            [115472] = "Anhaltende Zeitblase", -- Alliance
-            [131812] = "Dunkelsplitterfragment",
-            [130170] = "Träne des grünen Aspekts",
-            [129149] = "Amulett der Schwelle des Todes",
-            [130232] = "Mondfederstatue",
-            [140324] = "Mobiler telemantischer Signalgeber",
-            [129279] = "Verzauberte Steinpfeife",
-            [140325] = "Selbstgebastelte Festmaske",
-            [142531] = "Kiste mit Schwimmern: Quietscheentchen",
-            [142532] = "Kiste mit Schwimmern: Murlockopf",
-            [147307] = "Aus Holz geschnitzter Helm",
-            [147308] = "Verzauberter Schwimmer",
-            [147309] = "Antlitz des Waldes",
-            [147310] = "Schwimmendes Totem",
-            [147311] = "Miniaturgondel",
-            [147312] = "Dämonenbirne",
-            [147708] = "Legionsinvasionssimulator ",
+            [130157] = "Syxsehnz Rod",
+            [130158] = "Path of Elothir",
+            [130191] = "Trapped Treasure Chest Kit",
+            [130199] = "Legion Pocket Portal",
+            [131814] = "Whitewater Carp",
+            [131812] = "Darkshard Fragment",
+            [130170] = "Tear of the Green Aspect",
+            [129149] = "Death's Door Charm",
+            [130232] = "Moonfeather Statue",
+            [140324] = "Mobile Telemancy Beacon",
+            [129279] = "Enchanted Stone Whistle",
+            [140325] = "Home Made Party Mask",
+            [142531] = "Crate of Bobbers: Squeaky Duck",
+            [142532] = "Crate of Bobbers: Murloc Head",
+            [147307] = "Carved Wooden Helm",
+            [147308] = "Enchanted Bobber",
+            [147309] = "Face of the Forest",
+            [147310] = "Floating Totem",
+            [147311] = "Replica Gondola",
+            [147312] = "Demon Noggin",
+            [147708] = "Legion Invasion Simulator ",
         },
     },
 
     {
         Name = "Achievement",
         Data = {
-            [44430] = "Titansiegel von Dalaran",
-            [87528] = "Fass des Ehrenbraumeisters",
-            [89205] = "Minimanabombe", -- no longer available
-            [116115] = "Lodernde Schwingen",
-            [119215] = "Robognomobulator",
-            [122293] = "Transdimensionale Vogelpfeife",
-            [92738] = "Safarihelm", -- Die Zähmung der Welt
-            
-            --[122187] = "Mikro-Garni-Blaster", -- now not available, Noch mehr Hits!
+            [43824] = "The Schools of Arcane Magic - Mastery",
+            [44430] = "Titanium Seal of Dalaran",
+            [87528] = "Honorary Brewmaster Keg",
+            [89205] = "Mini Mana Bomb", -- no longer available
+            [92738] = "Safari Hat",
+            [116115] = "Blazing Wings",
+            [119215] = "Robo-Gnomebulator",
+            [122293] = "Trans-Dimensional Bird Whistle",
+
+            --[122187] = "Mikro-Garni-Blaster", -- now not available
+
             -- Legion
-            [43824] = "Die Schulen der arkanen Magie - Beherrschung",
-            [139773] = "Smaragdwinde",
+            [139773] = "Emerald Winds",
             [143660] = "Mrgrglhjorn",
         },
     },
@@ -439,177 +673,79 @@ ToyBoxEnhancedSource = {
     {
         Name = "Garrison",
         Data = {
-            [122700] = "Tragbares Audiofon",
+            [122700] = "Portable Audiophone",
         
             -- Garrison Mission
             [118191] = "Archmage Vargoth's Spare Staff",
-            [118427] = "Signierte Hearthstone-Karte",
-            [122674] = "S.E.L.F.I.E.-Kamera 2.0",
-            [128310] = "Brennende Klinge",
+            [118427] = "Autographed Hearthstone Card",
+            [122674] = "S.E.L.F.I.E. Camera MkII",
+            [128310] = "Burning Blade",
 
             -- Garrison Campaign
-            [119134] = "Sargeraiverkleidung",
-            [119144] = "Berührung der Naaru",
+            [119134] = "Sargerei Disguise",
+            [119144] = "Touch of the Naaru",
 
             -- Gladiator's Sanctum
-            [119217] = "Siegesflagge der Allianz",
-            [119218] = "Siegesflagge der Horde",
-            [119219] = "Siegesflagge des Kriegsherrn",
+            [119217] = "Alliance Flag of Victory",
+            [119218] = "Horde Flag of Victory",
+            [119219] = "Warlord's Flag of Victory",
 
             -- Lunarfall Inn / Frostwall Tavern
-            [117573] = "Lagerfeuer des Wanderers",
-            [118937] = "Gamons Zopf",
-            [118938] = "Manasturms Verdoppler",
-            [119003] = "Leerentotem",
-            [119039] = "Lilians Warnschild",
-            [119083] = "Früchtekorb",
-            [119092] = "Moroes' berühmte Politur",
+            [117573] = "Wayfarer's Bonfire",
+            [118937] = "Gamon's Braid",
+            [118938] = "Manastorm's Duplicator",
+            [119003] = "Void Totem",
+            [119039] = "Lilian's Warning Sign",
+            [119083] = "Fruit Basket",
+            [119092] = "Moroes' Famous Polish",
 
             -- Benjamin Brode
-            [119210] = "Hearthstone-Spielbrett",
-            [119212] = "Siegerhand",
+            [119210] = "Hearthstone Board",
+            [119212] = "Winning Hand",
 
             -- Trading Post
-            [113096] = "Glücksbringer der Blutmähnen",
+            [113096] = "Bloodmane Charm",
             
             -- Giada Goldleash, Tiffy Trapspring
-            [127695] = "Geisterzauberstab",
-            [127696] = "Magischer Haustierspiegel",
-            [127707] = "Unzerstörbarer Knochen",
+            [127695] = "Spirit Wand",
+            [127696] = "Magic Pet Mirror",
+            [127707] = "Indestructible Bone",
             
             -- Trader Araanda, Trader Darakk
-            [127864] = "Persönliches Rampenlicht",
+            [127864] = "Personal Spotlight",
             
             -- Jonathan Stephens, Moz'def
-            [122298] = "Leibwächterschrumpfer",
+            [122298] = "Bodyguard Miniaturization Device",
         },
     },
 
     {
         Name = "World Event",
-        Data = {
-            -- Timewalking
-            [129952] = "Stundenglas der Ewigkeit",
-            [129926] = "Mal der Aschenzungen",
-            [129938] = "Wille von Nordend",
-            [133511] = "Gurboggels funkelnde Kugel",
-            [133542] = "Kolbenzangs megapräziser Simulationsoptiksucher",
-            [129929] = "Spiegel der Möglichkeiten",
-            [144393] = "Mobile Yaksalberei",
-
-            -- Darkmoon Faire
-            [75042] = "Gelber Luftballon",
-            [90899] = "Dunkelmond-Pfeife",
-            [101571] = "Mondfangpelz",
-            [105898] = "Mondfangs Pfote",
-            [116067] = "Ring der gebrochenen Versprechen",
-            [116115] = "Lodernde Schwingen",
-            [116139] = "Spukhaftes Andenken",
-            [122119] = "Unerschöpfliches Dunkelmond-Feuerwerk",
-            [122120] = "Blick des Dunkelmonds",
-            [122121] = "Dunkelmond-Starrer",
-            [122122] = "Dunkelmond-Panzersteuerung",
-            [122123] = "Dunkelmond-Ringwerfer",
-            [122126] = "Hinweisschild",
-            [122129] = "Phiole des Feuerschluckers",
-            [126931] = "Seemannskolbenflöte",
-            [97994] = "Dunkelmond-Wippe",
-            [138202] = "Glitzerpony XL",
-            
-            -- Lunar Festival
-            [21540] = "Elunes Laterne",
-            [89999] = "Unerschöpfliches Allianzfeuerwerk",
-            [90000] = "Unerschöpfliches Hordenfeuerwerk",
-            [143827] = "Drachenkopfkostüm",
-            [143828] = "Drachenkopfkostüm",
-            [143829] = "Drachenschwanzkostüm",
-
-            -- Love is in the Air
-            [34480] = "Picknickkorb für Verliebte",
-            [50471] = "Der Herzbrecher",
-            [116651] = "Prisma der wahren Liebe",
-            [142341] = "Liebesboot",
-            [144339] = "Robuster Liebesschwindler",
-
-            -- Children's Week
-            [69895] = "Grüner Ballon",
-            [69896] = "Gelber Ballon",
-
-            -- Midsummer Fire Festival
-            [34686] = "Kohlenpfanne der tanzenden Flammen",
-            [116435] = "Gemütliches Lagerfeuer",
-            [116440] = "Medaillon des flammenden Verteidigers",
-            [141649] = "Streichholzschächtelchen",
-
-            -- Brewfest
-            [33927] = "Braufestfässchen",
-            [71137] = "Braufestfässchenpony",
-            [90427] = "Pandarenbräurucksack",
-            [116757] = "Dampfbetriebener Würstchengrill",
-            [116758] = "Flagge des Braufests",
-            [138900] = "Gravil Goldzopfs berühmte Wurstzipfelmütze",
-
-            -- Hallow's End
-            [70722] = "Kleiner Weidenmann",
-            [128807] = "Münze der vielen Gesichter",
-            [128794] = "Sack mit spektralen Spinnen",
-
-            -- Day of the Dead
-            [116856] = "Teilnehmerkostüm \"Blühende Rose\"",
-            [116888] = "Teilnehmerkostüm \"Nachtdämon\"",
-            [116889] = "Teilnehmerkostüm \"Lila Phantom\"",
-            [116890] = "Teilnehmerkostüm \"Santos Sonne\"",
-            [116891] = "Teilnehmerkostüm \"Schneeeule\"",
-            
-            -- Pilgrim's Bounty
-            [116400] = "Versilberte Truthahnbüchse",
-
-            -- Pirates' Day
-            [138415] = "Etwas angekautes Buch der Beleidigungen",
-            
-            -- Feast of Winter Veil
-            [17712] = "Winterhauchverkleidungsset",
-            [37710] = "Steuerung für Krachbummflitzer",
-            [46709] = "MiniZep-Steuerung",
-            [90883] = "Football",
-            [90888] = "Fußball",
-            [104318] = "Steuerung des Krachbummfliegers",
-            [116456] = "Schriftrolle der Erzählkunst",
-            [116689] = "Ananasräkelkissen",
-            [116690] = "Safariräkelkissen",
-            [116691] = "Zhevrasitzpolster",
-            [116692] = "Knallgrünes Sitzpolster",
-            [116763] = "Steuerung für Krachbummschredder",
-            [128776] = "Roter Holzschlitten",
-            [108632] = "Krachbummflambiererfernsteuerung",
-            [108635] = "Krachbummtodesraupensteuerung",
-            [139337] = "Winterhauchwegwerfkleidung",
-            [128636] = "Endothermischer Strahler",
-        },
+        Data = flattenTable(ToyBoxEnhancedWorldEvent),
     },
 
     {
         Name = "Pick Pocket",
         Data = {
-            [36862] = "Abgenutzte Trollwürfel",
-            [36863] = "Zehnseitige Zwergenwürfel",
-            [63269] = "Gezinkte gnomische Würfel",
-            [120857] = "Tonnenweise Tücher",
+            [36862] = "Worn Troll Dice",
+            [36863] = "Decahedral Dwarven Dice",
+            [63269] = "Loaded Gnomish Dice",
+            [120857] = "Barrel of Bandanas",
         },
     },
 
     {
         Name = "Black Market",
         Data = {
-            [32542] = "Wichtel in der Kugel",
-            [32566] = "Picknickkorb",
-            [33219] = "Kessel mit Goblingumbo",
-            [33223] = "Angelstuhl",
-            [34499] = "Papierflugmaschinenset",
-            [35227] = "Wunschwettermaschine - Prototyp 01-B",
-            [38578] = "Die Siegesflagge",
-            [45063] = "Schaumstoffschwertständer",
-            [46780] = "Ogerpiñata",
+            [32542] = "Imp in a Ball",
+            [32566] = "Picnic Basket",
+            [33219] = "Goblin Gumbo Kettle",
+            [33223] = "Fishing Chair",
+            [34499] = "Paper Flying Machine Kit",
+            [35227] = "Goblin Weather Machine - Prototype 01-B",
+            [38578] = "The Flag of Ownership",
+            [45063] = "Foam Sword Rack",
+            [46780] = "Ogre Pinata",
         },
     },
 
@@ -617,884 +753,34 @@ ToyBoxEnhancedSource = {
         Name = "Promotion",
         Data = {
             -- Event
-            [33079] = "Murlockostüm",
-            [142542] = "Foliant des Stadtportals",
-            [143543] = "Zwölfsaitige Gitarre",
+            [33079] = "Murloc Costume",
+            [142542] = "Tome of Town Portal",
+            [143543] = "Twelve-String Guitar",
 
             -- Trading Card Game
-            [33219] = "Kessel mit Goblingumbo",
-            [33223] = "Angelstuhl",
-            [32566] = "Picknickkorb",
-            [34499] = "Papierflugmaschinenset",
-            [32542] = "Wichtel in der Kugel",
-            [35227] = "Wunschwettermaschine - Prototyp 01-B",
+            [33219] = "Goblin Gumbo Kettle",
+            [33223] = "Fishing Chair",
+            [32566] = "Picnic Basket",
+            [34499] = "Paper Flying Machine Kit",
+            [32542] = "Imp in a Ball",
+            [35227] = "Goblin Weather Machine - Prototype 01-B",
             [38301] = "D.I.S.C.O.",
-            [38578] = "Die Siegesflagge",
-            [45063] = "Schaumstoffschwertständer",
-            [46780] = "Ogerpiñata",
-            [49703] = "Unerschöpfliches lila Feuerwerk",
-            [49704] = "Geschnitzter Ogergötze",
-            [54212] = "Aufstellbares Statuenpodest",
-            [67097] = "Finsteres Lagerfeuer",
-            [69215] = "Anbindepfosten des Kampftrupps",
-            [69227] = "Katzengold",
-            [71628] = "Sack voller Seesterne",
-            [72159] = "Magischer Ogergötze",
-            [72161] = "Sarkophagattrappe",
-            [79769] = "Aspekt des Dämonenjägers",
+            [38578] = "The Flag of Ownership",
+            [45063] = "Foam Sword Rack",
+            [46780] = "Ogre Pinata",
+            [49703] = "Perpetual Purple Firework",
+            [49704] = "Carved Ogre Idol",
+            [54212] = "Instant Statue Pedestal",
+            [67097] = "Grim Campfire",
+            [69215] = "War Party Hitching Post",
+            [69227] = "Fool's Gold",
+            [71628] = "Sack of Starfish",
+            [72159] = "Magical Ogre Idol",
+            [72161] = "Spurious Sarcophagus",
+            [79769] = "Demon Hunter's Aspect",
 
             -- Blizzard Store
-            [112324] = "Alptraumhafter Anbindepfosten",
-        },
-    },
-};
-
-ToyBoxEnhancedFaction = {
-    alliance = {
-        [45011] = "Banner von Sturmwind",
-        [45018] = "Banner von Eisenschmiede",
-        [45019] = "Banner von Gnomeregan",
-        [45020] = "Banner der Exodar",
-        [45021] = "Banner von Darnassus",
-        [54651] = "Stolz von Gnomeregan",
-        [63141] = "Suchscheinwerfer von Tol Barad",
-        [89999] = "Unerschöpfliches Allianzfeuerwerk",
-        [95589] = "Glorreiche Standarte der Offensive der Kirin Tor",
-        [119144] = "Berührung der Naaru",
-        [119182] = "Seelenrettungskristall",
-        [119217] = "Siegesflagge der Allianz",
-        [128462] = "Gewandung des Ratsmitglieds von Karabor",
-        [95567] = "Signalgeber der Kirin Tor", -- Alliance
-        [115472] = "Anhaltende Zeitblase",
-        [119421] = "Medaillon des Sha'tarbeschützers",
-    },
-
-    horde = {
-        [53057] = "Verblichener Zaubererhut",
-        [54653] = "Stolz der Dunkelspeere",
-        [45013] = "Banner von Donnerfels",
-        [45014] = "Banner von Orgrimmar",
-        [45015] = "Banner von Sen'jin",
-        [45016] = "Banner von Unterstadt",
-        [45017] = "Banner von Silbermond",
-        [64997] = "Suchscheinwerfer von Tol Barad",
-        [89205] = "Minimanabombe",
-        [90000] = "Unerschöpfliches Hordenfeuerwerk",
-        [95590] = "Glorreiche Standarte des Sonnenhäscheransturms",
-        [115468] = "Anhaltende Frostessenz",
-        [115503] = "Lodernder Diamantenanhänger",
-        [119145] = "Feuerzorntotem",
-        [119160] = "Kitzeltotem",
-        [119218] = "Siegesflagge der Horde",
-        [128471] = "Schlachtrüstung des Frostwolfkämpfers",
-        [95568] = "Signalgeber der Sonnenhäscher", -- Horde
-    },
-};
-
-ToyBoxEnhancedProfession = {
-    {
-        Name = "Jewelcrafting",
-        Data = {
-            [115503] = "Lodernder Diamantenanhänger",
-            [130251] = "JewelCraft",
-            [130254] = "Plapperstein",
-        },
-    },
-
-    {
-        Name = "Engineering",
-        Data = {
-            [17716] = "Schneemeister 9000",
-            [18660] = "Weltvergrößerer",
-            [23767] = "Krachbummroboter",
-            [40895] = "Gnomische Röntgenbrille",
-            [108745] = "Persönliches Hologramm",
-            [109183] = "Weltschrumpfer",
-            [111821] = "Blingtron 5000",
-            [132518] = "Blingtron-Schaltplandesignanleitung",
-            [40768] = "MOLL-E",
-            [87214] = "Blingtron 4000",
-            [109167] = "Findels Plünderang",
-            [87215] = "Wurmlochgenerator: Pandaria",
-            [40727] = "Gnomischer Gravitationsbrunnen",
-            [60854] = "Plünderang",
-            [112059] = "Wurmlochzentrifuge",
-            [48933] = "Wurmlochgenerator: Nordend",
-            [30544] = "Extrem sicherer Transporter: Toshleys Station",
-            [18986] = "Extrem sicherer Transporter: Gadgetzan",
-            [18984] = "Dimensionszerfetzer: Ewige Warte",
-            [30542] = "Dimensionszerfetzer: Area 52",
-        },
-    },
-
-    {
-        Name = "Archaeology",
-        Data = {
-            [64358] = "Seelenspiegel der Hochgeborenen",
-            [64361] = "Statuenpaar: Druidin und Priester",
-            [64373] = "Kelch der Bergkönige",
-            [64383] = "Windspiel der Kaldorei",
-            [64456] = "Ankunft der Naaru",
-            [64481] = "Segen des Alten Gottes",
-            [64482] = "Puzzlebox des Yogg-Saron",
-            [64646] = "Knochen der Transformation",
-            [64651] = "Irrwischamulett",
-            [64881] = "Anhänger des Skarabäussturms",
-            [69775] = "Trinkhorn der Vrykul",
-            [69776] = "Uralter Bernstein",
-            [69777] = "Heimgesuchte Kriegstrommel",
-            [131724] = "Kristallines Auge von Undravius",
-            [64488] = "Die Tochter des Gastwirts",
-            [89614] = "Anatomische Puppe",
-        },
-    },
-
-    {
-        Name = "Cooking",
-        Data = {
-            [88801] = "Umdrehbarer Tisch",
-            [134020] = "Kochmütze",
-        },
-    },
-
-    {
-        Name = "Fishing",
-        Data = {
-            [44430] = "Titansiegel von Dalaran",
-            [45984] = "Ungewöhnlicher Kompass",
-            [85973] = "Uralter pandarischer Angelglücksbringer",
-        },
-    },
-    
-    {
-        Name = "Leatherworking",
-        Data = {
-            [129956] = "Ledernes Kuschelsofa",
-            [129960] = "Ledernes Haustierbett",
-            [129961] = "Brennender Reifen",
-            [129958] = "Lederne Haustierleine",
-        },
-    },
-    
-    {
-        Name = "Enchanting",
-        Data = {
-            [128536] = "Leylichtkohlenbecken",    
-        },
-    },
-    
-    {
-        Name = "Inscription",
-        Data = {
-            [129211] = "Schlüpfriges Romantikschmökerset",
-        },
-    },
-};
-
-ToyBoxEnhancedWorldEvent = {
-    {
-        Name = "Timewalking",
-        Data = {
-            [129952] = "Stundenglas der Ewigkeit",
-            [129926] = "Mal der Aschenzungen",
-            [129938] = "Wille von Nordend",
-            [133511] = "Gurboggels funkelnde Kugel",
-            [133542] = "Kolbenzangs megapräziser Simulationsoptiksucher",
-            [129929] = "Spiegel der Möglichkeiten",
-        },
-    },
-
-    {
-        Name = "Darkmoon Faire",
-        Data = {
-            [75042] = "Gelber Luftballon",
-            [90899] = "Dunkelmond-Pfeife",
-            [101571] = "Mondfangpelz",
-            [105898] = "Mondfangs Pfote",
-            [116067] = "Ring der gebrochenen Versprechen",
-            [116115] = "Lodernde Schwingen",
-            [116139] = "Spukhaftes Andenken",
-            [122119] = "Unerschöpfliches Dunkelmond-Feuerwerk",
-            [122120] = "Blick des Dunkelmonds",
-            [122121] = "Dunkelmond-Starrer",
-            [122122] = "Dunkelmond-Panzersteuerung",
-            [122123] = "Dunkelmond-Ringwerfer",
-            [122126] = "Hinweisschild",
-            [122129] = "Phiole des Feuerschluckers",
-            [126931] = "Seemannskolbenflöte",
-            [97994] = "Dunkelmond-Wippe",
-            [138202] = "Glitzerpony XL",
-        },
-    },
-
-    {
-        Name = "Lunar Festival",
-        Data = {
-            [21540] = "Elunes Laterne",
-            [89999] = "Unerschöpfliches Allianzfeuerwerk",
-            [90000] = "Unerschöpfliches Hordenfeuerwerk",
-        },
-    },
-
-    {
-        Name = "Love is in the Air",
-        Data = {
-            [34480] = "Picknickkorb für Verliebte",
-            [50471] = "Der Herzbrecher",
-            [116651] = "Prisma der wahren Liebe",
-        },
-    },
-
-    {
-        Name = "Children's Week",
-        Data = {
-            [69895] = "Grüner Ballon",
-            [69896] = "Gelber Ballon",
-        },
-    },
-
-    {
-        Name = "Midsummer Fire Festival",
-        Data = {
-            [34686] = "Kohlenpfanne der tanzenden Flammen",
-            [116435] = "Gemütliches Lagerfeuer",
-            [116440] = "Medaillon des flammenden Verteidigers",
-        },
-    },
-
-    {
-        Name = "Brewfest",
-        Data = {
-            [33927] = "Braufestfässchen",
-            [71137] = "Braufestfässchenpony",
-            [90427] = "Pandarenbräurucksack",
-            [116757] = "Dampfbetriebener Würstchengrill",
-            [116758] = "Flagge des Braufests",
-            [138900] = "Gravil Goldzopfs berühmte Wurstzipfelmütze",
-        },
-    },
-
-    {
-        Name = "Hallow's End",
-        Data = {
-            [70722] = "Kleiner Weidenmann",
-            [128807] = "Münze der vielen Gesichter",
-            [128794] = "Sack mit spektralen Spinnen",
-        },
-    },
-
-    {
-        Name = "Day of the Dead",
-        Data = {
-            [116856] = "Teilnehmerkostüm \"Blühende Rose\"",
-            [116888] = "Teilnehmerkostüm \"Nachtdämon\"",
-            [116889] = "Teilnehmerkostüm \"Lila Phantom\"",
-            [116890] = "Teilnehmerkostüm \"Santos Sonne\"",
-            [116891] = "Teilnehmerkostüm \"Schneeeule\"",
-        },
-    },
-    
-    {
-        Name = "Pilgrim's Bounty",
-        Data = {
-            [116400] = "Versilberte Truthahnbüchse",
-        },
-    },
-
-    {
-        Name = "Pirates' Day",
-        Data = {
-            [138415] = "Etwas angekautes Buch der Beleidigungen",
-        },
-    },
-    
-    {
-        Name = "Feast of Winter Veil",
-        Data = {
-            [17712] = "Winterhauchverkleidungsset",
-            [37710] = "Steuerung für Krachbummflitzer",
-            [46709] = "MiniZep-Steuerung",
-            [90883] = "Football",
-            [90888] = "Fußball",
-            [104318] = "Steuerung des Krachbummfliegers",
-            [116456] = "Schriftrolle der Erzählkunst",
-            [116689] = "Ananasräkelkissen",
-            [116690] = "Safariräkelkissen",
-            [116691] = "Zhevrasitzpolster",
-            [116692] = "Knallgrünes Sitzpolster",
-            [116763] = "Steuerung für Krachbummschredder",
-            [128776] = "Roter Holzschlitten",
-            [108632] = "Krachbummflambiererfernsteuerung",
-            [108635] = "Krachbummtodesraupensteuerung",
-            [139337] = "Winterhauchwegwerfkleidung",
-            [128636] = "Endothermischer Strahler",
-        },
-    },
-};
-
-ToyBoxEnhancedConditions = {
-    -- Faction
-
-    -- Berührung der Naaru
-    [119144] = {
-        Faction = "Alliance",
-    },
-
-    -- Banner von Sturmwind
-    [45011] = {
-        Faction = "Alliance",
-    },
-
-    -- Banner von Donnerfels
-    [45013] = {
-        Faction = "Horde",
-    },
-
-    -- Banner von Orgrimmar
-    [45014] = {
-        Faction = "Horde",
-    },
-
-    -- Banner von Sen'jin
-    [45015] = {
-        Faction = "Horde",
-    },
-
-    -- Banner von Unterstadt
-    [45016] = {
-        Faction = "Horde",
-    },
-
-    -- Banner von Silbermond
-    [45017] = {
-        Faction = "Horde",
-    },
-
-    -- Banner von Eisenschmiede
-    [45018] = {
-        Faction = "Alliance",
-    },
-
-    -- Banner von Gnomeregan
-    [45019] = {
-        Faction = "Alliance",
-    },
-
-    -- Banner der Exodar
-    [45020] = {
-        Faction = "Alliance",
-    },
-
-    -- Banner von Darnassus
-    [45021] = {
-        Faction = "Alliance",
-    },
-
-    -- Feuerzorntotem
-    [119145] = {
-        Faction = "Horde",
-    },
-
-    -- Siegesflagge der Allianz
-    [119217] = {
-        Faction = "Alliance",
-    },
-
-    -- Siegesflagge der Horde
-    [119218] = {
-        Faction = "Horde",
-    },
-
-    -- Stolz von Gnomeregan
-    [54651] = {
-        Faction = "Alliance",
-    },
-
-    -- Stolz der Dunkelspeere
-    [54653] = {
-        Faction = "Horde",
-    },
-
-    -- Verblichener Zaubererhut
-    [53057] = {
-        Faction = "Horde",
-    },
-
-    -- Unerschöpfliches Hordenfeuerwerk
-    [90000] = {
-        Faction = "Horde",
-    },
-    
-    -- Unerschöpfliches Allianzfeuerwerk
-    [89999] = {
-        Faction = "Alliance",
-    },
-    
-    -- Signalgeber der Kirin Tor
-    [95567] = {
-        Faction = "Alliance",
-    },
-    
-    -- Signalgeber der Sonnenhäscher
-    [95568] = {
-        Faction = "Horde",
-    },
-    
-    -- Minimanabombe
-    [89205] = {
-        Faction = "Horde",
-    },
-    
-    -- Reputation
-
-    -- Anhaltende Frostessenz
-    [115468] = {
-        Reputation = {
-            Id = 1445, -- Frostwolf Orcs
-            Value = 6, -- Wohlwollend
-        },
-    },
-
-    -- Gin-Ji-Messersatz
-    [90175] = {
-        Reputation = {
-            Id = 1272, -- The Tillers
-            Value = 8, -- Ehrfürchtig
-        },
-    },
-
-    -- Glorreiche Standarte der Offensive der Kirin Tor
-    [95589] = {
-        Reputation = {
-            Id = 1387, -- Kirin Tor Offensive
-            Value = 8, -- Ehrfürchtig
-        },
-    },
-
-    -- Glorreiche Standarte des Sonnenhäscheransturms
-    [95590] = {
-        Reputation = {
-            Id = 1388, -- Sunreaver Onslaught
-            Value = 8, -- Ehrfürchtig
-        },
-    },
-
-    -- Medaillon des himmlischen Verteidigers
-    [103685] = {
-        Reputation = {
-            Id = 1492, -- Emperor Shaohao
-            Value = 7, -- Respektvoll
-        },
-    },
-
-    -- Medaillon des Sha'tarbeschützers
-    [119421] = {
-        Reputation = {
-            Id = 1710, -- Sha'tari Defense
-            Value = 7, -- Respektvoll
-        },
-    },
-
-    -- Pandarenvogelscheuche
-    [89869] = {
-        Reputation = {
-            Id = 1272, -- The Tillers
-            Value = 7, -- Respektvoll
-        },
-    },
-
-    -- Kitzeltotem
-    [119160] = {
-        Reputation = {
-            Id = 1708, -- Laughing Skull Orcs
-            Value = 6, -- Wohlwollend
-        },
-    },
-
-    -- Seelenrettungskristall
-    [119182] = {
-        Reputation = {
-            Id = 1710, -- Sha'tari Defense
-            Value = 6, -- Wohlwollend
-        },
-    },
-
-    -- Stab von Fell und Klauen
-    [66888] = {
-        Reputation = {
-            Id = 576, -- Timbermaw Hold
-            Value = 8, -- Ehrfürchtig
-        },
-    },
-
-    -- Suchscheinwerfer von Tol Barad
-    [63141] = {
-        Reputation = {
-            Id = 1177, -- Baradin's Wardens
-            Value = 6, -- Honored
-        },
-    },
-
-    -- Suchscheinwerfer von Tol Barad
-    [64997] = {
-        Reputation = {
-            Id = 1178, -- Hellscream's Reach
-            Value = 6, -- Wohlwollend
-        },
-    },
-
-    -- Wolkenring
-    [89222] = {
-        Reputation = {
-            Id = 1271, -- Order of the Cloud Serpent
-            Value = 7, -- Respektvoll
-        },
-    },
-    
-    -- Gewandung des Ratsmitglieds von Karabor
-    [128462] = {
-        Reputation = {
-            Id = 1847, -- Hand of the Prophet
-            Value = 7, -- Respektvoll
-        },
-    },
-
-    -- Schlachtrüstung des Frostwolfkämpfers
-    [128471] = {
-        Reputation = {
-            Id = 1848, -- Vol'jin's Headhunters
-            Value = 7, -- Respektvoll
-        },
-    },
-    
-    -- Rukhmars heiliges Angedenken
-    [122283] = {
-        Reputation = {
-            Id = 1849, -- Vol'jin's Headhunters
-            Value = 7, -- Respektvoll
-        },
-    },
-
-    -- Profession
-
-    -- Gnomische Röntgenbrille
-    [40895] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 350,
-            Specialization = 0, -- Gnomish Engineering
-        }
-    },
-
-    -- Schneemeister 9000
-    [17716] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 190,
-        },
-    },
-
-    -- Weltschrumpfer
-    [109183] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 1,
-        },
-    },
-
-    -- Weltvergrößerer
-    [18660] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 1,
-            Specialization = 0, -- Gnomish Engineering
-        },
-    },
-    
-    -- Blingtron 5000
-    [111821] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 600,
-        },
-    },
-    
-    -- Blingtron 4000
-    [87214] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 600,
-        },
-    },
-    
-    -- MOLL-E
-    [40768] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 425,
-        },
-    },
-    
-    -- Wurmlochgenerator: Pandaria
-    [87215] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 570,
-        },
-    },
-    
-    -- Gnomischer Gravitationsbrunnen
-    [40727] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 500,
-        },
-    },
-
-    -- Plünderang
-    [60854] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 490,
-        },
-    },
-
-    -- Wurmlochzentrifuge
-    [112059] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 500,
-        },
-    },
-    
-    -- Wurmlochgenerator: Nordend
-    [48933] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 415,
-        },
-    },
-    
-    -- Extrem sicherer Transporter: Toshleys Station
-    [30544] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 350,
-            Specialization = 0, -- Gnomish Engineering
-        },
-    },
-    
-    -- Extrem sicherer Transporter: Gadgetzan
-    [18986] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 260,
-            Specialization = 0, -- Gnomish Engineering
-        },
-    },
-    
-    -- Dimensionszerfetzer: Ewige Warte
-    [18984] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 260,
-            Specialization = 1, -- Goblin Engineering
-        },
-    },
-    
-    -- Dimensionszerfetzer: Area 52
-    [30542] = {
-        Profession = {
-            Id = 202, -- Engineering
-            Value = 350,
-            Specialization = 1, -- Goblin Engineering
-        },
-    },
-    
-    -- Fandrals Samenbeutel
-    [122304] = {
-        Class = "DRUID",
-    },
-    
-    -- Tonnenweise Tücher
-    [120857] = {
-        Class = "ROGUE",
-    },
-    
-    -- Anglerfloß
-    [85500] = {
-        Reputation = {
-            Id = 1302, -- Vol'jin's Headhunters
-            Value = 7, -- Respektvoll
-        },
-    },
-    
-    -- Pfad Elothirs
-    [130158] = {
-        Reputation = {
-            Id = 1883, -- Dreamweavers
-            Value = 5, -- Freundlich
-        },
-    },
-    
-    -- Syxsehnzrute
-    [130157] = {
-        Reputation = {
-            Id = 1894, -- The Wardens
-            Value = 6, -- Wohlwollend
-        },
-    },
-    
-    -- Schatztruhenfallenset
-    [130191] = {
-        Reputation = {
-            Id = 1894, -- The Wardens
-            Value = 6, -- Wohlwollend
-        },
-    },
-    
-    -- Weißwasserkarpfen
-    [131814] = {
-        Reputation = {
-            Id = 1828, -- Highmountain Tribe
-            Value = 5, -- Friendly
-        },
-    },
-    
-    -- Anhaltende Zeitblase
-    [115472] = {
-        Reputation = {
-            Id = 1731, -- Council of Exarchs
-            Value = 6, -- Wohlwollend
-        },
-    },
-    
-    [131812] = {
-        Reputation = {
-            Id = 1828, -- Highmountain Tribe
-            Value = 7, -- Respektvoll
-        },
-    },
-    
-    -- Träne des grünen Aspekts
-    [130170] = {
-        Reputation = {
-            Id = 1883, -- Dreamweavers
-            Value = 6, -- Wohlwollend
-        },
-    },
-    
-    -- Amulett der Schwelle des Todes
-    [129149] = {
-        Reputation = {
-            Id = 1948, -- Valarjar
-            Value = 7, -- Respektvoll
-        },
-    },
-    
-    -- Mondfederstatue
-    [130232] = {
-        Reputation = {
-            Id = 1883, -- Dreamweavers
-            Value = 7, -- Respektvoll
-        },
-    },
-    
-    -- Mobiler telemantischer Signalgeber
-    [140324] = {
-        Reputation = {
-            Id = 1859, -- The Nightfallen
-            Value = 6, -- Wohlwollend
-        },
-    },
-    
-    -- Verzauberte Steinpfeife
-    [129279] = {
-        Reputation = {
-            Id = 1900, -- Court of Farondis
-            Value = 6, -- Wohlwollend
-        },
-    },
-    
-    -- Selbstgebastelte Festmaske
-    [140325] = {
-        Reputation = {
-            Id = 1859, -- The Nightfallen
-            Value = 7, -- Respektvoll
-        },
-    },
-    
-    -- Familiarstein
-    [136846] = {
-        Class = "MAGE",
-    },
-    
-    -- Anstecknadel der Initianden von Dalaran
-    [137294] = {
-        Class = "MAGE",
-    },
-
-    -- Leuchtfeuer der Natur
-    [136849] = {
-        Class = "DRUID",
-    },
-    
-    -- Scharlachrotes Buch der Beichten
-    [136927] = {
-        Class = "PRIEST",
-    },
-    
-    -- Kugel des Thaumaturgen
-    [136928] = {
-        Class = "PRIEST",
-    },
-    
-    -- Tobender Elementarstein
-    [136934] = {
-        Class = "SHAMAN",
-    },
-    
-    -- Kaulquappenwolkensaat
-    [136935] = {
-        Class = "SHAMAN",
-    },
-    
-    -- Vol'jins Schlangentotem
-    [136937] = {
-        Class = "SHAMAN",
-    },
-    
-    -- Wassersprechertotem
-    [138490] = {
-        Class = "SHAMAN",
-    },
-
-    -- Schädel der Verderbnis
-    [143544] = {
-        Class = "DEMONHUNTER",
-    },
-
-    -- Kiste mit Schwimmern: Quietscheentchen
-    [142531] = {
-        Reputation = {
-            Id = 1975, -- Conjurer Margoss
-            Value = 4, -- Friend
-        },
-    },
-
-    -- Kiste mit Schwimmern: Murlockopf
-    [142532] = {
-        Reputation = {
-            Id = 1975, -- Conjurer Margoss
-            Value = 4, -- Friend
-        },
-    },
-
-    -- Legionsinvasionssimulator
-    [147708] = {
-        Reputation = {
-            Id = 2045, -- Die Legionsrichter
-            Value = 8, -- Exalted
+            [112324] = "Nightmarish Hitching Post",
         },
     },
 };

@@ -60,11 +60,6 @@ end
 C_ToyBox.ForceToyRefilter = function()
     return private:FilterToys()
 end
-local org_ToySpellButton_UpdateButton = ToySpellButton_UpdateButton
-ToySpellButton_UpdateButton = function(self)
-    org_ToySpellButton_UpdateButton(self)
-    private:ToySpellButton_UpdateButton(self)
-end
 
 function private:LoadUI()
     PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1); end end);
@@ -73,6 +68,7 @@ function private:LoadUI()
 
     hooksecurefunc(ToyBox.toyOptionsMenu, "initialize", function(sender, level) UIDropDownMenu_InitializeHelper(sender); self:ToyBoxOptionsMenu_Init(sender, level); end);
     hooksecurefunc(ToyBoxFilterDropDown, "initialize", function(sender, level) UIDropDownMenu_InitializeHelper(sender); self:ToyBoxFilterDropDown_Initialize(sender, level); end);
+    hooksecurefunc("ToySpellButton_UpdateButton", function(sender) self:ToySpellButton_UpdateButton(sender) end);
 
     for i = 1, TOYS_PER_PAGE do
         local oldToyButton = ToyBox.iconsFrame["spellButton" .. i];
@@ -759,47 +755,30 @@ function private:ToySpellButton_OnLeave(sender)
     GameTooltip_Hide();
 end
 
-function private:ToySpellButton_UpdateButton(self)
+function private:ToySpellButton_UpdateButton(sender)
 
-    if (self.itemID == -1) then
+    if (sender.itemID == -1) then
         return;
     end
 
-    local itemID, toyName, icon = C_ToyBox.GetToyInfo(self.itemID);
+    local itemID, toyName, icon = C_ToyBox.GetToyInfo(sender.itemID);
     if (itemID == nil or toyName == nil) then
         return;
     end
 
-    self.slotFrameUncollectedInnerGlow:SetAlpha(0.18);
-    self.iconTextureUncollected:SetAlpha(0.18);
+    sender.slotFrameUncollectedInnerGlow:SetAlpha(0.18);
+    sender.iconTextureUncollected:SetAlpha(0.18);
 
-    self.IsHidden:SetShown(self.settings.hiddenToys[itemID]);
+    sender.IsHidden:SetShown(self.settings.hiddenToys[itemID]);
 
-    local toyString = self.name;
-    local iconTexture = self.iconTexture;
-    local slotFrameCollected = self.slotFrameCollected;
-
-    if (PlayerHasToy(self.itemID)) then
-        if (self:IsToyUsable(itemID)) then
-            if (InCombatLockdown()) then
-                toyString:SetAlpha(0.25);
-                iconTexture:SetAlpha(0.25);
-                slotFrameCollected:SetAlpha(0.25);
-            else
-                toyString:SetAlpha(1.0);
-                iconTexture:SetAlpha(1.0);
-                slotFrameCollected:SetAlpha(1.0);
-            end
-        else
-            toyString:SetAlpha(0.25);
-            iconTexture:SetAlpha(0.25);
-            slotFrameCollected:SetAlpha(0.25);
-        end
-    else
-        toyString:SetAlpha(1.0);
-        iconTexture:SetAlpha(1.0);
-        slotFrameCollected:SetAlpha(1.0);
+    local alpha = 1.0
+    if (PlayerHasToy(sender.itemID) and (InCombatLockdown() or not C_ToyBox.IsToyUsable(itemID))) then
+        alpha = 0.25
     end
+
+    sender.name:SetAlpha(alpha);
+    sender.iconTexture:SetAlpha(alpha);
+    sender.slotFrameCollected:SetAlpha(alpha);
 end
 
 function private:FilterToys()
@@ -879,7 +858,7 @@ function private:FilterUsableToys(name, itemId)
         return true;
     end
 
-    return self:IsToyUsable(itemId);
+    return C_ToyBox.IsToyUsable(itemId);
 end
 
 function private:FilterToysBySource(name, itemId, collected)
@@ -1113,78 +1092,12 @@ function private:GetUsableToysCount()
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys();
     for toyIndex = 1, toyCount do
         local itemId = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex));
-        if (PlayerHasToy(itemId) and self:IsToyUsable(itemId)) then
+        if (PlayerHasToy(itemId) and C_ToyBox.IsToyUsable(itemId)) then
             usableCount = usableCount + 1;
         end
     end
 
     return usableCount;
-end
-
-function private:IsToyUsable(itemId)
-    local _, _, _, _, reqLevel = GetItemInfo(itemId);
-    local level = UnitLevel("player");
-    if (not reqLevel or reqLevel > level) then
-        return false;
-    end
-
-    if (not ToyBoxEnhancedConditions[itemId]) then
-        return true;
-    end
-
-    local reqClass = ToyBoxEnhancedConditions[itemId].Class;
-    if (reqClass) then
-        local _, class = UnitClass("player");
-        if (reqClass ~= class) then
-            return false;
-        end
-    end
-    
-    local reqRace = ToyBoxEnhancedConditions[itemId].Race;
-    if (reqRace) then
-        local _, race = UnitRace("player");
-        if (reqRace ~= race) then
-            return false;
-        end
-    end
-    
-    local reqFaction = ToyBoxEnhancedConditions[itemId].Faction;
-    if (reqFaction) then
-        local faction = UnitFactionGroup("player");
-        if (reqFaction ~= faction) then
-            return false;
-        end
-    end
-
-    local reqReputation = ToyBoxEnhancedConditions[itemId].Reputation;
-    if (reqReputation) then
-        local _, _, reputationValue = GetFactionInfoByID(reqReputation.Id);
-        if (not reputationValue or reputationValue < reqReputation.Value) then
-            return false;
-        end
-    end
-
-    local reqProfession = ToyBoxEnhancedConditions[itemId].Profession;
-    if (reqProfession) then
-        local hasProfessionReq = false;
-
-        local professionIndices = { GetProfessions() };
-        for _, professionIndex in pairs(professionIndices) do
-            local _, _, professionLevel, _, _, _, professionId, _, specialization = GetProfessionInfo(professionIndex)
-            if (reqProfession.Id == professionId and reqProfession.Value <= professionLevel) then
-                if (not reqProfession.Specialization or reqProfession.Specialization == specialization) then
-                    hasProfessionReq = true;
-                end
-                break;
-            end
-        end
-
-        if (not hasProfessionReq) then
-            return false;
-        end
-    end
-
-    return true;
 end
 
 function private:Load()
