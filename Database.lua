@@ -117,6 +117,8 @@ ToyBoxEnhancedSource = {
             [127655] = "Vorlauter Wichtel",
             [86584] = "Gehärteter Panzer",
             [142265] = "Große rote Strahlenkanone",
+            [147843] = "Siras Ersatzumhang", -- from warden paragon cache
+            [147867] = "Gestohlener Feger",
         },
     },
 
@@ -176,7 +178,8 @@ ToyBoxEnhancedSource = {
             [142495] = "Falsche Zähne",
             [142496] = "Dreckiger Löffel",
             [142497] = "Kleine Satteltasche",
-            [142536] = "Würfel der Erinnerung",
+            [147838] = "Akazamzaraks Ersatzhut", -- mage class quest
+            [143727] = "Salut eines Champions", -- class quest
         },
     },
 
@@ -251,6 +254,8 @@ ToyBoxEnhancedSource = {
             [136935] = "Kaulquappenwolkensaat", -- only Shaman
             [136937] = "Vol'jins Schlangentotem", -- only Shaman
             [138490] = "Wassersprechertotem", -- only Shaman
+            [147537] = "Ein winziges Kriegsglevenset", -- demon hunter class hall
+            [147832] = "Magische Untertasse", -- mage class hall
         },
     },
 
@@ -402,6 +407,13 @@ ToyBoxEnhancedSource = {
             [140325] = "Selbstgebastelte Festmaske",
             [142531] = "Kiste mit Schwimmern: Quietscheentchen",
             [142532] = "Kiste mit Schwimmern: Murlockopf",
+            [147307] = "Aus Holz geschnitzter Helm",
+            [147308] = "Verzauberter Schwimmer",
+            [147309] = "Antlitz des Waldes",
+            [147310] = "Schwimmendes Totem",
+            [147311] = "Miniaturgondel",
+            [147312] = "Dämonenbirne",
+            [147708] = "Legionsinvasionssimulator ",
         },
     },
 
@@ -1475,6 +1487,14 @@ ToyBoxEnhancedConditions = {
         Reputation = {
             Id = 1975, -- Conjurer Margoss
             Value = 4, -- Friend
+        },
+    },
+
+    -- Legionsinvasionssimulator
+    [147708] = {
+        Reputation = {
+            Id = 2045, -- Die Legionsrichter
+            Value = 8, -- Exalted
         },
     },
 };
