@@ -565,7 +565,7 @@ ToyBoxEnhancedSource = {
 
     {
         Name = "Profession",
-        Data = flattenTable(ToyBoxEnhancedWorldEvent),
+        Data = flattenTable(ToyBoxEnhancedProfession),
     },
 
     {
