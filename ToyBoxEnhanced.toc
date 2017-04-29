@@ -1,8 +1,8 @@
 ## Interface: 70200
 ## Title: Toy Box Enhanced
 ## Notes: Extends the default Toy Box
-## Author: lqpbgjuc
-## Version: 1.3.2
+## Author: eXochron
+## Version: 1.4
 ## SavedVariables: ToyBoxEnhancedSettings
 
 CoreFramework\CoreFramework.xml
