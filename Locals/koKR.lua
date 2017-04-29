@@ -20,6 +20,7 @@ L["Instance"] = "던전";
 L["Reputation"] = "평판";
 L["Achievement"] = "업적";
 L["Garrison"] = "추종자";
+L["Order Hall"] = "연맹 전당";
 L["World Event"] = "월드 이벤트";
 L["Pick Pocket"] = "훔치기";
 L["Black Market"] = "암시장 경매장";

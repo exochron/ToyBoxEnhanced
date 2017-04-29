@@ -20,6 +20,7 @@ L["Instance"] = "Instance";
 L["Reputation"] = "Reputation";
 L["Achievement"] = "Achievement";
 L["Garrison"] = "Garrison";
+L["Order Hall"] = "Order Hall";
 L["World Event"] = "World Event";
 L["Pick Pocket"] = "Pick Pocket";
 L["Black Market"] = "Black Market";

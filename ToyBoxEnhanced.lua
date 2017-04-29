@@ -27,14 +27,14 @@ local initialState = {
         },
     },
 };
-for _, category in pairs(ToyBoxEnhancedSource) do
-    initialState.settings.filter.source[category.Name] = true;
+for name, _ in pairs(ToyBoxEnhancedSource) do
+    initialState.settings.filter.source[name] = true;
 end
-for _, category in pairs(ToyBoxEnhancedProfession) do
-    initialState.settings.filter.profession[category.Name] = true;
+for name, _ in pairs(ToyBoxEnhancedProfession) do
+    initialState.settings.filter.profession[name] = true;
 end
-for _, category in pairs(ToyBoxEnhancedWorldEvent) do
-    initialState.settings.filter.worldEvent[category.Name] = true;
+for name, _ in pairs(ToyBoxEnhancedWorldEvent) do
+    initialState.settings.filter.worldEvent[name] = true;
 end
 local dependencies = {
     function() return ToyBox or LoadAddOn("Blizzard_Collections"); end,
@@ -123,6 +123,10 @@ function private:LoadUI()
     self:CreateUsableToyCountFrame();
     self:CreateAchievementFrame();
 
+    self:FilterAndRefresh()
+end
+
+function private:FilterAndRefresh()
     self:FilterToys();
     ToyBox_UpdatePages();
     ToyBox_UpdateButtons();
@@ -247,45 +251,18 @@ end
 function private:LoadDebugMode()
     if (self.settings.debugMode) then
         print("ToyBoxEnhanced: Debug mode activated");
+
         local toyCount = C_ToyBox.GetNumTotalDisplayedToys();
-        local items = {};
         for toyIndex = 1, toyCount do
             local itemId = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex));
-            items[itemId] = true;
-        end
-
-        for itemId, _ in pairs(items) do
-            local contained = self:ContainsItem(ToyBoxEnhancedSource, itemId);
-            if (not contained) then
+            if (not self:ContainsItem(ToyBoxEnhancedSource, itemId)) then
                 print("New toy (by Source): " .. itemId);
             end
         end
 
-        local professionItems = self:GetItemsFromCategory(ToyBoxEnhancedSource, "Profession");
-        for itemId, itemName in pairs(professionItems) do
-            local contained = self:ContainsItem(ToyBoxEnhancedProfession, itemId);
-            if (not contained) then
-                print("New toy (by Profession): " .. itemId);
-            end
-        end
-
-        local worldEventItems = self:GetItemsFromCategory(ToyBoxEnhancedSource, "World Event");
-        for itemId, itemName in pairs(worldEventItems) do
-            local contained = self:ContainsItem(ToyBoxEnhancedWorldEvent, itemId);
-            if (not contained) then
-                print("New toy (by World Event): " .. itemId);
-            end
-        end
-
-        local ignoredItems = {
-            [97921] = true,
-            [33079] = true,
-            [49704] = true,
-            [89205] = true,
-        };
         for _, source in pairs(ToyBoxEnhancedSource) do
-            for itemId, _ in pairs(source.Data) do
-                if (not items[itemId] and not ignoredItems[itemId]) then
+            for itemId, _ in pairs(source) do
+                if (not C_ToyBox.GetToyInfo(itemId)) then
                     print("Old toy (by Source): " .. itemId);
                 end
             end
@@ -294,32 +271,13 @@ function private:LoadDebugMode()
 end
 
 function private:ContainsItem(data, itemId)
-    local contained = false;
-
     for _, category in pairs(data) do
-        for id, name in pairs(category.Data) do
-            if (itemId == id) then
-                contained = true;
-                break;
-            end
-        end
-
-        if (contained) then
-            break;
+        if (category[itemId]) then
+            return true
         end
     end
 
-    return contained;
-end
-
-function private:GetItemsFromCategory(data, name)
-    for _, category in pairs(data) do
-        if (category.Name == name) then
-            return category.Data;
-        end
-    end
-
-    return nil;
+    return false
 end
 
 function private:ToyBox_OnSearchTextChanged(sender)
@@ -330,9 +288,7 @@ function private:ToyBox_OnSearchTextChanged(sender)
 
     if (oldText ~= self.filterString) then
         ToyBox.firstCollectedToyID = 0;
-        self:FilterToys();
-        ToyBox_UpdatePages();
-        ToyBox_UpdateButtons();
+        self:FilterAndRefresh();
     end
 end
 
@@ -348,9 +304,7 @@ function private:ToyBoxOptionsMenu_Init(sender, level)
             info.text = BATTLE_PET_UNFAVORITE;
             info.func = function()
                 C_ToyBox.SetIsFavorite(ToyBox.menuItemID, false);
-                self:FilterToys();
-                ToyBox_UpdatePages();
-                ToyBox_UpdateButtons();
+                self:FilterAndRefresh();
             end
         else
             info.text = BATTLE_PET_FAVORITE;
@@ -358,9 +312,7 @@ function private:ToyBoxOptionsMenu_Init(sender, level)
                 C_ToyBox.SetIsFavorite(ToyBox.menuItemID, true);
                 SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE, true);
                 ToyBox.favoriteHelpBox:Hide();
-                self:FilterToys();
-                ToyBox_UpdatePages();
-                ToyBox_UpdateButtons();
+                self:FilterAndRefresh();
             end
         end
 
@@ -374,17 +326,13 @@ function private:ToyBoxOptionsMenu_Init(sender, level)
         info.text = L["Show"];
         info.func = function()
             self.settings.hiddenToys[itemId] = nil;
-            self:FilterToys();
-            ToyBox_UpdatePages();
-            ToyBox_UpdateButtons();
+            self:FilterAndRefresh();
         end
     else
         info.text = L["Hide"];
         info.func = function()
             self.settings.hiddenToys[itemId] = true;
-            self:FilterToys();
-            ToyBox_UpdatePages();
-            ToyBox_UpdateButtons();
+            self:FilterAndRefresh();
         end
     end
 
@@ -405,9 +353,7 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
         info.func = function(_, _, _, value)
                         ToyBox.firstCollectedToyID = 0;
                         self.settings.filter.collected = value;
-                        self:FilterToys();
-                        ToyBox_UpdatePages();
-                        ToyBox_UpdateButtons();
+                        self:FilterAndRefresh();
 
                         if (value) then
                             UIDropDownMenu_EnableButton(1,2);
@@ -428,9 +374,7 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
         info.hasArrow = false;
         info.func = function(_, _, _, value)
             self.settings.filter.onlyFavorites = value;
-            self:FilterToys();
-            ToyBox_UpdatePages();
-            ToyBox_UpdateButtons();
+            self:FilterAndRefresh();
          end
         UIDropDownMenu_AddButton(info, level);
 
@@ -441,9 +385,7 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
         info.func = function(_, _, _, value)
                         ToyBox.firstCollectedToyID = 0;
                         self.settings.filter.notCollected = value;
-                        self:FilterToys();
-                        ToyBox_UpdatePages();
-                        ToyBox_UpdateButtons();
+                        self:FilterAndRefresh();
                     end
         info.checked = function() return self.settings.filter.notCollected; end;
         info.isNotRadio = true;
@@ -452,9 +394,7 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
         info.text = L["Only usable"];
         info.func = function(_, _, _, value)
             self.settings.filter.onlyUsable = value;
-            self:FilterToys();
-            ToyBox_UpdatePages();
-            ToyBox_UpdateButtons();
+            self:FilterAndRefresh();
         end
         info.checked = self.settings.filter.onlyUsable;
         info.isNotRadio = true;
@@ -500,9 +440,7 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
         info.hasArrow = false;
         info.func = function(_, _, _, value)
             self.settings.filter.hidden = value;
-            self:FilterToys();
-            ToyBox_UpdatePages();
-            ToyBox_UpdateButtons();
+            self:FilterAndRefresh();
          end
         UIDropDownMenu_AddButton(info, level);
         
@@ -518,25 +456,23 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
             self.settings.filter.onlyUsable = false;
             self.settings.filter.hidden = false;
             
-            for _, source in pairs(ToyBoxEnhancedSource) do
-                self.settings.filter.source[source.Name] = true;
+            for sourceName, _ in pairs(ToyBoxEnhancedSource) do
+                self.settings.filter.source[sourceName] = true;
             end
             
             self.settings.filter.faction.alliance = true;
             self.settings.filter.faction.horde = true;
             self.settings.filter.faction.noFaction = true;
             
-            for _, profession in pairs(ToyBoxEnhancedProfession) do
-                self.settings.filter.profession[profession.Name] = true;
+            for professionName, _ in pairs(ToyBoxEnhancedProfession) do
+                self.settings.filter.profession[professionName] = true;
             end
             
-            for _, worldEvent in pairs(ToyBoxEnhancedWorldEvent) do
-                self.settings.filter.worldEvent[worldEvent.Name] = true;
+            for eventName, _ in pairs(ToyBoxEnhancedWorldEvent) do
+                self.settings.filter.worldEvent[eventName] = true;
             end
             
-            self:FilterToys();
-            ToyBox_UpdatePages();
-            ToyBox_UpdateButtons();
+            self:FilterAndRefresh();
         end
         UIDropDownMenu_AddButton(info, level);
     else
@@ -548,38 +484,32 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
             info.text = CHECK_ALL
             info.func = function()
                             ToyBox.firstCollectedToyID = 0;
-                            for _, source in pairs(ToyBoxEnhancedSource) do
-                                self.settings.filter.source[source.Name] = true;
+                            for sourceName, _ in pairs(ToyBoxEnhancedSource) do
+                                self.settings.filter.source[sourceName] = true;
                             end
                             UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 1, 2);
-                            self:FilterToys();
-                            ToyBox_UpdatePages();
-                            ToyBox_UpdateButtons();
+                            self:FilterAndRefresh();
                         end
             UIDropDownMenu_AddButton(info, level)
 
             info.text = UNCHECK_ALL
             info.func = function()
                             ToyBox.firstCollectedToyID = 0;
-                            for _, source in pairs(ToyBoxEnhancedSource) do
-                                self.settings.filter.source[source.Name] = false;
+                            for sourceName in pairs(ToyBoxEnhancedSource) do
+                                self.settings.filter.source[sourceName] = false;
                             end
                             UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 1, 2);
-                            self:FilterToys();
-                            ToyBox_UpdatePages();
-                            ToyBox_UpdateButtons();
+                            self:FilterAndRefresh();
                         end
             UIDropDownMenu_AddButton(info, level)
 
-            for _, source in pairs(ToyBoxEnhancedSource) do
-                info.text = L[source.Name] or source.Name;
+            for sourceName in pairs(ToyBoxEnhancedSource) do
+                info.text = L[sourceName] or sourceName;
                 info.func = function(_, _, _, value)
-                    self.settings.filter.source[source.Name] = value;
-                    self:FilterToys();
-                    ToyBox_UpdatePages();
-                    ToyBox_UpdateButtons();
+                    self.settings.filter.source[sourceName] = value;
+                    self:FilterAndRefresh();
                 end
-                info.checked = function() return self.settings.filter.source[source.Name] ~= false; end;
+                info.checked = function() return self.settings.filter.source[sourceName] ~= false; end;
                 info.isNotRadio = true;
                 info.notCheckable = false;
                 info.hasArrow = false;
@@ -591,9 +521,7 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
             info.text = FACTION_ALLIANCE;
             info.func = function(_, _, _, value)
                 self.settings.filter.faction.alliance = value;
-                self:FilterToys();
-                ToyBox_UpdatePages();
-                ToyBox_UpdateButtons();
+                self:FilterAndRefresh();
             end
             info.checked = self.settings.filter.faction.alliance;
             info.isNotRadio = true;
@@ -604,9 +532,7 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
             info.text = FACTION_HORDE;
             info.func = function(_, _, _, value)
                 self.settings.filter.faction.horde = value;
-                self:FilterToys();
-                ToyBox_UpdatePages();
-                ToyBox_UpdateButtons();
+                self:FilterAndRefresh();
             end
             info.checked = self.settings.filter.faction.horde;
             info.isNotRadio = true;
@@ -617,9 +543,7 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
             info.text = NPC_NAMES_DROPDOWN_NONE;
             info.func = function(_, _, _, value)
                 self.settings.filter.faction.noFaction = value;
-                self:FilterToys();
-                ToyBox_UpdatePages();
-                ToyBox_UpdateButtons();
+                self:FilterAndRefresh();
             end
             info.checked = self.settings.filter.faction.noFaction;
             info.isNotRadio = true;
@@ -636,38 +560,32 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
             info.text = CHECK_ALL
             info.func = function()
                             ToyBox.firstCollectedToyID = 0;
-                            for _, profession in pairs(ToyBoxEnhancedProfession) do
-                                self.settings.filter.profession[profession.Name] = true;
+                            for professionName, _ in pairs(ToyBoxEnhancedProfession) do
+                                self.settings.filter.profession[professionName] = true;
                             end
                             UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 3, 2);
-                            self:FilterToys();
-                            ToyBox_UpdatePages();
-                            ToyBox_UpdateButtons();
+                            self:FilterAndRefresh();
                         end
             UIDropDownMenu_AddButton(info, level)
 
             info.text = UNCHECK_ALL
             info.func = function()
                             ToyBox.firstCollectedToyID = 0;
-                            for _, profession in pairs(ToyBoxEnhancedProfession) do
-                                self.settings.filter.profession[profession.Name] = false;
+                            for professionName, _ in pairs(ToyBoxEnhancedProfession) do
+                                self.settings.filter.profession[professionName] = false;
                             end
                             UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 3, 2);
-                            self:FilterToys();
-                            ToyBox_UpdatePages();
-                            ToyBox_UpdateButtons();
+                            self:FilterAndRefresh();
                         end
             UIDropDownMenu_AddButton(info, level)
 
-            for _, profession in pairs(ToyBoxEnhancedProfession) do
-                info.text = L[profession.Name] or profession.Name;
+            for professionName, _ in pairs(ToyBoxEnhancedProfession) do
+                info.text = L[professionName] or professionName;
                 info.func = function(_, _, _, value)
-                    self.settings.filter.profession[profession.Name] = value;
-                    self:FilterToys();
-                    ToyBox_UpdatePages();
-                    ToyBox_UpdateButtons();
+                    self.settings.filter.profession[professionName] = value;
+                    self:FilterAndRefresh();
                 end
-                info.checked = function() return self.settings.filter.profession[profession.Name] ~= false; end;
+                info.checked = function() return self.settings.filter.profession[professionName] ~= false; end;
                 info.isNotRadio = true;
                 info.notCheckable = false;
                 info.hasArrow = false;
@@ -683,38 +601,32 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
             info.text = CHECK_ALL
             info.func = function()
                             ToyBox.firstCollectedToyID = 0;
-                            for _, worldEvent in pairs(ToyBoxEnhancedWorldEvent) do
-                                self.settings.filter.worldEvent[worldEvent.Name] = true;
+                            for eventName, _ in pairs(ToyBoxEnhancedWorldEvent) do
+                                self.settings.filter.worldEvent[eventName] = true;
                             end
                             UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 4, 2);
-                            self:FilterToys();
-                            ToyBox_UpdatePages();
-                            ToyBox_UpdateButtons();
+                            self:FilterAndRefresh();
                         end
             UIDropDownMenu_AddButton(info, level)
 
             info.text = UNCHECK_ALL
             info.func = function()
                             ToyBox.firstCollectedToyID = 0;
-                            for _, worldEvent in pairs(ToyBoxEnhancedWorldEvent) do
-                                self.settings.filter.worldEvent[worldEvent.Name] = false;
+                            for eventName, _ in pairs(ToyBoxEnhancedWorldEvent) do
+                                self.settings.filter.worldEvent[eventName] = false;
                             end
                             UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 4, 2);
-                            self:FilterToys();
-                            ToyBox_UpdatePages();
-                            ToyBox_UpdateButtons();
+                            self:FilterAndRefresh();
                         end
             UIDropDownMenu_AddButton(info, level)
 
-            for _, worldEvent in pairs(ToyBoxEnhancedWorldEvent) do
-                info.text = L[worldEvent.Name] or worldEvent.Name;
+            for eventName, _ in pairs(ToyBoxEnhancedWorldEvent) do
+                info.text = L[eventName] or eventName;
                 info.func = function(_, _, _, value)
-                    self.settings.filter.worldEvent[worldEvent.Name] = value;
-                    self:FilterToys();
-                    ToyBox_UpdatePages();
-                    ToyBox_UpdateButtons();
+                    self.settings.filter.worldEvent[eventName] = value;
+                    self:FilterAndRefresh();
                 end
-                info.checked = function() return self.settings.filter.worldEvent[worldEvent.Name] ~= false; end;
+                info.checked = function() return self.settings.filter.worldEvent[eventName] ~= false; end;
                 info.isNotRadio = true;
                 info.notCheckable = false;
                 info.hasArrow = false;
@@ -726,12 +638,7 @@ end
 
 function private:ToySpellButton_OnClick(sender, button)
     if (IsModifiedClick()) then
-        if (IsModifiedClick("CHATLINK")) then
-            local itemLink = C_ToyBox.GetToyLink(sender.itemID);
-            if (itemLink) then
-                ChatEdit_InsertLink(itemLink);
-            end
-        end
+        ToySpellButton_OnModifiedClick(sender, button)
     elseif (not sender.isPassive and button ~= "LeftButton") then
         ToyBox_ShowToyDropdown(sender.itemID, sender, 0, 0);
     end
@@ -781,6 +688,8 @@ function private:ToySpellButton_UpdateButton(sender)
     sender.slotFrameCollected:SetAlpha(alpha);
 end
 
+-- region filter functions
+
 function private:FilterToys()
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys();
     if (org_GetNumFilteredToys() ~= toyCount) then
@@ -790,19 +699,27 @@ function private:FilterToys()
         C_ToyBox.SetUncollectedShown(true);
     end
 
-    self.filteredToyList = {};
+    self.filteredToyList = {}
+
+    local doNameFilter = false
+    if (self.filterString and string.len(self.filterString) > 0) then
+        doNameFilter = true
+    end
 
     for toyIndex = 1, toyCount do
         local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex));
         local collected = PlayerHasToy(itemId);
 
-        if (self:FilterHiddenToys(name, itemId) and
-            self:FilterFavoriteToys(name, favorited) and
-            self:FilterUsableToys(name, itemId) and
-            self:FilterToysBySource(name, itemId, collected) and
-            self:FilterToysByFaction(name, itemId, collected) and
-            self:FilterToysByProfession(name, itemId, collected) and
-            self:FilterToysByWorldEvent(name, itemId, collected))
+        if ((doNameFilter and self:FilterToysByName(name))
+            or (not doNameFilter and
+                self:FilterHiddenToys(itemId) and
+                self:FilterCollectedToys(collected) and
+                self:FilterFavoriteToys(favorited) and
+                self:FilterUsableToys(itemId) and
+                self:FilterToysBySource(itemId) and
+                self:FilterToysByFaction(itemId) and
+                self:FilterToysByProfession(itemId) and
+                self:FilterToysByWorldEvent(name, itemId, collected)))
         then
             table.insert(self.filteredToyList, itemId);
         end
@@ -819,264 +736,156 @@ end
 
 function private:FilterToysByName(name)
     if (string.find(string.lower(name), self.filterString, 1, true)) then
-        return true;
+        return true
     else
-        return false;
+        return false
     end
 end
 
-function private:FilterHiddenToys(name, itemId)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
-    end
-
-    if (self.settings.filter.hidden) then
-        return true;
-    end
-
-    return not self.settings.hiddenToys[itemId];
+function private:FilterHiddenToys(itemId)
+    return self.settings.filter.hidden or not self.settings.hiddenToys[itemId]
 end
 
-function private:FilterFavoriteToys(name, isFavorite)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
-    end
-
-    if (not self.settings.filter.onlyFavorites) then
-        return true;
-    end
-
-    return isFavorite or not self.settings.filter.collected;
+function private:FilterCollectedToys(collected)
+    return (self.settings.filter.collected and collected) or (self.settings.filter.notCollected and not collected)
 end
 
-function private:FilterUsableToys(name, itemId)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
-    end
-
-    if (not self.settings.filter.onlyUsable) then
-        return true;
-    end
-
-    return C_ToyBox.IsToyUsable(itemId);
+function private:FilterFavoriteToys(isFavorite)
+    return not self.settings.filter.onlyFavorites or isFavorite or not self.settings.filter.collected
 end
 
-function private:FilterToysBySource(name, itemId, collected)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
-    end
+function private:FilterUsableToys(itemId)
+    return not self.settings.filter.onlyUsable or C_ToyBox.IsToyUsable(itemId)
+end
 
-    if (not self.settings.filter.collected and collected) then
-        return false;
-    end
-
-    if (not self.settings.filter.notCollected and not collected) then
-        return false;
-    end
-
-    local notContainded = true;
-
-    local allDisabled = true;
-    local allEnabled = true;
-    for _, value in pairs(self.settings.filter.source) do
+function private:CheckAllSettings(settings)
+    local allDisabled = true
+    local allEnabled = true
+    for _, value in pairs(settings) do
         if (value) then
-            allDisabled = false;
+            allDisabled = false
         else
-            allEnabled = false;
+            allEnabled = false
         end
     end
 
-    if (allEnabled) then
-        return true;
+    if allEnabled then
+        return true
+    elseif allDisabled then
+        return false
     end
 
+    return nil
+end
+
+function private:FilterToysBySource(itemId)
+
+    local allSettings = self:CheckAllSettings(self.settings.filter.source)
+    if allSettings then
+        return true
+    end
+
+    local notContainded = true
+
     for source, value in pairs(self.settings.filter.source) do
-        for _, category in pairs(ToyBoxEnhancedSource) do
-            if (category.Name == source) then
-                if (category.Data[itemId]) then
-                    if (value) then
-                        return true;
-                    else
-                        notContainded = false;
-                    end
-                end
-                break;
+        if (ToyBoxEnhancedSource[source] and ToyBoxEnhancedSource[source][itemId]) then
+            if (value) then
+                return true
+            else
+                notContainded = false
             end
         end
     end
 
-    return notContainded and (allDisabled or allEnabled);
+    return notContainded and allSettings == false
 end
 
-function private:FilterToysByFaction(name, itemId, collected)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
-    end
+function private:FilterToysByFaction(itemId)
 
-    if (not self.settings.filter.collected and collected) then
-        return false;
-    end
-
-    if (not self.settings.filter.notCollected and not collected) then
-        return false;
+    local allSettings = self:CheckAllSettings(self.settings.filter.faction)
+    if allSettings then
+        return true
     end
 
     local notContainded = true;
-
-    local allDisabled = true;
-    local allEnabled = true;
-    for _, value in pairs(self.settings.filter.faction) do
-        if (value) then
-            allDisabled = false;
-        else
-            allEnabled = false;
-        end
-    end
-
-    if (allEnabled) then
-        return true;
-    end
-
     if (ToyBoxEnhancedFaction.alliance[itemId]) then
         if (self.settings.filter.faction.alliance) then
-            return true;
-        else
-            notContainded = false;
+            return true
         end
+        notContainded = false
     end
 
     if (ToyBoxEnhancedFaction.horde[itemId]) then
         if (self.settings.filter.faction.horde) then
-            return true;
-        else
-            notContainded = false;
+            return true
         end
+        notContainded = false
     end
 
-    return self.settings.filter.faction.noFaction and notContainded;
+    return self.settings.filter.faction.noFaction and notContainded
 end
 
-function private:FilterToysByProfession(name, itemId, collected)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
+function private:FilterToysByProfession(itemId)
+
+    local allSettings = self:CheckAllSettings(self.settings.filter.profession)
+    if allSettings then
+        return true
     end
 
-    if (not self.settings.filter.collected and collected) then
-        return false;
-    end
-
-    if (not self.settings.filter.notCollected and not collected) then
-        return false;
-    end
-
-    local notContainded = true;
-
-    local allDisabled = true;
-    local allEnabled = true;
-    for _, value in pairs(self.settings.filter.profession) do
-        if (value) then
-            allDisabled = false;
-        else
-            allEnabled = false;
-        end
-    end
-
-    if (allEnabled) then
-        return true;
-    end
-
+    local notContainded = true
     for profession, value in pairs(self.settings.filter.profession) do
-        for _, category in pairs(ToyBoxEnhancedProfession) do
-            if (category.Name == profession) then
-                if (category.Data[itemId]) then
-                    if (value) then
-                        return true;
-                    else
-                        notContainded = false;
-                    end
-                end
-                break;
+        if ToyBoxEnhancedProfession[profession] and ToyBoxEnhancedProfession[profession][itemId] then
+            if value then
+                return true
+            else
+                notContainded = false
             end
         end
     end
 
-    if (not notContainded) then
-        return false;
+    if not notContainded then
+        return false
     end
 
-    local isProfessionItem = false;
-    for _, category in pairs(ToyBoxEnhancedSource) do
-        if (category.Name == "Profession") then
-            if (category.Data[itemId]) then
-                isProfessionItem = true;
-            end
-            break;
-        end
+    local isProfessionItem = false
+    if ToyBoxEnhancedSource["Profession"][itemId] then
+        isProfessionItem = true
     end
 
-    return isProfessionItem and (allDisabled or allEnabled);
+    return isProfessionItem and allSettings == false
 end
 
 function private:FilterToysByWorldEvent(name, itemId, collected)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
-    end
-
-    if (not self.settings.filter.collected and collected) then
-        return false;
-    end
-
-    if (not self.settings.filter.notCollected and not collected) then
-        return false;
-    end
-
     local notContainded = true;
 
-    local allDisabled = true;
-    local allEnabled = true;
-    for _, value in pairs(self.settings.filter.worldEvent) do
-        if (value) then
-            allDisabled = false;
-        else
-            allEnabled = false;
-        end
-    end
-
-    if (allEnabled) then
-        return true;
+    local allSettings = self:CheckAllSettings(self.settings.filter.worldEvent)
+    if allSettings then
+        return true
     end
 
     for worldEvent, value in pairs(self.settings.filter.worldEvent) do
-        for _, category in pairs(ToyBoxEnhancedWorldEvent) do
-            if (category.Name == worldEvent) then
-                if (category.Data[itemId]) then
-                    if (value) then
-                        return true;
-                    else
-                        notContainded = false;
-                    end
-                end
-                break;
+        if ToyBoxEnhancedWorldEvent[worldEvent] and ToyBoxEnhancedWorldEvent[worldEvent][itemId] then
+            if value then
+                return true
+            else
+                notContainded = false
             end
         end
     end
 
-    if (not notContainded) then
-        return false;
+    if not notContainded then
+        return false
     end
 
     local isWorldEventItem = false;
-    for _, category in pairs(ToyBoxEnhancedSource) do
-        if (category.Name == "World Event") then
-            if (category.Data[itemId]) then
-                isWorldEventItem = true;
-            end
-            break;
-        end
+    if ToyBoxEnhancedSource["World Event"][itemId] then
+        isWorldEventItem = true
     end
 
-    return isWorldEventItem and (allDisabled or allEnabled);
+    return isWorldEventItem and allSettings == false
 end
+
+-- endregion
 
 function private:GetUsableToysCount()
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys();
@@ -1116,9 +925,7 @@ function private:OnToysUpdated(event, ...)
     local itemID, new = ...;
 
     if (ToyBox:IsVisible()) then
-        self:FilterToys();
-        ToyBox_UpdatePages();
-        ToyBox_UpdateButtons();
+        self:FilterAndRefresh();
     end
 end
 
@@ -1128,9 +935,7 @@ end
 
 function private:OnCombatStateChanged()
     if (ToyBox:IsVisible()) then
-        self:FilterToys();
-        ToyBox_UpdatePages();
-        ToyBox_UpdateButtons();
+        self:FilterAndRefresh();
     end
 end
 
@@ -1139,16 +944,12 @@ function private:OnSlashCommand(command, parameter1, parameter2)
         if (parameter1 == "on") then
             self.settings.debugMode = true;
             print("ToyBoxEnhanced: Debug mode activated.");
-            return;
-        end
-
-        if (parameter1 == "off") then
+        elseif (parameter1 == "off") then
             self.settings.debugMode = false;
             print("ToyBoxEnhanced: Debug mode deactivated.");
-            return;
         end
+    else
+        print("Syntax:");
+        print("/tbe debug (on | off)");
     end
-
-    print("Syntax:");
-    print("/tbe debug (on | off)");
 end
