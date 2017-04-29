@@ -20,6 +20,7 @@ L["Instance"] = "Подземелье";
 L["Reputation"] = "Репутация";
 L["Achievement"] = "Достижение";
 L["Garrison"] = "Гарнизон";
+L["ORder Hall"] = "Оплот класса";
 L["World Event"] = "Игровое событие";
 L["Pick Pocket"] = "Обыскивание карманов";
 L["Black Market"] = "Черный рынок";

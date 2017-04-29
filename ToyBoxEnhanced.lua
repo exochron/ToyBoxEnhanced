@@ -1,10 +1,14 @@
-local ADDON_NAME = ...;
+local ADDON_NAME = ...
 
-local TOYS_PER_PAGE = 18;
-local COLLECTION_ACHIEVEMENT_CATEGORY = 15246;
-local TOY_ACHIEVEMENT_CATEGORY = 15247;
+local TOYS_PER_PAGE = 18
+local COLLECTION_ACHIEVEMENT_CATEGORY = 15246
+local TOY_ACHIEVEMENT_CATEGORY = 15247
 
-local L = CoreFramework:GetModule("Localization", "1.1"):GetLocalization(ADDON_NAME);
+local DropDownOrderSource = {"Treasure", "Drop", "Quest", "Vendor", "Profession", "Instance", "Reputation", "Achievement", "Garrison", "Order Hall", "World Event", "Pick Pocket", "Black Market", "Promotion"}
+local DropDownOrderProfessions = {"Jewelcrafting", "Enchanting", "Engineering", "Inscription", "Leatherworking", "Archaeology", "Cooking", "Fishing"}
+local DropDownOrderWorldEvents = {"Timewalking", "Darkmoon Faire", "Lunar Festival", "Love is in the Air", "Children's Week", "Midsummer Fire Festival", "Brewfest", "Hallow's End", "Day of the Dead", "Pilgrim's Bounty", "Pirates' Day", "Feast of Winter Veil"}
+
+local L = CoreFramework:GetModule("Localization", "1.1"):GetLocalization(ADDON_NAME)
 
 local initialState = {
     settings = {
@@ -26,25 +30,26 @@ local initialState = {
             hidden = false,
         },
     },
-};
-for _, category in pairs(ToyBoxEnhancedSource) do
-    initialState.settings.filter.source[category.Name] = true;
+}
+for name, _ in pairs(ToyBoxEnhancedSource) do
+    initialState.settings.filter.source[name] = true
 end
-for _, category in pairs(ToyBoxEnhancedProfession) do
-    initialState.settings.filter.profession[category.Name] = true;
+for name, _ in pairs(ToyBoxEnhancedProfession) do
+    initialState.settings.filter.profession[name] = true
 end
-for _, category in pairs(ToyBoxEnhancedWorldEvent) do
-    initialState.settings.filter.worldEvent[category.Name] = true;
+for name, _ in pairs(ToyBoxEnhancedWorldEvent) do
+    initialState.settings.filter.worldEvent[name] = true
 end
+local defaultFilterStates = CopyTable(initialState.settings.filter)
 local dependencies = {
-    function() return ToyBox or LoadAddOn("Blizzard_Collections"); end,
-};
-local private = CoreFramework:GetModule("Addon", "1.0"):NewAddon(ADDON_NAME, initialState, dependencies);
+    function() return ToyBox or LoadAddOn("Blizzard_Collections") end,
+}
+local private = CoreFramework:GetModule("Addon", "1.0"):NewAddon(ADDON_NAME, initialState, dependencies)
 
-private.filteredToyList = { };
-private.filterString = "";
+private.filteredToyList = { }
+private.filterString = ""
 
--- overload some core functions
+-- region overload some core functions
 local org_GetNumFilteredToys = C_ToyBox.GetNumFilteredToys
 C_ToyBox.GetNumFilteredToys = function()
     return #private.filteredToyList
@@ -52,49 +57,50 @@ end
 local org_GetToyFromIndex = C_ToyBox.GetToyFromIndex
 C_ToyBox.GetToyFromIndex = function(index)
     if (index > #private.filteredToyList) then
-        return -1;
+        return -1
     end
 
-    return private.filteredToyList[index];
+    return private.filteredToyList[index]
 end
 C_ToyBox.ForceToyRefilter = function()
     return private:FilterToys()
 end
+-- endregion
 
+-- region initialize UI
 function private:LoadUI()
-    PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1); end end);
+    PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1) end end)
     
-    ToyBox.searchBox:SetScript("OnTextChanged", function(sender) self:ToyBox_OnSearchTextChanged(sender); end);
+    ToyBox.searchBox:SetScript("OnTextChanged", function(sender) self:ToyBox_OnSearchTextChanged(sender) end)
 
-    hooksecurefunc(ToyBox.toyOptionsMenu, "initialize", function(sender, level) UIDropDownMenu_InitializeHelper(sender); self:ToyBoxOptionsMenu_Init(sender, level); end);
-    hooksecurefunc(ToyBoxFilterDropDown, "initialize", function(sender, level) UIDropDownMenu_InitializeHelper(sender); self:ToyBoxFilterDropDown_Initialize(sender, level); end);
-    hooksecurefunc("ToySpellButton_UpdateButton", function(sender) self:ToySpellButton_UpdateButton(sender) end);
+    hooksecurefunc(ToyBox.toyOptionsMenu, "initialize", function(sender, level) UIDropDownMenu_InitializeHelper(sender) self:ToyBoxOptionsMenu_Init(sender, level) end)
+    hooksecurefunc(ToyBoxFilterDropDown, "initialize", function(sender, level) UIDropDownMenu_InitializeHelper(sender) self:ToyBoxFilterDropDown_Initialize(sender, level) end)
+    hooksecurefunc("ToySpellButton_UpdateButton", function(sender) self:ToySpellButton_UpdateButton(sender) end)
 
+    self:ReplaceSpellButtons()
+    self:CreateUIElements()
+    self:FilterAndRefresh()
+end
+
+function private:ReplaceSpellButtons()
     for i = 1, TOYS_PER_PAGE do
-        local oldToyButton = ToyBox.iconsFrame["spellButton" .. i];
-        oldToyButton:SetParent(nil);
-        oldToyButton:SetShown(false);
+        local oldToyButton = ToyBox.iconsFrame["spellButton" .. i]
+        oldToyButton:SetParent(nil)
+        oldToyButton:SetShown(false)
 
-        local newToyButton = CreateFrame("CheckButton", nil, ToyBox.iconsFrame, "ToyBoxEnhancedSpellButtonTemplate", i);
-        newToyButton:HookScript("OnClick", function(sender, button) self:ToySpellButton_OnClick(sender, button); end);
+        local newToyButton = CreateFrame("CheckButton", nil, ToyBox.iconsFrame, "ToyBoxEnhancedSpellButtonTemplate", i)
+        newToyButton:HookScript("OnClick", function(sender, button) self:ToySpellButton_OnClick(sender, button) end)
         newToyButton:SetScript("OnShow", ToySpellButton_OnShow)
         newToyButton:SetScript("OnEnter", function(sender)
             ToySpellButton_OnEnter(sender)
-            self:ToySpellButton_OnEnter(sender);
-        end);
-        newToyButton:SetScript("OnLeave", function(sender) self:ToySpellButton_OnLeave(sender); end);
+            self:ToySpellButton_OnEnter(sender)
+        end)
+        newToyButton:SetScript("OnLeave", function(sender) self:ToySpellButton_OnLeave(sender) end)
         newToyButton.updateFunction = ToySpellButton_UpdateButton
-        
-        newToyButton.IsHidden = newToyButton:CreateTexture(nil, "OVERLAY");
-        newToyButton.IsHidden:SetTexture("Interface\\BUTTONS\\UI-GroupLoot-Pass-Up");
-        newToyButton.IsHidden:SetSize(36, 36);
-        newToyButton.IsHidden:SetPoint("CENTER", newToyButton, "CENTER", 0, 0);
-        newToyButton.IsHidden:SetDrawLayer("OVERLAY", 1);
-        newToyButton.IsHidden:SetShown(false);
-        
-        ToyBox.iconsFrame["spellButton" .. i] = newToyButton;
+
+        ToyBox.iconsFrame["spellButton" .. i] = newToyButton
     end
-    
+
     local positions = {
         { "TOPLEFT", ToyBox.iconsFrame, "TOPLEFT", 40, -46 },
         { "TOPLEFT", ToyBox.iconsFrame.spellButton1, "TOPLEFT", 208, 0 },
@@ -114,179 +120,69 @@ function private:LoadUI()
         { "TOPLEFT", ToyBox.iconsFrame.spellButton13, "BOTTOMLEFT", 0, -16 },
         { "TOPLEFT", ToyBox.iconsFrame.spellButton16, "TOPLEFT", 208, 0 },
         { "TOPLEFT", ToyBox.iconsFrame.spellButton17, "TOPLEFT", 208, 0 },
-    };
+    }
     for i = 1, TOYS_PER_PAGE do
-        ToyBox.iconsFrame["spellButton" .. i]:SetPoint(positions[i][1], positions[i][2], positions[i][3], positions[i][4], positions[i][5]);    
+        ToyBox.iconsFrame["spellButton" .. i]:SetPoint(positions[i][1], positions[i][2], positions[i][3], positions[i][4], positions[i][5])
     end
-
-    self:CreateToyCountFrame();
-    self:CreateUsableToyCountFrame();
-    self:CreateAchievementFrame();
-
-    self:FilterToys();
-    ToyBox_UpdatePages();
-    ToyBox_UpdateButtons();
 end
 
-function private:CreateToyCountFrame()
-    local frame = CreateFrame("frame", "TBEToyCount", ToyBox, "InsetFrameTemplate3");
+function private:CreateUIElements()
+    self.toyCountFrame = CreateFrame("Frame", nil, ToyBox, "TBEToyCountTemplate")
+    self.toyCountFrame.staticText:SetText(L["Toys"])
 
-    frame:ClearAllPoints();
-    frame:SetPoint("TOPLEFT", ToyBox, 70, -22);
-    frame:SetSize(130, 18);
+    self.usableToyCountFrame = CreateFrame("Frame", nil, ToyBox, "TBEToyUsableCountTemplate")
+    self.usableToyCountFrame.staticText:SetText(L["Usable"])
 
-    frame.staticText = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall");
-    frame.staticText:ClearAllPoints();
-    frame.staticText:SetPoint("LEFT", frame, 10, 0);
-    frame.staticText:SetText(L["Toys"]);
+    ToyBox.progressBar:SetShown(false)
 
-    frame.uniqueCount = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall");
-    frame.uniqueCount:ClearAllPoints();
-    frame.uniqueCount:SetPoint("RIGHT", frame, -10, 0);
-    frame.uniqueCount:SetText(0);
-
-    self.toyCountFrame = frame;
-end
-
-function private:CreateUsableToyCountFrame()
-    local frame = CreateFrame("frame", "TBEUsableToyCount", ToyBox, "InsetFrameTemplate3");
-
-    frame:ClearAllPoints();
-    frame:SetPoint("TOPLEFT", ToyBox, 70, -42);
-    frame:SetSize(130, 18);
-
-    frame.staticText = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall");
-    frame.staticText:ClearAllPoints();
-    frame.staticText:SetPoint("LEFT", frame, 10, 0);
-    frame.staticText:SetText(L["Usable"]);
-
-    frame.uniqueCount = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall");
-    frame.uniqueCount:ClearAllPoints();
-    frame.uniqueCount:SetPoint("RIGHT", frame, -10, 0);
-    frame.uniqueCount:SetText(0);
-
-    self.usableToyCountFrame = frame;
-end
-
-function private:CreateAchievementFrame()
-    ToyBox.progressBar:SetShown(false);
-
-    self.achievementFrame = CreateFrame("Button", "TBEAchievement", ToyBox);
-
-    local frame = self.achievementFrame;
-    frame:ClearAllPoints();
-    frame:SetPoint("TOP", ToyBox, 0, -21);
-    frame:SetSize(60, 40);
-
-    frame.bgLeft = frame:CreateTexture(nil, "BACKGROUND");
-    frame.bgLeft:SetAtlas("PetJournal-PetBattleAchievementBG");
-    frame.bgLeft:ClearAllPoints();
-    frame.bgLeft:SetSize(46, 18);
-    frame.bgLeft:SetPoint("Top", -56, -12);
-    frame.bgLeft:SetVertexColor(1, 1, 1, 1);
-
-    frame.bgRight = frame:CreateTexture(nil, "BACKGROUND");
-    frame.bgRight:SetAtlas("PetJournal-PetBattleAchievementBG");
-    frame.bgRight:ClearAllPoints();
-    frame.bgRight:SetSize(46, 18);
-    frame.bgRight:SetPoint("Top", 55, -12);
-    frame.bgRight:SetVertexColor(1, 1, 1, 1);
-    frame.bgRight:SetTexCoord(1, 0, 0, 1);
-
-    frame.highlight = frame:CreateTexture(nil);
-    frame.highlight:SetDrawLayer("BACKGROUND", 1);
-    frame.highlight:SetAtlas("PetJournal-PetBattleAchievementGlow");
-    frame.highlight:ClearAllPoints();
-    frame.highlight:SetSize(210, 40);
-    frame.highlight:SetPoint("CENTER", 0, 0);
-    frame.highlight:SetShown(false);
-
-    frame.icon = frame:CreateTexture(nil, "OVERLAY");
-    frame.icon:SetTexture("Interface\\AchievementFrame\\UI-Achievement-Shields-NoPoints");
-    frame.icon:ClearAllPoints();
-    frame.icon:SetSize(30, 30);
-    frame.icon:SetPoint("RIGHT", 0, -5);
-    frame.icon:SetTexCoord(0, 0.5, 0, 0.5);
-
-    frame.staticText = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge");
-    frame.staticText:ClearAllPoints();
-    frame.staticText:SetPoint("RIGHT", frame.icon, "LEFT", -4, 4);
-    frame.staticText:SetSize(0, 0);
-    frame.staticText:SetText(GetCategoryAchievementPoints(TOY_ACHIEVEMENT_CATEGORY, true));
-
+    local frame = CreateFrame("Button", nil, ToyBox, "TBEAchievementButtonTemplate")
+    frame.staticText:SetText(GetCategoryAchievementPoints(TOY_ACHIEVEMENT_CATEGORY, true))
     frame:SetScript("OnClick", function()
-        ToggleAchievementFrame();
-        local i = 1;
-        local button = _G["AchievementFrameCategoriesContainerButton" .. i];
-        while button do
-            if (button.element.id == COLLECTION_ACHIEVEMENT_CATEGORY) then
-                button:Click();
-                button = nil;
-            else
-                i = i + 1;
-                button = _G["AchievementFrameCategoriesContainerButton" .. i];
+        ToggleAchievementFrame()
+
+        local clickChain = {COLLECTION_ACHIEVEMENT_CATEGORY, TOY_ACHIEVEMENT_CATEGORY }
+        for _,achievementId in pairs(clickChain) do
+            local i = 1
+            local button = _G["AchievementFrameCategoriesContainerButton" .. i]
+            while button do
+                if (button.element.id == achievementId) then
+                    button:Click()
+                    break
+                else
+                    i = i + 1
+                    button = _G["AchievementFrameCategoriesContainerButton" .. i]
+                end
             end
         end
+    end)
+    frame:SetScript("OnEnter", function(sender) sender.highlight:SetShown(true) end)
+    frame:SetScript("OnLeave", function(sender) sender.highlight:SetShown(false) end)
+    self.achievementFrame = frame
+end
+-- endregion
 
-        i = 1;
-        button = _G["AchievementFrameCategoriesContainerButton" .. i];
-        while button do
-            if (button.element.id == TOY_ACHIEVEMENT_CATEGORY) then
-                button:Click();
-                return;
-            end
-
-            i = i + 1;
-            button = _G["AchievementFrameCategoriesContainerButton" .. i];
-        end
-    end);
-    frame:SetScript("OnEnter", function() frame.highlight:SetShown(true); end);
-    frame:SetScript("OnLeave", function() frame.highlight:SetShown(false); end);
+function private:FilterAndRefresh()
+    self:FilterToys()
+    ToyBox_UpdatePages()
+    ToyBox_UpdateButtons()
 end
 
 function private:LoadDebugMode()
     if (self.settings.debugMode) then
-        print("ToyBoxEnhanced: Debug mode activated");
-        local toyCount = C_ToyBox.GetNumTotalDisplayedToys();
-        local items = {};
+        print("ToyBoxEnhanced: Debug mode activated")
+
+        local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
         for toyIndex = 1, toyCount do
-            local itemId = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex));
-            items[itemId] = true;
-        end
-
-        for itemId, _ in pairs(items) do
-            local contained = self:ContainsItem(ToyBoxEnhancedSource, itemId);
-            if (not contained) then
-                print("New toy (by Source): " .. itemId);
+            local itemId = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex))
+            if (not self:ContainsItem(ToyBoxEnhancedSource, itemId)) then
+                print("New toy (by Source): " .. itemId)
             end
         end
 
-        local professionItems = self:GetItemsFromCategory(ToyBoxEnhancedSource, "Profession");
-        for itemId, itemName in pairs(professionItems) do
-            local contained = self:ContainsItem(ToyBoxEnhancedProfession, itemId);
-            if (not contained) then
-                print("New toy (by Profession): " .. itemId);
-            end
-        end
-
-        local worldEventItems = self:GetItemsFromCategory(ToyBoxEnhancedSource, "World Event");
-        for itemId, itemName in pairs(worldEventItems) do
-            local contained = self:ContainsItem(ToyBoxEnhancedWorldEvent, itemId);
-            if (not contained) then
-                print("New toy (by World Event): " .. itemId);
-            end
-        end
-
-        local ignoredItems = {
-            [97921] = true,
-            [33079] = true,
-            [49704] = true,
-            [89205] = true,
-        };
         for _, source in pairs(ToyBoxEnhancedSource) do
-            for itemId, _ in pairs(source.Data) do
-                if (not items[itemId] and not ignoredItems[itemId]) then
-                    print("Old toy (by Source): " .. itemId);
+            for itemId, _ in pairs(source) do
+                if (not C_ToyBox.GetToyInfo(itemId)) then
+                    print("Old toy (by Source): " .. itemId)
                 end
             end
         end
@@ -294,861 +190,528 @@ function private:LoadDebugMode()
 end
 
 function private:ContainsItem(data, itemId)
-    local contained = false;
-
     for _, category in pairs(data) do
-        for id, name in pairs(category.Data) do
-            if (itemId == id) then
-                contained = true;
-                break;
-            end
-        end
-
-        if (contained) then
-            break;
+        if (category[itemId]) then
+            return true
         end
     end
 
-    return contained;
-end
-
-function private:GetItemsFromCategory(data, name)
-    for _, category in pairs(data) do
-        if (category.Name == name) then
-            return category.Data;
-        end
-    end
-
-    return nil;
+    return false
 end
 
 function private:ToyBox_OnSearchTextChanged(sender)
-    SearchBoxTemplate_OnTextChanged(sender);
+    SearchBoxTemplate_OnTextChanged(sender)
 
-    local oldText = self.filterString;
-    self.filterString = string.lower(sender:GetText());
+    local oldText = self.filterString
+    self.filterString = string.lower(sender:GetText())
 
     if (oldText ~= self.filterString) then
-        ToyBox.firstCollectedToyID = 0;
-        self:FilterToys();
-        ToyBox_UpdatePages();
-        ToyBox_UpdateButtons();
+        ToyBox.firstCollectedToyID = 0
+        self:FilterAndRefresh()
     end
 end
 
+-- region dropdown menus
+
 function private:ToyBoxOptionsMenu_Init(sender, level)
-    local info = UIDropDownMenu_CreateInfo();
-    info.notCheckable = true;
-    info.disabled = nil;
+    local info = UIDropDownMenu_CreateInfo()
+    info.notCheckable = true
+    info.disabled = nil
 
     if (ToyBox.menuItemID and PlayerHasToy(ToyBox.menuItemID)) then
-        local isFavorite = ToyBox.menuItemID and C_ToyBox.GetIsFavorite(ToyBox.menuItemID);
+        local isFavorite = ToyBox.menuItemID and C_ToyBox.GetIsFavorite(ToyBox.menuItemID)
 
         if (isFavorite) then
-            info.text = BATTLE_PET_UNFAVORITE;
+            info.text = BATTLE_PET_UNFAVORITE
             info.func = function()
-                C_ToyBox.SetIsFavorite(ToyBox.menuItemID, false);
-                self:FilterToys();
-                ToyBox_UpdatePages();
-                ToyBox_UpdateButtons();
+                C_ToyBox.SetIsFavorite(ToyBox.menuItemID, false)
+                self:FilterAndRefresh()
             end
         else
-            info.text = BATTLE_PET_FAVORITE;
+            info.text = BATTLE_PET_FAVORITE
             info.func = function()
-                C_ToyBox.SetIsFavorite(ToyBox.menuItemID, true);
-                SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE, true);
-                ToyBox.favoriteHelpBox:Hide();
-                self:FilterToys();
-                ToyBox_UpdatePages();
-                ToyBox_UpdateButtons();
+                C_ToyBox.SetIsFavorite(ToyBox.menuItemID, true)
+                SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE, true)
+                ToyBox.favoriteHelpBox:Hide()
+                self:FilterAndRefresh()
             end
         end
 
-        UIDropDownMenu_AddButton(info, level);
-        info.disabled = nil;
+        UIDropDownMenu_AddButton(info, level)
+        info.disabled = nil
     end
 
-    local itemId = ToyBox.menuItemID;
-    local isHidden = itemId and self.settings.hiddenToys[itemId];
+    local itemId = ToyBox.menuItemID
+    local isHidden = itemId and self.settings.hiddenToys[itemId]
     if (isHidden) then
-        info.text = L["Show"];
+        info.text = L["Show"]
         info.func = function()
-            self.settings.hiddenToys[itemId] = nil;
-            self:FilterToys();
-            ToyBox_UpdatePages();
-            ToyBox_UpdateButtons();
+            self.settings.hiddenToys[itemId] = nil
+            self:FilterAndRefresh()
         end
     else
-        info.text = L["Hide"];
+        info.text = L["Hide"]
         info.func = function()
-            self.settings.hiddenToys[itemId] = true;
-            self:FilterToys();
-            ToyBox_UpdatePages();
-            ToyBox_UpdateButtons();
+            self.settings.hiddenToys[itemId] = true
+            self:FilterAndRefresh()
         end
     end
 
-    UIDropDownMenu_AddButton(info, level);
-    info.disabled = nil;
+    UIDropDownMenu_AddButton(info, level)
+    info.disabled = nil
 
     info.text = CANCEL
     info.func = nil
     UIDropDownMenu_AddButton(info, level)
 end
 
+function private:CreateFilterInfo(text, filterKey, subfilterKey, callback)
+    local info = UIDropDownMenu_CreateInfo()
+    info.keepShownOnClick = true
+    info.isNotRadio = true
+    info.text = text
+
+    if filterKey then
+        info.hasArrow = false
+        info.notCheckable = false
+        if subfilterKey then
+            info.checked = function() return self.settings.filter[filterKey][subfilterKey] end
+        else
+            info.checked = self.settings.filter[filterKey]
+        end
+        info.func = function(_, _, _, value)
+            ToyBox.firstCollectedToyID = 0
+            if subfilterKey then
+                self.settings.filter[filterKey][subfilterKey] = value
+            else
+                self.settings.filter[filterKey] = value
+            end
+            self:FilterAndRefresh()
+
+            if callback then
+                callback(value)
+            end
+        end
+    else
+        info.hasArrow = true
+        info.notCheckable = true
+    end
+
+    return info
+end
+
+function private:AddCheckAllAndNoneInfo(filterKey, level, dropdownLevel)
+    local info = self:CreateFilterInfo(CHECK_ALL)
+    info.hasArrow = false
+    info.func = function()
+        for key, _ in pairs(self.settings.filter[filterKey]) do
+            self.settings.filter[filterKey][key] = true
+        end
+
+        UIDropDownMenu_Refresh(ToyBoxFilterDropDown, dropdownLevel, 2)
+        self:FilterAndRefresh()
+    end
+    UIDropDownMenu_AddButton(info, level)
+
+    info = self:CreateFilterInfo(UNCHECK_ALL)
+    info.hasArrow = false
+    info.func = function()
+        for key, _ in pairs(self.settings.filter[filterKey]) do
+            self.settings.filter[filterKey][key] = false
+        end
+
+        UIDropDownMenu_Refresh(ToyBoxFilterDropDown, dropdownLevel, 2)
+        self:FilterAndRefresh()
+    end
+    UIDropDownMenu_AddButton(info, level)
+end
+
 function private:ToyBoxFilterDropDown_Initialize(sender, level)
-    local info = UIDropDownMenu_CreateInfo();
-    info.keepShownOnClick = true;
+    local info = UIDropDownMenu_CreateInfo()
+    info.keepShownOnClick = true
 
     if level == 1 then
-        info.text = COLLECTED
-        info.func = function(_, _, _, value)
-                        ToyBox.firstCollectedToyID = 0;
-                        self.settings.filter.collected = value;
-                        self:FilterToys();
-                        ToyBox_UpdatePages();
-                        ToyBox_UpdateButtons();
-
-                        if (value) then
-                            UIDropDownMenu_EnableButton(1,2);
-                        else
-                            UIDropDownMenu_DisableButton(1,2);
-                        end;
-                    end
-        info.checked = function() return self.settings.filter.collected; end;
-        info.isNotRadio = true;
+        info = self:CreateFilterInfo(COLLECTED, "collected", nil,  function(value)
+            if (value) then
+                UIDropDownMenu_EnableButton(1,2)
+            else
+                UIDropDownMenu_DisableButton(1,2)
+            end
+        end)
         UIDropDownMenu_AddButton(info, level)
 
-        info.text = FAVORITES_FILTER;
-        info.leftPadding = 16;
-        info.disabled = not self.settings.filter.collected;
-        info.checked = self.settings.filter.onlyFavorites;
-        info.isNotRadio = true;
-        info.notCheckable = false;
-        info.hasArrow = false;
-        info.func = function(_, _, _, value)
-            self.settings.filter.onlyFavorites = value;
-            self:FilterToys();
-            ToyBox_UpdatePages();
-            ToyBox_UpdateButtons();
-         end
-        UIDropDownMenu_AddButton(info, level);
-
-        info.leftPadding = 0;
-        info.disabled = false;
-
-        info.text = NOT_COLLECTED
-        info.func = function(_, _, _, value)
-                        ToyBox.firstCollectedToyID = 0;
-                        self.settings.filter.notCollected = value;
-                        self:FilterToys();
-                        ToyBox_UpdatePages();
-                        ToyBox_UpdateButtons();
-                    end
-        info.checked = function() return self.settings.filter.notCollected; end;
-        info.isNotRadio = true;
+        info = self:CreateFilterInfo(FAVORITES_FILTER, "onlyFavorites")
+        info.leftPadding = 16
+        info.disabled = not self.settings.filter.collected
         UIDropDownMenu_AddButton(info, level)
 
-        info.text = L["Only usable"];
-        info.func = function(_, _, _, value)
-            self.settings.filter.onlyUsable = value;
-            self:FilterToys();
-            ToyBox_UpdatePages();
-            ToyBox_UpdateButtons();
-        end
-        info.checked = self.settings.filter.onlyUsable;
-        info.isNotRadio = true;
-        info.notCheckable = false;
-        info.hasArrow = false;
-        UIDropDownMenu_AddButton(info, level);
+        info.leftPadding = 0
+        info.disabled = false
 
-        info.checked =     nil;
-        info.isNotRadio = nil;
-        info.func =  nil;
-        info.hasArrow = true;
-        info.notCheckable = true;
-
-        info.text = SOURCES
-        info.value = 1;
+        info = self:CreateFilterInfo(NOT_COLLECTED, "notCollected")
         UIDropDownMenu_AddButton(info, level)
 
-        info.text = FACTION;
-        info.isNotRadio = true;
-        info.notCheckable = true;
-        info.hasArrow = true;
-        info.value = 2;
-        UIDropDownMenu_AddButton(info, level);
+        info = self:CreateFilterInfo(L["Only usable"], "onlyUsable")
+        UIDropDownMenu_AddButton(info, level)
 
-        info.text = L["Profession"];
-        info.isNotRadio = true;
-        info.notCheckable = true;
-        info.hasArrow = true;
-        info.value = 3;
-        UIDropDownMenu_AddButton(info, level);
+        info = self:CreateFilterInfo(SOURCES)
+        info.value = 1
+        UIDropDownMenu_AddButton(info, level)
 
-        info.text = L["World Event"];
-        info.isNotRadio = true;
-        info.notCheckable = true;
-        info.hasArrow = true;
-        info.value = 4;
-        UIDropDownMenu_AddButton(info, level);
+        info = self:CreateFilterInfo(FACTION)
+        info.value = 2
+        UIDropDownMenu_AddButton(info, level)
 
-        info.text = L["Hidden"];
-        info.checked = self.settings.filter.hidden;
-        info.isNotRadio = true;
-        info.notCheckable = false;
-        info.hasArrow = false;
+        info = self:CreateFilterInfo(L["Profession"])
+        info.value = 3
+        UIDropDownMenu_AddButton(info, level)
+
+        info = self:CreateFilterInfo(L["World Event"])
+        info.value = 4
+        UIDropDownMenu_AddButton(info, level)
+
+        info = self:CreateFilterInfo(L["Hidden"], "hidden")
+        UIDropDownMenu_AddButton(info, level)
+
+        info = self:CreateFilterInfo(L["Reset filters"])
+        info.keepShownOnClick = false
+        info.hasArrow = false
         info.func = function(_, _, _, value)
-            self.settings.filter.hidden = value;
-            self:FilterToys();
-            ToyBox_UpdatePages();
-            ToyBox_UpdateButtons();
-         end
-        UIDropDownMenu_AddButton(info, level);
-        
-        info.text = L["Reset filters"];
-        info.keepShownOnClick = false;
-        info.notCheckable = true;
-        info.hasArrow = false;
-        info.func = function(_, _, _, value)
-            ToyBox.firstCollectedToyID = 0;
-            self.settings.filter.collected = true;
-            self.settings.filter.onlyFavorites = false;
-            self.settings.filter.notCollected = true;
-            self.settings.filter.onlyUsable = false;
-            self.settings.filter.hidden = false;
-            
-            for _, source in pairs(ToyBoxEnhancedSource) do
-                self.settings.filter.source[source.Name] = true;
-            end
-            
-            self.settings.filter.faction.alliance = true;
-            self.settings.filter.faction.horde = true;
-            self.settings.filter.faction.noFaction = true;
-            
-            for _, profession in pairs(ToyBoxEnhancedProfession) do
-                self.settings.filter.profession[profession.Name] = true;
-            end
-            
-            for _, worldEvent in pairs(ToyBoxEnhancedWorldEvent) do
-                self.settings.filter.worldEvent[worldEvent.Name] = true;
-            end
-            
-            self:FilterToys();
-            ToyBox_UpdatePages();
-            ToyBox_UpdateButtons();
+            ToyBox.firstCollectedToyID = 0
+            self.settings.filter = CopyTable(defaultFilterStates)
+            self:FilterAndRefresh()
         end
-        UIDropDownMenu_AddButton(info, level);
-    else
-        if (UIDROPDOWNMENU_MENU_VALUE == 1) then
-            info.hasArrow = false;
-            info.isNotRadio = true;
-            info.notCheckable = true;
+        UIDropDownMenu_AddButton(info, level)
 
-            info.text = CHECK_ALL
-            info.func = function()
-                            ToyBox.firstCollectedToyID = 0;
-                            for _, source in pairs(ToyBoxEnhancedSource) do
-                                self.settings.filter.source[source.Name] = true;
-                            end
-                            UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 1, 2);
-                            self:FilterToys();
-                            ToyBox_UpdatePages();
-                            ToyBox_UpdateButtons();
-                        end
+    elseif (UIDROPDOWNMENU_MENU_VALUE == 1) then
+        self:AddCheckAllAndNoneInfo("source", level, 1)
+        for _, sourceName in pairs(DropDownOrderSource) do
+            info = self:CreateFilterInfo(L[sourceName] or sourceName, "source", sourceName)
             UIDropDownMenu_AddButton(info, level)
-
-            info.text = UNCHECK_ALL
-            info.func = function()
-                            ToyBox.firstCollectedToyID = 0;
-                            for _, source in pairs(ToyBoxEnhancedSource) do
-                                self.settings.filter.source[source.Name] = false;
-                            end
-                            UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 1, 2);
-                            self:FilterToys();
-                            ToyBox_UpdatePages();
-                            ToyBox_UpdateButtons();
-                        end
-            UIDropDownMenu_AddButton(info, level)
-
-            for _, source in pairs(ToyBoxEnhancedSource) do
-                info.text = L[source.Name] or source.Name;
-                info.func = function(_, _, _, value)
-                    self.settings.filter.source[source.Name] = value;
-                    self:FilterToys();
-                    ToyBox_UpdatePages();
-                    ToyBox_UpdateButtons();
-                end
-                info.checked = function() return self.settings.filter.source[source.Name] ~= false; end;
-                info.isNotRadio = true;
-                info.notCheckable = false;
-                info.hasArrow = false;
-                UIDropDownMenu_AddButton(info, level);
-            end
         end
 
-        if (UIDROPDOWNMENU_MENU_VALUE == 2) then
-            info.text = FACTION_ALLIANCE;
-            info.func = function(_, _, _, value)
-                self.settings.filter.faction.alliance = value;
-                self:FilterToys();
-                ToyBox_UpdatePages();
-                ToyBox_UpdateButtons();
-            end
-            info.checked = self.settings.filter.faction.alliance;
-            info.isNotRadio = true;
-            info.notCheckable = false;
-            info.hasArrow = false;
-            UIDropDownMenu_AddButton(info, level);
+    elseif (UIDROPDOWNMENU_MENU_VALUE == 2) then
+        info = self:CreateFilterInfo(FACTION_ALLIANCE, "faction", "alliance")
+        UIDropDownMenu_AddButton(info, level)
+        info = self:CreateFilterInfo(FACTION_HORDE, "faction", "horde")
+        UIDropDownMenu_AddButton(info, level)
+        info = self:CreateFilterInfo(NPC_NAMES_DROPDOWN_NONE, "faction", "noFaction")
+        UIDropDownMenu_AddButton(info, level)
 
-            info.text = FACTION_HORDE;
-            info.func = function(_, _, _, value)
-                self.settings.filter.faction.horde = value;
-                self:FilterToys();
-                ToyBox_UpdatePages();
-                ToyBox_UpdateButtons();
-            end
-            info.checked = self.settings.filter.faction.horde;
-            info.isNotRadio = true;
-            info.notCheckable = false;
-            info.hasArrow = false;
-            UIDropDownMenu_AddButton(info, level);
-
-            info.text = NPC_NAMES_DROPDOWN_NONE;
-            info.func = function(_, _, _, value)
-                self.settings.filter.faction.noFaction = value;
-                self:FilterToys();
-                ToyBox_UpdatePages();
-                ToyBox_UpdateButtons();
-            end
-            info.checked = self.settings.filter.faction.noFaction;
-            info.isNotRadio = true;
-            info.notCheckable = false;
-            info.hasArrow = false;
-            UIDropDownMenu_AddButton(info, level);
+    elseif (UIDROPDOWNMENU_MENU_VALUE == 3) then
+        self:AddCheckAllAndNoneInfo("profession", level, 3)
+        for _, professionName in pairs(DropDownOrderProfessions) do
+            info = self:CreateFilterInfo(L[professionName] or professionName, "profession", professionName)
+            UIDropDownMenu_AddButton(info, level)
         end
 
-        if (UIDROPDOWNMENU_MENU_VALUE == 3) then
-            info.hasArrow = false;
-            info.isNotRadio = true;
-            info.notCheckable = true;
-
-            info.text = CHECK_ALL
-            info.func = function()
-                            ToyBox.firstCollectedToyID = 0;
-                            for _, profession in pairs(ToyBoxEnhancedProfession) do
-                                self.settings.filter.profession[profession.Name] = true;
-                            end
-                            UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 3, 2);
-                            self:FilterToys();
-                            ToyBox_UpdatePages();
-                            ToyBox_UpdateButtons();
-                        end
+    elseif (UIDROPDOWNMENU_MENU_VALUE == 4) then
+        self:AddCheckAllAndNoneInfo("worldEvent", level, 4)
+        for _, eventName in pairs(DropDownOrderWorldEvents) do
+            info = self:CreateFilterInfo(L[eventName] or eventName, "worldEvent", eventName)
             UIDropDownMenu_AddButton(info, level)
-
-            info.text = UNCHECK_ALL
-            info.func = function()
-                            ToyBox.firstCollectedToyID = 0;
-                            for _, profession in pairs(ToyBoxEnhancedProfession) do
-                                self.settings.filter.profession[profession.Name] = false;
-                            end
-                            UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 3, 2);
-                            self:FilterToys();
-                            ToyBox_UpdatePages();
-                            ToyBox_UpdateButtons();
-                        end
-            UIDropDownMenu_AddButton(info, level)
-
-            for _, profession in pairs(ToyBoxEnhancedProfession) do
-                info.text = L[profession.Name] or profession.Name;
-                info.func = function(_, _, _, value)
-                    self.settings.filter.profession[profession.Name] = value;
-                    self:FilterToys();
-                    ToyBox_UpdatePages();
-                    ToyBox_UpdateButtons();
-                end
-                info.checked = function() return self.settings.filter.profession[profession.Name] ~= false; end;
-                info.isNotRadio = true;
-                info.notCheckable = false;
-                info.hasArrow = false;
-                UIDropDownMenu_AddButton(info, level);
-            end
-        end
-
-        if (UIDROPDOWNMENU_MENU_VALUE == 4) then
-            info.hasArrow = false;
-            info.isNotRadio = true;
-            info.notCheckable = true;
-
-            info.text = CHECK_ALL
-            info.func = function()
-                            ToyBox.firstCollectedToyID = 0;
-                            for _, worldEvent in pairs(ToyBoxEnhancedWorldEvent) do
-                                self.settings.filter.worldEvent[worldEvent.Name] = true;
-                            end
-                            UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 4, 2);
-                            self:FilterToys();
-                            ToyBox_UpdatePages();
-                            ToyBox_UpdateButtons();
-                        end
-            UIDropDownMenu_AddButton(info, level)
-
-            info.text = UNCHECK_ALL
-            info.func = function()
-                            ToyBox.firstCollectedToyID = 0;
-                            for _, worldEvent in pairs(ToyBoxEnhancedWorldEvent) do
-                                self.settings.filter.worldEvent[worldEvent.Name] = false;
-                            end
-                            UIDropDownMenu_Refresh(ToyBoxFilterDropDown, 4, 2);
-                            self:FilterToys();
-                            ToyBox_UpdatePages();
-                            ToyBox_UpdateButtons();
-                        end
-            UIDropDownMenu_AddButton(info, level)
-
-            for _, worldEvent in pairs(ToyBoxEnhancedWorldEvent) do
-                info.text = L[worldEvent.Name] or worldEvent.Name;
-                info.func = function(_, _, _, value)
-                    self.settings.filter.worldEvent[worldEvent.Name] = value;
-                    self:FilterToys();
-                    ToyBox_UpdatePages();
-                    ToyBox_UpdateButtons();
-                end
-                info.checked = function() return self.settings.filter.worldEvent[worldEvent.Name] ~= false; end;
-                info.isNotRadio = true;
-                info.notCheckable = false;
-                info.hasArrow = false;
-                UIDropDownMenu_AddButton(info, level);
-            end
         end
     end
 end
 
+-- endregion
+
 function private:ToySpellButton_OnClick(sender, button)
     if (IsModifiedClick()) then
-        if (IsModifiedClick("CHATLINK")) then
-            local itemLink = C_ToyBox.GetToyLink(sender.itemID);
-            if (itemLink) then
-                ChatEdit_InsertLink(itemLink);
-            end
-        end
+        ToySpellButton_OnModifiedClick(sender, button)
     elseif (not sender.isPassive and button ~= "LeftButton") then
-        ToyBox_ShowToyDropdown(sender.itemID, sender, 0, 0);
+        ToyBox_ShowToyDropdown(sender.itemID, sender, 0, 0)
     end
 end
 
 function private:ToySpellButton_OnEnter(sender)
     if (not InCombatLockdown()) then
-        sender:SetAttribute("type1", "toy");
-        sender:SetAttribute("toy", sender.itemID);
-        sender:SetAttribute("shift-action1", ATTRIBUTE_NOOP);
+        sender:SetAttribute("type1", "toy")
+        sender:SetAttribute("toy", sender.itemID)
+        sender:SetAttribute("shift-action1", ATTRIBUTE_NOOP)
     end
 end
 
 function private:ToySpellButton_OnLeave(sender)
     if (not InCombatLockdown()) then
-        sender:SetAttribute("type1", nil);
-        sender:SetAttribute("toy", nil);
-        sender:SetAttribute("shift-action1", ATTRIBUTE_NOOP);
+        sender:SetAttribute("type1", nil)
+        sender:SetAttribute("toy", nil)
+        sender:SetAttribute("shift-action1", ATTRIBUTE_NOOP)
     end
 
-    GameTooltip_Hide();
+    GameTooltip_Hide()
 end
 
 function private:ToySpellButton_UpdateButton(sender)
 
     if (sender.itemID == -1) then
-        return;
+        return
     end
 
-    local itemID, toyName, icon = C_ToyBox.GetToyInfo(sender.itemID);
+    local itemID, toyName, icon = C_ToyBox.GetToyInfo(sender.itemID)
     if (itemID == nil or toyName == nil) then
-        return;
+        return
     end
 
-    sender.slotFrameUncollectedInnerGlow:SetAlpha(0.18);
-    sender.iconTextureUncollected:SetAlpha(0.18);
+    sender.slotFrameUncollectedInnerGlow:SetAlpha(0.18)
+    sender.iconTextureUncollected:SetAlpha(0.18)
 
-    sender.IsHidden:SetShown(self.settings.hiddenToys[itemID]);
+    sender.IsHidden:SetShown(self.settings.hiddenToys[itemID])
 
     local alpha = 1.0
     if (PlayerHasToy(sender.itemID) and (InCombatLockdown() or not C_ToyBox.IsToyUsable(itemID))) then
         alpha = 0.25
     end
 
-    sender.name:SetAlpha(alpha);
-    sender.iconTexture:SetAlpha(alpha);
-    sender.slotFrameCollected:SetAlpha(alpha);
+    sender.name:SetAlpha(alpha)
+    sender.iconTexture:SetAlpha(alpha)
+    sender.slotFrameCollected:SetAlpha(alpha)
 end
 
+-- region filter functions
+
 function private:FilterToys()
-    local toyCount = C_ToyBox.GetNumTotalDisplayedToys();
+    local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
     if (org_GetNumFilteredToys() ~= toyCount) then
-        C_ToyBox.SetAllSourceTypeFilters(true);
-        C_ToyBox.SetFilterString("");
-        C_ToyBox.SetCollectedShown(true);
-        C_ToyBox.SetUncollectedShown(true);
+        C_ToyBox.SetAllSourceTypeFilters(true)
+        C_ToyBox.SetFilterString("")
+        C_ToyBox.SetCollectedShown(true)
+        C_ToyBox.SetUncollectedShown(true)
     end
 
-    self.filteredToyList = {};
+    self.filteredToyList = {}
+
+    local doNameFilter = false
+    if (self.filterString and string.len(self.filterString) > 0) then
+        doNameFilter = true
+    end
 
     for toyIndex = 1, toyCount do
-        local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex));
-        local collected = PlayerHasToy(itemId);
+        local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex))
+        local collected = PlayerHasToy(itemId)
 
-        if (self:FilterHiddenToys(name, itemId) and
-            self:FilterFavoriteToys(name, favorited) and
-            self:FilterUsableToys(name, itemId) and
-            self:FilterToysBySource(name, itemId, collected) and
-            self:FilterToysByFaction(name, itemId, collected) and
-            self:FilterToysByProfession(name, itemId, collected) and
-            self:FilterToysByWorldEvent(name, itemId, collected))
+        if ((doNameFilter and self:FilterToysByName(name))
+            or (not doNameFilter and
+                self:FilterHiddenToys(itemId) and
+                self:FilterCollectedToys(collected) and
+                self:FilterFavoriteToys(favorited) and
+                self:FilterUsableToys(itemId) and
+                self:FilterToysBySource(itemId) and
+                self:FilterToysByFaction(itemId) and
+                self:FilterToysByProfession(itemId) and
+                self:FilterToysByWorldEvent(itemId)))
         then
-            table.insert(self.filteredToyList, itemId);
+            table.insert(self.filteredToyList, itemId)
         end
     end
 
     if (self.toyCountFrame) then
-        self.toyCountFrame.uniqueCount:SetText(C_ToyBox.GetNumLearnedDisplayedToys());
+        self.toyCountFrame.uniqueCount:SetText(C_ToyBox.GetNumLearnedDisplayedToys())
     end
 
     if (self.usableToyCountFrame) then
-        self.usableToyCountFrame.uniqueCount:SetText(self:GetUsableToysCount());
+        self.usableToyCountFrame.uniqueCount:SetText(self:GetUsableToysCount())
     end
 end
 
 function private:FilterToysByName(name)
     if (string.find(string.lower(name), self.filterString, 1, true)) then
-        return true;
+        return true
     else
-        return false;
+        return false
     end
 end
 
-function private:FilterHiddenToys(name, itemId)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
-    end
-
-    if (self.settings.filter.hidden) then
-        return true;
-    end
-
-    return not self.settings.hiddenToys[itemId];
+function private:FilterHiddenToys(itemId)
+    return self.settings.filter.hidden or not self.settings.hiddenToys[itemId]
 end
 
-function private:FilterFavoriteToys(name, isFavorite)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
-    end
-
-    if (not self.settings.filter.onlyFavorites) then
-        return true;
-    end
-
-    return isFavorite or not self.settings.filter.collected;
+function private:FilterCollectedToys(collected)
+    return (self.settings.filter.collected and collected) or (self.settings.filter.notCollected and not collected)
 end
 
-function private:FilterUsableToys(name, itemId)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
-    end
-
-    if (not self.settings.filter.onlyUsable) then
-        return true;
-    end
-
-    return C_ToyBox.IsToyUsable(itemId);
+function private:FilterFavoriteToys(isFavorite)
+    return not self.settings.filter.onlyFavorites or isFavorite or not self.settings.filter.collected
 end
 
-function private:FilterToysBySource(name, itemId, collected)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
-    end
+function private:FilterUsableToys(itemId)
+    return not self.settings.filter.onlyUsable or C_ToyBox.IsToyUsable(itemId)
+end
 
-    if (not self.settings.filter.collected and collected) then
-        return false;
-    end
-
-    if (not self.settings.filter.notCollected and not collected) then
-        return false;
-    end
-
-    local notContainded = true;
-
-    local allDisabled = true;
-    local allEnabled = true;
-    for _, value in pairs(self.settings.filter.source) do
+function private:CheckAllSettings(settings)
+    local allDisabled = true
+    local allEnabled = true
+    for _, value in pairs(settings) do
         if (value) then
-            allDisabled = false;
+            allDisabled = false
         else
-            allEnabled = false;
+            allEnabled = false
         end
     end
 
-    if (allEnabled) then
-        return true;
+    if allEnabled then
+        return true
+    elseif allDisabled then
+        return false
     end
 
-    for source, value in pairs(self.settings.filter.source) do
-        for _, category in pairs(ToyBoxEnhancedSource) do
-            if (category.Name == source) then
-                if (category.Data[itemId]) then
-                    if (value) then
-                        return true;
-                    else
-                        notContainded = false;
-                    end
-                end
-                break;
-            end
-        end
-    end
-
-    return notContainded and (allDisabled or allEnabled);
+    return nil
 end
 
-function private:FilterToysByFaction(name, itemId, collected)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
-    end
+function private:CheckItemInList(settings, sourceData, itemId)
+    local isInList = false
 
-    if (not self.settings.filter.collected and collected) then
-        return false;
-    end
-
-    if (not self.settings.filter.notCollected and not collected) then
-        return false;
-    end
-
-    local notContainded = true;
-
-    local allDisabled = true;
-    local allEnabled = true;
-    for _, value in pairs(self.settings.filter.faction) do
-        if (value) then
-            allDisabled = false;
-        else
-            allEnabled = false;
+    for setting, value in pairs(settings) do
+        if sourceData[setting] and sourceData[setting][itemId] then
+            if (value) then
+                return true
+            else
+                isInList = true
+            end
         end
     end
 
-    if (allEnabled) then
-        return true;
+    if isInList then
+        return false
     end
 
-    if (ToyBoxEnhancedFaction.alliance[itemId]) then
-        if (self.settings.filter.faction.alliance) then
-            return true;
-        else
-            notContainded = false;
-        end
-    end
-
-    if (ToyBoxEnhancedFaction.horde[itemId]) then
-        if (self.settings.filter.faction.horde) then
-            return true;
-        else
-            notContainded = false;
-        end
-    end
-
-    return self.settings.filter.faction.noFaction and notContainded;
+    return nil
 end
 
-function private:FilterToysByProfession(name, itemId, collected)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
+function private:FilterToysBySource(itemId)
+
+    local allSettings = self:CheckAllSettings(self.settings.filter.source)
+    if allSettings then
+        return true
     end
 
-    if (not self.settings.filter.collected and collected) then
-        return false;
+    local settingResult = self:CheckItemInList(self.settings.filter.source, ToyBoxEnhancedSource, itemId)
+    if settingResult ~= nil then
+        return settingResult
     end
 
-    if (not self.settings.filter.notCollected and not collected) then
-        return false;
-    end
-
-    local notContainded = true;
-
-    local allDisabled = true;
-    local allEnabled = true;
-    for _, value in pairs(self.settings.filter.profession) do
-        if (value) then
-            allDisabled = false;
-        else
-            allEnabled = false;
-        end
-    end
-
-    if (allEnabled) then
-        return true;
-    end
-
-    for profession, value in pairs(self.settings.filter.profession) do
-        for _, category in pairs(ToyBoxEnhancedProfession) do
-            if (category.Name == profession) then
-                if (category.Data[itemId]) then
-                    if (value) then
-                        return true;
-                    else
-                        notContainded = false;
-                    end
-                end
-                break;
-            end
-        end
-    end
-
-    if (not notContainded) then
-        return false;
-    end
-
-    local isProfessionItem = false;
-    for _, category in pairs(ToyBoxEnhancedSource) do
-        if (category.Name == "Profession") then
-            if (category.Data[itemId]) then
-                isProfessionItem = true;
-            end
-            break;
-        end
-    end
-
-    return isProfessionItem and (allDisabled or allEnabled);
+    return allSettings == false
 end
 
-function private:FilterToysByWorldEvent(name, itemId, collected)
-    if (self.filterString and string.len(self.filterString) > 0) then
-        return self:FilterToysByName(name);
+function private:FilterToysByFaction(itemId)
+
+    local allSettings = self:CheckAllSettings(self.settings.filter.faction)
+    if allSettings then
+        return true
     end
 
-    if (not self.settings.filter.collected and collected) then
-        return false;
+    local settingResult = self:CheckItemInList(self.settings.filter.faction, ToyBoxEnhancedFaction, itemId)
+    if settingResult ~= nil then
+        return settingResult
     end
 
-    if (not self.settings.filter.notCollected and not collected) then
-        return false;
-    end
-
-    local notContainded = true;
-
-    local allDisabled = true;
-    local allEnabled = true;
-    for _, value in pairs(self.settings.filter.worldEvent) do
-        if (value) then
-            allDisabled = false;
-        else
-            allEnabled = false;
-        end
-    end
-
-    if (allEnabled) then
-        return true;
-    end
-
-    for worldEvent, value in pairs(self.settings.filter.worldEvent) do
-        for _, category in pairs(ToyBoxEnhancedWorldEvent) do
-            if (category.Name == worldEvent) then
-                if (category.Data[itemId]) then
-                    if (value) then
-                        return true;
-                    else
-                        notContainded = false;
-                    end
-                end
-                break;
-            end
-        end
-    end
-
-    if (not notContainded) then
-        return false;
-    end
-
-    local isWorldEventItem = false;
-    for _, category in pairs(ToyBoxEnhancedSource) do
-        if (category.Name == "World Event") then
-            if (category.Data[itemId]) then
-                isWorldEventItem = true;
-            end
-            break;
-        end
-    end
-
-    return isWorldEventItem and (allDisabled or allEnabled);
+    return self.settings.filter.faction.noFaction
 end
+
+function private:FilterToysByProfession(itemId)
+
+    local allSettings = self:CheckAllSettings(self.settings.filter.profession)
+    if allSettings then
+        return true
+    end
+
+    local settingResult = self:CheckItemInList(self.settings.filter.profession, ToyBoxEnhancedProfession, itemId)
+    if settingResult ~= nil then
+        return settingResult
+    end
+
+    if ToyBoxEnhancedSource["Profession"][itemId] then
+        return allSettings == false
+    end
+
+    return false
+end
+
+function private:FilterToysByWorldEvent(itemId)
+    local notContainded = true
+
+    local allSettings = self:CheckAllSettings(self.settings.filter.worldEvent)
+    if allSettings then
+        return true
+    end
+
+    local settingResult = self:CheckItemInList(self.settings.filter.worldEvent, ToyBoxEnhancedWorldEvent, itemId)
+    if settingResult ~= nil then
+        return settingResult
+    end
+
+    if ToyBoxEnhancedSource["World Event"][itemId] then
+        return allSettings == false
+    end
+
+    return false
+end
+
+-- endregion
 
 function private:GetUsableToysCount()
-    local toyCount = C_ToyBox.GetNumTotalDisplayedToys();
+    local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
     if (org_GetNumFilteredToys() ~= toyCount) then
-        C_ToyBox.SetAllSourceTypeFilters(true);
-        C_ToyBox.SetFilterString("");
-        C_ToyBox.SetCollectedShown(true);
-        C_ToyBox.SetUncollectedShown(true);
+        C_ToyBox.SetAllSourceTypeFilters(true)
+        C_ToyBox.SetFilterString("")
+        C_ToyBox.SetCollectedShown(true)
+        C_ToyBox.SetUncollectedShown(true)
     end
 
-    local usableCount = 0;
+    local usableCount = 0
 
-    local toyCount = C_ToyBox.GetNumTotalDisplayedToys();
+    local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
     for toyIndex = 1, toyCount do
-        local itemId = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex));
+        local itemId = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex))
         if (PlayerHasToy(itemId) and C_ToyBox.IsToyUsable(itemId)) then
-            usableCount = usableCount + 1;
+            usableCount = usableCount + 1
         end
     end
 
-    return usableCount;
+    return usableCount
 end
 
 function private:Load()
-    self:LoadUI();
-    self:LoadDebugMode();
+    self:LoadUI()
+    self:LoadDebugMode()
 
-    self:AddEventHandler("TOYS_UPDATED", function(...) self:OnToysUpdated(...); end);
-    self:AddEventHandler("ACHIEVEMENT_EARNED", function() self:OnAchievement(); end);
-    self:AddEventHandler("PLAYER_REGEN_ENABLED", function() self:OnCombatStateChanged(); end);
-    self:AddEventHandler("PLAYER_REGEN_DISABLED", function() self:OnCombatStateChanged(); end);
+    self:AddEventHandler("TOYS_UPDATED", function(...) self:OnToysUpdated(...) end)
+    self:AddEventHandler("ACHIEVEMENT_EARNED", function() self:OnAchievement() end)
+    self:AddEventHandler("PLAYER_REGEN_ENABLED", function() self:OnCombatStateChanged() end)
+    self:AddEventHandler("PLAYER_REGEN_DISABLED", function() self:OnCombatStateChanged() end)
 
-    self:AddSlashCommand("TOYBOXENHANCED", function(...) self:OnSlashCommand(...) end, 'toyboxenhanced', 'tbe');
+    self:AddSlashCommand("TOYBOXENHANCED", function(...) self:OnSlashCommand(...) end, 'toyboxenhanced', 'tbe')
 end
 
 function private:OnToysUpdated(event, ...)
-    local itemID, new = ...;
+    local itemID, new = ...
 
     if (ToyBox:IsVisible()) then
-        self:FilterToys();
-        ToyBox_UpdatePages();
-        ToyBox_UpdateButtons();
+        self:FilterAndRefresh()
     end
 end
 
 function private:OnAchievement()
-    self.achievementFrame.staticText:SetText(GetCategoryAchievementPoints(TOY_ACHIEVEMENT_CATEGORY, true));
+    self.achievementFrame.staticText:SetText(GetCategoryAchievementPoints(TOY_ACHIEVEMENT_CATEGORY, true))
 end
 
 function private:OnCombatStateChanged()
     if (ToyBox:IsVisible()) then
-        self:FilterToys();
-        ToyBox_UpdatePages();
-        ToyBox_UpdateButtons();
+        self:FilterAndRefresh()
     end
 end
 
 function private:OnSlashCommand(command, parameter1, parameter2)
     if (command == "debug") then
         if (parameter1 == "on") then
-            self.settings.debugMode = true;
-            print("ToyBoxEnhanced: Debug mode activated.");
-            return;
+            self.settings.debugMode = true
+            print("ToyBoxEnhanced: Debug mode activated.")
+        elseif (parameter1 == "off") then
+            self.settings.debugMode = false
+            print("ToyBoxEnhanced: Debug mode deactivated.")
         end
-
-        if (parameter1 == "off") then
-            self.settings.debugMode = false;
-            print("ToyBoxEnhanced: Debug mode deactivated.");
-            return;
-        end
+    else
+        print("Syntax:")
+        print("/tbe debug (on | off)")
     end
-
-    print("Syntax:");
-    print("/tbe debug (on | off)");
 end
