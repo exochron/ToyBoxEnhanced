@@ -4,9 +4,10 @@ local TOYS_PER_PAGE = 18
 local COLLECTION_ACHIEVEMENT_CATEGORY = 15246
 local TOY_ACHIEVEMENT_CATEGORY = 15247
 
-local DropDownOrderSource = {"Treasure", "Drop", "Quest", "Vendor", "Profession", "Instance", "Reputation", "Achievement", "Garrison", "Order Hall", "World Event", "Pick Pocket", "Black Market", "Promotion"}
-local DropDownOrderProfessions = {"Jewelcrafting", "Enchanting", "Engineering", "Inscription", "Leatherworking", "Archaeology", "Cooking", "Fishing"}
-local DropDownOrderWorldEvents = {"Timewalking", "Darkmoon Faire", "Lunar Festival", "Love is in the Air", "Children's Week", "Midsummer Fire Festival", "Brewfest", "Hallow's End", "Day of the Dead", "Pilgrim's Bounty", "Pirates' Day", "Feast of Winter Veil"}
+local DropDownOrderSource = { "Profession", "World Event", "Treasure", "Drop", "Quest", "Vendor", "Instance", "Reputation", "Achievement", "Garrison", "Order Hall", "Pick Pocket", "Black Market", "Promotion" }
+local DropDownOrderProfessions = { "Jewelcrafting", "Enchanting", "Engineering", "Inscription", "Leatherworking", "Archaeology", "Cooking", "Fishing" }
+local DropDownOrderWorldEvents = { "Timewalking", "Darkmoon Faire", "Lunar Festival", "Love is in the Air", "Children's Week", "Midsummer Fire Festival", "Brewfest", "Hallow's End", "Day of the Dead", "Pilgrim's Bounty", "Pirates' Day", "Feast of Winter Veil" }
+local DropDownOrderExpansions = { "Classic", "The Burning Crusade", "Wrath of the Lich King", "Cataclysm", "Mists of Pandaria", "Warlords of Draenor", "Legion" }
 
 local L = CoreFramework:GetModule("Localization", "1.1"):GetLocalization(ADDON_NAME)
 
@@ -27,6 +28,7 @@ local initialState = {
             },
             profession = { },
             worldEvent = { },
+            expansion = { },
             hidden = false,
         },
     },
@@ -39,6 +41,9 @@ for name, _ in pairs(ToyBoxEnhancedProfession) do
 end
 for name, _ in pairs(ToyBoxEnhancedWorldEvent) do
     initialState.settings.filter.worldEvent[name] = true
+end
+for name, _ in pairs(ToyBoxEnhancedExpansion) do
+    initialState.settings.filter.expansion[name] = true
 end
 local defaultFilterStates = CopyTable(initialState.settings.filter)
 local dependencies = {
@@ -70,7 +75,7 @@ end
 -- region initialize UI
 function private:LoadUI()
     PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1) end end)
-    
+
     ToyBox.searchBox:SetScript("OnTextChanged", function(sender) self:ToyBox_OnSearchTextChanged(sender) end)
 
     hooksecurefunc(ToyBox.toyOptionsMenu, "initialize", function(sender, level) UIDropDownMenu_InitializeHelper(sender) self:ToyBoxOptionsMenu_Init(sender, level) end)
@@ -174,7 +179,10 @@ function private:LoadDebugMode()
         local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
         for toyIndex = 1, toyCount do
             local itemId = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex))
-            if (not self:ContainsItem(ToyBoxEnhancedSource, itemId)) then
+            if (not self:ContainsItem(ToyBoxEnhancedSource, itemId)
+                and not self:ContainsItem(ToyBoxEnhancedProfession, itemId)
+                and not self:ContainsItem(ToyBoxEnhancedWorldEvent, itemId)
+            ) then
                 print("New toy (by Source): " .. itemId)
             end
         end
@@ -300,15 +308,17 @@ function private:CreateFilterInfo(text, filterKey, subfilterKey, callback)
     return info
 end
 
-function private:AddCheckAllAndNoneInfo(filterKey, level, dropdownLevel)
+function private:AddCheckAllAndNoneInfo(filterKeys, level, dropdownLevel)
     local info = self:CreateFilterInfo(CHECK_ALL)
     info.hasArrow = false
     info.func = function()
-        for key, _ in pairs(self.settings.filter[filterKey]) do
-            self.settings.filter[filterKey][key] = true
+        for _, filterKey in pairs(filterKeys) do
+            for key, _ in pairs(self.settings.filter[filterKey]) do
+                self.settings.filter[filterKey][key] = true
+            end
         end
 
-        UIDropDownMenu_Refresh(ToyBoxFilterDropDown, dropdownLevel, 2)
+        UIDropDownMenu_Refresh(ToyBoxFilterDropDown, dropdownLevel, level)
         self:FilterAndRefresh()
     end
     UIDropDownMenu_AddButton(info, level)
@@ -316,11 +326,13 @@ function private:AddCheckAllAndNoneInfo(filterKey, level, dropdownLevel)
     info = self:CreateFilterInfo(UNCHECK_ALL)
     info.hasArrow = false
     info.func = function()
-        for key, _ in pairs(self.settings.filter[filterKey]) do
-            self.settings.filter[filterKey][key] = false
+        for _, filterKey in pairs(filterKeys) do
+            for key, _ in pairs(self.settings.filter[filterKey]) do
+                self.settings.filter[filterKey][key] = false
+            end
         end
 
-        UIDropDownMenu_Refresh(ToyBoxFilterDropDown, dropdownLevel, 2)
+        UIDropDownMenu_Refresh(ToyBoxFilterDropDown, dropdownLevel, level)
         self:FilterAndRefresh()
     end
     UIDropDownMenu_AddButton(info, level)
@@ -331,11 +343,11 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
     info.keepShownOnClick = true
 
     if level == 1 then
-        info = self:CreateFilterInfo(COLLECTED, "collected", nil,  function(value)
+        info = self:CreateFilterInfo(COLLECTED, "collected", nil, function(value)
             if (value) then
-                UIDropDownMenu_EnableButton(1,2)
+                UIDropDownMenu_EnableButton(1, 2)
             else
-                UIDropDownMenu_DisableButton(1,2)
+                UIDropDownMenu_DisableButton(1, 2)
             end
         end)
         UIDropDownMenu_AddButton(info, level)
@@ -344,9 +356,6 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
         info.leftPadding = 16
         info.disabled = not self.settings.filter.collected
         UIDropDownMenu_AddButton(info, level)
-
-        info.leftPadding = 0
-        info.disabled = false
 
         info = self:CreateFilterInfo(NOT_COLLECTED, "notCollected")
         UIDropDownMenu_AddButton(info, level)
@@ -362,12 +371,8 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
         info.value = 2
         UIDropDownMenu_AddButton(info, level)
 
-        info = self:CreateFilterInfo(L["Profession"])
-        info.value = 3
-        UIDropDownMenu_AddButton(info, level)
-
-        info = self:CreateFilterInfo(L["World Event"])
-        info.value = 4
+        info = self:CreateFilterInfo(L["Expansion"])
+        info.value = 5
         UIDropDownMenu_AddButton(info, level)
 
         info = self:CreateFilterInfo(L["Hidden"], "hidden")
@@ -384,9 +389,17 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
         UIDropDownMenu_AddButton(info, level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == 1) then
-        self:AddCheckAllAndNoneInfo("source", level, 1)
+        self:AddCheckAllAndNoneInfo({ "source", "profession", "worldEvent" }, level, 1)
         for _, sourceName in pairs(DropDownOrderSource) do
-            info = self:CreateFilterInfo(L[sourceName] or sourceName, "source", sourceName)
+            if sourceName == "Profession" then
+                info = self:CreateFilterInfo(L[sourceName])
+                info.value = 3
+            elseif sourceName == "World Event" then
+                info = self:CreateFilterInfo(L[sourceName])
+                info.value = 4
+            else
+                info = self:CreateFilterInfo(L[sourceName], "source", sourceName)
+            end
             UIDropDownMenu_AddButton(info, level)
         end
 
@@ -399,16 +412,23 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
         UIDropDownMenu_AddButton(info, level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == 3) then
-        self:AddCheckAllAndNoneInfo("profession", level, 3)
+        self:AddCheckAllAndNoneInfo({ "profession" }, level, 3)
         for _, professionName in pairs(DropDownOrderProfessions) do
-            info = self:CreateFilterInfo(L[professionName] or professionName, "profession", professionName)
+            info = self:CreateFilterInfo(L[professionName], "profession", professionName)
             UIDropDownMenu_AddButton(info, level)
         end
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == 4) then
-        self:AddCheckAllAndNoneInfo("worldEvent", level, 4)
+        self:AddCheckAllAndNoneInfo({ "worldEvent" }, level, 4)
         for _, eventName in pairs(DropDownOrderWorldEvents) do
-            info = self:CreateFilterInfo(L[eventName] or eventName, "worldEvent", eventName)
+            info = self:CreateFilterInfo(L[eventName], "worldEvent", eventName)
+            UIDropDownMenu_AddButton(info, level)
+        end
+
+    elseif (UIDROPDOWNMENU_MENU_VALUE == 5) then
+        self:AddCheckAllAndNoneInfo({ "expansion" }, level, 5)
+        for _, expansion in pairs(DropDownOrderExpansions) do
+            info = self:CreateFilterInfo(L[expansion], "expansion", expansion)
             UIDropDownMenu_AddButton(info, level)
         end
     end
@@ -491,16 +511,17 @@ function private:FilterToys()
         local collected = PlayerHasToy(itemId)
 
         if ((doNameFilter and self:FilterToysByName(name))
-            or (not doNameFilter and
-                self:FilterHiddenToys(itemId) and
-                self:FilterCollectedToys(collected) and
-                self:FilterFavoriteToys(favorited) and
-                self:FilterUsableToys(itemId) and
-                self:FilterToysBySource(itemId) and
-                self:FilterToysByFaction(itemId) and
-                self:FilterToysByProfession(itemId) and
-                self:FilterToysByWorldEvent(itemId)))
-        then
+            or (not doNameFilter
+                and self:FilterHiddenToys(itemId)
+                and self:FilterCollectedToys(collected)
+                and self:FilterFavoriteToys(favorited)
+                and self:FilterUsableToys(itemId)
+                and self:FilterToysByFaction(itemId)
+                and self:FilterToysByExpansion(itemId)
+                and ( self:FilterToysBySource(itemId)
+                    or self:FilterToysByProfession(itemId)
+                    or self:FilterToysByWorldEvent(itemId)
+        ))) then
             table.insert(self.filteredToyList, itemId)
         end
     end
@@ -578,21 +599,6 @@ function private:CheckItemInList(settings, sourceData, itemId)
     return nil
 end
 
-function private:FilterToysBySource(itemId)
-
-    local allSettings = self:CheckAllSettings(self.settings.filter.source)
-    if allSettings then
-        return true
-    end
-
-    local settingResult = self:CheckItemInList(self.settings.filter.source, ToyBoxEnhancedSource, itemId)
-    if settingResult ~= nil then
-        return settingResult
-    end
-
-    return allSettings == false
-end
-
 function private:FilterToysByFaction(itemId)
 
     local allSettings = self:CheckAllSettings(self.settings.filter.faction)
@@ -608,40 +614,41 @@ function private:FilterToysByFaction(itemId)
     return self.settings.filter.faction.noFaction
 end
 
-function private:FilterToysByProfession(itemId)
-
-    local allSettings = self:CheckAllSettings(self.settings.filter.profession)
-    if allSettings then
+function private:FilterToysBySource(itemId)
+    if self:CheckAllSettings(self.settings.filter.source) then
         return true
     end
 
-    local settingResult = self:CheckItemInList(self.settings.filter.profession, ToyBoxEnhancedProfession, itemId)
-    if settingResult ~= nil then
-        return settingResult
-    end
+    return self:CheckItemInList(self.settings.filter.source, ToyBoxEnhancedSource, itemId)
+end
 
-    if ToyBoxEnhancedSource["Profession"][itemId] then
-        return allSettings == false
-    end
-
-    return false
+function private:FilterToysByProfession(itemId)
+    return self:CheckItemInList(self.settings.filter.profession, ToyBoxEnhancedProfession, itemId)
 end
 
 function private:FilterToysByWorldEvent(itemId)
-    local notContainded = true
+    return self:CheckItemInList(self.settings.filter.worldEvent, ToyBoxEnhancedWorldEvent, itemId)
+end
 
-    local allSettings = self:CheckAllSettings(self.settings.filter.worldEvent)
-    if allSettings then
+function private:FilterToysByExpansion(itemId)
+
+    local settingsResult = self:CheckAllSettings(self.settings.filter.expansion)
+    if settingsResult then
         return true
     end
 
-    local settingResult = self:CheckItemInList(self.settings.filter.worldEvent, ToyBoxEnhancedWorldEvent, itemId)
+    local settingResult = self:CheckItemInList(self.settings.filter.expansion, ToyBoxEnhancedExpansion, itemId)
     if settingResult ~= nil then
         return settingResult
     end
 
-    if ToyBoxEnhancedSource["World Event"][itemId] then
-        return allSettings == false
+    for expansion, value in pairs(self.settings.filter.expansion) do
+        if ToyBoxEnhancedExpansion[expansion] and
+                ToyBoxEnhancedExpansion[expansion]["minID"] <= itemId and
+                itemId <= ToyBoxEnhancedExpansion[expansion]["maxID"]
+        then
+            return value
+        end
     end
 
     return false

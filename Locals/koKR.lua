@@ -12,26 +12,13 @@ L["Reset filters"] = "분류 초기화";
 
 -- Source
 L["Treasure"] = "보물";
-L["Drop"] = "드랍";
-L["Quest"] = "퀘스트";
-L["Vendor"] = "상인";
-L["Profession"] = "전문기술";
-L["Instance"] = "던전";
-L["Reputation"] = "평판";
-L["Achievement"] = "업적";
-L["Garrison"] = "추종자";
 L["Order Hall"] = "연맹 전당";
-L["World Event"] = "월드 이벤트";
 L["Pick Pocket"] = "훔치기";
 L["Black Market"] = "암시장 경매장";
-L["Promotion"] = "프로모션";
 
 -- Profession
 L["Jewelcrafting"] = "보석세공";
-L["Archaeology"] = "고고학";
-L["Cooking"] = "요리";
 L["Engineering"] = "기계공학";
-L["Fishing"] = "낚시";
 L["Leatherworking"] = "가죽세공";
 L["Enchanting"] = "마법부여";
 L["Inscription"] = "주문각인";

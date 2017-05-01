@@ -12,26 +12,13 @@ L["Reset filters"] = "Reiniciar Filtros"
 
 -- Source
 L["Treasure"] = "Tesoro"
-L["Drop"] = "Caida"
-L["Quest"] = "Misión"
-L["Vendor"] = "Vendedor"
-L["Profession"] = "Profesión"
-L["Instance"] = "Estancia"
-L["Reputation"] = "Reputación"
-L["Achievement"] = "Logro"
-L["Garrison"] = "Ciudadela"
 L["Order Hall"] = "Sede de clase"
-L["World Event"] = "Evento del mundo"
 L["Pick Pocket"] = "Robado"
 L["Black Market"] = "Mercado Negro"
-L["Promotion"] = "Promoción"
 
 -- Profession
 L["Jewelcrafting"] = "Joyería"
-L["Archaeology"] = "Arqueología"
-L["Cooking"] = "Cocina"
 L["Engineering"] = "Ingeniería"
-L["Fishing"] = "Pesca"
 L["Leatherworking"] = "Peletería";
 L["Enchanting"] = "Encantamiento";
 L["Inscription"] = "Inscripción";
