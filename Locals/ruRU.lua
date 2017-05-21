@@ -12,26 +12,13 @@ L["Reset filters"] = "Сбросить фильтры";
 
 -- Source
 L["Treasure"] = "Сокровище";
-L["Drop"] = "Добыча";
-L["Quest"] = "Задание";
-L["Vendor"] = "Продавец";
-L["Profession"] = "Профессия";
-L["Instance"] = "Подземелье";
-L["Reputation"] = "Репутация";
-L["Achievement"] = "Достижение";
-L["Garrison"] = "Гарнизон";
-L["ORder Hall"] = "Оплот класса";
-L["World Event"] = "Игровое событие";
+L["Order Hall"] = "Оплот класса";
 L["Pick Pocket"] = "Обыскивание карманов";
 L["Black Market"] = "Черный рынок";
-L["Promotion"] = "Промо-акция";
 
 -- Profession
 L["Jewelcrafting"] = "Ювелирное дело";
-L["Archaeology"] = "Археология";
-L["Cooking"] = "Кулинария";
 L["Engineering"] = "Инженерное дело";
-L["Fishing"] = "Рыбная ловля";
 L["Leatherworking"] = "Кожевничество";
 L["Enchanting"] = "Наложение чар";
 L["Inscription"] = "Начертание";

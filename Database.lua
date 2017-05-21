@@ -1,14 +1,3 @@
-local function flattenTable(source)
-    local result = {}
-    for _, category in pairs(source) do
-        for id, name in pairs(category) do
-            result[id] = name
-        end
-    end
-
-    return result
-end
-
 ToyBoxEnhancedWorldEvent = {
 
     ["Timewalking"] = {
@@ -121,7 +110,7 @@ ToyBoxEnhancedWorldEvent = {
         [139337] = "Disposable Winter Veil Suits",
         [128636] = "Endothermic Blaster",
     },
-};
+}
 
 ToyBoxEnhancedProfession = {
     ["Jewelcrafting"] = {
@@ -202,7 +191,7 @@ ToyBoxEnhancedProfession = {
     ["Inscription"] = {
         [129211] = "Steamy Romance Novel Kit",
     },
-};
+}
 
 ToyBoxEnhancedFaction = {
     alliance = {
@@ -244,7 +233,7 @@ ToyBoxEnhancedFaction = {
         [128471] = "Frostwolf Grunt's Battlegear",
         [95568] = "Sunreaver Beacon",
     },
-};
+}
 
 ToyBoxEnhancedSource = {
     ["Treasure"] = {
@@ -486,8 +475,6 @@ ToyBoxEnhancedSource = {
         [141862] = "Mote of Light",
     },
 
-    ["Profession"] = flattenTable(ToyBoxEnhancedProfession),
-
     ["Instance"] = {
         -- Stratholme
         [13379] = "Piccolo of the Flaming Fire",
@@ -643,8 +630,6 @@ ToyBoxEnhancedSource = {
         [140160] = "Stormforged Vrykul Horn",
     },
 
-    ["World Event"] = flattenTable(ToyBoxEnhancedWorldEvent),
-
     ["Pick Pocket"] = {
         [36862] = "Worn Troll Dice",
         [36863] = "Decahedral Dwarven Dice",
@@ -695,4 +680,54 @@ ToyBoxEnhancedSource = {
         -- Blizzard Store
         [112324] = "Nightmarish Hitching Post",
     },
-};
+}
+
+ToyBoxEnhancedExpansion = {
+
+    ["Classic"] = {
+        ["minID"] = 0,
+        ["maxID"] = 23700,
+    },
+
+    ["The Burning Crusade"] = {
+        ["minID"] = 23767,
+        ["maxID"] = 36861,
+        [37710] = "Crashin' Thrashin' Racer Controller",
+        [38301] = "D.I.S.C.O.",
+    },
+
+    ["Wrath of the Lich King"] = {
+        ["minID"] = 36862,
+        ["maxID"] = 54653,
+    },
+
+    ["Cataclysm"] = {
+        ["minID"] = 54654,
+        ["maxID"] = 79999,
+        [40727] = "Gnomish Gravity Well",
+        [46709] = "MiniZep Controller",
+        [53057] = "Faded Wizard Hat",
+    },
+
+    ["Mists of Pandaria"] = {
+        ["minID"] = 80000,
+        ["maxID"] = 107999,
+    },
+
+    ["Warlords of Draenor"] = {
+        ["minID"] = 108000,
+        ["maxID"] = 128999,
+        [129926] = "Mark of the Ashtongue",
+        [129929] = "Ever-Shifting Mirror",
+        [129938] = "Will of Northrend",
+        [129952] = "Hourglass of Eternity",
+        [129965] = "Grizzlesnout's Fang",
+        [133511] = "Gurboggle's Gleaming Bauble",
+        [133542] = "Tosselwrench's Mega-Accurate Simulation Viewfinder",
+    },
+
+    ["Legion"] = {
+        ["minID"] = 129000,
+        ["maxID"] = 999999,
+    },
+}

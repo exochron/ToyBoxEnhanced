@@ -2,7 +2,7 @@
 ## Title: Toy Box Enhanced
 ## Notes: Extends the default Toy Box
 ## Author: eXochron
-## Version: 1.4
+## Version: 1.5
 ## SavedVariables: ToyBoxEnhancedSettings
 
 CoreFramework\CoreFramework.xml
