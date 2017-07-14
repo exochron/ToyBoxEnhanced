@@ -8,7 +8,10 @@ ToyBoxEnhancedWorldEvent = {
         [129965] = "Grizzlesnout's Fang",
         [133511] = "Gurboggle's Gleaming Bauble",
         [133542] = "Tosselwrench's Mega-Accurate Simulation Viewfinder",
+        [144072] = "Adopted Puppy Crate",
         [144393] = "Portable Yak Wash",
+        [151016] = "Fractured Necrolyte Skull",
+        [151184] = "Verdant Throwing Sphere",
     },
 
     ["Darkmoon Faire"] = {
@@ -29,6 +32,7 @@ ToyBoxEnhancedWorldEvent = {
         [126931] = "Seafarer's Slidewhistle",
         [97994] = "Darkmoon Seesaw",
         [138202] = "Sparklepony XL",
+        [151265] = "Blight Boar Microphone",
     },
 
     ["Lunar Festival"] = {
@@ -89,6 +93,7 @@ ToyBoxEnhancedWorldEvent = {
 
     ["Pirates' Day"] = {
         [138415] = "Slightly-Chewed Insult Book",
+        [150547] = "Jolly Roger",
     },
 
     ["Feast of Winter Veil"] = {
@@ -274,6 +279,7 @@ ToyBoxEnhancedSource = {
         [141298] = "Displacer Meditation Stone",
         [140780] = "Fal'dorei Egg",
         [143534] = "Wand of Simulated Life",
+        [130194] = "Silver Gilnean Brooch",
     },
 
     ["Drop"] = {
@@ -351,6 +357,7 @@ ToyBoxEnhancedSource = {
         [147843] = "Sira's Extra Cloak", -- from warden paragon cache
         [147867] = "Pilfered Sweeper",
         [140314] = "Crab Shank",
+        [129045] = "Whitewater Tsunami",
     },
 
     ["Quest"] = {
@@ -473,6 +480,11 @@ ToyBoxEnhancedSource = {
         [130151] = "The \"Devilsaur\" Lunchbox",
         [134004] = "Noble's Eternal Elementium Signet",
         [141862] = "Mote of Light",
+        [142452] = "Lingering Wyrmtongue Essence",
+        [150743] = "Surviving Kalimdor",
+        [150744] = "Walking Kalimdor with the Earthmother",
+        [150745] = "The Azeroth Campaign",
+        [150746] = "To Modernize the Provisioning of Azeroth",
     },
 
     ["Instance"] = {
@@ -569,6 +581,14 @@ ToyBoxEnhancedSource = {
         [143660] = "Mrgrglhjorn",
     },
 
+    ["PvP"] = {
+        -- Toys from prestige PvP system
+        [134026] = "Honorable Pennant",
+        [134031] = "Prestigious Pennant",
+        [134032] = "Elite Pennant",
+        [134034] = "Esteemed Pennant",
+    },
+
     ["Garrison"] = {
         [122700] = "Portable Audiophone",
 
@@ -635,6 +655,7 @@ ToyBoxEnhancedSource = {
         [36863] = "Decahedral Dwarven Dice",
         [63269] = "Loaded Gnomish Dice",
         [120857] = "Barrel of Bandanas",
+        [151877] = "Barrel of Eyepatches",
     },
 
     ["Black Market"] = {

@@ -22,6 +22,7 @@ L["Promotion"] = BATTLE_PET_SOURCE_8
 L["Instance"] = INSTANCE
 L["Reputation"] = REPUTATION
 L["Garrison"] = GARRISON_LOCATION_TOOLTIP
+L["PvP"] = PVP
 L["Treasure"] = "Treasure"
 L["Order Hall"] = "Order Hall"
 L["Pick Pocket"] = "Pick Pocket"

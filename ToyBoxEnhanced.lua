@@ -4,7 +4,7 @@ local TOYS_PER_PAGE = 18
 local COLLECTION_ACHIEVEMENT_CATEGORY = 15246
 local TOY_ACHIEVEMENT_CATEGORY = 15247
 
-local DropDownOrderSource = { "Profession", "World Event", "Treasure", "Drop", "Quest", "Vendor", "Instance", "Reputation", "Achievement", "Garrison", "Order Hall", "Pick Pocket", "Black Market", "Promotion" }
+local DropDownOrderSource = { "Profession", "World Event", "Treasure", "Drop", "Quest", "Vendor", "Instance", "Reputation", "Achievement", "PvP", "Garrison", "Order Hall", "Pick Pocket", "Black Market", "Promotion" }
 local DropDownOrderProfessions = { "Jewelcrafting", "Enchanting", "Engineering", "Inscription", "Leatherworking", "Archaeology", "Cooking", "Fishing" }
 local DropDownOrderWorldEvents = { "Timewalking", "Darkmoon Faire", "Lunar Festival", "Love is in the Air", "Children's Week", "Midsummer Fire Festival", "Brewfest", "Hallow's End", "Day of the Dead", "Pilgrim's Bounty", "Pirates' Day", "Feast of Winter Veil" }
 local DropDownOrderExpansions = { "Classic", "The Burning Crusade", "Wrath of the Lich King", "Cataclysm", "Mists of Pandaria", "Warlords of Draenor", "Legion" }
