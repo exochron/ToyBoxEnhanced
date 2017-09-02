@@ -77,6 +77,8 @@ ToyBoxEnhancedWorldEvent = {
         [70722] = "Little Wickerman",
         [128807] = "Coin of Many Faces",
         [128794] = "Sack of Spectral Spiders",
+        [151270] = "Horse Tail Costume",
+        [151271] = "Horse Head Costume",
     },
 
     ["Day of the Dead"] = {
@@ -114,6 +116,10 @@ ToyBoxEnhancedWorldEvent = {
         [108635] = "Crashin' Thrashin' Killdozer Controller",
         [139337] = "Disposable Winter Veil Suits",
         [128636] = "Endothermic Blaster",
+        [151343] = "Hearthstation",
+        [151344] = "Hearthstation",
+        [151348] = "Toy Weapon Set",
+        [151349] = "Toy Weapon Set",
     },
 }
 
@@ -145,6 +151,7 @@ ToyBoxEnhancedProfession = {
         [18986] = "Ultrasafe Transporter: Gadgetzan",
         [18984] = "Dimensional Ripper - Everlook",
         [30542] = "Dimensional Ripper - Area 52",
+        [151652] = "Wormhole Generator: Argus",
     },
 
     ["Archaeology"] = {
@@ -179,6 +186,8 @@ ToyBoxEnhancedProfession = {
         [142529] = "Crate of Bobbers: Cat Head",
         [142530] = "Crate of Bobbers: Tugboat",
         [143662] = "Crate of Bobbers: Wooden Pepe",
+        [152556] = "Trawler Totem",
+        [152574] = "Corbyn's Beacon",
     },
 
     ["Leatherworking"] = {
@@ -358,6 +367,17 @@ ToyBoxEnhancedSource = {
         [147867] = "Pilfered Sweeper",
         [140314] = "Crab Shank",
         [129045] = "Whitewater Tsunami",
+        [153124] = "Spire of Spite",
+        [153126] = "Micro-Artillery Controller",
+        [153179] = "Blue Conservatory Scroll",
+        [153180] = "Yellow  Conservatory Scroll",
+        [153181] = "Red  Conservatory Scroll",
+        [153182] = "Holy Lightsphere",
+        [153183] = "Barrier Generator",
+        [153193] = "Baarut the Brisk",
+        [153194] = "Legion Communication Orb",
+        [153253] = "S.F.E. Interceptor",
+        [153293] = "Sightless Eye",
     },
 
     ["Quest"] = {
@@ -416,6 +436,7 @@ ToyBoxEnhancedSource = {
         [142497] = "Tiny Pack",
         [147838] = "Akazamzarak's Spare Hat", -- mage class quest
         [143727] = "Champion's Salute", -- class hall quest
+        [153204] = "All-Seer's Eye", -- argus eye trader
     },
 
     ["Vendor"] = {
@@ -512,6 +533,10 @@ ToyBoxEnhancedSource = {
         [119211] = "Golden Hearthstone Card: Lord Jaraxxus",
         [143544] = "Skull of Corruption",
         [142536] = "Memory Cube",
+
+        -- Seat of the Triumvirate
+        [152982] = "Vixx's Chest of Tricks",
+        [153004] = "Unstable Portal Emitter",
     },
 
     ["Reputation"] = {
@@ -541,6 +566,7 @@ ToyBoxEnhancedSource = {
         [115472] = "Permanent Time Bubble", -- Alliance
 
         -- Legion
+        [129367] = "Vrykul Toy Boat Kit",
         [130157] = "Syxsehnz Rod",
         [130158] = "Path of Elothir",
         [130191] = "Trapped Treasure Chest Kit",
@@ -561,7 +587,8 @@ ToyBoxEnhancedSource = {
         [147310] = "Floating Totem",
         [147311] = "Replica Gondola",
         [147312] = "Demon Noggin",
-        [147708] = "Legion Invasion Simulator ",
+        [147708] = "Legion Invasion Simulator",
+        [153039] = "Crystalline Campfire",
     },
 
     ["Achievement"] = {
