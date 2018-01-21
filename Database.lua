@@ -378,6 +378,7 @@ ToyBoxEnhancedSource = {
         [153194] = "Legion Communication Orb",
         [153253] = "S.F.E. Interceptor",
         [153293] = "Sightless Eye",
+        [134831] = "Doomsayer's Robes",
     },
 
     ["Quest"] = {
@@ -606,6 +607,7 @@ ToyBoxEnhancedSource = {
         -- Legion
         [139773] = "Emerald Winds",
         [143660] = "Mrgrglhjorn",
+        [156833] = "Katy's Stampwhistle",
     },
 
     ["PvP"] = {
