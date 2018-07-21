@@ -60,3 +60,4 @@ L["Cataclysm"] = EXPANSION_NAME3
 L["Mists of Pandaria"] = EXPANSION_NAME4
 L["Warlords of Draenor"] = EXPANSION_NAME5
 L["Legion"] = EXPANSION_NAME6
+L["Battle for Azeroth"] = EXPANSION_NAME7

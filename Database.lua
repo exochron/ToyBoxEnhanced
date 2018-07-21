@@ -33,6 +33,7 @@ ToyBoxEnhancedWorldEvent = {
         [97994] = "Darkmoon Seesaw",
         [138202] = "Sparklepony XL",
         [151265] = "Blight Boar Microphone",
+        [162539] = "Hot Buttered Popcorn",
     },
 
     ["Lunar Festival"] = {
@@ -79,6 +80,7 @@ ToyBoxEnhancedWorldEvent = {
         [128794] = "Sack of Spectral Spiders",
         [151270] = "Horse Tail Costume",
         [151271] = "Horse Head Costume",
+        [163045] = "Headless Horseman's Hearthstone",
     },
 
     ["Day of the Dead"] = {
@@ -120,6 +122,9 @@ ToyBoxEnhancedWorldEvent = {
         [151344] = "Hearthstation",
         [151348] = "Toy Weapon Set",
         [151349] = "Toy Weapon Set",
+        [162973] = "Greatfather Winter's Hearthstone",
+        [162642] = "Toy Armor Set",
+        [162643] = "Toy Armor Set",
     },
 }
 
@@ -171,6 +176,8 @@ ToyBoxEnhancedProfession = {
         [131724] = "Crystalline Eye of Undravius",
         [64488] = "The Innkeeper's Daughter",
         [89614] = "Anatomical Dummy",
+        [160751] = "Dance of the Dead",
+        [160740] = "Croak Crock",
     },
 
     ["Cooking"] = {
@@ -289,6 +296,12 @@ ToyBoxEnhancedSource = {
         [140780] = "Fal'dorei Egg",
         [143534] = "Wand of Simulated Life",
         [130194] = "Silver Gilnean Brooch",
+
+        -- Battle for Azeroth
+        [161342] = "Gem of Acquiescence",
+        [163740] = "Drust Ritual Knife",
+        [163742] = "Heartsbane Grimoire",
+        [163603] = "Lucille's Handkerchief",
     },
 
     ["Drop"] = {
@@ -379,6 +392,28 @@ ToyBoxEnhancedSource = {
         [153253] = "S.F.E. Interceptor",
         [153293] = "Sightless Eye",
         [134831] = "Doomsayer's Robes",
+
+        -- Battle for Azeroth
+        [163713] = "Brazier Cap",
+        [163744] = "Coldrage's Cooler",
+        [163735] = "Foul Belly",
+        [163750] = "Kovork Kostume",
+        [163775] = "Molok Morion",
+        [163736] = "Spectral Visage",
+        [163738] = "Syndicate Mask",
+        [163828] = "Toy Siege Tower",
+        [163829] = "Toy War Machine",
+        [163745] = "Witherbark Gong",
+        [163741] = "Magic Fun Rock",
+        -- Island Expeditions
+        [163795] = "Oomgut Ritual Drum",
+        [163924] = "Whiskerwax Candle",
+        [164371] = "Yaungol Oil Stove",
+        [164372] = "Jinyu Light Globe",
+        [164373] = "Enchanted Soup Stone",
+        [164374] = "Magic Monkey Banana",
+        [164375] = "Bad Mojo Banana",
+        [164377] = "Regenerating Banana Bunch",
     },
 
     ["Quest"] = {
@@ -437,7 +472,11 @@ ToyBoxEnhancedSource = {
         [142497] = "Tiny Pack",
         [147838] = "Akazamzarak's Spare Hat", -- mage class quest
         [143727] = "Champion's Salute", -- class hall quest
-        [153204] = "All-Seer's Eye", -- argus eye trader
+
+        -- Battle for Azeroth
+        [156871] = "Spitzy",
+        [160509] = "Echoes of Rezan", -- WQ
+        [163607] = "Lucille's Sewing Needle",
     },
 
     ["Vendor"] = {
@@ -507,6 +546,13 @@ ToyBoxEnhancedSource = {
         [150744] = "Walking Kalimdor with the Earthmother",
         [150745] = "The Azeroth Campaign",
         [150746] = "To Modernize the Provisioning of Azeroth",
+        [153204] = "All-Seer's Eye", -- argus eye trader
+
+        -- Battle for Azeroth
+        [156649] = "Zandalari Effigy Amulet",
+        [163704] = "Tiny Mechanical Mouse",
+        [163705] = "Imaginary Gun",
+        [159749] = "Haw'li's Hot & Spicy Chili",
     },
 
     ["Instance"] = {
@@ -590,6 +636,18 @@ ToyBoxEnhancedSource = {
         [147312] = "Demon Noggin",
         [147708] = "Legion Invasion Simulator",
         [153039] = "Crystalline Campfire",
+
+        -- Battle for Azeroth
+        [163565] = "Vulpera Scrapper's Armor",
+        [163566] = "Vulpera Battle Banner",
+        [163206] = "Weary Spirit Binding",
+        [163463] = "Dead Ringer",
+        [163211] = "Akunda's Firesticks",
+        [163210] = "Party Totem",
+        [159753] = "Desert Flute",
+        [163200] = "Cursed Spyglass",
+        [163201] = "Gnoll Targetting Barrel",
+        [163213] = "Ghostly Explorer's Skull",
     },
 
     ["Achievement"] = {
@@ -608,6 +666,9 @@ ToyBoxEnhancedSource = {
         [139773] = "Emerald Winds",
         [143660] = "Mrgrglhjorn",
         [156833] = "Katy's Stampwhistle",
+
+        -- Battle for Azeroth
+        [163697] = "Laser Pointer",
     },
 
     ["PvP"] = {
@@ -616,6 +677,7 @@ ToyBoxEnhancedSource = {
         [134031] = "Prestigious Pennant",
         [134032] = "Elite Pennant",
         [134034] = "Esteemed Pennant",
+        [164310] = "Glorious Pennant",
     },
 
     ["Garrison"] = {
@@ -704,6 +766,7 @@ ToyBoxEnhancedSource = {
         [33079] = "Murloc Costume",
         [142542] = "Tome of Town Portal",
         [143543] = "Twelve-String Guitar",
+        [158149] = "Overtuned Corgi Goggles",
 
         -- Trading Card Game
         [33219] = "Goblin Gumbo Kettle",
@@ -778,6 +841,12 @@ ToyBoxEnhancedExpansion = {
 
     ["Legion"] = {
         ["minID"] = 129000,
+        ["maxID"] = 156640,
+        [156833] = "Katy's Stampwhistle",P
+    },
+
+    ["Battle for Azeroth"] = {
+        ["minID"] = 156649,
         ["maxID"] = 999999,
     },
 }
