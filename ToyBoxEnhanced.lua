@@ -1,4 +1,4 @@
-local ADDON_NAME = ...
+local ADDON_NAME, ADDON = ...
 
 local TOYS_PER_PAGE = 18
 local COLLECTION_ACHIEVEMENT_CATEGORY = 15246
@@ -9,71 +9,31 @@ local DropDownOrderProfessions = { "Jewelcrafting", "Enchanting", "Engineering",
 local DropDownOrderWorldEvents = { "Timewalking", "Darkmoon Faire", "Lunar Festival", "Love is in the Air", "Children's Week", "Midsummer Fire Festival", "Brewfest", "Hallow's End", "Day of the Dead", "Pilgrim's Bounty", "Pirates' Day", "Feast of Winter Veil" }
 local DropDownOrderExpansions = { "Classic", "The Burning Crusade", "Wrath of the Lich King", "Cataclysm", "Mists of Pandaria", "Warlords of Draenor", "Legion", "Battle for Azeroth" }
 
-local L = CoreFramework:GetModule("Localization", "1.1"):GetLocalization(ADDON_NAME)
+local L = ADDON.L
 
-local initialState = {
-    settings = {
-        debugMode = false,
-        hiddenToys = { },
-        filter = {
-            collected = true,
-            notCollected = true,
-            onlyFavorites = false,
-            onlyUsable = false,
-            source = { },
-            faction = {
-                alliance = true,
-                horde = true,
-                noFaction = true,
-            },
-            profession = { },
-            worldEvent = { },
-            expansion = { },
-            hidden = false,
-        },
-    },
-}
-for name, _ in pairs(ToyBoxEnhancedSource) do
-    initialState.settings.filter.source[name] = true
-end
-for name, _ in pairs(ToyBoxEnhancedProfession) do
-    initialState.settings.filter.profession[name] = true
-end
-for name, _ in pairs(ToyBoxEnhancedWorldEvent) do
-    initialState.settings.filter.worldEvent[name] = true
-end
-for name, _ in pairs(ToyBoxEnhancedExpansion) do
-    initialState.settings.filter.expansion[name] = true
-end
-local defaultFilterStates = CopyTable(initialState.settings.filter)
-local dependencies = {
-    function() return ToyBox or LoadAddOn("Blizzard_Collections") end,
-}
-local private = CoreFramework:GetModule("Addon", "1.0"):NewAddon(ADDON_NAME, initialState, dependencies)
-
-private.filteredToyList = { }
-private.filterString = ""
+ADDON.filteredToyList = {}
+ADDON.filterString = ""
 
 -- region overload some core functions
 local org_GetNumFilteredToys = C_ToyBox.GetNumFilteredToys
 C_ToyBox.GetNumFilteredToys = function()
-    return #private.filteredToyList
+    return #ADDON.filteredToyList
 end
 local org_GetToyFromIndex = C_ToyBox.GetToyFromIndex
 C_ToyBox.GetToyFromIndex = function(index)
-    if (index > #private.filteredToyList) then
+    if (index > #ADDON.filteredToyList) then
         return -1
     end
 
-    return private.filteredToyList[index]
+    return ADDON.filteredToyList[index]
 end
 C_ToyBox.ForceToyRefilter = function()
-    return private:FilterToys()
+    return ADDON:FilterToys()
 end
 -- endregion
 
 -- region initialize UI
-function private:LoadUI()
+function ADDON:LoadUI()
     PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1) end end)
 
     ToyBox.searchBox:SetScript("OnTextChanged", function(sender) self:ToyBox_OnSearchTextChanged(sender) end)
@@ -87,7 +47,7 @@ function private:LoadUI()
     self:FilterAndRefresh()
 end
 
-function private:ReplaceSpellButtons()
+function ADDON:ReplaceSpellButtons()
     for i = 1, TOYS_PER_PAGE do
         local oldToyButton = ToyBox.iconsFrame["spellButton" .. i]
         oldToyButton:SetParent(nil)
@@ -131,7 +91,7 @@ function private:ReplaceSpellButtons()
     end
 end
 
-function private:CreateUIElements()
+function ADDON:CreateUIElements()
     self.toyCountFrame = CreateFrame("Frame", nil, ToyBox, "TBEToyCountTemplate")
     self.toyCountFrame.staticText:SetText(L["Toys"])
 
@@ -145,8 +105,8 @@ function private:CreateUIElements()
     frame:SetScript("OnClick", function()
         ToggleAchievementFrame()
 
-        local clickChain = {COLLECTION_ACHIEVEMENT_CATEGORY, TOY_ACHIEVEMENT_CATEGORY }
-        for _,achievementId in pairs(clickChain) do
+        local clickChain = { COLLECTION_ACHIEVEMENT_CATEGORY, TOY_ACHIEVEMENT_CATEGORY }
+        for _, achievementId in pairs(clickChain) do
             local i = 1
             local button = _G["AchievementFrameCategoriesContainerButton" .. i]
             while button do
@@ -164,23 +124,23 @@ function private:CreateUIElements()
     frame:SetScript("OnLeave", function(sender) sender.highlight:SetShown(false) end)
     self.achievementFrame = frame
 end
+
 -- endregion
 
-function private:FilterAndRefresh()
+function ADDON:FilterAndRefresh()
     self:FilterToys()
     ToyBox_UpdatePages()
     ToyBox_UpdateButtons()
 end
 
-function private:LoadDebugMode()
+function ADDON:LoadDebugMode()
     if (self.settings.debugMode) then
         local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
         for toyIndex = 1, toyCount do
             local itemId = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex))
             if (not self:ContainsItem(ToyBoxEnhancedSource, itemId)
-                and not self:ContainsItem(ToyBoxEnhancedProfession, itemId)
-                and not self:ContainsItem(ToyBoxEnhancedWorldEvent, itemId)
-            ) then
+                    and not self:ContainsItem(ToyBoxEnhancedProfession, itemId)
+                    and not self:ContainsItem(ToyBoxEnhancedWorldEvent, itemId)) then
                 print("New toy (by Source): " .. itemId)
             end
         end
@@ -195,7 +155,7 @@ function private:LoadDebugMode()
     end
 end
 
-function private:ContainsItem(data, itemId)
+function ADDON:ContainsItem(data, itemId)
     for _, category in pairs(data) do
         if (category[itemId]) then
             return true
@@ -205,7 +165,7 @@ function private:ContainsItem(data, itemId)
     return false
 end
 
-function private:ToyBox_OnSearchTextChanged(sender)
+function ADDON:ToyBox_OnSearchTextChanged(sender)
     SearchBoxTemplate_OnTextChanged(sender)
 
     local oldText = self.filterString
@@ -219,7 +179,7 @@ end
 
 -- region dropdown menus
 
-function private:ToyBoxOptionsMenu_Init(sender, level)
+function ADDON:ToyBoxOptionsMenu_Init(sender, level)
     local info = UIDropDownMenu_CreateInfo()
     info.notCheckable = true
     info.disabled = nil
@@ -271,7 +231,7 @@ function private:ToyBoxOptionsMenu_Init(sender, level)
     UIDropDownMenu_AddButton(info, level)
 end
 
-function private:CreateFilterInfo(text, filterKey, subfilterKey, callback)
+function ADDON:CreateFilterInfo(text, filterKey, subfilterKey, callback)
     local info = UIDropDownMenu_CreateInfo()
     info.keepShownOnClick = true
     info.isNotRadio = true
@@ -306,7 +266,7 @@ function private:CreateFilterInfo(text, filterKey, subfilterKey, callback)
     return info
 end
 
-function private:AddCheckAllAndNoneInfo(filterKeys, level, dropdownLevel)
+function ADDON:AddCheckAllAndNoneInfo(filterKeys, level, dropdownLevel)
     local info = self:CreateFilterInfo(CHECK_ALL)
     info.hasArrow = false
     info.func = function()
@@ -336,7 +296,7 @@ function private:AddCheckAllAndNoneInfo(filterKeys, level, dropdownLevel)
     UIDropDownMenu_AddButton(info, level)
 end
 
-function private:ToyBoxFilterDropDown_Initialize(sender, level)
+function ADDON:ToyBoxFilterDropDown_Initialize(sender, level)
     local info = UIDropDownMenu_CreateInfo()
     info.keepShownOnClick = true
 
@@ -381,7 +341,7 @@ function private:ToyBoxFilterDropDown_Initialize(sender, level)
         info.hasArrow = false
         info.func = function(_, _, _, value)
             ToyBox.firstCollectedToyID = 0
-            self.settings.filter = CopyTable(defaultFilterStates)
+            self:ResetFilterSettings()
             self:FilterAndRefresh()
         end
         UIDropDownMenu_AddButton(info, level)
@@ -434,7 +394,7 @@ end
 
 -- endregion
 
-function private:ToySpellButton_OnClick(sender, button)
+function ADDON:ToySpellButton_OnClick(sender, button)
     if (IsModifiedClick()) then
         ToySpellButton_OnModifiedClick(sender, button)
     elseif (not sender.isPassive and button ~= "LeftButton") then
@@ -442,7 +402,7 @@ function private:ToySpellButton_OnClick(sender, button)
     end
 end
 
-function private:ToySpellButton_OnEnter(sender)
+function ADDON:ToySpellButton_OnEnter(sender)
     if (not InCombatLockdown()) then
         sender:SetAttribute("type1", "toy")
         sender:SetAttribute("toy", sender.itemID)
@@ -450,7 +410,7 @@ function private:ToySpellButton_OnEnter(sender)
     end
 end
 
-function private:ToySpellButton_OnLeave(sender)
+function ADDON:ToySpellButton_OnLeave(sender)
     if (not InCombatLockdown()) then
         sender:SetAttribute("type1", nil)
         sender:SetAttribute("toy", nil)
@@ -460,7 +420,7 @@ function private:ToySpellButton_OnLeave(sender)
     GameTooltip_Hide()
 end
 
-function private:ToySpellButton_UpdateButton(sender)
+function ADDON:ToySpellButton_UpdateButton(sender)
 
     if (sender.itemID == -1) then
         return
@@ -488,7 +448,7 @@ end
 
 -- region filter functions
 
-function private:FilterToys()
+function ADDON:FilterToys()
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
     if (org_GetNumFilteredToys() ~= toyCount) then
         C_ToyBox.SetAllSourceTypeFilters(true)
@@ -509,17 +469,16 @@ function private:FilterToys()
         local collected = PlayerHasToy(itemId)
 
         if ((doNameFilter and self:FilterToysByName(name))
-            or (not doNameFilter
+                or (not doNameFilter
                 and self:FilterHiddenToys(itemId)
                 and self:FilterCollectedToys(collected)
                 and self:FilterFavoriteToys(favorited)
                 and self:FilterUsableToys(itemId)
                 and self:FilterToysByFaction(itemId)
                 and self:FilterToysByExpansion(itemId)
-                and ( self:FilterToysBySource(itemId)
-                    or self:FilterToysByProfession(itemId)
-                    or self:FilterToysByWorldEvent(itemId)
-        ))) then
+                and (self:FilterToysBySource(itemId)
+                or self:FilterToysByProfession(itemId)
+                or self:FilterToysByWorldEvent(itemId)))) then
             table.insert(self.filteredToyList, itemId)
         end
     end
@@ -533,7 +492,7 @@ function private:FilterToys()
     end
 end
 
-function private:FilterToysByName(name)
+function ADDON:FilterToysByName(name)
     if (string.find(string.lower(name), self.filterString, 1, true)) then
         return true
     else
@@ -541,23 +500,23 @@ function private:FilterToysByName(name)
     end
 end
 
-function private:FilterHiddenToys(itemId)
+function ADDON:FilterHiddenToys(itemId)
     return self.settings.filter.hidden or not self.settings.hiddenToys[itemId]
 end
 
-function private:FilterCollectedToys(collected)
+function ADDON:FilterCollectedToys(collected)
     return (self.settings.filter.collected and collected) or (self.settings.filter.notCollected and not collected)
 end
 
-function private:FilterFavoriteToys(isFavorite)
+function ADDON:FilterFavoriteToys(isFavorite)
     return not self.settings.filter.onlyFavorites or isFavorite or not self.settings.filter.collected
 end
 
-function private:FilterUsableToys(itemId)
+function ADDON:FilterUsableToys(itemId)
     return not self.settings.filter.onlyUsable or C_ToyBox.IsToyUsable(itemId)
 end
 
-function private:CheckAllSettings(settings)
+function ADDON:CheckAllSettings(settings)
     local allDisabled = true
     local allEnabled = true
     for _, value in pairs(settings) do
@@ -577,7 +536,7 @@ function private:CheckAllSettings(settings)
     return nil
 end
 
-function private:CheckItemInList(settings, sourceData, itemId)
+function ADDON:CheckItemInList(settings, sourceData, itemId)
     local isInList = false
 
     for setting, value in pairs(settings) do
@@ -597,7 +556,7 @@ function private:CheckItemInList(settings, sourceData, itemId)
     return nil
 end
 
-function private:FilterToysByFaction(itemId)
+function ADDON:FilterToysByFaction(itemId)
 
     local allSettings = self:CheckAllSettings(self.settings.filter.faction)
     if allSettings then
@@ -612,7 +571,7 @@ function private:FilterToysByFaction(itemId)
     return self.settings.filter.faction.noFaction
 end
 
-function private:FilterToysBySource(itemId)
+function ADDON:FilterToysBySource(itemId)
     if self:CheckAllSettings(self.settings.filter.source) then
         return true
     end
@@ -620,15 +579,15 @@ function private:FilterToysBySource(itemId)
     return self:CheckItemInList(self.settings.filter.source, ToyBoxEnhancedSource, itemId)
 end
 
-function private:FilterToysByProfession(itemId)
+function ADDON:FilterToysByProfession(itemId)
     return self:CheckItemInList(self.settings.filter.profession, ToyBoxEnhancedProfession, itemId)
 end
 
-function private:FilterToysByWorldEvent(itemId)
+function ADDON:FilterToysByWorldEvent(itemId)
     return self:CheckItemInList(self.settings.filter.worldEvent, ToyBoxEnhancedWorldEvent, itemId)
 end
 
-function private:FilterToysByExpansion(itemId)
+function ADDON:FilterToysByExpansion(itemId)
 
     local settingsResult = self:CheckAllSettings(self.settings.filter.expansion)
     if settingsResult then
@@ -643,8 +602,7 @@ function private:FilterToysByExpansion(itemId)
     for expansion, value in pairs(self.settings.filter.expansion) do
         if ToyBoxEnhancedExpansion[expansion] and
                 ToyBoxEnhancedExpansion[expansion]["minID"] <= itemId and
-                itemId <= ToyBoxEnhancedExpansion[expansion]["maxID"]
-        then
+                itemId <= ToyBoxEnhancedExpansion[expansion]["maxID"] then
             return value
         end
     end
@@ -654,7 +612,7 @@ end
 
 -- endregion
 
-function private:GetUsableToysCount()
+function ADDON:GetUsableToysCount()
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
     if (org_GetNumFilteredToys() ~= toyCount) then
         C_ToyBox.SetAllSourceTypeFilters(true)
@@ -676,48 +634,39 @@ function private:GetUsableToysCount()
     return usableCount
 end
 
-function private:Load()
-    self:LoadUI()
-    self:LoadDebugMode()
-
-    self:AddEventHandler("TOYS_UPDATED", function(...) self:OnToysUpdated(...) end)
-    self:AddEventHandler("ACHIEVEMENT_EARNED", function() self:OnAchievement() end)
-    self:AddEventHandler("PLAYER_REGEN_ENABLED", function() self:OnCombatStateChanged() end)
-    self:AddEventHandler("PLAYER_REGEN_DISABLED", function() self:OnCombatStateChanged() end)
-
-    self:AddSlashCommand("TOYBOXENHANCED", function(...) self:OnSlashCommand(...) end, 'toyboxenhanced', 'tbe')
+function ADDON:OnLogin()
 end
 
-function private:OnToysUpdated(event, ...)
-    local itemID, new = ...
-
-    if (ToyBox:IsVisible()) then
-        self:FilterAndRefresh()
-    end
-end
-
-function private:OnAchievement()
-    self.achievementFrame.staticText:SetText(GetCategoryAchievementPoints(TOY_ACHIEVEMENT_CATEGORY, true))
-end
-
-function private:OnCombatStateChanged()
-    if (ToyBox:IsVisible()) then
-        self:FilterAndRefresh()
-    end
-end
-
-function private:OnSlashCommand(command, parameter1, parameter2)
-    if (command == "debug") then
-        if (parameter1 == "on") then
-            self.settings.debugMode = true
-            print("ToyBoxEnhanced: Debug mode activated.")
-            private:LoadDebugMode()
-        elseif (parameter1 == "off") then
-            self.settings.debugMode = false
-            print("ToyBoxEnhanced: Debug mode deactivated.")
+local frame = CreateFrame("Frame")
+frame:RegisterEvent("ADDON_LOADED")
+frame:RegisterEvent("PLAYER_LOGIN")
+frame:RegisterEvent("TOYS_UPDATED")
+frame:RegisterEvent("ACHIEVEMENT_EARNED")
+frame:RegisterEvent("PLAYER_REGEN_ENABLED")
+frame:RegisterEvent("PLAYER_REGEN_DISABLED")
+frame:SetScript("OnEvent", function(self, event, arg1)
+    local doInit = false
+    if event == "PLAYER_LOGIN" then
+        ADDON:OnLogin()
+        if ToyBox then
+            doInit = true
         end
-    else
-        print("Syntax:")
-        print("/tbe debug (on | off)")
+    elseif event == "ADDON_LOADED" and arg1 == "Blizzard_Collections" then
+        if not ADDON.initialized and ADDON.settings then
+            doInit = true
+        end
+    elseif ADDON.initialized and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then
+        if (ToyBox:IsVisible()) then
+            self:FilterAndRefresh()
+        end
+    elseif event == "TOYS_UPDATED" and ADDON.initialized then
+        ADDON.achievementFrame.staticText:SetText(GetCategoryAchievementPoints(TOY_ACHIEVEMENT_CATEGORY, true))
     end
-end
+
+    if doInit then
+        frame:UnregisterEvent("ADDON_LOADED")
+        ADDON:LoadUI()
+        ADDON.initialized = true
+        ADDON:LoadDebugMode()
+    end
+end)

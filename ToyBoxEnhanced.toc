@@ -5,8 +5,9 @@
 ## Version: 1.9
 ## SavedVariables: ToyBoxEnhancedSettings
 
-CoreFramework\CoreFramework.xml
 Locals\Locals.xml
 Database.lua
 ToyBoxEnhanced.lua
 ToyBoxEnhanced.xml
+Settings.lua
+SlashCommand.lua

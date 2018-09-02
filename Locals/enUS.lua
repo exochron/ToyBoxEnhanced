@@ -1,6 +1,6 @@
-﻿local ADDON_NAME = ...
+﻿local ADDON_NAME, ADDON = ...
 
-L = CoreFramework:GetModule("Localization", "1.1"):NewLocalization(ADDON_NAME, "enUS")
+local L = ADDON.L or {}
 
 L["Toys"] = "Toys"
 L["Usable"] = "Usable"
@@ -9,7 +9,7 @@ L["Show"] = SHOW
 L["Hide"] = HIDE
 L["Only usable"] = "Only usable"
 L["Reset filters"] = "Reset filters"
-L["Expansion"] = "Expansion"
+L["Expansion"] = EXPANSION_FILTER_TEXT
 
 -- Source
 L["Drop"] = BATTLE_PET_SOURCE_1
@@ -32,11 +32,11 @@ L["Black Market"] = "Black Market"
 L["Archaeology"] = PROFESSIONS_ARCHAEOLOGY
 L["Cooking"] = PROFESSIONS_COOKING
 L["Fishing"] = PROFESSIONS_FISHING
+L["Inscription"] = INSCRIPTION
 L["Jewelcrafting"] = "Jewelcrafting"
 L["Engineering"] = "Engineering"
 L["Leatherworking"] = "Leatherworking"
 L["Enchanting"] = "Enchanting"
-L["Inscription"] = "Inscription"
 
 -- World Event
 L["Timewalking"] = PLAYER_DIFFICULTY_TIMEWALKER
@@ -61,3 +61,5 @@ L["Mists of Pandaria"] = EXPANSION_NAME4
 L["Warlords of Draenor"] = EXPANSION_NAME5
 L["Legion"] = EXPANSION_NAME6
 L["Battle for Azeroth"] = EXPANSION_NAME7
+
+ADDON.L = L
