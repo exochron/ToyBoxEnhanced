@@ -1,4 +1,6 @@
-ToyBoxEnhancedWorldEvent = {
+local ADDON_NAME, ADDON = ...
+
+ADDON.ToyBoxEnhancedWorldEvent = {
 
     ["Timewalking"] = {
         [129926] = "Mark of the Ashtongue",
@@ -128,7 +130,7 @@ ToyBoxEnhancedWorldEvent = {
     },
 }
 
-ToyBoxEnhancedProfession = {
+ADDON.ToyBoxEnhancedProfession = {
     ["Jewelcrafting"] = {
         [115503] = "Blazing Diamond Pendant",
         [130251] = "JewelCraft",
@@ -214,7 +216,7 @@ ToyBoxEnhancedProfession = {
     },
 }
 
-ToyBoxEnhancedFaction = {
+ADDON.ToyBoxEnhancedFaction = {
     alliance = {
         [45011] = "Stormwind Banner",
         [45018] = "Ironforge Banner",
@@ -256,7 +258,7 @@ ToyBoxEnhancedFaction = {
     },
 }
 
-ToyBoxEnhancedSource = {
+ADDON.ToyBoxEnhancedSource = {
     ["Treasure"] = {
         -- Draenor
         [108735] = "Arena Master's War Horn",
@@ -647,7 +649,6 @@ ToyBoxEnhancedSource = {
         [159753] = "Desert Flute",
         [163200] = "Cursed Spyglass",
         [163201] = "Gnoll Targetting Barrel",
-        [163213] = "Ghostly Explorer's Skull",
     },
 
     ["Achievement"] = {
@@ -795,7 +796,7 @@ ToyBoxEnhancedSource = {
     },
 }
 
-ToyBoxEnhancedExpansion = {
+ADDON.ToyBoxEnhancedExpansion = {
 
     ["Classic"] = {
         ["minID"] = 0,

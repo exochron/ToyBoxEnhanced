@@ -10,4 +10,9 @@ Database.lua
 ToyBoxEnhanced.lua
 ToyBoxEnhanced.xml
 Settings.lua
+DebugTest.lua
+UI\AchievementPoints.lua
+UI\FilterMenu.lua
+UI\OptionsMenu.lua
+UI\ToyCount.lua
 SlashCommand.lua
