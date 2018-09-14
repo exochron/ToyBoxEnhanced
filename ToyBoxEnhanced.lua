@@ -20,26 +20,31 @@ local function FireCallbacks(callbacks)
 end
 --endregion
 
--- region overload some core functions
-local org_GetNumFilteredToys = C_ToyBox.GetNumFilteredToys
-C_ToyBox.GetNumFilteredToys = function()
-    return #ADDON.filteredToyList
-end
-local org_GetToyFromIndex = C_ToyBox.GetToyFromIndex
-C_ToyBox.GetToyFromIndex = function(index)
-    if (index > #ADDON.filteredToyList) then
-        return -1
+local org_GetNumFilteredToys
+local function OverloadToyBox()
+    org_GetNumFilteredToys = C_ToyBox.GetNumFilteredToys
+    C_ToyBox.GetNumFilteredToys = function()
+        return #ADDON.filteredToyList
     end
+    local org_GetToyFromIndex = C_ToyBox.GetToyFromIndex
+    C_ToyBox.GetToyFromIndex = function(index)
+        if (index > #ADDON.filteredToyList) then
+            return -1
+        end
 
-    return ADDON.filteredToyList[index]
+        return ADDON.filteredToyList[index]
+    end
+    C_ToyBox.ForceToyRefilter = function()
+        return ADDON:FilterToys()
+    end
+    function ADDON:GetToyInfoOfOriginalIndex(index)
+        return C_ToyBox.GetToyInfo(org_GetToyFromIndex(index))
+    end
 end
-C_ToyBox.ForceToyRefilter = function()
-    return ADDON:FilterToys()
-end
--- endregion
 
 -- region initialize UI
 function ADDON:LoadUI()
+    OverloadToyBox()
     PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1) end end)
 
     ToyBox.searchBox:SetScript("OnTextChanged", function(sender) self:ToyBox_OnSearchTextChanged(sender) end)
@@ -59,13 +64,28 @@ function ADDON:ReplaceSpellButtons()
         oldToyButton:SetShown(false)
 
         local newToyButton = CreateFrame("CheckButton", nil, ToyBox.iconsFrame, "ToyBoxEnhancedSpellButtonTemplate", i)
-        newToyButton:HookScript("OnClick", function(sender, button) self:ToySpellButton_OnClick(sender, button) end)
+        newToyButton:HookScript("OnClick", function(sender, button)
+            if (IsModifiedClick()) then
+                ToySpellButton_OnModifiedClick(sender, button)
+            end
+        end)
         newToyButton:SetScript("OnShow", ToySpellButton_OnShow)
         newToyButton:SetScript("OnEnter", function(sender)
             ToySpellButton_OnEnter(sender)
-            self:ToySpellButton_OnEnter(sender)
+            if (not InCombatLockdown()) then
+                sender:SetAttribute("type1", "toy")
+                sender:SetAttribute("toy", sender.itemID)
+                sender:SetAttribute("shift-action1", ATTRIBUTE_NOOP)
+            end
         end)
-        newToyButton:SetScript("OnLeave", function(sender) self:ToySpellButton_OnLeave(sender) end)
+        newToyButton:SetScript("OnLeave", function(sender)
+            if (not InCombatLockdown()) then
+                sender:SetAttribute("type1", nil)
+                sender:SetAttribute("toy", nil)
+                sender:SetAttribute("shift-action1", ATTRIBUTE_NOOP)
+            end
+
+            GameTooltip_Hide() end)
         newToyButton.updateFunction = ToySpellButton_UpdateButton
 
         ToyBox.iconsFrame["spellButton" .. i] = newToyButton
@@ -116,32 +136,6 @@ function ADDON:ToyBox_OnSearchTextChanged(sender)
     end
 end
 
-function ADDON:ToySpellButton_OnClick(sender, button)
-    if (IsModifiedClick()) then
-        ToySpellButton_OnModifiedClick(sender, button)
-    elseif (not sender.isPassive and button ~= "LeftButton") then
-        ToyBox_ShowToyDropdown(sender.itemID, sender, 0, 0)
-    end
-end
-
-function ADDON:ToySpellButton_OnEnter(sender)
-    if (not InCombatLockdown()) then
-        sender:SetAttribute("type1", "toy")
-        sender:SetAttribute("toy", sender.itemID)
-        sender:SetAttribute("shift-action1", ATTRIBUTE_NOOP)
-    end
-end
-
-function ADDON:ToySpellButton_OnLeave(sender)
-    if (not InCombatLockdown()) then
-        sender:SetAttribute("type1", nil)
-        sender:SetAttribute("toy", nil)
-        sender:SetAttribute("shift-action1", ATTRIBUTE_NOOP)
-    end
-
-    GameTooltip_Hide()
-end
-
 function ADDON:ToySpellButton_UpdateButton(sender)
 
     if (sender.itemID == -1) then
@@ -187,7 +181,7 @@ function ADDON:FilterToys()
     end
 
     for toyIndex = 1, toyCount do
-        local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex))
+        local itemId, name, icon, favorited = ADDON:GetToyInfoOfOriginalIndex(toyIndex)
         local collected = PlayerHasToy(itemId)
 
         if ((doNameFilter and self:FilterToysByName(name))
@@ -339,7 +333,7 @@ function ADDON:GetUsableToysCount()
 
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
     for toyIndex = 1, toyCount do
-        local itemId = C_ToyBox.GetToyInfo(org_GetToyFromIndex(toyIndex))
+        local itemId = ADDON:GetToyInfoOfOriginalIndex(toyIndex)
         if (PlayerHasToy(itemId) and C_ToyBox.IsToyUsable(itemId)) then
             usableCount = usableCount + 1
         end

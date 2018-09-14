@@ -1,173 +1,260 @@
 local ADDON_NAME, ADDON = ...
 
-local DropDownOrderSource = { "Profession", "World Event", "Treasure", "Drop", "Quest", "Vendor", "Instance", "Reputation", "Achievement", "PvP", "Order Hall", "Garrison", "Pick Pocket", "Black Market", "Promotion" }
-local DropDownOrderProfessions = { "Jewelcrafting", "Enchanting", "Engineering", "Inscription", "Leatherworking", "Archaeology", "Cooking", "Fishing" }
-local DropDownOrderWorldEvents = { "Timewalking", "Darkmoon Faire", "Lunar Festival", "Love is in the Air", "Children's Week", "Midsummer Fire Festival", "Brewfest", "Hallow's End", "Day of the Dead", "Pilgrim's Bounty", "Pirates' Day", "Feast of Winter Veil" }
-local DropDownOrderExpansions = { "Classic", "The Burning Crusade", "Wrath of the Lich King", "Cataclysm", "Mists of Pandaria", "Warlords of Draenor", "Legion", "Battle for Azeroth" }
+local SETTING_COLLECTED = "collected"
+local SETTING_ONLY_FAVORITES = "onlyFavorites"
+local SETTING_NOT_COLLECTED = "notCollected"
+local SETTING_ONLY_USEABLE = "onlyUsable"
+local SETTING_HIDDEN = "hidden"
+local SETTING_SOURCE = "source"
+local SETTING_PROFESSION = "profession"
+local SETTING_WORLD_EVENT = "worldEvent"
+local SETTING_FACTION = "faction"
+local SETTING_EXPANSION = "expansion"
 
 local L = ADDON.L
 
-local function CreateFilterInfo(text, filterKey, subfilterKey, callback)
-    local info = UIDropDownMenu_CreateInfo()
+local function CreateFilterInfo(text, filterKey, filterSettings, callback)
+    local info = MSA_DropDownMenu_CreateInfo()
     info.keepShownOnClick = true
     info.isNotRadio = true
+    info.hasArrow = false
     info.text = text
 
     if filterKey then
-        info.hasArrow = false
-        info.notCheckable = false
-        if subfilterKey then
-            info.checked = function() return ADDON.settings.filter[filterKey][subfilterKey] end
-        else
-            info.checked = ADDON.settings.filter[filterKey]
+        if not filterSettings then
+            filterSettings = ADDON.settings.filter
         end
-        info.func = function(_, _, _, value)
+        info.arg1 = filterSettings
+        info.notCheckable = false
+        info.checked = function(self) return self.arg1[filterKey] end
+        info.func = function(_, arg1, _, value)
+            arg1[filterKey] = value
             ToyBox.firstCollectedToyID = 0
-            if subfilterKey then
-                ADDON.settings.filter[filterKey][subfilterKey] = value
-            else
-                ADDON.settings.filter[filterKey] = value
-            end
             ADDON:FilterAndRefresh()
+            if (MSA_DROPDOWNMENU_MENU_LEVEL > 1) then
+                for i=1, MSA_DROPDOWNMENU_MENU_LEVEL do
+                    MSA_DropDownMenu_Refresh(_G[ADDON_NAME .. "FilterMenu"], nil, i)
+                end
+            end
 
             if callback then
                 callback(value)
             end
         end
     else
-        info.hasArrow = true
         info.notCheckable = true
     end
 
     return info
 end
 
-local function AddCheckAllAndNoneInfo(filterKeys, level, dropdownLevel)
-    local info = CreateFilterInfo(CHECK_ALL)
-    info.hasArrow = false
-    info.func = function()
-        for _, filterKey in pairs(filterKeys) do
-            for key, _ in pairs(ADDON.settings.filter[filterKey]) do
-                ADDON.settings.filter[filterKey][key] = true
-            end
-        end
+local function CreateFilterCategory(text, value)
+    local info = CreateFilterInfo(text)
+    info.hasArrow = true
+    info.value = value
 
-        UIDropDownMenu_Refresh(ToyBoxFilterDropDown, dropdownLevel, level)
-        ADDON:FilterAndRefresh()
-    end
-    UIDropDownMenu_AddButton(info, level)
-
-    info = CreateFilterInfo(UNCHECK_ALL)
-    info.hasArrow = false
-    info.func = function()
-        for _, filterKey in pairs(filterKeys) do
-            for key, _ in pairs(ADDON.settings.filter[filterKey]) do
-                ADDON.settings.filter[filterKey][key] = false
-            end
-        end
-
-        UIDropDownMenu_Refresh(ToyBoxFilterDropDown, dropdownLevel, level)
-        ADDON:FilterAndRefresh()
-    end
-    UIDropDownMenu_AddButton(info, level)
+    return info
 end
 
-function ADDON:ToyBoxFilterDropDown_Initialize(sender, level)
-    local info = UIDropDownMenu_CreateInfo()
-    info.keepShownOnClick = true
-
-    if level == 1 then
-        info = CreateFilterInfo(COLLECTED, "collected", nil, function(value)
-            if (value) then
-                UIDropDownMenu_EnableButton(1, 2)
-            else
-                UIDropDownMenu_DisableButton(1, 2)
-            end
-        end)
-        UIDropDownMenu_AddButton(info, level)
-
-        info = CreateFilterInfo(FAVORITES_FILTER, "onlyFavorites")
-        info.leftPadding = 16
-        info.disabled = not ADDON.settings.filter.collected
-        UIDropDownMenu_AddButton(info, level)
-
-        info = CreateFilterInfo(NOT_COLLECTED, "notCollected")
-        UIDropDownMenu_AddButton(info, level)
-
-        info = CreateFilterInfo(L["Only usable"], "onlyUsable")
-        UIDropDownMenu_AddButton(info, level)
-
-        info = CreateFilterInfo(SOURCES)
-        info.value = 1
-        UIDropDownMenu_AddButton(info, level)
-
-        info = CreateFilterInfo(FACTION)
-        info.value = 2
-        UIDropDownMenu_AddButton(info, level)
-
-        info = CreateFilterInfo(L["Expansion"])
-        info.value = 5
-        UIDropDownMenu_AddButton(info, level)
-
-        info = CreateFilterInfo(L["Hidden"], "hidden")
-        UIDropDownMenu_AddButton(info, level)
-
-        info = CreateFilterInfo(L["Reset filters"])
-        info.keepShownOnClick = false
-        info.hasArrow = false
-        info.func = function(_, _, _, value)
-            ToyBox.firstCollectedToyID = 0
-            ADDON:ResetFilterSettings()
-            ADDON:FilterAndRefresh()
+local function CheckSetting(settings)
+    local hasTrue, hasFalse = false, false
+    for _, v in pairs(settings) do
+        if (v == true) then
+            hasTrue = true
+        elseif v == false then
+            hasFalse = true
         end
-        UIDropDownMenu_AddButton(info, level)
-
-    elseif (UIDROPDOWNMENU_MENU_VALUE == 1) then
-        AddCheckAllAndNoneInfo({ "source", "profession", "worldEvent" }, level, 1)
-        for _, sourceName in pairs(DropDownOrderSource) do
-            if sourceName == "Profession" then
-                info = CreateFilterInfo(L[sourceName])
-                info.value = 3
-            elseif sourceName == "World Event" then
-                info = CreateFilterInfo(L[sourceName])
-                info.value = 4
-            else
-                info = CreateFilterInfo(L[sourceName], "source", sourceName)
-            end
-            UIDropDownMenu_AddButton(info, level)
-        end
-
-    elseif (UIDROPDOWNMENU_MENU_VALUE == 2) then
-        info = CreateFilterInfo(FACTION_ALLIANCE, "faction", "alliance")
-        UIDropDownMenu_AddButton(info, level)
-        info = CreateFilterInfo(FACTION_HORDE, "faction", "horde")
-        UIDropDownMenu_AddButton(info, level)
-        info = CreateFilterInfo(NPC_NAMES_DROPDOWN_NONE, "faction", "noFaction")
-        UIDropDownMenu_AddButton(info, level)
-
-    elseif (UIDROPDOWNMENU_MENU_VALUE == 3) then
-        AddCheckAllAndNoneInfo({ "profession" }, level, 3)
-        for _, professionName in pairs(DropDownOrderProfessions) do
-            info = CreateFilterInfo(L[professionName], "profession", professionName)
-            UIDropDownMenu_AddButton(info, level)
-        end
-
-    elseif (UIDROPDOWNMENU_MENU_VALUE == 4) then
-        AddCheckAllAndNoneInfo({ "worldEvent" }, level, 4)
-        for _, eventName in pairs(DropDownOrderWorldEvents) do
-            info = CreateFilterInfo(L[eventName], "worldEvent", eventName)
-            UIDropDownMenu_AddButton(info, level)
-        end
-
-    elseif (UIDROPDOWNMENU_MENU_VALUE == 5) then
-        AddCheckAllAndNoneInfo({ "expansion" }, level, 5)
-        for _, expansion in pairs(DropDownOrderExpansions) do
-            info = CreateFilterInfo(L[expansion], "expansion", expansion)
-            UIDropDownMenu_AddButton(info, level)
+        if hasTrue and hasFalse then
+            break
         end
     end
+
+    return hasTrue, hasFalse
+end
+
+local function SetAllSubFilters(settings, switch)
+    for key, value in pairs(settings) do
+        if type(value) == "table" then
+            for subKey, _ in pairs(value) do
+                settings[key][subKey] = switch
+            end
+        else
+            settings[key] = switch
+        end
+    end
+
+    if (MSA_DROPDOWNMENU_MENU_LEVEL ~= 2) then
+        MSA_DropDownMenu_Refresh(_G[ADDON_NAME .. "FilterMenu"], nil, 2)
+    end
+    MSA_DropDownMenu_Refresh(_G[ADDON_NAME .. "FilterMenu"])
+    ToyBox.firstCollectedToyID = 0
+    ADDON:FilterAndRefresh()
+end
+
+local function RefreshCategoryButton(button, isNotRadio)
+    local buttonName = button:GetName()
+    local buttonCheck = _G[buttonName .. "Check"]
+
+    if isNotRadio then
+        buttonCheck:SetTexCoord(0.0, 0.5, 0.0, 0.5);
+    else
+        buttonCheck:SetTexCoord(0.0, 0.5, 0.5, 1.0);
+    end
+
+    button.isNotRadio = isNotRadio
+end
+
+local function CreateInfoWithMenu(text, filterKey, settings)
+    local info = MSA_DropDownMenu_CreateInfo()
+    info.text = text
+    info.value = filterKey
+    info.keepShownOnClick = true
+    info.notCheckable = false
+    info.hasArrow = true
+
+    local hasTrue, hasFalse = CheckSetting(settings)
+    info.isNotRadio = not hasTrue or not hasFalse
+
+    info.checked = function(button)
+        local hasTrue, hasFalse = CheckSetting(settings)
+        RefreshCategoryButton(button, not hasTrue or not hasFalse)
+        return hasTrue
+    end
+    info.func = function(button, _, _, value)
+        if button.isNotRadio == value then
+            SetAllSubFilters(settings, true)
+        elseif true == button.isNotRadio and false == value then
+            SetAllSubFilters(settings, false)
+        end
+    end
+
+    return info
+end
+
+local function AddCheckAllAndNoneInfo(settings, level)
+    local info = CreateFilterInfo(CHECK_ALL)
+    info.func = function()
+        for _, v in pairs(settings) do
+            SetAllSubFilters(v, true)
+        end
+    end
+    MSA_DropDownMenu_AddButton(info, level)
+
+    info = CreateFilterInfo(UNCHECK_ALL)
+    info.func = function()
+        for _, v in pairs(settings) do
+            SetAllSubFilters(v, false)
+        end
+    end
+    MSA_DropDownMenu_AddButton(info, level)
+end
+
+local function InitializeDropDown(filterMenu, level)
+    local info
+
+    if (level == 1) then
+        info = CreateFilterInfo(COLLECTED, SETTING_COLLECTED, nil, function(value)
+            if (value) then
+                MSA_DropDownMenu_EnableButton(1, 2)
+            else
+                MSA_DropDownMenu_DisableButton(1, 2)
+            end
+        end)
+        MSA_DropDownMenu_AddButton(info, level)
+
+        info = CreateFilterInfo(FAVORITES_FILTER, SETTING_ONLY_FAVORITES)
+        info.leftPadding = 16
+        info.disabled = not ADDON.settings.filter.collected
+        MSA_DropDownMenu_AddButton(info, level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(NOT_COLLECTED, SETTING_NOT_COLLECTED), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Only usable"], SETTING_ONLY_USEABLE), level)
+
+        MSA_DropDownMenu_AddButton(CreateFilterCategory(SOURCES, SETTING_SOURCE), level)
+        MSA_DropDownMenu_AddButton(CreateFilterCategory(FACTION, SETTING_FACTION), level)
+        MSA_DropDownMenu_AddButton(CreateFilterCategory(EXPANSION_FILTER_TEXT, SETTING_EXPANSION), level)
+
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Hidden"], SETTING_HIDDEN), level)
+        info = CreateFilterInfo(L["Reset filters"])
+        info.keepShownOnClick = false
+        info.func = function(_, _, _, value)
+            ADDON:ResetFilterSettings()
+            ADDON:UpdateIndexMap()
+            MountJournal_UpdateMountList()
+        end
+        MSA_DropDownMenu_AddButton(info, level)
+
+    elseif (MSA_DROPDOWNMENU_MENU_VALUE == SETTING_SOURCE) then
+        local settings = ADDON.settings.filter[SETTING_SOURCE]
+        AddCheckAllAndNoneInfo({settings, ADDON.settings.filter[SETTING_PROFESSION], ADDON.settings.filter[SETTING_WORLD_EVENT]}, level)
+
+        MSA_DropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_SOURCE_4, SETTING_PROFESSION, ADDON.settings.filter[SETTING_PROFESSION]), level)
+        MSA_DropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_SOURCE_7, SETTING_WORLD_EVENT, ADDON.settings.filter[SETTING_WORLD_EVENT]), level)
+
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Treasure"], "Treasure", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_1, "Drop", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_2, "Quest", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_3, "Vendor", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(INSTANCE, "Instance", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(REPUTATION, "Reputation", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_6, "Achievement", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(PVP, "PvP", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Order Hall"], "Order Hall", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(GARRISON_LOCATION_TOOLTIP, "Garrison", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Pick Pocket"], "Pick Pocket", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Black Market"], "Black Market", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_8, "Promotion", settings), level)
+
+    elseif (MSA_DROPDOWNMENU_MENU_VALUE == SETTING_PROFESSION) then
+        local settings = ADDON.settings.filter[SETTING_PROFESSION]
+        AddCheckAllAndNoneInfo({settings}, level)
+
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Jewelcrafting"], "Jewelcrafting", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Enchanting"], "Enchanting", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Engineering"], "Engineering", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(INSCRIPTION, "Inscription", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Leatherworking"], "Leatherworking", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_ARCHAEOLOGY, "Archaeology", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_COOKING, "Cooking", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_FISHING, "Fishing", settings), level)
+
+    elseif (MSA_DROPDOWNMENU_MENU_VALUE == SETTING_WORLD_EVENT) then
+        local settings = ADDON.settings.filter[SETTING_WORLD_EVENT]
+        AddCheckAllAndNoneInfo({settings}, level)
+
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(PLAYER_DIFFICULTY_TIMEWALKER, "Timewalking", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(CALENDAR_FILTER_DARKMOON, "Darkmoon Faire", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Lunar Festival"], "Lunar Festival", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Love is in the Air"], "Love is in the Air", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Children's Week"], "Children's Week", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Midsummer Fire Festival"], "Midsummer Fire Festival", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Brewfest"], "Brewfest", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Hallow's End"], "Hallow's End", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Day of the Dead"], "Day of the Dead", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Pilgrim's Bounty"], "Pilgrim's Bounty", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Pirates' Day"], "Pirates' Day", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Feast of Winter Veil"], "Feast of Winter Veil", settings), level)
+
+    elseif (MSA_DROPDOWNMENU_MENU_VALUE == SETTING_FACTION) then
+        local settings = ADDON.settings.filter[SETTING_FACTION]
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(FACTION_ALLIANCE, "alliance", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(FACTION_HORDE, "horde", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(NPC_NAMES_DROPDOWN_NONE, "noFaction", settings), level)
+
+    elseif (MSA_DROPDOWNMENU_MENU_VALUE == SETTING_EXPANSION) then
+        local settings = ADDON.settings.filter[SETTING_EXPANSION]
+        AddCheckAllAndNoneInfo({settings}, level)
+        for i = 0, 7 do
+            MSA_DropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], _G["EXPANSION_NAME" .. i], settings), level)
+        end
+    end
+
 end
 
 ADDON:RegisterLoadUICallback(function()
-    hooksecurefunc(ToyBoxFilterDropDown, "initialize", function(sender, level) UIDropDownMenu_InitializeHelper(sender) ADDON:ToyBoxFilterDropDown_Initialize(sender, level) end)
+    local menu = MSA_DropDownMenu_Create(ADDON_NAME .. "FilterMenu", ToyBoxFilterButton)
+    MSA_DropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
+    ToyBoxFilterButton:SetScript("OnClick", function(sender)
+        PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+        MSA_ToggleDropDownMenu(1, nil, menu, sender, 74, 15)
+    end)
 end)

@@ -2,61 +2,69 @@ local ADDON_NAME, ADDON = ...
 
 local function InitMenu(sender, level)
     local L = ADDON.L
+    local itemId = sender.itemId
 
-    local info = UIDropDownMenu_CreateInfo()
+    local info = MSA_DropDownMenu_CreateInfo()
     info.notCheckable = true
     info.disabled = nil
 
-    if (ToyBox.menuItemID and PlayerHasToy(ToyBox.menuItemID)) then
-        local isFavorite = ToyBox.menuItemID and C_ToyBox.GetIsFavorite(ToyBox.menuItemID)
+    if (itemId and PlayerHasToy(itemId)) then
+        local isFavorite = C_ToyBox.GetIsFavorite(itemId)
 
         if (isFavorite) then
             info.text = BATTLE_PET_UNFAVORITE
             info.func = function()
-                C_ToyBox.SetIsFavorite(ToyBox.menuItemID, false)
+                C_ToyBox.SetIsFavorite(itemId, false)
                 ADDON:FilterAndRefresh()
             end
         else
             info.text = BATTLE_PET_FAVORITE
             info.func = function()
-                C_ToyBox.SetIsFavorite(ToyBox.menuItemID, true)
+                C_ToyBox.SetIsFavorite(itemId, true)
                 SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE, true)
                 ToyBox.favoriteHelpBox:Hide()
                 ADDON:FilterAndRefresh()
             end
         end
 
-        UIDropDownMenu_AddButton(info, level)
+        MSA_DropDownMenu_AddButton(info, level)
         info.disabled = nil
     end
 
-    local itemId = ToyBox.menuItemID
     local isHidden = itemId and ADDON.settings.hiddenToys[itemId]
     if (isHidden) then
-        info.text = L["Show"]
+        info.text = SHOW
         info.func = function()
             ADDON.settings.hiddenToys[itemId] = nil
             ADDON:FilterAndRefresh()
         end
     else
-        info.text = L["Hide"]
+        info.text = HIDE
         info.func = function()
             ADDON.settings.hiddenToys[itemId] = true
             ADDON:FilterAndRefresh()
         end
     end
 
-    UIDropDownMenu_AddButton(info, level)
+    MSA_DropDownMenu_AddButton(info, level)
     info.disabled = nil
 
     info.text = CANCEL
     info.func = nil
-    UIDropDownMenu_AddButton(info, level)
+    MSA_DropDownMenu_AddButton(info, level)
 end
 
 ADDON:RegisterLoadUICallback( function()
-    hooksecurefunc(ToyBox.toyOptionsMenu, "initialize", function(sender, level)
-        UIDropDownMenu_InitializeHelper(sender)
-        InitMenu(sender, level)
-    end)
+    local menu = MSA_DropDownMenu_Create(ADDON_NAME .. "ToyMenu", ToyBox)
+    MSA_DropDownMenu_Initialize(menu, InitMenu, "MENU")
+
+    for i = 1, 18 do
+        ToyBox.iconsFrame["spellButton"..i]:HookScript("OnClick", function(sender, button)
+            if (not IsModifiedClick() and not sender.isPassive and button ~= "LeftButton") then
+                menu.itemId = sender.itemID
+                MSA_ToggleDropDownMenu(1, nil, menu, sender, 0, 0)
+                PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
+            end
+        end)
+    end
 end)

@@ -6,7 +6,6 @@ if (GetLocale() == 'deDE') then
     L["Toys"] = "Spielzeuge"
     L["Usable"] = "Benutzbar"
     L["Hidden"] = "Ausgeblendete"
-    L["Show"] = "Einblenden"
     L["Only usable"] = "Nur benutzbare"
     L["Reset filters"] = "Filter zurücksetzen"
 

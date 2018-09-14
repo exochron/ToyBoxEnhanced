@@ -1,10 +1,9 @@
 local ADDON_NAME, ADDON = ...
 
-local COLLECTION_ACHIEVEMENT_CATEGORY = 15246
-local TOY_ACHIEVEMENT_CATEGORY = 15247
-
-
 local function CreateAchievementPoints()
+    local COLLECTION_ACHIEVEMENT_CATEGORY = 15246
+    local TOY_ACHIEVEMENT_CATEGORY = 15247
+
     ToyBox.progressBar:SetShown(false)
 
     local frame = CreateFrame("Button", nil, ToyBox, "TBEAchievementButtonTemplate")

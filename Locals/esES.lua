@@ -6,8 +6,6 @@ if (GetLocale() == 'esES') then
     L["Toys"] = "Juguetes"
     L["Usable"] = "Utilizable"
     L["Hidden"] = "Oculto"
-    L["Show"] = "Mostrar"
-    L["Hide"] = "Ocultar"
     L["Only usable"] = "Sólo utilizable"
     L["Reset filters"] = "Reiniciar Filtros"
 
@@ -24,8 +22,6 @@ if (GetLocale() == 'esES') then
     L["Enchanting"] = "Encantamiento";
 
     -- World Event
-    L["Timewalking"] = "Paseo por el Tiempo"
-    L["Darkmoon Faire"] = "Feria de la Luna Negra"
     L["Lunar Festival"] = "Festival Lunar"
     L["Love is in the Air"] = "Amor en el aire"
     L["Children's Week"] = "Semana de los niños"

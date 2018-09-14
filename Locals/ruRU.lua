@@ -6,8 +6,6 @@ if (GetLocale() == 'ruRU') then
     L["Toys"] = "Игрушки"
     L["Usable"] = "Используемые"
     L["Hidden"] = "Скрытые"
-    L["Show"] = "Показать"
-    L["Hide"] = "Скрыть"
     L["Only usable"] = "Только используемые"
     L["Reset filters"] = "Сбросить фильтры"
 
@@ -24,7 +22,6 @@ if (GetLocale() == 'ruRU') then
     L["Enchanting"] = "Наложение чар"
 
     -- World Event
-    L["Darkmoon Faire"] = "Ярмарка Новолуния"
     L["Lunar Festival"] = "Лунный Фестиваль"
     L["Love is in the Air"] = "Любовная лихорадка"
     L["Children's Week"] = "Детская неделя"
