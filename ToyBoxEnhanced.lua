@@ -162,8 +162,6 @@ function ADDON:ToySpellButton_UpdateButton(sender)
     sender.slotFrameCollected:SetAlpha(alpha)
 end
 
--- region filter functions
-
 function ADDON:FilterToys()
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
     if (org_GetNumFilteredToys() ~= toyCount) then
@@ -182,19 +180,9 @@ function ADDON:FilterToys()
 
     for toyIndex = 1, toyCount do
         local itemId, name, icon, favorited = ADDON:GetToyInfoOfOriginalIndex(toyIndex)
-        local collected = PlayerHasToy(itemId)
 
         if ((doNameFilter and self:FilterToysByName(name))
-                or (not doNameFilter
-                and self:FilterHiddenToys(itemId)
-                and self:FilterCollectedToys(collected)
-                and self:FilterFavoriteToys(favorited)
-                and self:FilterUsableToys(itemId)
-                and self:FilterToysByFaction(itemId)
-                and self:FilterToysByExpansion(itemId)
-                and (self:FilterToysBySource(itemId)
-                or self:FilterToysByProfession(itemId)
-                or self:FilterToysByWorldEvent(itemId)))) then
+                or (not doNameFilter and ADDON:FilterToy(toyIndex))) then
             table.insert(self.filteredToyList, itemId)
         end
     end
@@ -207,118 +195,6 @@ function ADDON:FilterToysByName(name)
         return false
     end
 end
-
-function ADDON:FilterHiddenToys(itemId)
-    return self.settings.filter.hidden or not self.settings.hiddenToys[itemId]
-end
-
-function ADDON:FilterCollectedToys(collected)
-    return (self.settings.filter.collected and collected) or (self.settings.filter.notCollected and not collected)
-end
-
-function ADDON:FilterFavoriteToys(isFavorite)
-    return not self.settings.filter.onlyFavorites or isFavorite or not self.settings.filter.collected
-end
-
-function ADDON:FilterUsableToys(itemId)
-    return not self.settings.filter.onlyUsable or C_ToyBox.IsToyUsable(itemId)
-end
-
-function ADDON:CheckAllSettings(settings)
-    local allDisabled = true
-    local allEnabled = true
-    for _, value in pairs(settings) do
-        if (value) then
-            allDisabled = false
-        else
-            allEnabled = false
-        end
-    end
-
-    if allEnabled then
-        return true
-    elseif allDisabled then
-        return false
-    end
-
-    return nil
-end
-
-function ADDON:CheckItemInList(settings, sourceData, itemId)
-    local isInList = false
-
-    for setting, value in pairs(settings) do
-        if sourceData[setting] and sourceData[setting][itemId] then
-            if (value) then
-                return true
-            else
-                isInList = true
-            end
-        end
-    end
-
-    if isInList then
-        return false
-    end
-
-    return nil
-end
-
-function ADDON:FilterToysByFaction(itemId)
-
-    local allSettings = self:CheckAllSettings(self.settings.filter.faction)
-    if allSettings then
-        return true
-    end
-
-    local settingResult = self:CheckItemInList(self.settings.filter.faction, ADDON.ToyBoxEnhancedFaction, itemId)
-    if settingResult ~= nil then
-        return settingResult
-    end
-
-    return self.settings.filter.faction.noFaction
-end
-
-function ADDON:FilterToysBySource(itemId)
-    if self:CheckAllSettings(self.settings.filter.source) then
-        return true
-    end
-
-    return self:CheckItemInList(self.settings.filter.source, ADDON.ToyBoxEnhancedSource, itemId)
-end
-
-function ADDON:FilterToysByProfession(itemId)
-    return self:CheckItemInList(self.settings.filter.profession, ADDON.ToyBoxEnhancedProfession, itemId)
-end
-
-function ADDON:FilterToysByWorldEvent(itemId)
-    return self:CheckItemInList(self.settings.filter.worldEvent, ADDON.ToyBoxEnhancedWorldEvent, itemId)
-end
-
-function ADDON:FilterToysByExpansion(itemId)
-
-    local settingsResult = self:CheckAllSettings(self.settings.filter.expansion)
-    if settingsResult then
-        return true
-    end
-
-    local settingResult = self:CheckItemInList(self.settings.filter.expansion, ADDON.ToyBoxEnhancedExpansion, itemId)
-    if settingResult ~= nil then
-        return settingResult
-    end
-
-    for expansion, value in pairs(self.settings.filter.expansion) do
-        if ADDON.ToyBoxEnhancedExpansion[expansion] and
-                ADDON.ToyBoxEnhancedExpansion[expansion]["minID"] <= itemId and
-                itemId <= ADDON.ToyBoxEnhancedExpansion[expansion]["maxID"] then
-            return value
-        end
-    end
-
-    return false
-end
-
--- endregion
 
 function ADDON:GetUsableToysCount()
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys()

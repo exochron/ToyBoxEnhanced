@@ -10,6 +10,7 @@ Libs\MSA-DropDownMenu-1.0\MSA-DropDownMenu-1.0.xml
 
 Locals\Locals.xml
 Database.lua
+Filters.lua
 ToyBoxEnhanced.lua
 ToyBoxEnhanced.xml
 Settings.lua
