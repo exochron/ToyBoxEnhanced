@@ -13,10 +13,12 @@ end
 local function DebugTest()
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
     for toyIndex = 1, toyCount do
-        local itemId = ADDON:GetToyInfoOfOriginalIndex(toyIndex)
-        if (not ContainsItem(ADDON.ToyBoxEnhancedSource, itemId)
+        local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
+        if (itemId
+                and not ContainsItem(ADDON.ToyBoxEnhancedSource, itemId)
                 and not ContainsItem(ADDON.ToyBoxEnhancedProfession, itemId)
-                and not ContainsItem(ADDON.ToyBoxEnhancedWorldEvent, itemId)) then
+                and not ContainsItem(ADDON.ToyBoxEnhancedWorldEvent, itemId)
+        ) then
             print("New toy (by Source): " .. itemId)
         end
     end

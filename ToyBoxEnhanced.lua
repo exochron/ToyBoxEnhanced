@@ -1,5 +1,6 @@
 local ADDON_NAME, ADDON = ...
 
+ADDON.TOYS_PER_PAGE = 18
 ADDON.filteredToyList = {}
 ADDON.filterString = ""
 
@@ -18,33 +19,15 @@ local function FireCallbacks(callbacks)
 end
 --endregion
 
-local org_GetNumFilteredToys
-local function OverloadToyBox()
-    org_GetNumFilteredToys = C_ToyBox.GetNumFilteredToys
-    local org_GetToyFromIndex = C_ToyBox.GetToyFromIndex
-    --    C_ToyBox.GetNumFilteredToys = function()
-    --        return #ADDON.filteredToyList
-    --    end
-    --    C_ToyBox.GetToyFromIndex = function(index)
-    --        if (index > #ADDON.filteredToyList) then
-    --            return -1
-    --        end
-    --
-    --        return ADDON.filteredToyList[index]
-    --    end
-    --    C_ToyBox.ForceToyRefilter = function()
-    --        return ADDON:FilterToys()
-    --    end
-    function ADDON:GetToyInfoOfOriginalIndex(index)
-        return C_ToyBox.GetToyInfo(org_GetToyFromIndex(index))
-    end
-end
-
 function ADDON:LoadUI()
-    OverloadToyBox()
     PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1) end end)
 
     --    ToyBox.searchBox:SetScript("OnTextChanged", function(sender) self:ToyBox_OnSearchTextChanged(sender) end)
+
+    hooksecurefunc("ToyBox_UpdatePages", function()
+        local maxPages = 1 + math.floor( math.max((#ADDON.filteredToyList - 1), 0) / ADDON.TOYS_PER_PAGE);
+        ToyBox.PagingFrame:SetMaxPages(maxPages)
+    end)
 
     FireCallbacks(loadUICallbacks)
     self:FilterAndRefresh()
@@ -70,7 +53,7 @@ end
 
 function ADDON:FilterToys()
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
-    if (org_GetNumFilteredToys() ~= toyCount) then
+    if (C_ToyBox.GetNumFilteredToys() ~= toyCount) then
         C_ToyBox.SetAllSourceTypeFilters(true)
         C_ToyBox.SetFilterString("")
         C_ToyBox.SetCollectedShown(true)
@@ -85,7 +68,7 @@ function ADDON:FilterToys()
     end
 
     for toyIndex = 1, toyCount do
-        local itemId, name, icon, favorited = ADDON:GetToyInfoOfOriginalIndex(toyIndex)
+        local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(C_ToyBox.GetToyFromIndex(toyIndex))
 
         if ((doNameFilter and self:FilterToysByName(name))
                 or (not doNameFilter and ADDON:FilterToy(toyIndex))) then
@@ -100,28 +83,6 @@ function ADDON:FilterToysByName(name)
     else
         return false
     end
-end
-
-function ADDON:GetUsableToysCount()
-    local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
-    if (org_GetNumFilteredToys() ~= toyCount) then
-        C_ToyBox.SetAllSourceTypeFilters(true)
-        C_ToyBox.SetFilterString("")
-        C_ToyBox.SetCollectedShown(true)
-        C_ToyBox.SetUncollectedShown(true)
-    end
-
-    local usableCount = 0
-
-    local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
-    for toyIndex = 1, toyCount do
-        local itemId = ADDON:GetToyInfoOfOriginalIndex(toyIndex)
-        if (PlayerHasToy(itemId) and C_ToyBox.IsToyUsable(itemId)) then
-            usableCount = usableCount + 1
-        end
-    end
-
-    return usableCount
 end
 
 function ADDON:OnLogin()

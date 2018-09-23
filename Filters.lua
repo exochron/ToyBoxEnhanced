@@ -111,7 +111,7 @@ local function FilterToysByExpansion(itemId)
 end
 
 function ADDON:FilterToy(toyIndex)
-    local itemId, name, icon, favorited = ADDON:GetToyInfoOfOriginalIndex(toyIndex)
+    local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(C_ToyBox.GetToyFromIndex(toyIndex))
     local collected = PlayerHasToy(itemId)
 
     if (FilterHiddenToys(itemId)

@@ -1,7 +1,5 @@
 local ADDON_NAME, ADDON = ...
 
-local TOYS_PER_PAGE = 18
-
 local function UpdateButtonCooldown(self)
     if (self.TBEitemID == -1 or self.TBEitemID == nil) then
         return;
@@ -24,7 +22,7 @@ end
 local function UpdateButton(self)
 
     if not InCombatLockdown() then
-        local itemIndex = (ToyBox.PagingFrame:GetCurrentPage() - 1) * TOYS_PER_PAGE + self:GetID();
+        local itemIndex = (ToyBox.PagingFrame:GetCurrentPage() - 1) * ADDON.TOYS_PER_PAGE + self:GetID();
         self.TBEitemID = ADDON.filteredToyList[itemIndex] or -1;
         self:SetAttribute("toy", self.itemID)
 
@@ -113,7 +111,7 @@ local function HandleOnDrag(self)
 end
 
 local function ReplaceSpellButtons()
-    for i = 1, TOYS_PER_PAGE do
+    for i = 1, ADDON.TOYS_PER_PAGE do
         local oldToyButton = ToyBox.iconsFrame["spellButton" .. i]
         oldToyButton:SetParent(nil)
         oldToyButton:SetShown(false)
@@ -170,7 +168,7 @@ local function ReplaceSpellButtons()
         { "TOPLEFT", ToyBox.iconsFrame.spellButton16, "TOPLEFT", 208, 0 },
         { "TOPLEFT", ToyBox.iconsFrame.spellButton17, "TOPLEFT", 208, 0 },
     }
-    for i = 1, TOYS_PER_PAGE do
+    for i = 1, ADDON.TOYS_PER_PAGE do
         ToyBox.iconsFrame["spellButton" .. i]:SetPoint(positions[i][1], positions[i][2], positions[i][3], positions[i][4], positions[i][5])
     end
 end

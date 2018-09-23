@@ -1,5 +1,27 @@
 local ADDON_NAME, ADDON = ...
 
+local function GetUsableToysCount()
+    local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
+    if (C_ToyBox.GetNumFilteredToys() ~= toyCount) then
+        C_ToyBox.SetAllSourceTypeFilters(true)
+        C_ToyBox.SetFilterString("")
+        C_ToyBox.SetCollectedShown(true)
+        C_ToyBox.SetUncollectedShown(true)
+    end
+
+    local usableCount = 0
+
+    local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
+    for toyIndex = 1, toyCount do
+        local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
+        if (itemId and PlayerHasToy(itemId) and C_ToyBox.IsToyUsable(itemId)) then
+            usableCount = usableCount + 1
+        end
+    end
+
+    return usableCount
+end
+
 local function CreateCountFrames()
     local L = ADDON.L
 
@@ -13,10 +35,10 @@ local function CreateCountFrames()
 
     local usableToyCountFrame = CreateFrame("Frame", nil, ToyBox, "TBEToyUsableCountTemplate")
     usableToyCountFrame.staticText:SetText(L["Usable"])
-    usableToyCountFrame.uniqueCount:SetText(ADDON:GetUsableToysCount())
+    usableToyCountFrame.uniqueCount:SetText(GetUsableToysCount())
     usableToyCountFrame:RegisterEvent("TOYS_UPDATED")
     usableToyCountFrame:SetScript("OnEvent", function(self, event, arg1)
-        usableToyCountFrame.uniqueCount:SetText(ADDON:GetUsableToysCount())
+        usableToyCountFrame.uniqueCount:SetText(GetUsableToysCount())
     end)
 end
 
