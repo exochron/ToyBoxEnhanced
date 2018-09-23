@@ -177,9 +177,9 @@ local function InitializeDropDown(filterMenu, level)
         info = CreateFilterInfo(L["Reset filters"])
         info.keepShownOnClick = false
         info.func = function(_, _, _, value)
+            ToyBox.firstCollectedToyID = 0
             ADDON:ResetFilterSettings()
-            ADDON:UpdateIndexMap()
-            MountJournal_UpdateMountList()
+            ADDON:FilterAndRefresh()
         end
         MSA_DropDownMenu_AddButton(info, level)
 

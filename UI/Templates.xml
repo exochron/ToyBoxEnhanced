@@ -31,26 +31,22 @@
         </Anchors>
     </Frame>
 
-	<CheckButton name="ToyBoxEnhancedSpellButtonTemplate" inherits="CollectionsSpellButtonTemplate,SecureFrameTemplate,SecureActionButtonTemplate" virtual="true">
-		<Scripts>
-			<OnLoad>
-				CollectionsSpellButton_OnLoad(self, ToySpellButton_UpdateButton)
-			</OnLoad>
-			<OnHide function="ToySpellButton_OnHide"/>
-			<OnDragStart function="ToySpellButton_OnDrag"/>
-			<OnReceiveDrag function="ToySpellButton_OnDrag"/>
-		</Scripts>
+    <CheckButton name="ToyBoxEnhancedSpellButtonTemplate" inherits="ToySpellButtonTemplate,SecureActionButtonTemplate" virtual="true">
+        <Attributes>
+            <Attribute name="type1" value="toy"/>
+            <Attribute name="shift-action1" value=""/>
+        </Attributes>
         <Layers>
             <Layer level="OVERLAY">
                 <Texture parentKey="IsHidden" hidden="true" file="Interface\BUTTONS\UI-GroupLoot-Pass-Up">
-                    <Size x="36" y="36" />
+                    <Size x="36" y="36"/>
                     <Anchors>
-                        <Anchor point="CENTER" CENTER="LEFT" x="0" y="2" />
+                        <Anchor point="CENTER" CENTER="LEFT" x="0" y="2"/>
                     </Anchors>
                 </Texture>
             </Layer>
         </Layers>
-	</CheckButton>
+    </CheckButton>
 
     <Button name="TBEAchievementButtonTemplate" parent="ToyBox" virtual="true">
         <Size x="60" y="40"/>

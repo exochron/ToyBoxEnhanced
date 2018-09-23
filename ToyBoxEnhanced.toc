@@ -12,9 +12,10 @@ Locals\Locals.xml
 Database.lua
 Filters.lua
 ToyBoxEnhanced.lua
-ToyBoxEnhanced.xml
 Settings.lua
 DebugTest.lua
+UI\Templates.xml
+UI\ButtonReplacements.lua
 UI\AchievementPoints.lua
 UI\FilterMenu.lua
 UI\OptionsMenu.lua
