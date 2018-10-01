@@ -2,7 +2,6 @@ local ADDON_NAME, ADDON = ...
 
 ADDON.TOYS_PER_PAGE = 18
 ADDON.filteredToyList = {}
-ADDON.filterString = ""
 
 -- region callbacks
 local loginCallbacks, loadUICallbacks = {}, {}
@@ -19,10 +18,19 @@ local function FireCallbacks(callbacks)
 end
 --endregion
 
-function ADDON:LoadUI()
-    PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1) end end)
+local function ResetAPIFilters()
+    C_ToyBox.SetAllSourceTypeFilters(true)
+    C_ToyBox.SetAllExpansionTypeFilters(true)
+    C_ToyBox.SetFilterString("")
+    C_ToyBox.SetCollectedShown(true)
+    C_ToyBox.SetUncollectedShown(true)
+    C_ToyBox.SetUnusableShown(true)
+end
 
-    --    ToyBox.searchBox:SetScript("OnTextChanged", function(sender) self:ToyBox_OnSearchTextChanged(sender) end)
+function ADDON:LoadUI()
+    ResetAPIFilters()
+
+    PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1) end end)
 
     hooksecurefunc("ToyBox_UpdatePages", function()
         local maxPages = 1 + math.floor( math.max((#ADDON.filteredToyList - 1), 0) / ADDON.TOYS_PER_PAGE);
@@ -39,53 +47,36 @@ function ADDON:FilterAndRefresh()
     ToyBox_UpdateButtons()
 end
 
-function ADDON:ToyBox_OnSearchTextChanged(sender)
-    SearchBoxTemplate_OnTextChanged(sender)
-
-    local oldText = self.filterString
-    self.filterString = string.lower(sender:GetText())
-
-    if (oldText ~= self.filterString) then
-        ToyBox.firstCollectedToyID = 0
-        self:FilterAndRefresh()
+local function SearchIsActive()
+    local searchString = ToyBox.searchString
+    if (not searchString or string.len(searchString) == 0) then
+        return false
     end
+
+    return true
 end
 
 function ADDON:FilterToys()
+    local searchIsActive = SearchIsActive()
+
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
-    if (C_ToyBox.GetNumFilteredToys() ~= toyCount) then
-        C_ToyBox.SetAllSourceTypeFilters(true)
-        C_ToyBox.SetFilterString("")
-        C_ToyBox.SetCollectedShown(true)
-        C_ToyBox.SetUncollectedShown(true)
+    if (not searchIsActive and C_ToyBox.GetNumFilteredToys() ~= toyCount) then
+        ResetAPIFilters()
     end
 
     self.filteredToyList = {}
 
-    local doNameFilter = false
-    if (self.filterString and string.len(self.filterString) > 0) then
-        doNameFilter = true
-    end
-
     for toyIndex = 1, toyCount do
-        local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(C_ToyBox.GetToyFromIndex(toyIndex))
+        local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
 
-        if ((doNameFilter and self:FilterToysByName(name))
-                or (not doNameFilter and ADDON:FilterToy(toyIndex))) then
+        if (searchIsActive or ADDON:FilterToy(itemId)) then
             table.insert(self.filteredToyList, itemId)
         end
     end
 end
 
-function ADDON:FilterToysByName(name)
-    if (string.find(string.lower(name), self.filterString, 1, true)) then
-        return true
-    else
-        return false
-    end
-end
-
 function ADDON:OnLogin()
+    ResetAPIFilters()
     FireCallbacks(loginCallbacks)
 end
 
@@ -106,7 +97,7 @@ frame:SetScript("OnEvent", function(self, event, arg1)
         ADDON.initialized = true
     end
 
-    if ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then
+    if ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") and not InCombatLockdown() then
         ADDON:FilterAndRefresh()
     end
 end)

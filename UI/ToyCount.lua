@@ -1,16 +1,7 @@
 local ADDON_NAME, ADDON = ...
 
 local function GetUsableToysCount()
-    local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
-    if (C_ToyBox.GetNumFilteredToys() ~= toyCount) then
-        C_ToyBox.SetAllSourceTypeFilters(true)
-        C_ToyBox.SetFilterString("")
-        C_ToyBox.SetCollectedShown(true)
-        C_ToyBox.SetUncollectedShown(true)
-    end
-
     local usableCount = 0
-
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
     for toyIndex = 1, toyCount do
         local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
