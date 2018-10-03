@@ -253,9 +253,17 @@ end
 ADDON:RegisterLoadUICallback(function()
     local menu = MSA_DropDownMenu_Create(ADDON_NAME .. "FilterMenu", ToyBoxFilterButton)
     MSA_DropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
-    ToyBoxFilterButton:HookScript("OnClick", function(sender)
-        if not ADDON.inCombat then
-            MSA_ToggleDropDownMenu(1, nil, menu, sender, 74, 15)
-        end
+
+    local filterButton = CreateFrame("Button", nil, ToyBox, "TBEFilterButtonTemplate")
+    filterButton:SetFrameStrata("DIALOG")
+    filterButton:SetScript("OnClick", function(sender)
+        PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
+        MSA_ToggleDropDownMenu(1, nil, menu, sender, 74, 15)
     end)
+    filterButton:RegisterEvent("PLAYER_REGEN_ENABLED")
+    filterButton:RegisterEvent("PLAYER_REGEN_DISABLED")
+    filterButton:SetScript("OnEvent", function(self, event, arg1)
+        self:SetShown(event == "PLAYER_REGEN_ENABLED")
+    end)
+    filterButton:SetShown(not ADDON.inCombat)
 end)

@@ -346,4 +346,22 @@
             </Layer>
         </Layers>
     </Button>
+
+    <!-- from ToyboxFilterButton -->
+    <Button name="TBEFilterButtonTemplate" inherits="UIMenuButtonStretchTemplate" text="FILTER" virtual="true">
+        <Size x="93" y="22"/>
+        <Anchors>
+            <Anchor point="TOPRIGHT" x="-12" y="-34"/>
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture parentKey="Icon" file="Interface\ChatFrame\ChatFrameExpandArrow">
+                    <Size x="10" y="12"/>
+                    <Anchors>
+                        <Anchor point="RIGHT" relativeKey="$parent.Right" relativePoint="RIGHT" x="-5"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+    </Button>
 </Ui>

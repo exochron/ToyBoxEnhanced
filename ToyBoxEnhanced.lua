@@ -1,9 +1,5 @@
 local ADDON_NAME, ADDON = ...
 
--- TODO:
--- fix toggle filter menu
--- random toy button
-
 ADDON.TOYS_PER_PAGE = 18
 ADDON.filteredToyList = {}
 ADDON.inCombat = InCombatLockdown()
