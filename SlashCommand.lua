@@ -11,7 +11,8 @@ function SlashCmdList.TOYBOXENHANCED(msg, editBox)
         ADDON.settings.debugMode = false
         print("ToyBoxEnhanced: Debug mode deactivated.")
     else
-        print("Syntax:")
-        print("/tbe debug (on | off)")
+        local title = GetAddOnMetadata(ADDON_NAME, "Title")
+        InterfaceOptionsFrame_OpenToCategory(title)
+        InterfaceOptionsFrame_OpenToCategory(title)
     end
 end

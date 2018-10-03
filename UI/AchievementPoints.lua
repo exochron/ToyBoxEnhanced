@@ -35,4 +35,8 @@ local function CreateAchievementPoints()
     end)
 end
 
-ADDON:RegisterLoadUICallback(CreateAchievementPoints)
+ADDON:RegisterLoadUICallback(function()
+    if ADDON.settings.replaceProgressBar then
+        CreateAchievementPoints()
+    end
+end)

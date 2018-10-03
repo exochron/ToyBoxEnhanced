@@ -13,9 +13,10 @@ Database.lua
 Filters.lua
 ToyBoxEnhanced.lua
 Settings.lua
+SettingsPanel.lua
 DebugTest.lua
 UI\Templates.xml
-UI\ButtonReplacements.lua
+UI\EnhancedLayer.lua
 UI\AchievementPoints.lua
 UI\FilterMenu.lua
 UI\OptionsMenu.lua

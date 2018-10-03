@@ -1,5 +1,11 @@
 local ADDON_NAME, ADDON = ...
 
+-- TODO:
+--  Hotkeys
+--  Favorites menu / favorites per char
+--  fix toggle filter menu
+-- (random toy button)
+
 ADDON.TOYS_PER_PAGE = 18
 ADDON.filteredToyList = {}
 ADDON.inCombat = InCombatLockdown()
@@ -64,7 +70,7 @@ function ADDON:FilterToys()
 
     self.filteredToyList = {}
 
-    for toyIndex = 1, toyCount do
+    for toyIndex = 1, C_ToyBox.GetNumFilteredToys() do
         local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
 
         if (searchIsActive or ADDON:FilterToy(itemId)) then

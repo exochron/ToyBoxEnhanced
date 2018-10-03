@@ -32,4 +32,7 @@ L["Pilgrim's Bounty"] = "Pilgrim's Bounty"
 L["Pirates' Day"] = "Pirates' Day"
 L["Feast of Winter Veil"] = "Feast of Winter Veil"
 
+-- Settings
+L["SETTING_REPLACE_PROGRESSBAR"] = "Replace Progressbar with Achievementpoints"
+
 ADDON.L = L

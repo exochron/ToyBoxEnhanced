@@ -7,9 +7,14 @@ function ADDON:ResetFilterSettings()
     ADDON.settings.filter = CopyTable(defaultFilterStates)
 end
 
+function ADDON:ResetUISettings()
+    ADDON.settings.replaceProgressBar = true
+end
+
 local function PrepareDefaults()
     local defaultSettings = {
         debugMode = false,
+        replaceProgressBar = true,
         hiddenToys = {},
         filter = {
             collected = true,

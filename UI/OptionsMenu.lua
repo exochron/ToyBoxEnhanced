@@ -55,7 +55,7 @@ ADDON:RegisterLoadUICallback( function()
     MSA_DropDownMenu_Initialize(menu, InitMenu, "MENU")
 
     for i = 1, ADDON.TOYS_PER_PAGE do
-        ToyBox.TBEButtons["spellButton"..i]:HookScript("OnClick", function(sender, button)
+        ToyBox.EnhancedLayer["spellButton"..i]:HookScript("OnClick", function(sender, button)
             if (not IsModifiedClick() and not sender.isPassive and button ~= "LeftButton") then
                 menu.itemId = sender.itemID
                 MSA_ToggleDropDownMenu(1, nil, menu, sender, 0, 0)
