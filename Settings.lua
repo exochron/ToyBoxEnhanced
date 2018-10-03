@@ -10,6 +10,7 @@ end
 function ADDON:ResetUISettings()
     ADDON.settings.enableCursorKeys = true
     ADDON.settings.replaceProgressBar = true
+    ADDON.settings.favoritePerChar = false
 end
 
 local function PrepareDefaults()
@@ -17,6 +18,8 @@ local function PrepareDefaults()
         debugMode = false,
         enableCursorKeys = true,
         replaceProgressBar = true,
+        favoritePerChar = false,
+        favoredToys = {},
         hiddenToys = {},
         filter = {
             collected = true,
@@ -73,7 +76,7 @@ local function CombineSettings(settings, defaultSettings)
 end
 
 -- Settings have to be loaded during PLAYER_LOGIN
-hooksecurefunc(ADDON, "OnLogin", function()
+ADDON:RegisterLoginCallback(function()
     local defaultSettings = PrepareDefaults()
     defaultFilterStates = CopyTable(defaultSettings.filter)
     CombineSettings(ToyBoxEnhancedSettings, defaultSettings)

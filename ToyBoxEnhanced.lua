@@ -1,10 +1,8 @@
 local ADDON_NAME, ADDON = ...
 
 -- TODO:
---  Hotkeys
---  Favorites menu / favorites per char
---  fix toggle filter menu
--- (random toy button)
+-- fix toggle filter menu
+-- random toy button
 
 ADDON.TOYS_PER_PAGE = 18
 ADDON.filteredToyList = {}
@@ -25,7 +23,7 @@ local function FireCallbacks(callbacks)
 end
 --endregion
 
-local function ResetAPIFilters()
+function ADDON:ResetAPIFilters()
     C_ToyBox.SetAllSourceTypeFilters(true)
     C_ToyBox.SetAllExpansionTypeFilters(true)
     C_ToyBox.SetFilterString("")
@@ -35,7 +33,7 @@ local function ResetAPIFilters()
 end
 
 function ADDON:LoadUI()
-    ResetAPIFilters()
+    self:ResetAPIFilters()
 
     PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1) end end)
 
@@ -65,7 +63,7 @@ function ADDON:FilterToys()
 
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
     if (not searchIsActive and C_ToyBox.GetNumFilteredToys() ~= toyCount) then
-        ResetAPIFilters()
+        self:ResetAPIFilters()
     end
 
     self.filteredToyList = {}
@@ -80,7 +78,7 @@ function ADDON:FilterToys()
 end
 
 function ADDON:OnLogin()
-    ResetAPIFilters()
+    self:ResetAPIFilters()
     FireCallbacks(loginCallbacks)
 end
 

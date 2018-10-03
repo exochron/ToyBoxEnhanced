@@ -7,6 +7,10 @@ L["Usable"] = "Usable"
 L["Hidden"] = "Hidden"
 L["Only usable"] = "Only usable"
 L["Reset filters"] = "Reset filters"
+L["FAVOR_DISPLAYED"] = "All Displayed"
+L["FAVOR_PER_CHARACTER"] = "Per Character"
+L["TASK_END"] = "[TBE] Phew! I'm done."
+L["TASK_FAVOR_START"] = "[TBE] Reapplying stars all over your toys. Please wait a few seconds until I'm finished."
 
 -- Source
 L["Treasure"] = "Treasure"
@@ -35,5 +39,6 @@ L["Feast of Winter Veil"] = "Feast of Winter Veil"
 -- Settings
 L["SETTING_REPLACE_PROGRESSBAR"] = "Replace Progressbar with Achievementpoints"
 L["SETTING_CURSOR_KEYS"] = "Enable Left&Right keys to flip pages"
+L["SETTING_FAVORITE_PER_CHAR"] = "Favorite toys per character"
 
 ADDON.L = L

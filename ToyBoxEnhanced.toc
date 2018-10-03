@@ -3,7 +3,7 @@
 ## Notes: Extends the default Toy Box
 ## Author: eXochron
 ## Version: 1.9
-## SavedVariables: ToyBoxEnhancedSettings
+## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
 
 Libs\LibStub\LibStub.lua
 Libs\MSA-DropDownMenu-1.0\MSA-DropDownMenu-1.0.xml
@@ -15,6 +15,7 @@ ToyBoxEnhanced.lua
 Settings.lua
 SettingsPanel.lua
 DebugTest.lua
+Favorites.lua
 UI\Templates.xml
 UI\EnhancedLayer.lua
 UI\AchievementPoints.lua
