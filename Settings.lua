@@ -39,16 +39,16 @@ local function PrepareDefaults()
         },
     }
 
-    for name, _ in pairs(ADDON.ToyBoxEnhancedSource) do
+    for name, _ in pairs(ADDON.db.source) do
         defaultSettings.filter.source[name] = true
     end
-    for name, _ in pairs(ADDON.ToyBoxEnhancedProfession) do
+    for name, _ in pairs(ADDON.db.profession) do
         defaultSettings.filter.profession[name] = true
     end
-    for name, _ in pairs(ADDON.ToyBoxEnhancedWorldEvent) do
+    for name, _ in pairs(ADDON.db.worldEvent) do
         defaultSettings.filter.worldEvent[name] = true
     end
-    for name, _ in pairs(ADDON.ToyBoxEnhancedExpansion) do
+    for name, _ in pairs(ADDON.db.expansion) do
         defaultSettings.filter.expansion[name] = true
     end
 

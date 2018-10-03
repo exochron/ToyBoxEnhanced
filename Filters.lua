@@ -63,7 +63,7 @@ local function FilterToysByFaction(itemId)
         return true
     end
 
-    local settingResult = CheckItemInList(ADDON.settings.filter.faction, ADDON.ToyBoxEnhancedFaction, itemId)
+    local settingResult = CheckItemInList(ADDON.settings.filter.faction, ADDON.db.faction, itemId)
     if settingResult ~= nil then
         return settingResult
     end
@@ -76,15 +76,15 @@ local function FilterToysBySource(itemId)
         return true
     end
 
-    return CheckItemInList(ADDON.settings.filter.source, ADDON.ToyBoxEnhancedSource, itemId)
+    return CheckItemInList(ADDON.settings.filter.source, ADDON.db.source, itemId)
 end
 
 local function FilterToysByProfession(itemId)
-    return CheckItemInList(ADDON.settings.filter.profession, ADDON.ToyBoxEnhancedProfession, itemId)
+    return CheckItemInList(ADDON.settings.filter.profession, ADDON.db.profession, itemId)
 end
 
 local function FilterToysByWorldEvent(itemId)
-    return CheckItemInList(ADDON.settings.filter.worldEvent, ADDON.ToyBoxEnhancedWorldEvent, itemId)
+    return CheckItemInList(ADDON.settings.filter.worldEvent, ADDON.db.worldEvent, itemId)
 end
 
 local function FilterToysByExpansion(itemId)
@@ -94,15 +94,15 @@ local function FilterToysByExpansion(itemId)
         return true
     end
 
-    local settingResult = CheckItemInList(ADDON.settings.filter.expansion, ADDON.ToyBoxEnhancedExpansion, itemId)
+    local settingResult = CheckItemInList(ADDON.settings.filter.expansion, ADDON.db.expansion, itemId)
     if settingResult ~= nil then
         return settingResult
     end
 
     for expansion, value in pairs(ADDON.settings.filter.expansion) do
-        if ADDON.ToyBoxEnhancedExpansion[expansion] and
-                ADDON.ToyBoxEnhancedExpansion[expansion]["minID"] <= itemId and
-                itemId <= ADDON.ToyBoxEnhancedExpansion[expansion]["maxID"] then
+        if ADDON.db.expansion[expansion] and
+                ADDON.db.expansion[expansion]["minID"] <= itemId and
+                itemId <= ADDON.db.expansion[expansion]["maxID"] then
             return value
         end
     end

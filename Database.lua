@@ -1,6 +1,6 @@
 local ADDON_NAME, ADDON = ...
 
-ADDON.ToyBoxEnhancedWorldEvent = {
+ADDON.db.worldEvent = {
 
     ["Timewalking"] = {
         [129926] = "Mark of the Ashtongue",
@@ -130,7 +130,7 @@ ADDON.ToyBoxEnhancedWorldEvent = {
     },
 }
 
-ADDON.ToyBoxEnhancedProfession = {
+ADDON.db.profession = {
     ["Jewelcrafting"] = {
         [115503] = "Blazing Diamond Pendant",
         [130251] = "JewelCraft",
@@ -216,7 +216,7 @@ ADDON.ToyBoxEnhancedProfession = {
     },
 }
 
-ADDON.ToyBoxEnhancedFaction = {
+ADDON.db.faction = {
     alliance = {
         [45011] = "Stormwind Banner",
         [45018] = "Ironforge Banner",
@@ -258,7 +258,7 @@ ADDON.ToyBoxEnhancedFaction = {
     },
 }
 
-ADDON.ToyBoxEnhancedSource = {
+ADDON.db.source = {
     ["Treasure"] = {
         -- Draenor
         [108735] = "Arena Master's War Horn",
@@ -796,7 +796,7 @@ ADDON.ToyBoxEnhancedSource = {
     },
 }
 
-ADDON.ToyBoxEnhancedExpansion = {
+ADDON.db.expansion = {
 
     -- Classic
     [EXPANSION_NAME0] = {

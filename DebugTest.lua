@@ -15,29 +15,29 @@ local function DebugTest()
     for toyIndex = 1, toyCount do
         local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
         if (itemId
-                and not ContainsItem(ADDON.ToyBoxEnhancedSource, itemId)
-                and not ContainsItem(ADDON.ToyBoxEnhancedProfession, itemId)
-                and not ContainsItem(ADDON.ToyBoxEnhancedWorldEvent, itemId)
+                and not ContainsItem(ADDON.db.source, itemId)
+                and not ContainsItem(ADDON.db.profession, itemId)
+                and not ContainsItem(ADDON.db.worldEvent, itemId)
         ) then
             print("New toy (by Source): " .. itemId)
         end
     end
 
-    for _, source in pairs(ADDON.ToyBoxEnhancedSource) do
+    for _, source in pairs(ADDON.db.source) do
         for itemId, _ in pairs(source) do
             if (not C_ToyBox.GetToyInfo(itemId)) then
                 print("Old toy (by Source): " .. itemId)
             end
         end
     end
-    for _, source in pairs(ADDON.ToyBoxEnhancedProfession) do
+    for _, source in pairs(ADDON.db.profession) do
         for itemId, _ in pairs(source) do
             if (not C_ToyBox.GetToyInfo(itemId)) then
                 print("Old toy (by Profession): " .. itemId)
             end
         end
     end
-    for _, source in pairs(ADDON.ToyBoxEnhancedWorldEvent) do
+    for _, source in pairs(ADDON.db.worldEvent) do
         for itemId, _ in pairs(source) do
             if (not C_ToyBox.GetToyInfo(itemId)) then
                 print("Old toy (by World Event): " .. itemId)
