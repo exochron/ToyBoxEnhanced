@@ -28,24 +28,22 @@ local function InitMenu(sender, level)
         info.disabled = nil
     end
 
-    if not InCombatLockdown() then
-        local isHidden = itemId and ADDON.settings.hiddenToys[itemId]
-        if (isHidden) then
-            info.text = SHOW
-            info.func = function()
-                ADDON.settings.hiddenToys[itemId] = nil
-                ADDON:FilterAndRefresh()
-            end
-        else
-            info.text = HIDE
-            info.func = function()
-                ADDON.settings.hiddenToys[itemId] = true
-                ADDON:FilterAndRefresh()
-            end
+    local isHidden = itemId and ADDON.settings.hiddenToys[itemId]
+    if (isHidden) then
+        info.text = SHOW
+        info.func = function()
+            ADDON.settings.hiddenToys[itemId] = nil
+            ADDON:FilterAndRefresh()
         end
-        MSA_DropDownMenu_AddButton(info, level)
-        info.disabled = nil
+    else
+        info.text = HIDE
+        info.func = function()
+            ADDON.settings.hiddenToys[itemId] = true
+            ADDON:FilterAndRefresh()
+        end
     end
+    MSA_DropDownMenu_AddButton(info, level)
+    info.disabled = nil
 
     info.text = CANCEL
     info.func = nil
@@ -56,14 +54,10 @@ ADDON:RegisterLoadUICallback( function()
     local menu = MSA_DropDownMenu_Create(ADDON_NAME .. "ToyMenu", ToyBox)
     MSA_DropDownMenu_Initialize(menu, InitMenu, "MENU")
 
-    for i = 1, 18 do
-        ToyBox.iconsFrame["spellButton"..i]:HookScript("OnClick", function(sender, button)
+    for i = 1, ADDON.TOYS_PER_PAGE do
+        ToyBox.TBEButtons["spellButton"..i]:HookScript("OnClick", function(sender, button)
             if (not IsModifiedClick() and not sender.isPassive and button ~= "LeftButton") then
-                if InCombatLockdown() then
-                    menu.itemId = sender.itemID
-                else
-                    menu.itemId = sender.TBEitemID
-                end
+                menu.itemId = sender.itemID
                 MSA_ToggleDropDownMenu(1, nil, menu, sender, 0, 0)
                 PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)
             end

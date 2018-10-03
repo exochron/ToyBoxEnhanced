@@ -2,6 +2,7 @@ local ADDON_NAME, ADDON = ...
 
 ADDON.TOYS_PER_PAGE = 18
 ADDON.filteredToyList = {}
+ADDON.inCombat = InCombatLockdown()
 
 -- region callbacks
 local loginCallbacks, loadUICallbacks = {}, {}
@@ -32,11 +33,6 @@ function ADDON:LoadUI()
 
     PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1) end end)
 
-    hooksecurefunc("ToyBox_UpdatePages", function()
-        local maxPages = 1 + math.floor( math.max((#ADDON.filteredToyList - 1), 0) / ADDON.TOYS_PER_PAGE);
-        ToyBox.PagingFrame:SetMaxPages(maxPages)
-    end)
-
     FireCallbacks(loadUICallbacks)
     self:FilterAndRefresh()
 end
@@ -44,7 +40,9 @@ end
 function ADDON:FilterAndRefresh()
     self:FilterToys()
     ToyBox_UpdatePages()
-    ToyBox_UpdateButtons()
+    if not ADDON.inCombat then
+        ToyBox_UpdateButtons()
+    end
 end
 
 local function SearchIsActive()
@@ -89,15 +87,17 @@ frame:RegisterEvent("PLAYER_REGEN_DISABLED")
 frame:SetScript("OnEvent", function(self, event, arg1)
     if event == "PLAYER_LOGIN" then
         ADDON:OnLogin()
+    elseif event == "PLAYER_REGEN_DISABLED" then
+        ADDON.inCombat = true
+    elseif event == "PLAYER_REGEN_ENABLED" then
+        ADDON.inCombat = false
     end
 
-    if ToyBox and not ADDON.initialized and ADDON.settings and not InCombatLockdown() then
+    if ToyBox and not ADDON.initialized and ADDON.settings then
         frame:UnregisterEvent("ADDON_LOADED")
         ADDON:LoadUI()
         ADDON.initialized = true
-    end
-
-    if ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") and not InCombatLockdown() then
+    elseif ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then
         ADDON:FilterAndRefresh()
     end
 end)
