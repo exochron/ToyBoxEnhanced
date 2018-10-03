@@ -34,5 +34,6 @@ L["Feast of Winter Veil"] = "Feast of Winter Veil"
 
 -- Settings
 L["SETTING_REPLACE_PROGRESSBAR"] = "Replace Progressbar with Achievementpoints"
+L["SETTING_CURSOR_KEYS"] = "Enable Left&Right keys to flip pages"
 
 ADDON.L = L

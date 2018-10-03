@@ -19,6 +19,7 @@ UI\Templates.xml
 UI\EnhancedLayer.lua
 UI\AchievementPoints.lua
 UI\FilterMenu.lua
+UI\Hotkeys.lua
 UI\OptionsMenu.lua
 UI\ToyCount.lua
 SlashCommand.lua

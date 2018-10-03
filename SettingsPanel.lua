@@ -20,12 +20,15 @@ local function BuildFrame()
     titleFont:SetText(GetAddOnMetadata(ADDON_NAME, "Title"))
 
     frame.replaceBarCheck = BuildCheckBox(frame, L.SETTING_REPLACE_PROGRESSBAR, titleFont, 10)
+    frame.enableCursorKeysCheck = BuildCheckBox(frame, L.SETTING_CURSOR_KEYS, frame.replaceBarCheck)
 
     return frame
 end
 
 local function OKHandler(frame)
     local reload
+    ADDON.settings.enableCursorKeys = frame.enableCursorKeysCheck:GetChecked()
+
     if (ADDON.settings.replaceProgressBar ~= frame.replaceBarCheck:GetChecked()) then
         ADDON.settings.replaceProgressBar = frame.replaceBarCheck:GetChecked()
         reload = true
@@ -40,6 +43,7 @@ ADDON:RegisterLoginCallback(function()
     frame.name = GetAddOnMetadata(ADDON_NAME, "Title")
     frame.refresh = function(frame)
         frame.replaceBarCheck:SetChecked(ADDON.settings.replaceProgressBar)
+        frame.enableCursorKeysCheck:SetChecked(ADDON.settings.enableCursorKeys)
     end
     frame.okay = OKHandler
     frame.default = ADDON.ResetUISettings

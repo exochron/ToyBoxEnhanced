@@ -8,12 +8,14 @@ function ADDON:ResetFilterSettings()
 end
 
 function ADDON:ResetUISettings()
+    ADDON.settings.enableCursorKeys = true
     ADDON.settings.replaceProgressBar = true
 end
 
 local function PrepareDefaults()
     local defaultSettings = {
         debugMode = false,
+        enableCursorKeys = true,
         replaceProgressBar = true,
         hiddenToys = {},
         filter = {
