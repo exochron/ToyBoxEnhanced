@@ -1,5 +1,7 @@
 local ADDON_NAME, ADDON = ...
 
+ADDON.db = {}
+
 ADDON.db.worldEvent = {
 
     ["Timewalking"] = {
