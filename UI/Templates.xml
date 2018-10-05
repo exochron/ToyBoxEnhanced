@@ -1,0 +1,401 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\..\FrameXML/UI.xsd">
+
+    <Frame name="TBEToyCountTemplate" inherits="InsetFrameTemplate3" parent="ToyBox" virtual="true">
+        <Size x="130" y="18"/>
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="$parent">
+                <Offset><AbsDimension x="70" y="-22"/></Offset>
+            </Anchor>
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString parentKey="staticText" inherits="GameFontNormalSmall">
+                    <Anchors>
+                        <Anchor point="LEFT" x="10" y="0"/>
+                    </Anchors>
+                </FontString>
+                <FontString parentKey="uniqueCount" inherits="GameFontHighlightSmall" text="0">
+                    <Anchors>
+                        <Anchor point="RIGHT" x="-10" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Frame>
+
+    <Frame name="TBEToyUsableCountTemplate" inherits="TBEToyCountTemplate" parent="ToyBox" virtual="true">
+        <Anchors>
+            <Anchor point="TOPLEFT" relativeTo="ToyBox">
+                <Offset><AbsDimension x="70" y="-42"/></Offset>
+            </Anchor>
+        </Anchors>
+    </Frame>
+
+    <!-- from CollectionsSpellButtonTemplate -->
+    <CheckButton name="TBEInsecureCollectionsSpellButtonTemplate" inherits="InsecureActionButtonTemplate" virtual="true">
+        <Size x="50" y="50" />
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture parentKey="iconTexture" setAllPoints="true" hidden="true">
+                    <Size x="42" y="42" />
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="1"/>
+                    </Anchors>
+                    <TexCoords left="0.04347826" right="0.95652173" top="0.04347826" bottom="0.95652173"/>
+                </Texture>
+
+                <Texture parentKey="iconTextureUncollected" setAllPoints="true" alpha=".18" hidden="true" desaturated="true">
+                    <Size x="42" y="41" />
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="2"/>
+                    </Anchors>
+                    <TexCoords left="0.063" right="0.938" top="0.063" bottom="0.917"/>
+                </Texture>
+
+                <Texture parentKey="slotFrameUncollectedInnerGlow" setAllPoints="true" alpha=".18" hidden="true" atlas="collections-itemborder-uncollected-innerglow" useAtlasSize="true">
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="2"/>
+                    </Anchors>
+                </Texture>
+
+                <FontString parentKey="name" inherits="GameFontNormal" maxLines="3" justifyH="LEFT">
+                    <Size x="135" y="0" />
+                    <Anchors>
+                        <Anchor point="LEFT" relativePoint="RIGHT" x="9" y="3" />
+                    </Anchors>
+                </FontString>
+            </Layer>
+
+            <Layer level="OVERLAY" textureSubLevel="2">
+                <FontString parentKey="new" inherits="GameFontHighlight" maxLines="1" justifyH="CENTER" text="NEW_CAPS" hidden="true">
+                    <Anchors>
+                        <Anchor point="CENTER" x="8" y="0" relativePoint="TOPLEFT"/>
+                    </Anchors>
+                    <Shadow>
+                        <Color r="0.32" g="0.5" b="1.0"/>
+                    </Shadow>
+                </FontString>
+
+                <Texture parentKey="newGlow" atlas="collections-newglow" hidden="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" relativeKey="$parent.new" x="-20" y="10"/>
+                        <Anchor point="BOTTOMRIGHT" relativeKey="$parent.new" x="20" y="-10"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+
+            <Layer level="OVERLAY" textureSubLevel="1">
+                <Texture parentKey="slotFrameCollected" atlas="collections-itemborder-collected">
+                    <Size x="56" y="56" />
+                    <Anchors>
+                        <Anchor point="CENTER" x="0"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="slotFrameUncollected" atlas="collections-itemborder-uncollected" hidden="true" useAtlasSize="false">
+                    <Size x="50" y="50" />
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="2"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Cooldown parentKey="cooldown" inherits="CooldownFrameTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="5" y="-4"/>
+                    <Anchor point="BOTTOMRIGHT" x="-5" y="7"/>
+                </Anchors>
+            </Cooldown>
+            <Frame parentKey="cooldownWrapper" setAllPoints="true">
+                <Layers>
+                    <Layer level="OVERLAY" textureSubLevel="2">
+                        <Texture parentKey="slotFavorite" atlas="collections-icon-favorites" useAtlasSize="true" hidden="true">
+                            <Anchors>
+                                <Anchor point="TOPLEFT" x="-12" y="13" relativePoint="TOPLEFT"/>
+                            </Anchors>
+                        </Texture>
+                    </Layer>
+                </Layers>
+            </Frame>
+        </Frames>
+        <Scripts>
+            <OnEvent function="CollectionsButton_OnEvent"/>
+
+            <PreClick>
+                self:SetChecked(false);
+            </PreClick>
+
+            <OnShow function="CollectionsSpellButton_OnShow"/>
+            <OnHide function="CollectionsSpellButton_OnHide"/>
+
+            <OnLeave>
+                    GameTooltip_Hide();
+                    ResetCursor();
+            </OnLeave>
+        </Scripts>
+        <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress">
+            <Size x="42" y="42"/>
+            <Anchors>
+                <Anchor point="CENTER" x="0" y="1"/>
+            </Anchors>
+        </PushedTexture>
+        <HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD">
+            <Size x="48" y="48"/>
+            <Anchors>
+                <Anchor point="CENTER" x="0" y="2"/>
+            </Anchors>
+        </HighlightTexture>
+        <CheckedTexture file="Interface\Buttons\CheckButtonHilight" alphaMode="ADD">
+            <Size x="42" y="42"/>
+            <Anchors>
+                <Anchor point="CENTER" x="0" y="1"/>
+            </Anchors>
+        </CheckedTexture>
+    </CheckButton>
+
+    <!-- from ToySpellButtonTemplate-->
+    <CheckButton name="TBEToySpellButtonTemplate" inherits="TBEInsecureCollectionsSpellButtonTemplate" virtual="true">
+        <Attributes>
+            <Attribute name="type1" value="toy"/>
+            <Attribute name="shift-action1" value=""/>
+        </Attributes>
+        <Layers>
+            <Layer level="OVERLAY">
+                <Texture parentKey="IsHidden" hidden="true" file="Interface\BUTTONS\UI-GroupLoot-Pass-Up">
+                    <Size x="36" y="36"/>
+                    <Anchors>
+                        <Anchor point="CENTER" CENTER="LEFT" x="0" y="2"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad>
+                    CollectionsSpellButton_OnLoad(self, TBE_ToySpellButton_UpdateButton)
+            </OnLoad>
+
+            <OnShow function="ToySpellButton_OnShow"/>
+            <OnHide function="ToySpellButton_OnHide"/>
+
+            <OnDragStart function="ToySpellButton_OnDrag"/>
+            <OnReceiveDrag function="ToySpellButton_OnDrag"/>
+
+            <OnEnter function="ToySpellButton_OnEnter"/>
+        </Scripts>
+    </CheckButton>
+
+    <!-- from Toybox.iconsFrame -->
+    <Frame name="TBEButtonFrameTemplate" inherits="CollectionsBackgroundTemplate" virtual="true" enablemouse="true">
+        <Layers>
+            <Layer level="BACKGROUND" textureSubLevel="-6">
+                <Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="2" y="-21"/>
+                        <Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="BORDER" textureSubLevel="1">
+                <Texture parentKey="watermark" atlas="collections-watermark-toy" useAtlasSize="true">
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-25" y="17"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <!-- Toy Buttons -->
+        <Frames>
+            <CheckButton parentKey="spellButton1" inherits="TBEToySpellButtonTemplate" id="1">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="40" y="-53" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton2" inherits="TBEToySpellButtonTemplate" id="2">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton1" x="208" y="0" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton3" inherits="TBEToySpellButtonTemplate" id="3">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton2" x="208" y="0" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton4" inherits="TBEToySpellButtonTemplate" id="4">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton1" relativePoint="BOTTOMLEFT" x="0" y="-16" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton5" inherits="TBEToySpellButtonTemplate" id="5">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton4" x="208" y="0" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton6" inherits="TBEToySpellButtonTemplate" id="6">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton5" x="208" y="0" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton7" inherits="TBEToySpellButtonTemplate" id="7">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton4" relativePoint="BOTTOMLEFT" x="0" y="-16" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton8" inherits="TBEToySpellButtonTemplate" id="8">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton7" x="208" y="0" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton9" inherits="TBEToySpellButtonTemplate" id="9">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton8" x="208" y="0" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton10" inherits="TBEToySpellButtonTemplate" id="10">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton7" relativePoint="BOTTOMLEFT" x="0" y="-16" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton11" inherits="TBEToySpellButtonTemplate" id="11">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton10" x="208" y="0" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton12" inherits="TBEToySpellButtonTemplate" id="12">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton11" x="208" y="0" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton13" inherits="TBEToySpellButtonTemplate" id="13">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton10" relativePoint="BOTTOMLEFT" x="0" y="-16" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton14" inherits="TBEToySpellButtonTemplate" id="14">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton13" x="208" y="0" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton15" inherits="TBEToySpellButtonTemplate" id="15">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton14"  x="208" y="0" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton16" inherits="TBEToySpellButtonTemplate" id="16">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton13" relativePoint="BOTTOMLEFT" x="0" y="-16" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton17" inherits="TBEToySpellButtonTemplate" id="17">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton16" x="208" y="0" />
+                </Anchors>
+            </CheckButton>
+            <CheckButton parentKey="spellButton18" inherits="TBEToySpellButtonTemplate" id="18">
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeKey="$parent.spellButton17" x="208" y="0" />
+                </Anchors>
+            </CheckButton>
+
+            <Frame parentKey="PagingFrame" inherits="CollectionsPagingFrameTemplate">
+                <Anchors>
+                    <Anchor point="BOTTOM" x="22" y="38"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </Frame>
+
+    <Button name="TBEAchievementButtonTemplate" parent="ToyBox" virtual="true">
+        <Size x="60" y="40"/>
+        <Anchors>
+            <Anchor point="Top" relativeTo="$parent">
+                <Offset><AbsDimension x="-50" y="-21"/></Offset>
+            </Anchor>
+        </Anchors>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <!--bgLeft-->
+                <Texture atlas="PetJournal-PetBattleAchievementBG">
+                    <Size x="46" y="18"/>
+                    <Anchors><Anchor point="Top" x="-56" y="-12"/></Anchors>
+                </Texture>
+                <!--bgRight-->
+                <Texture atlas="PetJournal-PetBattleAchievementBG">
+                    <Size x="46" y="18"/>
+                    <Anchors><Anchor point="Top" x="55" y="-12"/></Anchors>
+                    <TexCoords left="1" right="0" top="0" bottom="1" />
+                </Texture>
+                <!--hightlight-->
+                <Texture parentKey="highlight" atlas="PetJournal-PetBattleAchievementGlow" hidden="true">
+                    <Size x="240" y="40"/>
+                    <Anchors><Anchor point="Center" x="0" y="0"/></Anchors>
+                </Texture>
+                <!--icon-->
+                <Texture parentKey="icon" name="TBEAvIcon" file="Interface\AchievementFrame\UI-Achievement-Shields-NoPoints">
+                    <Size x="30" y="30"/>
+                    <Anchors><Anchor point="Right" x="0" y="-5"/></Anchors>
+                    <TexCoords left="0" right="0.5" top="0" bottom="0.5" />
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString parentKey="staticText" inherits="GameFontNormalLarge" maxLines="1" justifyH="LEFT">
+                    <Size x="0" y="0" />
+                    <Anchors>
+                        <Anchor point="RIGHT" relativeTo="TBEAvIcon" relativePoint="LEFT" x="-4" y="4" />
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </Button>
+
+    <!-- from ToyboxFilterButton -->
+    <Button name="TBEFilterButtonTemplate" inherits="UIMenuButtonStretchTemplate" text="FILTER" virtual="true">
+        <Size x="93" y="22"/>
+        <Anchors>
+            <Anchor point="TOPRIGHT" x="-12" y="-34"/>
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture parentKey="Icon" file="Interface\ChatFrame\ChatFrameExpandArrow">
+                    <Size x="10" y="12"/>
+                    <Anchors>
+                        <Anchor point="RIGHT" relativeKey="$parent.Right" relativePoint="RIGHT" x="-5"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+    </Button>
+
+    <!-- from PetCollection.SummonRandomFavoritePetButton-->
+    <Button name="TBEUseRandomToyButtonTemplate" inherits="SecureHandlerDragTemplate,SecureActionButtonTemplate" virtual="true">
+        <Size>
+            <AbsDimension x="33" y="33"/>
+        </Size>
+        <Anchors>
+            <Anchor point="CENTER" relativePoint="TOP" x="65" y="-42"/>
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture parentKey="texture" file="Interface/Icons/inv_misc_dice_02" setAllPoints="true"/>
+            </Layer>
+            <Layer level="OVERLAY">
+                <Texture parentKey="BlackCover" setAllPoints="true" hidden="true">
+                    <Color r="0" g="0" b="0" a="0.6"/>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY" textureSubLevel="1">
+                <Texture inherits="ActionBarFlyoutButton-IconFrame">
+                    <Size x="35" y="35"/>
+                    <Anchors>
+                        <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="LockIcon" file="Interface\PetBattles\PetBattle-LockIcon" setAllPoints="true" hidden="true"/>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Cooldown parentKey="cooldown" inherits="CooldownFrameTemplate"/>
+        </Frames>
+        <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+        <HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
+    </Button>
+</Ui>

@@ -1,36 +1,46 @@
-﻿local ADDON_NAME = ...
+﻿local ADDON_NAME, ADDON = ...
 
-L = CoreFramework:GetModule("Localization", "1.1"):NewLocalization(ADDON_NAME, "deDE")
+if (GetLocale() == 'deDE') then
+    local L = ADDON.L or {}
 
-L["Toys"] = "Spielzeuge"
-L["Usable"] = "Benutzbar"
-L["Hidden"] = "Ausgeblendete"
-L["Show"] = "Einblenden"
-L["Only usable"] = "Nur benutzbare"
-L["Reset filters"] = "Filter zurücksetzen"
-L["Expansion"] = "Erweiterung"
+    L["FAVOR_DISPLAYED"] = "Alle Angezeigten Wählen"
+    L["FAVOR_PER_CHARACTER"] = "Pro Charakter"
+    L["Hidden"] = "Ausgeblendete"
+    L["Only usable"] = "Nur benutzbare"
+    L["RANDOM_TOY_DESCRIPTION"] = "Das Spielzeug wird zufällig aus den Favoriten ausgewählt."
+    L["RANDOM_TOY_TITLE"] = "Zufälliges Lieblingsspielzeug benutzen"
+    L["Reset filters"] = "Filter zurücksetzen"
+    L["TASK_END"] = "[TBE] Uff! Endlich geschafft."
+    L["TASK_FAVOR_START"] = "[TBE] Bitte warten. Deine Spielzeuge werden mit Sternen neu beklebt."
+    L["Toys"] = "Spielzeuge"
+    L["Usable"] = "Benutzbar"
 
--- Source
-L["Treasure"] = "Schatz"
-L["Order Hall"] = "Ordenshalle"
-L["Pick Pocket"] = "Taschendiebstahl"
-L["Black Market"] = "Schwarzmarkt"
+    -- Settings
+    L["SETTING_CURSOR_KEYS"] = "Aktiviere Links- und Rechtspfeiltaste zum Durchblättern"
+    L["SETTING_FAVORITE_PER_CHAR"] = "Speichere Favoriten pro Charakter"
+    L["SETTING_REPLACE_PROGRESSBAR"] = "Ersetze Fortschrittsbalken mit Erfolgspunkten"
 
--- Profession
-L["Jewelcrafting"] = "Juwelierskunst"
-L["Engineering"] = "Ingenieurskunst"
-L["Leatherworking"] = "Lederverarbeitung"
-L["Enchanting"] = "Verzauberkunst"
-L["Inscription"] = "Inschriftenkunde"
+    -- Source
+    L["Black Market"] = "Schwarzmarkt"
+    L["Enchanting"] = "Verzauberkunst"
+    L["Engineering"] = "Ingenieurskunst"
+    L["Jewelcrafting"] = "Juwelierskunst"
+    L["Leatherworking"] = "Lederverarbeitung"
+    L["Order Hall"] = "Ordenshalle"
+    L["Pick Pocket"] = "Taschendiebstahl"
+    L["Treasure"] = "Schatz"
 
--- World Event
-L["Lunar Festival"] = "Mondfest"
-L["Love is in the Air"] = "Liebe liegt in der Luft"
-L["Children's Week"] = "Kinderwoche"
-L["Midsummer Fire Festival"] = "Sonnenwendfest"
-L["Brewfest"] = "Braufest"
-L["Hallow's End"] = "Schlotternächte"
-L["Day of the Dead"] = "Tag der Toten"
-L["Pilgrim's Bounty"] = "Pilgerfreudenfest"
-L["Pirates' Day"] = "Piratentag"
-L["Feast of Winter Veil"] = "Winterhauchfest"
+    -- World Event
+    L["Brewfest"] = "Braufest"
+    L["Children's Week"] = "Kinderwoche"
+    L["Day of the Dead"] = "Tag der Toten"
+    L["Feast of Winter Veil"] = "Winterhauchfest"
+    L["Hallow's End"] = "Schlotternächte"
+    L["Love is in the Air"] = "Liebe liegt in der Luft"
+    L["Lunar Festival"] = "Mondfest"
+    L["Midsummer Fire Festival"] = "Sonnenwendfest"
+    L["Pilgrim's Bounty"] = "Pilgerfreudenfest"
+    L["Pirates' Day"] = "Piratentag"
+
+    ADDON.L = L
+end

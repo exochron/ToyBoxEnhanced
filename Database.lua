@@ -1,4 +1,11 @@
-ToyBoxEnhancedWorldEvent = {
+local ADDON_NAME, ADDON = ...
+
+ADDON.db = {}
+
+-- itemIds of all initially scanned toys
+ADDON.db.ingameList = {}
+
+ADDON.db.worldEvent = {
 
     ["Timewalking"] = {
         [129926] = "Mark of the Ashtongue",
@@ -128,7 +135,7 @@ ToyBoxEnhancedWorldEvent = {
     },
 }
 
-ToyBoxEnhancedProfession = {
+ADDON.db.profession = {
     ["Jewelcrafting"] = {
         [115503] = "Blazing Diamond Pendant",
         [130251] = "JewelCraft",
@@ -214,7 +221,7 @@ ToyBoxEnhancedProfession = {
     },
 }
 
-ToyBoxEnhancedFaction = {
+ADDON.db.faction = {
     alliance = {
         [45011] = "Stormwind Banner",
         [45018] = "Ironforge Banner",
@@ -256,7 +263,7 @@ ToyBoxEnhancedFaction = {
     },
 }
 
-ToyBoxEnhancedSource = {
+ADDON.db.source = {
     ["Treasure"] = {
         -- Draenor
         [108735] = "Arena Master's War Horn",
@@ -647,7 +654,6 @@ ToyBoxEnhancedSource = {
         [159753] = "Desert Flute",
         [163200] = "Cursed Spyglass",
         [163201] = "Gnoll Targetting Barrel",
-        [163213] = "Ghostly Explorer's Skull",
     },
 
     ["Achievement"] = {
@@ -795,26 +801,30 @@ ToyBoxEnhancedSource = {
     },
 }
 
-ToyBoxEnhancedExpansion = {
+ADDON.db.expansion = {
 
-    ["Classic"] = {
+    -- Classic
+    [EXPANSION_NAME0] = {
         ["minID"] = 0,
         ["maxID"] = 23700,
     },
 
-    ["The Burning Crusade"] = {
+    -- The Burning Crusade
+    [EXPANSION_NAME1] = {
         ["minID"] = 23767,
         ["maxID"] = 36861,
         [37710] = "Crashin' Thrashin' Racer Controller",
         [38301] = "D.I.S.C.O.",
     },
 
-    ["Wrath of the Lich King"] = {
+    -- Wrath of the Lich King
+    [EXPANSION_NAME2] = {
         ["minID"] = 36862,
         ["maxID"] = 54653,
     },
 
-    ["Cataclysm"] = {
+    -- Cataclysm
+    [EXPANSION_NAME3] = {
         ["minID"] = 54654,
         ["maxID"] = 79999,
         [40727] = "Gnomish Gravity Well",
@@ -822,12 +832,14 @@ ToyBoxEnhancedExpansion = {
         [53057] = "Faded Wizard Hat",
     },
 
-    ["Mists of Pandaria"] = {
+    -- Mists of Pandaria
+    [EXPANSION_NAME4] = {
         ["minID"] = 80000,
         ["maxID"] = 107999,
     },
 
-    ["Warlords of Draenor"] = {
+    -- Warlords of Draenor
+    [EXPANSION_NAME5] = {
         ["minID"] = 108000,
         ["maxID"] = 128999,
         [129926] = "Mark of the Ashtongue",
@@ -839,13 +851,15 @@ ToyBoxEnhancedExpansion = {
         [133542] = "Tosselwrench's Mega-Accurate Simulation Viewfinder",
     },
 
-    ["Legion"] = {
+    -- Legion
+    [EXPANSION_NAME6] = {
         ["minID"] = 129000,
         ["maxID"] = 156640,
         [156833] = "Katy's Stampwhistle",P
     },
 
-    ["Battle for Azeroth"] = {
+    -- Battle for Azeroth
+    [EXPANSION_NAME7] = {
         ["minID"] = 156649,
         ["maxID"] = 999999,
     },
