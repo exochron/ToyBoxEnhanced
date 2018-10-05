@@ -19,18 +19,7 @@ local function FireCallbacks(callbacks)
 end
 --endregion
 
-function ADDON:ResetAPIFilters()
-    C_ToyBox.SetAllSourceTypeFilters(true)
-    C_ToyBox.SetAllExpansionTypeFilters(true)
-    C_ToyBox.SetFilterString("")
-    C_ToyBox.SetCollectedShown(true)
-    C_ToyBox.SetUncollectedShown(true)
-    C_ToyBox.SetUnusableShown(true)
-end
-
 function ADDON:LoadUI()
-    self:ResetAPIFilters()
-
     PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1) end end)
 
     FireCallbacks(loadUICallbacks)
@@ -54,12 +43,21 @@ local function SearchIsActive()
     return true
 end
 
+local function ResetAPIFilters()
+    C_ToyBox.SetAllSourceTypeFilters(true)
+    C_ToyBox.SetAllExpansionTypeFilters(true)
+    C_ToyBox.SetCollectedShown(true)
+    C_ToyBox.SetUncollectedShown(true)
+    C_ToyBox.SetUnusableShown(true)
+    C_ToyBox.SetFilterString("")
+end
+
 function ADDON:FilterToys()
     local searchIsActive = SearchIsActive()
 
     local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
     if (not searchIsActive and C_ToyBox.GetNumFilteredToys() ~= toyCount) then
-        self:ResetAPIFilters()
+        ResetAPIFilters()
     end
 
     self.filteredToyList = {}
@@ -74,7 +72,15 @@ function ADDON:FilterToys()
 end
 
 function ADDON:OnLogin()
-    self:ResetAPIFilters()
+    ResetAPIFilters()
+
+    for toyIndex = 1, C_ToyBox.GetNumFilteredToys() do
+        local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
+        if itemId then
+            tinsert(ADDON.db.ingameList, itemId)
+        end
+    end
+
     FireCallbacks(loginCallbacks)
 end
 

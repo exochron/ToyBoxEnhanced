@@ -2,10 +2,8 @@ local ADDON_NAME, ADDON = ...
 
 local function GetUsableToysCount()
     local usableCount = 0
-    local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
-    for toyIndex = 1, toyCount do
-        local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
-        if (itemId and PlayerHasToy(itemId) and C_ToyBox.IsToyUsable(itemId)) then
+    for _, itemId in pairs(ADDON.db.ingameList) do
+        if PlayerHasToy(itemId) and C_ToyBox.IsToyUsable(itemId) then
             usableCount = usableCount + 1
         end
     end

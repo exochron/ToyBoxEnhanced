@@ -19,9 +19,9 @@ local function BuildFrame()
     titleFont:SetPoint("TOPLEFT", 22, -22)
     titleFont:SetText(GetAddOnMetadata(ADDON_NAME, "Title"))
 
-    frame.replaceBarCheck = BuildCheckBox(frame, L.SETTING_REPLACE_PROGRESSBAR, titleFont, 10)
-    frame.enableCursorKeysCheck = BuildCheckBox(frame, L.SETTING_CURSOR_KEYS, frame.replaceBarCheck)
+    frame.enableCursorKeysCheck = BuildCheckBox(frame, L.SETTING_CURSOR_KEYS, titleFont, 10)
     frame.favoritesPerCharCheck = BuildCheckBox(frame, L.SETTING_FAVORITE_PER_CHAR, frame.enableCursorKeysCheck)
+--    frame.replaceBarCheck = BuildCheckBox(frame, L.SETTING_REPLACE_PROGRESSBAR, frame.favoritesPerCharCheck)
 
     return frame
 end
@@ -36,10 +36,10 @@ local function OKHandler(frame)
             ADDON:CollectFavoredToys()
         end
     end
-    if (ADDON.settings.replaceProgressBar ~= frame.replaceBarCheck:GetChecked()) then
-        ADDON.settings.replaceProgressBar = frame.replaceBarCheck:GetChecked()
-        reload = true
-    end
+--    if (ADDON.settings.replaceProgressBar ~= frame.replaceBarCheck:GetChecked()) then
+--        ADDON.settings.replaceProgressBar = frame.replaceBarCheck:GetChecked()
+--        reload = true
+--    end
     if reload and ADDON.initialized then
         ReloadUI()
     end
@@ -49,7 +49,7 @@ ADDON:RegisterLoginCallback(function()
     local frame = BuildFrame()
     frame.name = GetAddOnMetadata(ADDON_NAME, "Title")
     frame.refresh = function(frame)
-        frame.replaceBarCheck:SetChecked(ADDON.settings.replaceProgressBar)
+--        frame.replaceBarCheck:SetChecked(ADDON.settings.replaceProgressBar)
         frame.enableCursorKeysCheck:SetChecked(ADDON.settings.enableCursorKeys)
         frame.favoritesPerCharCheck:SetChecked(ADDON.settings.favoritePerChar)
     end

@@ -308,7 +308,7 @@
         <Size x="60" y="40"/>
         <Anchors>
             <Anchor point="Top" relativeTo="$parent">
-                <Offset><AbsDimension x="0" y="-21"/></Offset>
+                <Offset><AbsDimension x="-50" y="-21"/></Offset>
             </Anchor>
         </Anchors>
         <Layers>
@@ -363,5 +363,39 @@
                 </Texture>
             </Layer>
         </Layers>
+    </Button>
+
+    <!-- from PetCollection.SummonRandomFavoritePetButton-->
+    <Button name="TBEUseRandomToyButtonTemplate" inherits="SecureHandlerDragTemplate,SecureActionButtonTemplate" virtual="true">
+        <Size>
+            <AbsDimension x="33" y="33"/>
+        </Size>
+        <Anchors>
+            <Anchor point="CENTER" relativePoint="TOP" x="65" y="-42"/>
+        </Anchors>
+        <Layers>
+            <Layer level="ARTWORK">
+                <Texture parentKey="texture" file="Interface/Icons/inv_misc_dice_02" setAllPoints="true"/>
+            </Layer>
+            <Layer level="OVERLAY">
+                <Texture parentKey="BlackCover" setAllPoints="true" hidden="true">
+                    <Color r="0" g="0" b="0" a="0.6"/>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY" textureSubLevel="1">
+                <Texture inherits="ActionBarFlyoutButton-IconFrame">
+                    <Size x="35" y="35"/>
+                    <Anchors>
+                        <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture>
+                <Texture parentKey="LockIcon" file="Interface\PetBattles\PetBattle-LockIcon" setAllPoints="true" hidden="true"/>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Cooldown parentKey="cooldown" inherits="CooldownFrameTemplate"/>
+        </Frames>
+        <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
+        <HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
     </Button>
 </Ui>

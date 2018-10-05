@@ -11,13 +11,10 @@ local function ContainsItem(data, itemId)
 end
 
 local function DebugTest()
-    local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
-    for toyIndex = 1, toyCount do
-        local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
-        if (itemId
-                and not ContainsItem(ADDON.db.source, itemId)
-                and not ContainsItem(ADDON.db.profession, itemId)
-                and not ContainsItem(ADDON.db.worldEvent, itemId)
+    for _, itemId in pairs(ADDON.db.ingameList) do
+        if (not ContainsItem(ADDON.db.source, itemId)
+            and not ContainsItem(ADDON.db.profession, itemId)
+            and not ContainsItem(ADDON.db.worldEvent, itemId)
         ) then
             print("New toy (by Source): " .. itemId)
         end

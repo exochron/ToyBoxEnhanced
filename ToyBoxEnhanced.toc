@@ -22,5 +22,6 @@ UI\AchievementPoints.lua
 UI\FilterMenu.lua
 UI\Hotkeys.lua
 UI\OptionsMenu.lua
+UI\RandomToyButton.lua
 UI\ToyCount.lua
 SlashCommand.lua

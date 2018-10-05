@@ -2,6 +2,9 @@ local ADDON_NAME, ADDON = ...
 
 ADDON.db = {}
 
+-- itemIds of all initially scanned toys
+ADDON.db.ingameList = {}
+
 ADDON.db.worldEvent = {
 
     ["Timewalking"] = {

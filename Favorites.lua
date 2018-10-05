@@ -6,11 +6,8 @@ local starButton
 function ADDON:CollectFavoredToys()
     local personalFavored = {}
     if ADDON.settings.favoritePerChar then
-        self:ResetAPIFilters()
-        local toyIndex
-        for toyIndex = 1, C_ToyBox.GetNumFilteredToys() do
-            local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
-            if C_ToyBox.GetIsFavorite(itemId) then
+        for _, itemId in pairs(ADDON.db.ingameList) do
+            if PlayerHasToy(itemId) and C_ToyBox.GetIsFavorite(itemId) then
                 personalFavored[#personalFavored + 1] = itemId
             end
         end
@@ -28,24 +25,17 @@ local function FavorToys(itemIds, finishedCallback)
         starButton:Disable()
     end
 
-    ADDON:ResetAPIFilters()
     local hasUpdate
-    local toyIndex
-    local isEmptyIdList = (#itemIds == 0)
-    for toyIndex = 1, C_ToyBox.GetNumFilteredToys() do
-        local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
+    for _, itemId in pairs(ADDON.db.ingameList) do
         if PlayerHasToy(itemId) then
             local isFavorite = C_ToyBox.GetIsFavorite(itemId)
             local shouldFavor = tContains(itemIds, itemId)
             if isFavorite and not shouldFavor then
                 C_ToyBox.SetIsFavorite(itemId, false)
-                toyIndex = toyIndex - 1
                 hasUpdate = true
             elseif not isFavorite and shouldFavor then
                 C_ToyBox.SetIsFavorite(itemId, true)
                 hasUpdate = true
-            elseif not isFavorite and isEmptyIdList then
-                break
             end
         end
     end
