@@ -6,6 +6,15 @@ local MACRO_NAME, MACRO_ICON, MACRO_BODY = 'TBE: Random Toy', 'inv_misc_dice_02'
 local actionButton
 local displayButton
 
+local function shuffle(tbl)
+    local size = #tbl
+    for i = size, 1, -1 do
+        local rand = math.random(size)
+        tbl[i], tbl[rand] = tbl[rand], tbl[i]
+    end
+    return tbl
+end
+
 local function collectItemIds()
     local items = {}
 
@@ -21,10 +30,17 @@ end
 local function updateButtonFavorites()
     if actionButton and not ADDON.inCombat then
         local toys = collectItemIds()
-        actionButton:Execute('toys = newtable(' .. strjoin(',', unpack(toys)) .. ')')
         if #toys > 0 then
+            local maxToys = 222
+            if #toys > maxToys then
+                toys = shuffle(toys)
+                table.removemulti(toys, maxToys, #toys - maxToys + 1)
+            end
+            -- Execute() crashes on too long expressions. (~249 toys)
+            actionButton:Execute('toys = newtable(' .. strjoin(',', unpack(toys)) .. ')')
             actionButton:SetAttribute("type", "toy")
         else
+            actionButton:Execute('toys = newtable()')
             actionButton:SetAttribute("type", ATTRIBUTE_NOOP)
         end
 

@@ -3,35 +3,34 @@
 if (GetLocale() == 'ruRU') then
     local L = ADDON.L or {}
 
-    L["Toys"] = "Игрушки"
-    L["Usable"] = "Используемые"
     L["Hidden"] = "Скрытые"
     L["Only usable"] = "Только используемые"
     L["Reset filters"] = "Сбросить фильтры"
+    L["Toys"] = "Игрушки"
+    L["Usable"] = "Используемые"
+
+    -- Settings
 
     -- Source
-    L["Treasure"] = "Сокровище"
-    L["Order Hall"] = "Оплот класса"
-    L["Pick Pocket"] = "Обыскивание карманов"
     L["Black Market"] = "Черный рынок"
-
-    -- Profession
-    L["Jewelcrafting"] = "Ювелирное дело"
-    L["Engineering"] = "Инженерное дело"
-    L["Leatherworking"] = "Кожевничество"
     L["Enchanting"] = "Наложение чар"
+    L["Engineering"] = "Инженерное дело"
+    L["Jewelcrafting"] = "Ювелирное дело"
+    L["Leatherworking"] = "Кожевничество"
+    L["Pick Pocket"] = "Обыскивание карманов"
+    L["Treasure"] = "Сокровище"
 
     -- World Event
-    L["Lunar Festival"] = "Лунный Фестиваль"
-    L["Love is in the Air"] = "Любовная лихорадка"
-    L["Children's Week"] = "Детская неделя"
-    L["Midsummer Fire Festival"] = "Огненный солнцеворот"
     L["Brewfest"] = "Хмельной Фестиваль"
-    L["Hallow's End"] = "Тыквовин"
+    L["Children's Week"] = "Детская неделя"
     L["Day of the Dead"] = "День мертвых"
+    L["Feast of Winter Veil"] = "Зимний Покров"
+    L["Hallow's End"] = "Тыквовин"
+    L["Love is in the Air"] = "Любовная лихорадка"
+    L["Lunar Festival"] = "Лунный Фестиваль"
+    L["Midsummer Fire Festival"] = "Огненный солнцеворот"
     L["Pilgrim's Bounty"] = "Пиршество странников"
     L["Pirates' Day"] = "День пиратов"
-    L["Feast of Winter Veil"] = "Зимний Покров"
 
     ADDON.L = L
 end

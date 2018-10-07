@@ -25,17 +25,22 @@ local function FavorToys(itemIds, finishedCallback)
         starButton:Disable()
     end
 
-    local hasUpdate
+    local updateCount = 0
     for _, itemId in pairs(ADDON.db.ingameList) do
         if PlayerHasToy(itemId) then
             local isFavorite = C_ToyBox.GetIsFavorite(itemId)
             local shouldFavor = tContains(itemIds, itemId)
             if isFavorite and not shouldFavor then
                 C_ToyBox.SetIsFavorite(itemId, false)
-                hasUpdate = true
+                updateCount = updateCount + 1
             elseif not isFavorite and shouldFavor then
                 C_ToyBox.SetIsFavorite(itemId, true)
-                hasUpdate = true
+                updateCount = updateCount + 1
+            end
+
+            -- client cant handle more anyway
+            if updateCount > 10 then
+                break
             end
         end
     end
@@ -44,7 +49,7 @@ local function FavorToys(itemIds, finishedCallback)
         ADDON:FilterAndRefresh()
     end
 
-    if hasUpdate then
+    if updateCount > 0 then
         C_Timer.After(1, function()
             FavorToys(itemIds, finishedCallback)
         end)
