@@ -3,13 +3,22 @@
 if (GetLocale() == 'esES') then
     local L = ADDON.L or {}
 
+    L["FAVOR_DISPLAYED"] = "Todo mostrado"
+    L["FAVOR_PER_CHARACTER"] = "Por jugador"
     L["Hidden"] = "Oculto"
     L["Only usable"] = "Sólo utilizable"
+    L["RANDOM_TOY_DESCRIPTION"] = "El juguete se elegirá al azar de tus favoritos."
+    L["RANDOM_TOY_TITLE"] = "Usa un juguete favorito al azar"
     L["Reset filters"] = "Reiniciar Filtros"
+    L["TASK_END"] = "[TBE] ¡Buff! Acabé."
+    L["TASK_FAVOR_START"] = "[TBE] Asignando estrellas a todos tus juguetes. Por favor, espera unos segundos hasta que acabe."
     L["Toys"] = "Juguetes"
     L["Usable"] = "Utilizable"
 
     -- Settings
+    L["SETTING_CURSOR_KEYS"] = "Activa los cursores Izquierdo y Derecho para pasar páginas"
+    L["SETTING_FAVORITE_PER_CHAR"] = "Juguetes favoritos por jugador"
+    L["SETTING_REPLACE_PROGRESSBAR"] = "Sustituye la barra de progreso con los puntos de logros"
 
     -- Source
     L["Black Market"] = "Mercado Negro"
@@ -17,6 +26,7 @@ if (GetLocale() == 'esES') then
     L["Engineering"] = "Ingeniería"
     L["Jewelcrafting"] = "Joyería"
     L["Leatherworking"] = "Peletería"
+    L["Order Hall"] = "Sede de la Orden"
     L["Pick Pocket"] = "Robado"
     L["Treasure"] = "Tesoro"
 
