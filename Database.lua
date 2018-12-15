@@ -50,6 +50,13 @@ ADDON.db.worldEvent = {
         [143827] = "Dragon Head Costume",
         [143828] = "Dragon Body Costume",
         [143829] = "Dragon Tail Costume",
+        [165671] = "Blue Dragon Head Costume",
+        [165672] = "Blue Dragon Body Costume",
+        [165673] = "Blue Dragon Tail Costume",
+        [165674] = "Green Dragon Head Costume",
+        [165675] = "Green Dragon Body Costume",
+        [165676] = "Green Dragon Tail Costume",
+        [165669] = "Lunar Elder's Hearthstone",
     },
 
     ["Love is in the Air"] = {
@@ -58,6 +65,7 @@ ADDON.db.worldEvent = {
         [116651] = "True Love Prism",
         [142341] = "Love Boat",
         [144339] = "Sturdy Love Fool",
+        [165670] = "Peddlefeet's Lovely Hearthstone",
     },
 
     ["Children's Week"] = {
@@ -239,6 +247,10 @@ ADDON.db.faction = {
         [95567] = "Kirin Tor Beacon",
         [115472] = "Permanent Time Bubble",
         [119421] = "Sha'tari Defender's Medallion",
+        [166702] = "Proudmoore Music Box", -- Proudmoore Admiralty Supplies
+        [166808] = "Bewitching Tea Set", -- Order of Embers Supplies
+        [166744] = "Glaive Tosser",
+        [163987] = "Stormwind Champion's War Banner",  --Blizzcon 2018
     },
 
     horde = {
@@ -260,6 +272,13 @@ ADDON.db.faction = {
         [119218] = "Horde Flag of Victory",
         [128471] = "Frostwolf Grunt's Battlegear",
         [95568] = "Sunreaver Beacon",
+        [166703] = "Goldtusk Inn Breakfast Buffet", -- Voldunai Supplies
+        [165021] = "Words of Akunda", -- Voldunai Supplies
+        [166880] = "Meerah's Jukebox", -- Voldunai Supplies
+        [166701] = "Warbeast Kraal Dinner Bell", -- Zandalari Empire Supplies
+        [166308] = "For da Blood God!", -- Talanjis Expedition
+        [166743] = "Blight Bomber",
+        [163986] = "Orgrimmar Hero's War Banner", --Blizzcon 2018
     },
 }
 
@@ -390,7 +409,7 @@ ADDON.db.source = {
         [153124] = "Spire of Spite",
         [153126] = "Micro-Artillery Controller",
         [153179] = "Blue Conservatory Scroll",
-        [153180] = "Yellow  Conservatory Scroll",
+        [153180] = "Yellow Conservatory Scroll",
         [153181] = "Red  Conservatory Scroll",
         [153182] = "Holy Lightsphere",
         [153183] = "Barrier Generator",
@@ -412,6 +431,22 @@ ADDON.db.source = {
         [163829] = "Toy War Machine",
         [163745] = "Witherbark Gong",
         [163741] = "Magic Fun Rock",
+        [166702] = "Proudmoore Music Box", -- Proudmoore Admiralty Supplies
+        [166808] = "Bewitching Tea Set", -- Order of Embers Supplies
+        [166879] = "Rallying War Banner", -- 7th Legion Supplies & Honorbound Supplies
+        [166703] = "Goldtusk Inn Breakfast Buffet", -- Voldunai Supplies
+        [165021] = "Words of Akunda", -- Voldunai Supplies
+        [166880] = "Meerah's Jukebox", -- Voldunai Supplies
+        [166701] = "Warbeast Kraal Dinner Bell", -- Zandalari Empire Supplies
+        [166308] = "For da Blood God!", -- Talanjis Expedition
+        [166877] = "Azerite Firework Launcher", -- Champions of Azeroth Supplies
+        [166851] = "Kojo's Master Matching Set", -- Tortollan Seekers Supplies
+        [166704] = "Bowl of Glowing Pufferfish", -- Tortollan Seekers Supplies
+        [166784] = "Narassin's Soul Gem", -- Darkshore
+        [166785] = "Detoxified Blight Grenade", -- Darkshore
+        [166787] = "Twiddle Twirler: Sentinel's Glaive", -- Darkshore
+        [166788] = "Twiddle Twirler: Shredder Blade", -- Darkshore
+        [166790] = "Highborne Memento", -- Darkshore
         -- Island Expeditions
         [163795] = "Oomgut Ritual Drum",
         [163924] = "Whiskerwax Candle",
@@ -484,6 +519,9 @@ ADDON.db.source = {
         [156871] = "Spitzy",
         [160509] = "Echoes of Rezan", -- WQ
         [163607] = "Lucille's Sewing Needle",
+        [166544] = "Dark Ranger's Spare Cowl",
+        [165791] = "Worn Cloak",
+        [166678] = "Brynja's Beacon",
     },
 
     ["Vendor"] = {
@@ -560,6 +598,12 @@ ADDON.db.source = {
         [163704] = "Tiny Mechanical Mouse",
         [163705] = "Imaginary Gun",
         [159749] = "Haw'li's Hot & Spicy Chili",
+        [164983] = "Rhan'ka's Escape Plan",
+        [166662] = "Cranky Crab",
+        [166663] = "Hand Anchor",
+        [166461] = "Gnarlwood Waveboard",
+        [166743] = "Blight Bomber",
+        [166744] = "Glaive Tosser",
     },
 
     ["Instance"] = {
@@ -675,6 +719,7 @@ ADDON.db.source = {
 
         -- Battle for Azeroth
         [163697] = "Laser Pointer",
+        [166247] = "Citizens Brigade Whistle",
     },
 
     ["PvP"] = {
@@ -773,6 +818,8 @@ ADDON.db.source = {
         [142542] = "Tome of Town Portal",
         [143543] = "Twelve-String Guitar",
         [158149] = "Overtuned Corgi Goggles",
+        [163986] = "Orgrimmar Hero's War Banner", --Blizzcon 2018
+        [163987] = "Stormwind Champion's War Banner",  --Blizzcon 2018
 
         -- Trading Card Game
         [33219] = "Goblin Gumbo Kettle",
