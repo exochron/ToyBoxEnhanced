@@ -39,6 +39,7 @@ if (GetLocale() == 'koKR') then
     L["Love is in the Air"] = "온누리에 사랑을"
     L["Lunar Festival"] = "달의 축제"
     L["Midsummer Fire Festival"] = "한여름 불꽃축제"
+    L["Noblegarden"] = "귀족의 정원"
     L["Pilgrim's Bounty"] = "순례자의 감사절"
     L["Pirates' Day"] = "해적의 날"
 

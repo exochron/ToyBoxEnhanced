@@ -39,6 +39,7 @@ if (GetLocale() == 'esES') then
     L["Love is in the Air"] = "Amor en el aire"
     L["Lunar Festival"] = "Festival Lunar"
     L["Midsummer Fire Festival"] = "Festival de Fuego del Solsticio"
+    L["Noblegarden"] = "Jardín Noble"
     L["Pilgrim's Bounty"] = "Festividad del Peregrino"
     L["Pirates' Day"] = "Día de los Piratas"
 

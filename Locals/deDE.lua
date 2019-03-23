@@ -39,6 +39,7 @@ if (GetLocale() == 'deDE') then
     L["Love is in the Air"] = "Liebe liegt in der Luft"
     L["Lunar Festival"] = "Mondfest"
     L["Midsummer Fire Festival"] = "Sonnenwendfest"
+    L["Noblegarden"] = "Nobelgartenfest"
     L["Pilgrim's Bounty"] = "Pilgerfreudenfest"
     L["Pirates' Day"] = "Piratentag"
 
