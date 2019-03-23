@@ -38,6 +38,7 @@ L["Hallow's End"] = "Hallow's End"
 L["Love is in the Air"] = "Love is in the Air"
 L["Lunar Festival"] = "Lunar Festival"
 L["Midsummer Fire Festival"] = "Midsummer Fire Festival"
+L["Noblegarden"] = "Noblegarden "
 L["Pilgrim's Bounty"] = "Pilgrim's Bounty"
 L["Pirates' Day"] = "Pirates' Day"
 
