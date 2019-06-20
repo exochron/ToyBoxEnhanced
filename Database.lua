@@ -21,6 +21,7 @@ ADDON.db.worldEvent = {
         [151184] = true, -- Verdant Throwing Sphere
         [168012] = true, -- Apexis Focusing Shard
         [168014] = true, -- Banner of the Burning Blade
+        [170380] = true, -- Jar of Sunwarmed Sand
     },
 
     ["Darkmoon Faire"] = {
@@ -95,6 +96,7 @@ ADDON.db.worldEvent = {
         [116758] = true, -- Brewfest Banner
         [138900] = true, -- Gravil Goldbraid's Famous Sausage Hat
         [166747] = true, -- Brewfest Reveler's Hearthstone
+        [169865] = true, -- Brewfest Chowdown Trophy
     },
 
     ["Hallow's End"] = {
@@ -180,6 +182,9 @@ ADDON.db.profession = {
         [18984] = true, -- Dimensional Ripper - Everlook
         [30542] = true, -- Dimensional Ripper - Area 52
         [151652] = true, -- Wormhole Generator: Argus
+        [168667] = true, -- Blingtron 7000
+        [168807] = true, -- Wormhole Generator: Kul Tiras
+        [168808] = true, -- Wormhole Generator: Zandalar
     },
 
     ["Archaeology"] = {
@@ -250,6 +255,7 @@ ADDON.db.faction = {
         [89999] = true, -- Everlasting Alliance Firework
         [95567] = true, -- Kirin Tor Beacon
         [95589] = true, -- Glorious Standard of the Kirin Tor Offensive
+        [116396] = true, -- LeBlanc's Recorder
         [119144] = true, -- Touch of the Naaru
         [119182] = true, -- Soul Evacuation Crystal
         [119217] = true, -- Alliance Flag of Victory
@@ -268,6 +274,9 @@ ADDON.db.faction = {
         [166744] = true, -- Glaive Tosser
         [163987] = true, -- Stormwind Champion's War Banner  --Blizzcon 2018
         [166777] = true, -- Lion's Pride Firework
+        [169275] = true, -- Alliance War Banner
+        [169278] = true, -- Alliance War Standard
+        [169297] = true, -- Stormpike Insignia
     },
 
     horde = {
@@ -285,6 +294,7 @@ ADDON.db.faction = {
         [95590] = true, -- Glorious Standard of the Sunreaver Onslaught
         [115468] = true, -- Permanent Frost Essence
         [115503] = true, -- Blazing Diamond Pendant
+        [115505] = true, -- LeBlanc's Recorder
         [119145] = true, -- Firefury Totem
         [119160] = true, -- Tickle Totem
         [119218] = true, -- Horde Flag of Victory
@@ -306,6 +316,9 @@ ADDON.db.faction = {
         [166743] = true, -- Blight Bomber
         [163986] = true, -- Orgrimmar Hero's War Banner --Blizzcon 2018
         [166778] = true, -- Horde's Might Firework
+        [169276] = true, -- Horde War Banner
+        [169277] = true, -- Horde War Standard
+        [169298] = true, -- Frostwolf Insignia
     },
 }
 
@@ -355,6 +368,7 @@ ADDON.db.source = {
         [163740] = true, -- Drust Ritual Knife
         [163742] = true, -- Heartsbane Grimoire
         [163603] = true, -- Lucille's Handkerchief
+        [168824] = true, -- Ocean Simulator
     },
 
     ["Drop"] = {
@@ -474,6 +488,15 @@ ADDON.db.source = {
         [166787] = true, -- Twiddle Twirler: Sentinel's Glaive -- Darkshore
         [166788] = true, -- Twiddle Twirler: Shredder Blade -- Darkshore
         [166790] = true, -- Highborne Memento -- Darkshore
+        [166782] = true, -- Pearl of the Abyss
+        [167931] = true, -- Mechagonian Sawblades
+        [170187] = true, -- Shadescale
+        [170196] = true, -- Shirakess Warning Sign
+        [170198] = true, -- Eternal Palace Dining Set
+        [170199] = true, -- Zanj'ir Weapon Rack
+        [170203] = true, -- Flopping Fish -- Ankoan/Unshackled Supplies
+        [170469] = true, -- Memento of the Deeps -- Ankoan/Unshackled Supplies
+        [170476] = true, -- Underlight Sealamp
         -- Island Expeditions
         [163795] = true, -- Oomgut Ritual Drum
         [163924] = true, -- Whiskerwax Candle
@@ -547,6 +570,10 @@ ADDON.db.source = {
         [165791] = true, -- Worn Cloak
         [166678] = true, -- Brynja's Beacon
         [168123] = true, -- Twitching Eyeball
+        [169796] = true, -- Azeroth Mini Collection: Mechagon
+        [169768] = true, -- Heart of a Champion
+        [170154] = true, -- Book of the Unshackled
+        [170155] = true, -- Carved Ankoan Charm
     },
 
     ["Vendor"] = {
@@ -598,6 +625,10 @@ ADDON.db.source = {
         [127864] = true, -- Personal Spotlight
         [44820] = true, -- Red Ribbon Pet Leash
         [37460] = true, -- Rope Pet Leash
+        -- Ashran
+        [115501] = true, -- Kowalski's Music Box
+        [115505] = true, -- LeBlanc's Recorder
+        [116396] = true, -- LeBlanc's Recorder
 
         -- Legion
         [137294] = true, -- Dalaran Initiates' Pin
@@ -629,6 +660,13 @@ ADDON.db.source = {
         [166461] = true, -- Gnarlwood Waveboard
         [166743] = true, -- Blight Bomber
         [166744] = true, -- Glaive Tosser
+        [168907] = true, -- Holographic Digitalization Hearthstone
+        [169275] = true, -- Alliance War Banner
+        [169276] = true, -- Horde War Banner
+        [169277] = true, -- Horde War Standard
+        [169278] = true, -- Alliance War Standard
+        [170204] = true, -- Symbol of Gral
+        [170380] = true, -- Jar of Sunwarmed Sand
     },
 
     ["Instance"] = {
@@ -660,6 +698,9 @@ ADDON.db.source = {
         -- Seat of the Triumvirate
         [152982] = true, -- Vixx's Chest of Tricks
         [153004] = true, -- Unstable Portal Emitter
+
+        -- Operation: Mechagon
+        [169347] = true, -- Judgment of Mechagon
     },
 
     ["Reputation"] = {
@@ -723,6 +764,7 @@ ADDON.db.source = {
         [159753] = true, -- Desert Flute
         [163200] = true, -- Cursed Spyglass
         [163201] = true, -- Gnoll Targetting Barrel
+        [169108] = true, -- Rustbolt Banner
     },
 
     ["Achievement"] = {
@@ -735,8 +777,6 @@ ADDON.db.source = {
         [119215] = true, -- Robo-Gnomebulator
         [122293] = true, -- Trans-Dimensional Bird Whistle
 
-        --[122187] = true, -- Mikro-Garni-Blaster -- now not available
-
         -- Legion
         [139773] = true, -- Emerald Winds
         [143660] = true, -- Mrgrglhjorn
@@ -745,6 +785,7 @@ ADDON.db.source = {
         -- Battle for Azeroth
         [163697] = true, -- Laser Pointer
         [166247] = true, -- Citizens Brigade Whistle
+        [168016] = true, -- Hyper-Compressed Ocean
     },
 
     ["PvP"] = {
