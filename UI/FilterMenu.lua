@@ -29,7 +29,6 @@ local function CreateFilterInfo(text, filterKey, filterSettings, callback)
         info.checked = function(self) return self.arg1[filterKey] end
         info.func = function(_, arg1, _, value)
             arg1[filterKey] = value
---            ToyBox.firstCollectedToyID = 0
             ADDON:FilterAndRefresh()
             if (MSA_DROPDOWNMENU_MENU_LEVEL > 1) then
                 for i=1, MSA_DROPDOWNMENU_MENU_LEVEL do
@@ -87,7 +86,6 @@ local function SetAllSubFilters(settings, switch)
         MSA_DropDownMenu_Refresh(_G[ADDON_NAME .. "FilterMenu"], nil, 2)
     end
     MSA_DropDownMenu_Refresh(_G[ADDON_NAME .. "FilterMenu"])
---    ToyBox.firstCollectedToyID = 0
     ADDON:FilterAndRefresh()
 end
 
@@ -177,7 +175,6 @@ local function InitializeDropDown(filterMenu, level)
         info = CreateFilterInfo(L["Reset filters"])
         info.keepShownOnClick = false
         info.func = function(_, _, _, value)
---            ToyBox.firstCollectedToyID = 0
             ADDON:ResetFilterSettings()
             ADDON:FilterAndRefresh()
         end

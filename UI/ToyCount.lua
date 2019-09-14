@@ -1,5 +1,7 @@
 local ADDON_NAME, ADDON = ...
 
+local doStrip = false
+
 local function GetUsableToysCount()
     local usableCount = 0
     for _, itemId in pairs(ADDON.db.ingameList) do
@@ -29,6 +31,17 @@ local function CreateCountFrames()
     usableToyCountFrame:SetScript("OnEvent", function(self, event, arg1)
         usableToyCountFrame.uniqueCount:SetText(GetUsableToysCount())
     end)
+
+    if doStrip then
+        toyCountFrame:StripTextures()
+        usableToyCountFrame:StripTextures()
+    end
 end
 
 ADDON:RegisterLoadUICallback(CreateCountFrames)
+
+ADDON.UI:RegisterUIOverhaulCallback(function(self)
+    if (self == ToyBox.iconsFrame) then
+        doStrip = true
+    end
+end)

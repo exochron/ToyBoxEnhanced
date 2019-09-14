@@ -2,7 +2,7 @@
 ## Title: Toy Box Enhanced
 ## Notes: Extends the default Toy Box
 ## Author: eXochron
-## Version: 2.3
+## Version: 2.3.1
 ## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
 
 Libs\LibStub\LibStub.lua
@@ -17,6 +17,7 @@ SettingsPanel.lua
 DebugTest.lua
 Favorites.lua
 UI\Templates.xml
+UI\Functions.lua
 UI\EnhancedLayer.lua
 UI\AchievementPoints.lua
 UI\FilterMenu.lua

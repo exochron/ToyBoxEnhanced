@@ -4,7 +4,7 @@ ADDON.TOYS_PER_PAGE = 18
 ADDON.filteredToyList = {}
 ADDON.inCombat = InCombatLockdown()
 
--- region callbacks
+--region callbacks
 local loginCallbacks, loadUICallbacks = {}, {}
 function ADDON:RegisterLoginCallback(func)
     table.insert(loginCallbacks, func)

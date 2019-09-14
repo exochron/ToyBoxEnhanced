@@ -1,6 +1,7 @@
 ﻿local ADDON_NAME, ADDON = ...
 
-local L = ADDON.L or {}
+ADDON.L = {}
+local L = ADDON.L
 
 L["FAVOR_DISPLAYED"] = "All Displayed"
 L["FAVOR_PER_CHARACTER"] = "Per Character"
@@ -41,5 +42,3 @@ L["Midsummer Fire Festival"] = "Midsummer Fire Festival"
 L["Noblegarden"] = "Noblegarden"
 L["Pilgrim's Bounty"] = "Pilgrim's Bounty"
 L["Pirates' Day"] = "Pirates' Day"
-
-ADDON.L = L

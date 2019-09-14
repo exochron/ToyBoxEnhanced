@@ -488,8 +488,8 @@ ADDON.db.source = {
         [166787] = true, -- Twiddle Twirler: Sentinel's Glaive -- Darkshore
         [166788] = true, -- Twiddle Twirler: Shredder Blade -- Darkshore
         [166790] = true, -- Highborne Memento -- Darkshore
-        [166782] = true, -- Pearl of the Abyss
         [167931] = true, -- Mechagonian Sawblades
+        [169347] = true, -- Judgment of Mechagon
         [170187] = true, -- Shadescale
         [170196] = true, -- Shirakess Warning Sign
         [170198] = true, -- Eternal Palace Dining Set
@@ -670,37 +670,20 @@ ADDON.db.source = {
     },
 
     ["Instance"] = {
-        -- Stratholme
-        [13379] = true, -- Piccolo of the Flaming Fire
-
-        -- Scholomance
-        [88566] = true, -- Krastinov's Bag of Horrors
-
-        -- Magisters' Terrace
-        [35275] = true, -- Orb of the Sin'dorei
-
-        -- Icecrown Citadel
-        [52201] = true, -- Muradin's Favor
-        [52253] = true, -- Sylvanas' Music Box
-
-        -- Firelands
-        [122304] = true, -- Fandral's Seed Pouch
-
-        -- Throne of Thunder
-        [98132] = true, -- Shado-Pan Geyser Gun
-        [98136] = true, -- Gastropod Shell
-
-        -- Nighthold
-        [119211] = true, -- Golden Hearthstone Card: Lord Jaraxxus
-        [143544] = true, -- Skull of Corruption
-        [142536] = true, -- Memory Cube
-
-        -- Seat of the Triumvirate
-        [152982] = true, -- Vixx's Chest of Tricks
-        [153004] = true, -- Unstable Portal Emitter
-
-        -- Operation: Mechagon
-        [169347] = true, -- Judgment of Mechagon
+        [13379] = true, -- Piccolo of the Flaming Fire - Stratholme
+        [35275] = true, -- Orb of the Sin'dorei - Magisters' Terrace
+        [52201] = true, -- Muradin's Favor - Icecrown Citadel
+        [52253] = true, -- Sylvanas' Music Box - Icecrown Citadel
+        [88566] = true, -- Krastinov's Bag of Horrors - Scholomance
+        [98132] = true, -- Shado-Pan Geyser Gun - Throne of Thunder
+        [98136] = true, -- Gastropod Shell - Throne of Thunder
+        [119211] = true, -- Golden Hearthstone Card: Lord Jaraxxus - Nighthold, Guldan
+        [122304] = true, -- Fandral's Seed Pouch - Firelands
+        [141331] = true, -- Vial of Green Goo - Gnomeregan, Endgineer Omegaplugg
+        [143544] = true, -- Skull of Corruption - Nighthold
+        [142536] = true, -- Memory Cube - Nighthold
+        [152982] = true, -- Vixx's Chest of Tricks - Seat of the Triumvirate
+        [153004] = true, -- Unstable Portal Emitter - Seat of the Triumvirate
     },
 
     ["Reputation"] = {
@@ -795,6 +778,8 @@ ADDON.db.source = {
         [134032] = true, -- Elite Pennant
         [134034] = true, -- Esteemed Pennant
         [164310] = true, -- Glorious Pennant
+        [169297] = true, -- Stormpike Insignia
+        [169298] = true, -- Frostwolf Insignia
     },
 
     ["Garrison"] = {
