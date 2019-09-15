@@ -9,7 +9,6 @@ local L = ADDON.L or {}
 L["FAVOR_DISPLAYED"] = "모두 표시"
 L["FAVOR_PER_CHARACTER"] = "캐릭터별 표시"
 L["Hidden"] = "숨기기"
-L["Only usable"] = "사용가능 한것들만"
 L["RANDOM_TOY_DESCRIPTION"] = "장난감이 즐겨찾기 중 랜덤으로 표시됩니다."
 L["RANDOM_TOY_TITLE"] = "장난감 즐겨찾기 랜덤 사용"
 L["Reset filters"] = "분류 초기화"

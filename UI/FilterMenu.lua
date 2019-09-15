@@ -26,12 +26,14 @@ local function CreateFilterInfo(text, filterKey, filterSettings, callback)
         end
         info.arg1 = filterSettings
         info.notCheckable = false
-        info.checked = function(self) return self.arg1[filterKey] end
+        info.checked = function(self)
+            return self.arg1[filterKey]
+        end
         info.func = function(_, arg1, _, value)
             arg1[filterKey] = value
             ADDON:FilterAndRefresh()
             if (MSA_DROPDOWNMENU_MENU_LEVEL > 1) then
-                for i=1, MSA_DROPDOWNMENU_MENU_LEVEL do
+                for i = 1, MSA_DROPDOWNMENU_MENU_LEVEL do
                     MSA_DropDownMenu_Refresh(_G[ADDON_NAME .. "FilterMenu"], nil, i)
                 end
             end
@@ -165,7 +167,7 @@ local function InitializeDropDown(filterMenu, level)
         info.disabled = not ADDON.settings.filter.collected
         MSA_DropDownMenu_AddButton(info, level)
         MSA_DropDownMenu_AddButton(CreateFilterInfo(NOT_COLLECTED, SETTING_NOT_COLLECTED), level)
-        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Only usable"], SETTING_ONLY_USEABLE), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(PET_JOURNAL_FILTER_USABLE_ONLY, SETTING_ONLY_USEABLE), level)
 
         MSA_DropDownMenu_AddButton(CreateFilterCategory(SOURCES, SETTING_SOURCE), level)
         MSA_DropDownMenu_AddButton(CreateFilterCategory(FACTION, SETTING_FACTION), level)
@@ -182,7 +184,7 @@ local function InitializeDropDown(filterMenu, level)
 
     elseif (MSA_DROPDOWNMENU_MENU_VALUE == SETTING_SOURCE) then
         local settings = ADDON.settings.filter[SETTING_SOURCE]
-        AddCheckAllAndNoneInfo({settings, ADDON.settings.filter[SETTING_PROFESSION], ADDON.settings.filter[SETTING_WORLD_EVENT]}, level)
+        AddCheckAllAndNoneInfo({ settings, ADDON.settings.filter[SETTING_PROFESSION], ADDON.settings.filter[SETTING_WORLD_EVENT] }, level)
 
         MSA_DropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_SOURCE_4, SETTING_PROFESSION, ADDON.settings.filter[SETTING_PROFESSION]), level)
         MSA_DropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_SOURCE_7, SETTING_WORLD_EVENT, ADDON.settings.filter[SETTING_WORLD_EVENT]), level)
@@ -204,7 +206,7 @@ local function InitializeDropDown(filterMenu, level)
 
     elseif (MSA_DROPDOWNMENU_MENU_VALUE == SETTING_PROFESSION) then
         local settings = ADDON.settings.filter[SETTING_PROFESSION]
-        AddCheckAllAndNoneInfo({settings}, level)
+        AddCheckAllAndNoneInfo({ settings }, level)
 
         MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Jewelcrafting"], "Jewelcrafting", settings), level)
         MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Enchanting"], "Enchanting", settings), level)
@@ -217,7 +219,7 @@ local function InitializeDropDown(filterMenu, level)
 
     elseif (MSA_DROPDOWNMENU_MENU_VALUE == SETTING_WORLD_EVENT) then
         local settings = ADDON.settings.filter[SETTING_WORLD_EVENT]
-        AddCheckAllAndNoneInfo({settings}, level)
+        AddCheckAllAndNoneInfo({ settings }, level)
 
         MSA_DropDownMenu_AddButton(CreateFilterInfo(PLAYER_DIFFICULTY_TIMEWALKER, "Timewalking", settings), level)
         MSA_DropDownMenu_AddButton(CreateFilterInfo(CALENDAR_FILTER_DARKMOON, "Darkmoon Faire", settings), level)
@@ -241,7 +243,7 @@ local function InitializeDropDown(filterMenu, level)
 
     elseif (MSA_DROPDOWNMENU_MENU_VALUE == SETTING_EXPANSION) then
         local settings = ADDON.settings.filter[SETTING_EXPANSION]
-        AddCheckAllAndNoneInfo({settings}, level)
+        AddCheckAllAndNoneInfo({ settings }, level)
         for i = 0, 7 do
             MSA_DropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], _G["EXPANSION_NAME" .. i], settings), level)
         end
@@ -253,16 +255,21 @@ ADDON:RegisterLoadUICallback(function()
     local menu = MSA_DropDownMenu_Create(ADDON_NAME .. "FilterMenu", ToyBoxFilterButton)
     MSA_DropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
 
-    local filterButton = CreateFrame("Button", nil, ToyBox, "TBEFilterButtonTemplate")
-    filterButton:SetFrameStrata("DIALOG")
-    filterButton:SetScript("OnClick", function(sender)
-        PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON);
-        MSA_ToggleDropDownMenu(1, nil, menu, sender, 74, 15)
+    local toggle = true
+    MSA_DropDownList1:HookScript("OnHide", function()
+        if not MouseIsOver(ToyBoxFilterButton) then
+            toggle = true
+        end
     end)
-    filterButton:RegisterEvent("PLAYER_REGEN_ENABLED")
-    filterButton:RegisterEvent("PLAYER_REGEN_DISABLED")
-    filterButton:SetScript("OnEvent", function(self, event, arg1)
-        self:SetShown(event == "PLAYER_REGEN_ENABLED")
+    ToyBoxFilterButton:HookScript("OnClick", function(sender)
+        if not ADDON.inCombat then
+            if toggle then
+                MSA_ToggleDropDownMenu(1, nil, menu, sender, 74, 15)
+                toggle = false
+            else
+                DropDownList1:Hide() -- hide original filter menu
+                toggle = true
+            end
+        end
     end)
-    filterButton:SetShown(not ADDON.inCombat)
 end)

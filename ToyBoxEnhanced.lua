@@ -27,9 +27,9 @@ function ADDON:LoadUI()
 end
 
 function ADDON:FilterAndRefresh()
-    self:FilterToys()
-    ToyBox_UpdatePages()
     if not ADDON.inCombat then
+        self:FilterToys()
+        ToyBox_UpdatePages()
         ToyBox_UpdateButtons()
     end
 end

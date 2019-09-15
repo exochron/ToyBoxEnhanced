@@ -12,7 +12,6 @@ local L = ADDON.L or {}
 --[[ L["FAVOR_PER_CHARACTER"] = "Per Character"--]]
 --[[Translation missing --]]
 --[[ L["Hidden"] = "Hidden"--]]
-L["Only usable"] = "Utilisable uniquement"
 --[[Translation missing --]]
 --[[ L["RANDOM_TOY_DESCRIPTION"] = "The toy will be chosen randomly from the favorites."--]]
 --[[Translation missing --]]

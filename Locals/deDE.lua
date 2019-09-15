@@ -9,7 +9,6 @@ local L = ADDON.L or {}
 L["FAVOR_DISPLAYED"] = "Alle Angezeigten Wählen"
 L["FAVOR_PER_CHARACTER"] = "Pro Charakter"
 L["Hidden"] = "Ausgeblendete"
-L["Only usable"] = "Nur benutzbare"
 L["RANDOM_TOY_DESCRIPTION"] = "Das Spielzeug wird zufällig aus den Favoriten ausgewählt."
 L["RANDOM_TOY_TITLE"] = "Zufälliges Lieblingsspielzeug benutzen"
 L["Reset filters"] = "Filter zurücksetzen"
