@@ -1,11 +1,11 @@
 ﻿local ADDON_NAME, ADDON = ...
 
-local L = ADDON.L or {}
+ADDON.L = {}
+local L = ADDON.L
 
 L["FAVOR_DISPLAYED"] = "All Displayed"
 L["FAVOR_PER_CHARACTER"] = "Per Character"
 L["Hidden"] = "Hidden"
-L["Only usable"] = "Only usable"
 L["RANDOM_TOY_DESCRIPTION"] = "The toy will be chosen randomly from the favorites."
 L["RANDOM_TOY_TITLE"] = "Use Random Favorite Toy"
 L["Reset filters"] = "Reset filters"
@@ -41,5 +41,3 @@ L["Midsummer Fire Festival"] = "Midsummer Fire Festival"
 L["Noblegarden"] = "Noblegarden"
 L["Pilgrim's Bounty"] = "Pilgrim's Bounty"
 L["Pirates' Day"] = "Pirates' Day"
-
-ADDON.L = L

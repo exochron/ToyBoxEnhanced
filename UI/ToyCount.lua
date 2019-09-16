@@ -1,5 +1,35 @@
 local ADDON_NAME, ADDON = ...
 
+local doStrip = false
+
+local function CreateCountFrame(text, counterFunc)
+    local frame = CreateFrame("Frame", nil, ToyBox, "InsetFrameTemplate3")
+
+    frame:ClearAllPoints()
+    frame:SetPoint("TOPLEFT", ToyBox, 70, -22)
+    frame:SetSize(130, 18)
+    if (doStrip) then
+        frame:StripTextures()
+    end
+
+    local staticText = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    staticText:ClearAllPoints()
+    staticText:SetPoint("LEFT", frame, 10, 0)
+    staticText:SetText(text)
+
+    local uniqueCount = frame:CreateFontString(nil, "ARTWORK", "GameFontHighlightSmall")
+    uniqueCount:ClearAllPoints()
+    uniqueCount:SetPoint("RIGHT", frame, -10, 0)
+    uniqueCount:SetText(counterFunc())
+
+    frame:RegisterEvent("TOYS_UPDATED")
+    frame:SetScript("OnEvent", function(self, event, arg1)
+        uniqueCount:SetText(counterFunc())
+    end)
+
+    return frame
+end
+
 local function GetUsableToysCount()
     local usableCount = 0
     for _, itemId in pairs(ADDON.db.ingameList) do
@@ -11,24 +41,14 @@ local function GetUsableToysCount()
     return usableCount
 end
 
-local function CreateCountFrames()
+ADDON:RegisterLoadUICallback(function ()
     local L = ADDON.L
+    CreateCountFrame(L["Toys"], C_ToyBox.GetNumLearnedDisplayedToys)
+    CreateCountFrame(L["Usable"], GetUsableToysCount):SetPoint("TOPLEFT", ToyBox, 70, -42)
+end)
 
-    local toyCountFrame = CreateFrame("Frame", nil, ToyBox, "TBEToyCountTemplate")
-    toyCountFrame.staticText:SetText(L["Toys"])
-    toyCountFrame.uniqueCount:SetText(C_ToyBox.GetNumLearnedDisplayedToys())
-    toyCountFrame:RegisterEvent("TOYS_UPDATED")
-    toyCountFrame:SetScript("OnEvent", function(self, event, arg1)
-        toyCountFrame.uniqueCount:SetText(C_ToyBox.GetNumLearnedDisplayedToys())
-    end)
-
-    local usableToyCountFrame = CreateFrame("Frame", nil, ToyBox, "TBEToyUsableCountTemplate")
-    usableToyCountFrame.staticText:SetText(L["Usable"])
-    usableToyCountFrame.uniqueCount:SetText(GetUsableToysCount())
-    usableToyCountFrame:RegisterEvent("TOYS_UPDATED")
-    usableToyCountFrame:SetScript("OnEvent", function(self, event, arg1)
-        usableToyCountFrame.uniqueCount:SetText(GetUsableToysCount())
-    end)
-end
-
-ADDON:RegisterLoadUICallback(CreateCountFrames)
+ADDON.UI:RegisterUIOverhaulCallback(function(self)
+    if (self == ToyBox.iconsFrame) then
+        doStrip = true
+    end
+end)

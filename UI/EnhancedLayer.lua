@@ -131,4 +131,14 @@ ADDON:RegisterLoadUICallback(function()
         ToyBox.EnhancedLayer.PagingFrame:SetMaxPages(maxPages)
     end)
     hooksecurefunc("ToyBox_UpdateButtons", UpdateButttons)
+
+    -- hook for click on alert
+    hooksecurefunc("ToyBox_FindPageForToyID", function (toyID)
+        for i = 1, #ADDON.filteredToyList do
+            if ADDON.filteredToyList[i] == toyID then
+                local page = math.floor((i - 1) / ADDON.TOYS_PER_PAGE) + 1;
+                ToyBox.EnhancedLayer.PagingFrame:SetCurrentPage(page);
+            end
+        end
+    end)
 end)

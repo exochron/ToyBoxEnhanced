@@ -4,7 +4,7 @@ ADDON.TOYS_PER_PAGE = 18
 ADDON.filteredToyList = {}
 ADDON.inCombat = InCombatLockdown()
 
--- region callbacks
+--region callbacks
 local loginCallbacks, loadUICallbacks = {}, {}
 function ADDON:RegisterLoginCallback(func)
     table.insert(loginCallbacks, func)
@@ -27,9 +27,9 @@ function ADDON:LoadUI()
 end
 
 function ADDON:FilterAndRefresh()
-    self:FilterToys()
-    ToyBox_UpdatePages()
     if not ADDON.inCombat then
+        self:FilterToys()
+        ToyBox_UpdatePages()
         ToyBox_UpdateButtons()
     end
 end
