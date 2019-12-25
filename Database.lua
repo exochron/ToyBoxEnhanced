@@ -150,6 +150,9 @@ ADDON.db.worldEvent = {
         [162973] = true, -- Greatfather Winter's Hearthstone
         [162642] = true, -- Toy Armor Set
         [162643] = true, -- Toy Armor Set
+        [172219] = true, -- Wild Holly
+        [172222] = true, -- Crashin' Thrashin' Juggernaught
+        [172223] = true, -- Crashin' Thrashin' Battleship
     },
 }
 
@@ -871,13 +874,13 @@ ADDON.db.source = {
     },
 
     ["Promotion"] = {
-        -- Event
         [33079] = true, -- Murloc Costume
         [142542] = true, -- Tome of Town Portal
         [143543] = true, -- Twelve-String Guitar
         [158149] = true, -- Overtuned Corgi Goggles
         [163986] = true, -- Orgrimmar Hero's War Banner --Blizzcon 2018
         [163987] = true, -- Stormwind Champion's War Banner  --Blizzcon 2018
+        [172179] = true, -- Eternal Traveler's Hearthstone - Shadowlands Epic Edition
 
         -- Trading Card Game
         [33219] = true, -- Goblin Gumbo Kettle
