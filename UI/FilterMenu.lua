@@ -261,7 +261,15 @@ ADDON:RegisterLoadUICallback(function()
             toggle = true
         end
     end)
-    ToyBoxFilterButton:HookScript("OnClick", function(sender)
+
+    local version = select(4, GetBuildInfo())
+    local hookEvent = 'OnMouseDown'
+    if version < 80300 then
+        -- todo: remove after 8.3 release
+        hookEvent = 'OnClick'
+    end
+
+    ToyBoxFilterButton:HookScript(hookEvent, function(sender, button)
         if not ADDON.inCombat then
             if toggle then
                 MSA_ToggleDropDownMenu(1, nil, menu, sender, 74, 15)
