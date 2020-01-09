@@ -21,7 +21,7 @@
                     <TexCoords left="0.063" right="0.938" top="0.063" bottom="0.917"/>
                 </Texture>
 
-                <Texture parentKey="slotFrameUncollectedInnerGlow" setAllPoints="true" alpha=".18" hidden="true" atlas="collections-itemborder-uncollected-innerglow" useAtlasSize="true">
+                <Texture parentKey="slotFrameUncollectedInnerGlow" setAllPoints="true" alpha="0.18" hidden="true" atlas="collections-itemborder-uncollected-innerglow" useAtlasSize="true">
                     <Anchors>
                         <Anchor point="CENTER" x="0" y="2"/>
                     </Anchors>
@@ -87,6 +87,14 @@
                 </Layers>
             </Frame>
         </Frames>
+
+        <Animations>
+          <AnimationGroup parentKey="IconFadeIn" setToFinalAlpha="true">
+            <Alpha childKey="iconTexture" startDelay="1.0"  fromAlpha="0" toAlpha="1" duration="0.75" order="1"/>
+            <Alpha childKey="slotFrameCollected" startDelay="1.0"  fromAlpha="0" toAlpha="1" duration="0.75" order="1"/>
+          </AnimationGroup>
+        </Animations>
+
         <Scripts>
             <OnEvent function="CollectionsButton_OnEvent"/>
 
@@ -108,7 +116,7 @@
                 <Anchor point="CENTER" x="0" y="1"/>
             </Anchors>
         </PushedTexture>
-        <HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD">
+        <HighlightTexture parentKey="HighlightTexture" file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD">
             <Size x="48" y="48"/>
             <Anchors>
                 <Anchor point="CENTER" x="0" y="2"/>
@@ -140,16 +148,14 @@
         </Layers>
         <Scripts>
             <OnLoad>
-                    CollectionsSpellButton_OnLoad(self, TBE_ToySpellButton_UpdateButton)
+                CollectionsSpellButton_OnLoad(self, TBE_ToySpellButton_UpdateButton)
             </OnLoad>
 
             <OnShow function="ToySpellButton_OnShow"/>
             <OnHide function="ToySpellButton_OnHide"/>
-
             <OnDragStart function="ToySpellButton_OnDrag"/>
             <OnReceiveDrag function="ToySpellButton_OnDrag"/>
-
-            <OnEnter function="ToySpellButton_OnEnter"/>
+            <OnEnter function="TBE_ToySpellButton_OnEnter"/>
         </Scripts>
     </CheckButton>
 
