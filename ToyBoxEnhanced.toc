@@ -1,8 +1,8 @@
-## Interface: 80205
+## Interface: 80300
 ## Title: Toy Box Enhanced
 ## Notes: Extends the default Toy Box
 ## Author: eXochron
-## Version: 2.3.2
+## Version: 2.4
 ## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
 
 Libs\LibStub\LibStub.lua

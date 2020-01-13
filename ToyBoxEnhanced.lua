@@ -60,15 +60,16 @@ function ADDON:FilterToys()
         ResetAPIFilters()
     end
 
-    self.filteredToyList = {}
+    local filteredToyList = {}
 
     for toyIndex = 1, C_ToyBox.GetNumFilteredToys() do
         local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
 
         if (searchIsActive or ADDON:FilterToy(itemId)) then
-            table.insert(self.filteredToyList, itemId)
+            table.insert(filteredToyList, itemId)
         end
     end
+    self.filteredToyList = filteredToyList
 end
 
 function ADDON:OnLogin()

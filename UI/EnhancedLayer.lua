@@ -1,10 +1,27 @@
 local ADDON_NAME, ADDON = ...
 
+function TBE_ToySpellButton_OnEnter(self)
+    GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
+    if ( GameTooltip:SetToyByItemID(self.itemID) ) then
+        self.UpdateTooltip = ToySpellButton_OnEnter;
+    else
+        self.UpdateTooltip = nil;
+    end
+    local hasFanfare = ToyBox.fanfareToys[self.itemID] ~= nil;
+    local isNew = ToyBox.newToys[self.itemID] ~= nil;
+    if( isNew and not hasFanfare ) then
+        ToyBox.newToys[self.itemID] = nil;
+    end
+    TBE_ToySpellButton_UpdateButton(self);
+end
+
 function TBE_ToySpellButton_UpdateButton(self)
 
+    --region overwrite start
     local itemIndex = (ToyBox.EnhancedLayer.PagingFrame:GetCurrentPage() - 1) * ADDON.TOYS_PER_PAGE + self:GetID();
     self.itemID = ADDON.filteredToyList[itemIndex] or -1;
     self:SetAttribute("toy", self.itemID)
+    --endregion
 
     local toyString = self.name;
     local toyNewString = self.new;
@@ -23,57 +40,94 @@ function TBE_ToySpellButton_UpdateButton(self)
 
     self:Show();
 
-    local itemID, toyName, icon = C_ToyBox.GetToyInfo(self.itemID);
-
-    if (itemID == nil or toyName == nil) then
+    local itemID, toyName, icon, isFavorite, hasFanfare = C_ToyBox.GetToyInfo(self.itemID);
+	if (itemID == nil) or (toyName == nil) then
         return;
     end
+
+	if ToyBox.fanfareToys[itemID] == nil and hasFanfare then
+		ToyBox.fanfareToys[itemID] = true;
+		ToyBox.newToys[self.itemID] = true;-- if it has fanfare, we also want to treat it as new
+	end
 
     if string.len(toyName) == 0 then
         toyName = itemID;
     end
 
+	if not ToyBox.newToys[self.itemID] then
+		toyNewString:Hide();
+		toyNewGlow:Hide();
+	else
+		toyNewString:Show();
+		toyNewGlow:Show();
+	end
+
     iconTexture:SetTexture(icon);
     iconTextureUncollected:SetTexture(icon);
     iconTextureUncollected:SetDesaturated(true);
-    toyString:SetText(toyName);
-    toyString:Show();
 
-    if (ToyBox.newToys[self.itemID] ~= nil) then
-        toyNewString:Show();
-        toyNewGlow:Show();
-    else
-        toyNewString:Hide();
-        toyNewGlow:Hide();
-    end
+	if not ToyBox.fanfareToys[itemID] then
+		if self.modelScene then
+			ToyBox.fanfarePool:Release(self.modelScene);
+			self.modelScene = nil;
+		end
 
-    if (C_ToyBox.GetIsFavorite(itemID)) then
-        iconFavoriteTexture:Show();
-    else
-        iconFavoriteTexture:Hide();
-    end
+        if (PlayerHasToy(self.itemID)) then
+            iconTexture:Show();
+            iconTextureUncollected:Hide();
+            toyString:SetTextColor(1, 0.82, 0, 1);
+            toyString:SetShadowColor(0, 0, 0, 1);
+            slotFrameCollected:Show();
+            slotFrameUncollected:Hide();
+            slotFrameUncollectedInnerGlow:Hide();
 
-    if (PlayerHasToy(self.itemID)) then
-        iconTexture:Show();
-        iconTextureUncollected:Hide();
-        toyString:SetTextColor(1, 0.82, 0, 1);
-        toyString:SetShadowColor(0, 0, 0, 1);
-        slotFrameCollected:Show();
-        slotFrameUncollected:Hide();
-        slotFrameUncollectedInnerGlow:Hide();
-    else
-        iconTexture:Hide();
-        iconTextureUncollected:Show();
-        toyString:SetTextColor(0.33, 0.27, 0.20, 1);
-        toyString:SetShadowColor(0, 0, 0, 0.33);
-        slotFrameCollected:Hide();
-        slotFrameUncollected:Show();
-        slotFrameUncollectedInnerGlow:Show();
-    end
+            if(ToyBox.firstCollectedToyID == 0) then
+                ToyBox.firstCollectedToyID = self.itemID;
+            end
 
-    CollectionsSpellButton_UpdateCooldown(self);
+            if (ToyBox.firstCollectedToyID == self.itemID and not ToyBox.favoriteHelpBox:IsVisible() and not GetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE)) then
+                ToyBox.favoriteHelpBox:Show();
+                ToyBox.favoriteHelpBox:SetPoint("TOPLEFT", self, "BOTTOMLEFT", -5, -20);
+            end
+        else
+            iconTexture:Hide();
+            iconTextureUncollected:Show();
+            toyString:SetTextColor(0.33, 0.27, 0.20, 1);
+            toyString:SetShadowColor(0, 0, 0, 0.33);
+            slotFrameCollected:Hide();
+            slotFrameUncollected:Show();
+            slotFrameUncollectedInnerGlow:Show();
+        end
 
+        if (C_ToyBox.GetIsFavorite(itemID)) then
+            iconFavoriteTexture:Show();
+        else
+            iconFavoriteTexture:Hide();
+        end
+        CollectionsSpellButton_UpdateCooldown(self);
+	else
+		-- we are presenting fanfare
+		if not self.modelScene then
+			self.modelScene = ToyBox.fanfarePool:Acquire();
+			self.modelScene:SetParent(self);
+			self.modelScene:ClearAllPoints();
+			self.modelScene:SetPoint("CENTER");
+		end
+		if self.modelScene then
+			iconTexture:Hide();
+			slotFrameCollected:Hide();
+			slotFrameUncollected:Hide();
+			iconTextureUncollected:Hide();
+			toyString:SetTextColor(1, 0.82, 0, 1);
+			self.cooldown:Hide();
+			self.HighlightTexture:Hide();
+			self.modelScene:TransitionToModelSceneID(TOY_FANFARE_MODEL_SCENE, CAMERA_TRANSITION_TYPE_IMMEDIATE, CAMERA_MODIFICATION_TYPE_MAINTAIN, true);
+			self.modelScene:PrepareForFanfare(true);
+			self.modelScene:Show();
+		end
+	end
 
+    --region overwrite start
     self.slotFrameUncollectedInnerGlow:SetAlpha(0.18)
     self.iconTextureUncollected:SetAlpha(0.18)
 
@@ -86,6 +140,10 @@ function TBE_ToySpellButton_UpdateButton(self)
     self.name:SetAlpha(alpha)
     self.iconTexture:SetAlpha(alpha)
     self.slotFrameCollected:SetAlpha(alpha)
+    --endregion
+
+    toyString:SetText(toyName);
+    toyString:Show();
 end
 
 local function UpdateButttons()
@@ -99,6 +157,8 @@ ADDON:RegisterLoadUICallback(function()
 
     local layer = CreateFrame("Frame", nil, ToyBox, "TBEButtonFrameTemplate")
     layer:SetFrameStrata("DIALOG")
+    layer:SetFrameLevel(555)
+
     layer.OnPageChanged = function(userAction)
         PlaySound(SOUNDKIT.IG_ABILITY_PAGE_TURN)
         UpdateButttons()
@@ -138,6 +198,7 @@ ADDON:RegisterLoadUICallback(function()
             if ADDON.filteredToyList[i] == toyID then
                 local page = math.floor((i - 1) / ADDON.TOYS_PER_PAGE) + 1;
                 ToyBox.EnhancedLayer.PagingFrame:SetCurrentPage(page);
+                break
             end
         end
     end)

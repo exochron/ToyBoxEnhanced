@@ -372,6 +372,10 @@ ADDON.db.source = {
         [163742] = true, -- Heartsbane Grimoire
         [163603] = true, -- Lucille's Handkerchief
         [168824] = true, -- Ocean Simulator
+        [174920] = true, -- Coifcurl's Close Shave Kit
+        [174921] = true, -- Void-Touched Skull
+        [174924] = true, -- Void-Touched Souvenir Totem
+        [174928] = true, -- Rotten Apple
     },
 
     ["Drop"] = {
@@ -506,6 +510,12 @@ ADDON.db.source = {
         [164373] = true, -- Enchanted Soup Stone
         [164374] = true, -- Magic Monkey Banana
         [164375] = true, -- Bad Mojo Banana
+
+        [169303] = true, -- Hell-Bent Bracers
+        [174873] = true, -- Trans-mogu-rifier
+        [174874] = true, -- Budget K'thir Disguise
+        [174926] = true, -- Overly Sensitive Void Spectacles
+        [175140] = true, -- All-Seeing Eyes
     },
 
     ["Quest"] = {
@@ -577,6 +587,8 @@ ADDON.db.source = {
         [169768] = true, -- Heart of a Champion
         [170154] = true, -- Book of the Unshackled
         [170155] = true, -- Carved Ankoan Charm
+        [173951] = true, -- N'lyeth, Sliver of N'Zoth
+        [175063] = true, -- Aqir Egg Cluster
     },
 
     ["Vendor"] = {
@@ -751,6 +763,7 @@ ADDON.db.source = {
         [163200] = true, -- Cursed Spyglass
         [163201] = true, -- Gnoll Targetting Barrel
         [169108] = true, -- Rustbolt Banner
+        [174995] = true, -- Void Tendril Pet Leash
     },
 
     ["Achievement"] = {
@@ -772,6 +785,8 @@ ADDON.db.source = {
         [163697] = true, -- Laser Pointer
         [166247] = true, -- Citizens Brigade Whistle
         [168016] = true, -- Hyper-Compressed Ocean
+        [174830] = true, -- Shadowy Disguise
+        [174871] = true, -- Mayhem Mind Melder
     },
 
     ["PvP"] = {
