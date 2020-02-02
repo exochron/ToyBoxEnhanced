@@ -15,6 +15,7 @@ function TBE_ToySpellButton_OnEnter(self)
     TBE_ToySpellButton_UpdateButton(self);
 end
 
+local TOY_FANFARE_MODEL_SCENE = 253;
 function TBE_ToySpellButton_UpdateButton(self)
 
     --region overwrite start

@@ -2,7 +2,7 @@
 ## Title: Toy Box Enhanced
 ## Notes: Extends the default Toy Box
 ## Author: eXochron
-## Version: 2.4
+## Version: 2.4.1
 ## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
 
 Libs\LibStub\LibStub.lua
