@@ -184,7 +184,7 @@ ADDON:RegisterLoadUICallback(function()
         end)
     end
 
-    layer:SetShown(not ADDON.inCombat)
+    layer:SetShown(not InCombatLockdown())
     ToyBox.EnhancedLayer = layer
 
     hooksecurefunc("ToyBox_UpdatePages", function()

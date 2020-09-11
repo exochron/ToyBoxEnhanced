@@ -28,7 +28,7 @@ local function collectItemIds()
 end
 
 local function updateButtonFavorites()
-    if actionButton and not ADDON.inCombat then
+    if actionButton and not InCombatLockdown() then
         local toys = collectItemIds()
         if #toys > 0 then
             local maxToys = 222
@@ -88,7 +88,7 @@ local function createDisplayButton()
 end
 
 local function checkClickMacro()
-    if not ADDON.inCombat and not GetMacroInfo(MACRO_NAME) then
+    if not InCombatLockdown() and not GetMacroInfo(MACRO_NAME) then
         CreateMacro(MACRO_NAME, MACRO_ICON, MACRO_BODY)
     end
 end

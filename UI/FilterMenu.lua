@@ -270,7 +270,7 @@ ADDON:RegisterLoadUICallback(function()
     end
 
     ToyBoxFilterButton:HookScript(hookEvent, function(sender, button)
-        if not ADDON.inCombat then
+        if not InCombatLockdown() then
             if toggle then
                 MSA_ToggleDropDownMenu(1, nil, menu, sender, 74, 15)
                 toggle = false
