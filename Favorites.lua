@@ -126,7 +126,7 @@ local function BuildStarButton()
     starButton:SetScript("OnEvent", function(self, event, arg1)
         self:SetShown(event == "PLAYER_REGEN_ENABLED")
     end)
-    starButton:SetShown(not ADDON.inCombat)
+    starButton:SetShown(not InCombatLockdown())
 end
 
 ADDON:RegisterLoadUICallback(BuildStarButton)

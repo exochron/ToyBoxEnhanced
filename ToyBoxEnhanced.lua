@@ -2,7 +2,6 @@ local ADDON_NAME, ADDON = ...
 
 ADDON.TOYS_PER_PAGE = 18
 ADDON.filteredToyList = {}
-ADDON.inCombat = InCombatLockdown()
 
 --region callbacks
 local loginCallbacks, loadUICallbacks = {}, {}
@@ -27,7 +26,7 @@ function ADDON:LoadUI()
 end
 
 function ADDON:FilterAndRefresh()
-    if not ADDON.inCombat then
+    if not InCombatLockdown() then
         self:FilterToys()
         ToyBox_UpdatePages()
         ToyBox_UpdateButtons()
@@ -94,10 +93,6 @@ frame:RegisterEvent("PLAYER_REGEN_DISABLED")
 frame:SetScript("OnEvent", function(self, event, arg1)
     if event == "PLAYER_LOGIN" then
         ADDON:OnLogin()
-    elseif event == "PLAYER_REGEN_DISABLED" then
-        ADDON.inCombat = true
-    elseif event == "PLAYER_REGEN_ENABLED" then
-        ADDON.inCombat = false
     end
 
     if ToyBox and not ADDON.initialized and ADDON.settings then
