@@ -1,21 +1,22 @@
 local ADDON_NAME, ADDON = ...
 
+local hideNew = {}
+
 function TBE_ToySpellButton_OnEnter(self)
     GameTooltip:SetOwner(self, "ANCHOR_RIGHT");
     if ( GameTooltip:SetToyByItemID(self.itemID) ) then
-        self.UpdateTooltip = ToySpellButton_OnEnter;
+        self.UpdateTooltip = TBE_ToySpellButton_OnEnter
     else
         self.UpdateTooltip = nil;
     end
-    local hasFanfare = ToyBox.fanfareToys[self.itemID] ~= nil;
-    local isNew = ToyBox.newToys[self.itemID] ~= nil;
-    if( isNew and not hasFanfare ) then
-        ToyBox.newToys[self.itemID] = nil;
+    -- replaced tainting set
+    if ToyBox.newToys[self.itemID] ~= nil then
+        hideNew[self.itemID] = true;
     end
     TBE_ToySpellButton_UpdateButton(self);
 end
 
-local TOY_FANFARE_MODEL_SCENE = 253;
+--local TOY_FANFARE_MODEL_SCENE = 253;
 function TBE_ToySpellButton_UpdateButton(self)
 
     --region overwrite start
@@ -46,16 +47,19 @@ function TBE_ToySpellButton_UpdateButton(self)
         return;
     end
 
+    --[[ Disable tainting Fanfare
 	if ToyBox.fanfareToys[itemID] == nil and hasFanfare then
 		ToyBox.fanfareToys[itemID] = true;
 		ToyBox.newToys[self.itemID] = true;-- if it has fanfare, we also want to treat it as new
 	end
+	--]]
 
     if string.len(toyName) == 0 then
         toyName = itemID;
     end
 
-	if not ToyBox.newToys[self.itemID] then
+    -- use non tainting logic
+	if hideNew[self.itemID] or not ToyBox.newToys[self.itemID] then
 		toyNewString:Hide();
 		toyNewGlow:Hide();
 	else
@@ -67,11 +71,13 @@ function TBE_ToySpellButton_UpdateButton(self)
     iconTextureUncollected:SetTexture(icon);
     iconTextureUncollected:SetDesaturated(true);
 
+    --[[ Disable Fanfare
 	if not ToyBox.fanfareToys[itemID] then
 		if self.modelScene then
 			ToyBox.fanfarePool:Release(self.modelScene);
 			self.modelScene = nil;
 		end
+    --]]
 
         if (PlayerHasToy(self.itemID)) then
             iconTexture:Show();
@@ -82,11 +88,12 @@ function TBE_ToySpellButton_UpdateButton(self)
             slotFrameUncollected:Hide();
             slotFrameUncollectedInnerGlow:Hide();
 
-            if(ToyBox.firstCollectedToyID == 0) then
-                ToyBox.firstCollectedToyID = self.itemID;
-            end
-
-            if (ToyBox.firstCollectedToyID == self.itemID and not ToyBox.favoriteHelpBox:IsVisible() and not GetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE)) then
+            -- use non tainting logic
+            if ToyBox.firstCollectedToyID == 0
+                    and not ToyBox.favoriteHelpBox:IsVisible()
+                    and C_ToyBox.GetNumLearnedDisplayedToys() == 1
+                    and not GetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE)
+            then
                 ToyBox.favoriteHelpBox:Show();
                 ToyBox.favoriteHelpBox:SetPoint("TOPLEFT", self, "BOTTOMLEFT", -5, -20);
             end
@@ -106,6 +113,8 @@ function TBE_ToySpellButton_UpdateButton(self)
             iconFavoriteTexture:Hide();
         end
         CollectionsSpellButton_UpdateCooldown(self);
+
+    --[[ Disable Fanfare
 	else
 		-- we are presenting fanfare
 		if not self.modelScene then
@@ -127,6 +136,7 @@ function TBE_ToySpellButton_UpdateButton(self)
 			self.modelScene:Show();
 		end
 	end
+	--]]
 
     --region overwrite start
     self.slotFrameUncollectedInnerGlow:SetAlpha(0.18)
