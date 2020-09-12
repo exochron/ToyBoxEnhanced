@@ -2,13 +2,22 @@
 ## Title: Toy Box Enhanced
 ## Notes: Extends the default Toy Box
 ## Author: eXochron
-## Version: 2.4.1
+## Version: @project-version@
 ## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
+## X-Curse-Project-ID: 87878
 
 Libs\LibStub\LibStub.lua
 Libs\MSA-DropDownMenu-1.0\MSA-DropDownMenu-1.0.xml
 
-Locals\Locals.xml
+Locals\enUS.lua
+Locals\deDE.lua
+Locals\esES.lua
+Locals\frFR.lua
+Locals\koKR.lua
+Locals\ruRU.lua
+Locals\zhCN.lua
+Locals\zhTW.lua
+
 Database.lua
 Filters.lua
 ToyBoxEnhanced.lua

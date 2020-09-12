@@ -1,6 +1,6 @@
-﻿local ADDON_NAME, ADDON = ...
+﻿local _, ADDON = ...
 
-if (GetLocale() ~= "deDE") then
+if GetLocale() ~= "deDE" then
     return
 end
 
@@ -33,14 +33,5 @@ L["Pick Pocket"] = "Taschendiebstahl"
 L["Treasure"] = "Schatz"
 
 -- World Event
-L["Brewfest"] = "Braufest"
-L["Children's Week"] = "Kinderwoche"
 L["Day of the Dead"] = "Tag der Toten"
-L["Feast of Winter Veil"] = "Winterhauchfest"
-L["Hallow's End"] = "Schlotternächte"
-L["Love is in the Air"] = "Liebe liegt in der Luft"
-L["Lunar Festival"] = "Mondfest"
-L["Midsummer Fire Festival"] = "Sonnenwendfest"
-L["Noblegarden"] = "Nobelgartenfest"
-L["Pilgrim's Bounty"] = "Pilgerfreudenfest"
 L["Pirates' Day"] = "Piratentag"

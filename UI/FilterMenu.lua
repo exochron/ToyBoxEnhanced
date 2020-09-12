@@ -223,17 +223,17 @@ local function InitializeDropDown(filterMenu, level)
 
         MSA_DropDownMenu_AddButton(CreateFilterInfo(PLAYER_DIFFICULTY_TIMEWALKER, "Timewalking", settings), level)
         MSA_DropDownMenu_AddButton(CreateFilterInfo(CALENDAR_FILTER_DARKMOON, "Darkmoon Faire", settings), level)
-        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Lunar Festival"], "Lunar Festival", settings), level)
-        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Love is in the Air"], "Love is in the Air", settings), level)
-        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Noblegarden"], "Noblegarden", settings), level)
-        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Children's Week"], "Children's Week", settings), level)
-        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Midsummer Fire Festival"], "Midsummer Fire Festival", settings), level)
-        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Brewfest"], "Brewfest", settings), level)
-        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Hallow's End"], "Hallow's End", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(160), "Lunar Festival", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(187), "Love is in the Air", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(159), "Noblegarden", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(163), "Children's Week", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(161), "Midsummer Fire Festival", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(162), "Brewfest", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(158), "Hallow's End", settings), level)
         MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Day of the Dead"], "Day of the Dead", settings), level)
-        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Pilgrim's Bounty"], "Pilgrim's Bounty", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(14981), "Pilgrim's Bounty", settings), level)
         MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Pirates' Day"], "Pirates' Day", settings), level)
-        MSA_DropDownMenu_AddButton(CreateFilterInfo(L["Feast of Winter Veil"], "Feast of Winter Veil", settings), level)
+        MSA_DropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(156), "Feast of Winter Veil", settings), level)
 
     elseif (MSA_DROPDOWNMENU_MENU_VALUE == SETTING_FACTION) then
         local settings = ADDON.settings.filter[SETTING_FACTION]
@@ -262,14 +262,7 @@ ADDON:RegisterLoadUICallback(function()
         end
     end)
 
-    local version = select(4, GetBuildInfo())
-    local hookEvent = 'OnMouseDown'
-    if version < 80300 then
-        -- todo: remove after 8.3 release
-        hookEvent = 'OnClick'
-    end
-
-    ToyBoxFilterButton:HookScript(hookEvent, function(sender, button)
+    ToyBoxFilterButton:HookScript('OnMouseDown', function(sender, button)
         if not InCombatLockdown() then
             if toggle then
                 MSA_ToggleDropDownMenu(1, nil, menu, sender, 74, 15)

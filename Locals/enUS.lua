@@ -1,4 +1,4 @@
-﻿local ADDON_NAME, ADDON = ...
+﻿local _, ADDON = ...
 
 ADDON.L = {}
 local L = ADDON.L
@@ -30,14 +30,5 @@ L["Pick Pocket"] = "Pick Pocket"
 L["Treasure"] = "Treasure"
 
 -- World Event
-L["Brewfest"] = "Brewfest"
-L["Children's Week"] = "Children's Week"
 L["Day of the Dead"] = "Day of the Dead"
-L["Feast of Winter Veil"] = "Feast of Winter Veil"
-L["Hallow's End"] = "Hallow's End"
-L["Love is in the Air"] = "Love is in the Air"
-L["Lunar Festival"] = "Lunar Festival"
-L["Midsummer Fire Festival"] = "Midsummer Fire Festival"
-L["Noblegarden"] = "Noblegarden"
-L["Pilgrim's Bounty"] = "Pilgrim's Bounty"
 L["Pirates' Day"] = "Pirates' Day"
