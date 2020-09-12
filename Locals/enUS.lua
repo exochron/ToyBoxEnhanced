@@ -13,6 +13,8 @@ L["TASK_END"] = "[TBE] Phew! I'm done."
 L["TASK_FAVOR_START"] = "[TBE] Reapplying stars all over your toys. Please wait a few seconds until I'm finished."
 L["Toys"] = "Toys"
 L["Usable"] = "Usable"
+L["Day of the Dead"] = "Day of the Dead"
+L["Pirates' Day"] = "Pirates' Day"
 
 -- Settings
 L["SETTING_CURSOR_KEYS"] = "Enable Left&Right keys to flip pages"
@@ -28,7 +30,3 @@ L["Leatherworking"] = "Leatherworking"
 L["Order Hall"] = "Order Hall"
 L["Pick Pocket"] = "Pick Pocket"
 L["Treasure"] = "Treasure"
-
--- World Event
-L["Day of the Dead"] = "Day of the Dead"
-L["Pirates' Day"] = "Pirates' Day"

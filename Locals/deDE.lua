@@ -16,6 +16,8 @@ L["TASK_END"] = "[TBE] Uff! Endlich geschafft."
 L["TASK_FAVOR_START"] = "[TBE] Bitte warten. Deine Spielzeuge werden mit Sternen neu beklebt."
 L["Toys"] = "Spielzeuge"
 L["Usable"] = "Benutzbar"
+L["Day of the Dead"] = "Tag der Toten"
+L["Pirates' Day"] = "Piratentag"
 
 -- Settings
 L["SETTING_CURSOR_KEYS"] = "Aktiviere Links- und Rechtspfeiltaste zum Durchblättern"
@@ -31,7 +33,3 @@ L["Leatherworking"] = "Lederverarbeitung"
 L["Order Hall"] = "Ordenshalle"
 L["Pick Pocket"] = "Taschendiebstahl"
 L["Treasure"] = "Schatz"
-
--- World Event
-L["Day of the Dead"] = "Tag der Toten"
-L["Pirates' Day"] = "Piratentag"
