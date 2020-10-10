@@ -188,6 +188,7 @@ ADDON.db.profession = {
         [168667] = true, -- Blingtron 7000
         [168807] = true, -- Wormhole Generator: Kul Tiras
         [168808] = true, -- Wormhole Generator: Zandalar
+        [172924] = true, -- Wormhole Generator: Shadowlands
     },
 
     ["Archaeology"] = {
@@ -376,6 +377,24 @@ ADDON.db.source = {
         [174921] = true, -- Void-Touched Skull
         [174924] = true, -- Void-Touched Souvenir Totem
         [174928] = true, -- Rotten Apple
+
+        -- Shadowlands
+        [173984] = true, -- Scroll of Aeons
+        [174286] = true, -- Kyrian Ritual Vestments
+        [179393] = true, -- Mirror of Envious Dreams
+        [180993] = true, -- Bat Visage Bobber
+        [181825] = true, -- Phial of Ravenous Slime
+        [182694] = true, -- Stylish Black Parasol
+        [182696] = true, -- The Countess's Parasol
+        [182729] = true, -- Hearty Dragon Plume
+        [182780] = true, -- Muckpool Cookpot
+        [183986] = true, -- Bondable Sinstone
+        [183988] = true, -- Bondable Val'kyr Diadem
+        [184075] = true, -- Stonewrought Sentry
+        [184318] = true, -- Battlecry of Krexus
+        [184447] = true, -- Kevin's Party Supplies
+        [182732] = true, -- The Necronom-i-nom
+
     },
 
     ["Drop"] = {
@@ -516,6 +535,15 @@ ADDON.db.source = {
         [174874] = true, -- Budget K'thir Disguise
         [174926] = true, -- Overly Sensitive Void Spectacles
         [175140] = true, -- All-Seeing Eyes
+
+        -- Shadowlands
+        [174445] = true, -- Glimmerfly Cocoon
+        [180873] = true, -- Smolderheart
+        [181794] = true, -- Orophea's Lyre
+        [182655] = true, -- Hill King's Roarbox
+        [184292] = true, -- Ancient Elethium Coin
+        [184312] = true, -- Borr-Geth's Fiery Brimstone
+        [184476] = true, -- Regenerating Slime Vial
     },
 
     ["Quest"] = {
@@ -589,6 +617,13 @@ ADDON.db.source = {
         [170155] = true, -- Carved Ankoan Charm
         [173951] = true, -- N'lyeth, Sliver of N'Zoth
         [175063] = true, -- Aqir Egg Cluster
+
+        -- Shadowlands
+        [177951] = true, -- Glimmerflies on Strings
+        [180947] = true, -- Tithe Collector's Vessel
+        [183847] = true, -- Acolyte's Guise
+        [183856] = true, -- Mystical Orb of Meditation
+
     },
 
     ["Vendor"] = {
@@ -682,6 +717,14 @@ ADDON.db.source = {
         [169278] = true, -- Alliance War Standard
         [170204] = true, -- Symbol of Gral
         [170380] = true, -- Jar of Sunwarmed Sand
+
+        -- Shadowlands
+        [180290] = true, -- Night Fae Hearthstone
+        [183716] = true, -- Venthyr Sinstone
+        [182773] = true, -- Necrolord Hearthstone
+        [183876] = true, -- Quill of Correspondence
+        [183989] = true, -- Dredger Barrow Racer
+        [184353] = true, -- Kyrian Hearthstone
     },
 
     ["Instance"] = {
@@ -764,6 +807,11 @@ ADDON.db.source = {
         [163201] = true, -- Gnoll Targetting Barrel
         [169108] = true, -- Rustbolt Banner
         [174995] = true, -- Void Tendril Pet Leash
+
+        -- Shadowlands
+        [182890] = true, -- Rapid Recitation Quill
+        [183900] = true, -- Sinvyr Tea Set
+        [184218] = true, -- Vulgarity Arbiter
     },
 
     ["Achievement"] = {
@@ -787,6 +835,13 @@ ADDON.db.source = {
         [168016] = true, -- Hyper-Compressed Ocean
         [174830] = true, -- Shadowy Disguise
         [174871] = true, -- Mayhem Mind Melder
+
+        -- Shadowlands
+        [182695] = true, -- Weathered Purple Parasol
+        [184223] = true, -- Helm of the Dominated
+        [184449] = true, -- Jiggles's Favorite Toy
+        [184508] = true, -- Mawsworn Pet Leash
+        [183903] = true, -- Smelly Jelly
     },
 
     ["PvP"] = {
@@ -922,44 +977,32 @@ ADDON.db.source = {
 }
 
 ADDON.db.expansion = {
-
-    -- Classic
-    [EXPANSION_NAME0] = {
+    [0] = { -- Classic
         ["minID"] = 0,
         ["maxID"] = 23700,
     },
-
-    -- The Burning Crusade
-    [EXPANSION_NAME1] = {
+    [1] = { -- The Burning Crusade
         ["minID"] = 23767,
         ["maxID"] = 36861,
         [37710] = true, -- Crashin' Thrashin' Racer Controller
         [38301] = true, -- D.I.S.C.O.
     },
-
-    -- Wrath of the Lich King
-    [EXPANSION_NAME2] = {
+    [2] = { -- Wrath of the Lich King
         ["minID"] = 36862,
         ["maxID"] = 54653,
     },
-
-    -- Cataclysm
-    [EXPANSION_NAME3] = {
+    [3] = { -- Cataclysm
         ["minID"] = 54654,
         ["maxID"] = 79999,
         [40727] = true, -- Gnomish Gravity Well
         [46709] = true, -- MiniZep Controller
         [53057] = true, -- Faded Wizard Hat
     },
-
-    -- Mists of Pandaria
-    [EXPANSION_NAME4] = {
+    [4] = { -- Mists of Pandaria
         ["minID"] = 80000,
         ["maxID"] = 107999,
     },
-
-    -- Warlords of Draenor
-    [EXPANSION_NAME5] = {
+    [5] = { -- Warlords of Draenor
         ["minID"] = 108000,
         ["maxID"] = 128999,
         [129926] = true, -- Mark of the Ashtongue
@@ -970,17 +1013,24 @@ ADDON.db.expansion = {
         [133511] = true, -- Gurboggle's Gleaming Bauble
         [133542] = true, -- Tosselwrench's Mega-Accurate Simulation Viewfinder
     },
-
-    -- Legion
-    [EXPANSION_NAME6] = {
+    [6] = { -- Legion
         ["minID"] = 129000,
         ["maxID"] = 156640,
         [156833] = true, -- Katy's Stampwhistle
     },
-
-    -- Battle for Azeroth
-    [EXPANSION_NAME7] = {
+    [7] = { -- Battle for Azeroth
         ["minID"] = 156649,
-        ["maxID"] = 999999,
+        ["maxID"] = 175140,
     },
 }
+
+if select(4, GetBuildInfo()) >= 90000 then
+    ADDON.db.expansion[8] = {
+        ["minID"] = 175141,
+        ["maxID"] = 999999,
+        [172179] = true, -- Eternal Traveler's Hearthstone
+        [173984] = true, -- Scroll of Aeons
+        [174286] = true, -- Kyrian Ritual Vestments
+        [174445] = true, -- Glimmerfly Cocoon
+    }
+end

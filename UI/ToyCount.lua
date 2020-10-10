@@ -7,7 +7,7 @@ local function CreateCountFrame(text, counterFunc)
 
     frame:ClearAllPoints()
     frame:SetPoint("TOPLEFT", ToyBox, 70, -22)
-    frame:SetSize(130, 18)
+    frame:SetSize(130, 19)
     if (doStrip) then
         frame:StripTextures()
     end
@@ -44,7 +44,7 @@ end
 ADDON:RegisterLoadUICallback(function ()
     local L = ADDON.L
     CreateCountFrame(L["Toys"], C_ToyBox.GetNumLearnedDisplayedToys)
-    CreateCountFrame(L["Usable"], GetUsableToysCount):SetPoint("TOPLEFT", ToyBox, 70, -42)
+    CreateCountFrame(L["Usable"], GetUsableToysCount):SetPoint("TOPLEFT", ToyBox, 70, -41)
 end)
 
 ADDON.UI:RegisterUIOverhaulCallback(function(self)

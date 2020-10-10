@@ -32,11 +32,7 @@ local function CreateFilterInfo(text, filterKey, filterSettings, callback)
         info.func = function(_, arg1, _, value)
             arg1[filterKey] = value
             ADDON:FilterAndRefresh()
-            if (MSA_DROPDOWNMENU_MENU_LEVEL > 1) then
-                for i = 1, MSA_DROPDOWNMENU_MENU_LEVEL do
-                    MSA_DropDownMenu_Refresh(_G[ADDON_NAME .. "FilterMenu"], nil, i)
-                end
-            end
+            MSA_DropDownMenu_RefreshAll(_G[ADDON_NAME .. "FilterMenu"])
 
             if callback then
                 callback(value)
@@ -84,10 +80,7 @@ local function SetAllSubFilters(settings, switch)
         end
     end
 
-    if (MSA_DROPDOWNMENU_MENU_LEVEL ~= 2) then
-        MSA_DropDownMenu_Refresh(_G[ADDON_NAME .. "FilterMenu"], nil, 2)
-    end
-    MSA_DropDownMenu_Refresh(_G[ADDON_NAME .. "FilterMenu"])
+    MSA_DropDownMenu_RefreshAll(_G[ADDON_NAME .. "FilterMenu"])
     ADDON:FilterAndRefresh()
 end
 
@@ -244,8 +237,8 @@ local function InitializeDropDown(filterMenu, level)
     elseif (MSA_DROPDOWNMENU_MENU_VALUE == SETTING_EXPANSION) then
         local settings = ADDON.settings.filter[SETTING_EXPANSION]
         AddCheckAllAndNoneInfo({ settings }, level)
-        for i = 0, 7 do
-            MSA_DropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], _G["EXPANSION_NAME" .. i], settings), level)
+        for i = 0, #ADDON.db.expansion do
+            MSA_DropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], i, settings), level)
         end
     end
 
