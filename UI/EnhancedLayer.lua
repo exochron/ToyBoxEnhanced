@@ -90,12 +90,20 @@ function TBE_ToySpellButton_UpdateButton(self)
 
             -- use non tainting logic
             if ToyBox.firstCollectedToyID == 0
-                    and not ToyBox.favoriteHelpBox:IsVisible()
+                    and not HelpTip:IsShowing(ToyBox, TOYBOX_FAVORITE_HELP)
                     and C_ToyBox.GetNumLearnedDisplayedToys() == 1
                     and not GetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE)
             then
-                ToyBox.favoriteHelpBox:Show();
-                ToyBox.favoriteHelpBox:SetPoint("TOPLEFT", self, "BOTTOMLEFT", -5, -20);
+				local helpTipInfo = {
+					text = TOYBOX_FAVORITE_HELP,
+					buttonStyle = HelpTip.ButtonStyle.Close,
+					cvarBitfield = "closedInfoFrames",
+					bitfieldFlag = LE_FRAME_TUTORIAL_TOYBOX_FAVORITE,
+					targetPoint = HelpTip.Point.BottomEdgeCenter,
+					alignment = HelpTip.Alignment.Left,
+					offsetY = 0,
+				};
+				HelpTip:Show(ToyBox, helpTipInfo, self);
             end
         else
             iconTexture:Hide();
