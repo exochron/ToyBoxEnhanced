@@ -6,7 +6,7 @@
 ## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
 ## X-Curse-Project-ID: 87878
 
-Libs\UIDropdownMenu.lua
+Libs\TaintLess.xml
 
 Locals\enUS.lua
 Locals\deDE.lua
