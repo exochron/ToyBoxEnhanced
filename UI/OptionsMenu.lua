@@ -20,7 +20,7 @@ local function InitMenu(sender, level)
             info.func = function()
                 C_ToyBox.SetIsFavorite(itemId, true)
                 SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE, true)
-                ToyBox.favoriteHelpBox:Hide()
+                HelpTip:Hide(ToyBox, TOYBOX_FAVORITE_HELP)
             end
         end
 

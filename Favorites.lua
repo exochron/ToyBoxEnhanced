@@ -71,39 +71,43 @@ local function RunSetFavorites(itemIds)
 end
 
 local function InitializeDropDown(menu, level)
-    local info = MSA_DropDownMenu_CreateInfo()
-    info.keepShownOnClick = false
-    info.isNotRadio = true
-    info.notCheckable = true
-    info.hasArrow = false
-
     if level == 1 then
-        info.text = L['FAVOR_DISPLAYED']
-        info.func = function()
-            RunSetFavorites(ADDON.filteredToyList)
-        end
-        MSA_DropDownMenu_AddButton(info, level)
+        local info = {
+            isNotRadio = true,
+            notCheckable = true,
+            text = L['FAVOR_DISPLAYED'],
+            func = function()
+                RunSetFavorites(ADDON.filteredToyList)
+            end,
+        }
+        UIDropDownMenu_AddButton(info, level)
 
-        info.text = UNCHECK_ALL
-        info.func = function()
-            RunSetFavorites({})
-        end
-        MSA_DropDownMenu_AddButton(info, level)
+        info = {
+            isNotRadio = true,
+            notCheckable = true,
+            text = UNCHECK_ALL,
+            func = function()
+                RunSetFavorites({})
+            end,
+        }
+        UIDropDownMenu_AddButton(info, level)
 
-        info.text = L["FAVOR_PER_CHARACTER"]
-        info.notCheckable = false
-        info.checked = ADDON.settings.favoritePerChar
-        info.func = function(_, _, _, value)
-            ADDON.settings.favoritePerChar = not value
-            ADDON:CollectFavoredToys()
-        end
-        MSA_DropDownMenu_AddButton(info, level)
+        info = {
+            isNotRadio = true,
+            checked = ADDON.settings.favoritePerChar,
+            text = L["FAVOR_PER_CHARACTER"],
+            func = function(_, _, _, value)
+                ADDON.settings.favoritePerChar = not value
+                ADDON:CollectFavoredToys()
+            end,
+        }
+        UIDropDownMenu_AddButton(info, level)
     end
 end
 
 local function BuildStarButton()
-    local menu = MSA_DropDownMenu_Create(ADDON_NAME .. "FavorMenu", ToyBox)
-    MSA_DropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
+    local menu = CreateFrame("Frame", ADDON_NAME .. "FavorMenu", ToyBox, "UIDropDownMenuTemplate")
+    UIDropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
 
     starButton = CreateFrame("Button", nil, ToyBox)
     starButton:SetPoint("RIGHT", ToyBox.searchBox, "LEFT", -4, 0)
@@ -119,7 +123,7 @@ local function BuildStarButton()
         GameTooltip:Hide()
     end);
     starButton:SetScript("OnClick", function()
-        MSA_ToggleDropDownMenu(1, nil, menu, starButton, 0, 10)
+        ToggleDropDownMenu(1, nil, menu, starButton, 0, 10)
     end)
     starButton:RegisterEvent("PLAYER_REGEN_ENABLED")
     starButton:RegisterEvent("PLAYER_REGEN_DISABLED")

@@ -15,7 +15,7 @@ local function hookStripTextures()
         local mt = getmetatable(frame).__index
         local org_Strip = mt.StripTextures
         mt.StripTextures = function(self, a, b, c, d, e, f, g, h, i)
-            if (_G['MountJournal']) then
+            if (_G['ToyBox']) then
                 for _, callback in pairs(callbacks) do
                     callback(self)
                 end

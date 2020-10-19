@@ -1,4 +1,4 @@
-## Interface: 80300
+## Interface: 90001
 ## Title: Toy Box Enhanced
 ## Notes: Extends the default Toy Box
 ## Author: eXochron
@@ -6,8 +6,7 @@
 ## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
 ## X-Curse-Project-ID: 87878
 
-Libs\LibStub\LibStub.lua
-Libs\MSA-DropDownMenu-1.0\MSA-DropDownMenu-1.0.xml
+Libs\UIDropdownMenu.lua
 
 Locals\enUS.lua
 Locals\deDE.lua

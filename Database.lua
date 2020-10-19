@@ -619,6 +619,7 @@ ADDON.db.source = {
         [175063] = true, -- Aqir Egg Cluster
 
         -- Shadowlands
+        [177665] = true, -- Spectral Hankerchief
         [177951] = true, -- Glimmerflies on Strings
         [180947] = true, -- Tithe Collector's Vessel
         [183847] = true, -- Acolyte's Guise
@@ -1022,10 +1023,8 @@ ADDON.db.expansion = {
         ["minID"] = 156649,
         ["maxID"] = 175140,
     },
-}
 
-if select(4, GetBuildInfo()) >= 90000 then
-    ADDON.db.expansion[8] = {
+    [8] = { -- Shadowlands
         ["minID"] = 175141,
         ["maxID"] = 999999,
         [172179] = true, -- Eternal Traveler's Hearthstone
@@ -1033,4 +1032,4 @@ if select(4, GetBuildInfo()) >= 90000 then
         [174286] = true, -- Kyrian Ritual Vestments
         [174445] = true, -- Glimmerfly Cocoon
     }
-end
+}
