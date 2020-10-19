@@ -619,6 +619,7 @@ ADDON.db.source = {
         [175063] = true, -- Aqir Egg Cluster
 
         -- Shadowlands
+        [177665] = true, -- Spectral Hankerchief
         [177951] = true, -- Glimmerflies on Strings
         [180947] = true, -- Tithe Collector's Vessel
         [183847] = true, -- Acolyte's Guise

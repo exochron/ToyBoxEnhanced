@@ -7,7 +7,7 @@ function SlashCmdList.TOYBOXENHANCED(msg, editBox)
     if (msg == "debug on") then
         ADDON.settings.debugMode = true
         print("ToyBoxEnhanced: Debug mode activated.")
-    elseif (parameter1 == "debug off") then
+    elseif (msg == "debug off") then
         ADDON.settings.debugMode = false
         print("ToyBoxEnhanced: Debug mode deactivated.")
     else
