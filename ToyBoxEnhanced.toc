@@ -2,7 +2,7 @@
 ## Title: Toy Box Enhanced
 ## Notes: Extends the default Toy Box
 ## Author: eXochron
-## Version: 2.5.2
+## Version: @project-version@
 ## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
 ## X-Curse-Project-ID: 87878
 
