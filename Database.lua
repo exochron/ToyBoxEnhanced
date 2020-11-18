@@ -1123,6 +1123,13 @@ ADDON.db.use = {
         [108634] = true, -- Crashin' Thrashin' Mortar Controller
         [108633] = true, -- Crashin' Thrashin' Cannon Controller
         [108631] = true, -- Crashin' Thrashin' Roller Controller
+        [37710] = true, -- Crashin' Thrashin' Racer Controller
+        [104318] = true, -- Crashin' Thrashin' Flyer Controller
+        [116763] = true, -- Crashin' Thrashin' Shredder Controller
+        [108632] = true, -- Crashin' Thrashin' Flamer Controller
+        [108635] = true, -- Crashin' Thrashin' Killdozer Controller
+        [172222] = true, -- Crashin' Thrashin' Juggernaught
+        [172223] = true, -- Crashin' Thrashin' Battleship
     },
 
     -- Non-combat creatures; unrelated to battle pets
@@ -1136,11 +1143,15 @@ ADDON.db.use = {
         [98552] = true, -- Xan'tish's Flute
     },
 
-    -- Dances, Laughter, Poses, etc
+    -- Dances, Laughter, Poses, Roleplaying, etc
     ["Emotes"] = {
         [147838] = true, -- Akazamzarak's Spare Hat
         [13379] = true, -- Piccolo of the Flaming Fire
         [163210] = true, -- Party Totem
+        [36863] = true, -- Decahedral Dwarven Dice
+        [63269] = true, -- Loaded Gnomish Dice
+        [44430] = true, -- Titanium Seal of Dalaran
+        [36862] = true, -- Worn Troll Dice
     },
 
     -- Effects the ground, weather, etc for you and/or other players
@@ -1197,14 +1208,6 @@ ADDON.db.use = {
         [163704] = true, -- Tiny Mechanical Mouse
         [142497] = true, -- Tiny Pack
         [174995] = true, -- Void Tendril Pet Leash
-    },
-
-    -- Random number generators
-    ["RNG"] = {
-        [36863] = true, -- Decahedral Dwarven Dice
-        [63269] = true, -- Loaded Gnomish Dice
-        [44430] = true, -- Titanium Seal of Dalaran
-        [36862] = true, -- Worn Troll Dice
     },
 
     -- Teleports your character somewhere

@@ -273,7 +273,6 @@ local function InitializeDropDown(filterMenu, level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Mail", "Mail", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Movement", "Movement", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Pets", "Pets", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("RNG", "RNG", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Teleportation", "Teleportation", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Unclassified", "Unclassified", settings), level)
     end
