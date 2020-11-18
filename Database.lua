@@ -1033,3 +1033,698 @@ ADDON.db.expansion = {
         [174445] = true, -- Glimmerfly Cocoon
     }
 }
+
+ADDON.db.use = {
+    -- Add to or slightly change the existing character model, keeping the same model
+    ["Appearance Modifications"] = {
+        [147537] = true, -- A Tiny Set of Warglaives
+        [127670] = true, -- Accursed Tome of the Sargerei
+        [153204] = true, -- All-Seeing Eyes
+        [169275] = true, -- Alliance War Banner
+        [169278] = true, -- Alliance War Standard
+        [117550] = true, -- Angry Beehive
+        [153179] = true, -- Blue Conservatory Scroll
+        [134026] = true, -- Honorable Pennant
+        [169276] = true, -- Horde War Banner
+        [169277] = true, -- Horde War Standard
+        [108739] = true, -- Pretty Draenor Pearl
+        [153181] = true, -- Red Conservatory Scroll
+        [119134] = true, -- Sargerei Disguise
+        [156871] = true, -- Spitzy
+        [111476] = true, -- Stolen Breath
+        [163738] = true, -- Syndicate Mask
+        [141301] = true, -- Unstable Powder Box
+        [97919] = true, -- Whole-Body Shrinka'
+        [165791] = true, -- Worn Cloak
+        [153180] = true, -- Yellow Conservatory Scroll
+    },
+
+    -- Modify the entire character model, giving the player a new model
+    ["Appearance Transformations"] = {
+        [86589] = true, -- Ai-Li's Skymirror
+        [113570] = true, -- Ancient's Bloom
+        [53057] = true, -- Faded Wizard Hat
+        [140780] = true, -- Fal'dorei Egg
+        [86593] = true, -- Hozen Beach Ball
+        [141862] = true, -- Mote of Light
+        [52201] = true, -- Muradin's Favor
+        [1973] = true, -- Orb of Deception
+        [35275] = true, -- Orb of the Sin'dorei
+        [127394] = true, -- Podling Camoflage
+        [122283] = true, -- Rukhmar's Sacred Memory
+        [147843] = true, -- Sira's Extra Cloak
+        [66888] = true, -- Stave of Fur and Claw
+        [139587] = true, -- Suspicious Crate
+        [32782] = true, -- Time-Lost Figurine
+    },
+
+    -- Poles that stick out of the ground
+    ["Banners"] = {
+        [119217] = true, -- Alliance Flag of Victory
+        [166879] = true, -- Rallying War Banner
+        [169108] = true, -- Rustbolt Banner
+        [119219] = true, -- Warlord's Flag of Victory
+        [45011] = true, -- Stormwind Banner
+        [45013] = true, -- Thunder Bluff Banner
+        [45014] = true, -- Orgrimmar Banner
+        [45015] = true, -- Sen'jin Banner
+        [45016] = true, -- Undercity Banner
+        [45017] = true, -- Silvermoon City Banner
+        [45018] = true, -- Ironforge Banner
+        [45019] = true, -- Gnomeregan Banner
+        [45020] = true, -- Exodar Banner
+        [45021] = true, -- Darnassus Banner
+        [46843] = true, -- Argent Crusader's Banner
+    },
+
+    -- Can sit in these
+    ["Chairs"] = {
+        [33223] = true, -- Fishing Chair
+        [70161] = true, -- Mushroom Chair
+        [116692] = true, -- Fuzzy Green Lounge Cushion
+        [116689] = true, -- Pineapple Lounge Cushion
+        [116690] = true, -- Safari Lounge Cushion
+        [116691] = true, -- Zhevra Lounge Cushion
+        [86596] = true, -- Nat's Fishing Chair
+    },
+
+    -- Can cook by these
+    ["Cooking Fires"] = {
+        [163211] = true, -- Akunda's Firesticks
+        [153039] = true, -- Crystalline Campfire
+        [67097] = true, -- Grim Campfire
+        [127652] = true, -- Felflame Campfire
+    },
+
+    -- Control a separate entity while the player character stands still
+    ["Controllers"] = {
+        -- [] = true, -- Crashin' Thrashin' XX
+        [108634] = true, -- Crashin' Thrashin' Mortar Controller
+        [108633] = true, -- Crashin' Thrashin' Cannon Controller
+        [108631] = true, -- Crashin' Thrashin' Roller Controller
+    },
+
+    -- Non-combat creatures unrelated to battle pets
+    ["Critters"] = {
+        [131933] = true, -- Critter Hand Cannon
+        [159753] = true, -- Desert Flute
+        [143660] = true, -- Mrgrglhjorn
+        [86586] = true, -- Panflute of Pandaria
+        [128328] = true, -- Skoller's Bag of Squirrel Treats
+        [153124] = true, -- Spire of Spite
+        [98552] = true, -- Xan'tish's Flute
+    },
+
+    -- Dances, Poses
+    ["Emotes"] = {
+        [147838] = true, -- Akazamzarak's Spare Hat
+        [13379] = true, -- Piccolo of the Flaming Fire
+        [163210] = true, -- Party Totem
+    },
+
+    -- Effects the ground, weather, etc for you and/or other players
+    ["Environment"] = {
+        [140363] = true, -- Pocket Fel Spreader
+    },
+
+    -- Controlled explosives
+    ["Fireworks"] = {
+        [86588] = true, -- Pandaren Firework Launcher
+    },
+
+    -- Related to fishing
+    ["Fishing"] = {
+        [85500] = true, -- Angler's Fishing Raft
+        -- [] = true, -- Crate of Bobbers: XX
+        [142531] = true, -- Crate of Bobbers: Squeaky Duck
+        [142532] = true, -- Crate of Bobbers: Murloc Head
+    },
+
+    -- Clickable
+    ["Interactables"] = {
+        [88370] = true, -- Puntable Marmot
+        [174928] = true, -- Rotten Apple
+        [170476] = true, -- Underlight Sealamp
+        [156649] = true, -- Zandalari Effigy Amulet
+    },
+
+    -- Access your mailbox
+    ["Mail"] = {
+        [40768] = true, -- MOLL-E
+        [127655] = true, -- Sassy Imp
+        [156833] = true, -- Katy's Stampwhistle
+    },
+
+    -- Running, jumping, flying, swimming; No teleportation
+    ["Movement"] = {
+        [86582] = true, -- Aqua Jewel
+        [134023] = true, -- Bottled Tornado
+        [140336] = true, -- Brulfist Idol
+        [139773] = true, -- Emerald Winds
+        [86590] = true, -- Essence of the Breeze
+    },
+
+    -- Battle pets
+    ["Pets"] = {
+        [89139] = true, -- Chain Pet Leash
+        [129057] = true, -- Dalaran Disc
+        [142495] = true, -- Fake Teeth
+        [147832] = true, -- Magical Saucer
+        [142494] = true, -- Purple Blossom
+        [127695] = true, -- Spirit Wand
+        [163704] = true, -- Tiny Mechanical Mouse
+        [142497] = true, -- Tiny Pack
+        [174995] = true, -- Void Tendril Pet Leash
+    },
+
+    -- Random number generators
+    ["RNG"] = {
+        [36863] = true, -- Decahedral Dwarven Dice
+        [63269] = true, -- Loaded Gnomish Dice
+        [44430] = true, -- Titanium Seal of Dalaran
+        [36862] = true, -- Worn Troll Dice
+    },
+
+    -- Moves your character somewhere
+    ["Teleportation"] = {
+        -- Engineering Teleports
+        [18984] = true, -- Dimensional Ripper - Everlook
+        [18986] = true, -- Ultrasafe Transporter: Gadgetzan
+        [30542] = true, -- Dimensional Ripper - Area 52
+        [30544] = true, -- Ultrasafe Transporter: Toshley's Station
+        [48933] = true, -- Wormhole Generator: Northrend
+        [87215] = true, -- Wormhole Generator: Pandaria
+        [112059] = true, -- Wormhole Centrifuge
+        [151652] = true, -- Wormhole Generator: Argus
+        [168807] = true, -- Wormhole Generator: Kul Tiras
+        [168808] = true, -- Wormhole Generator: Zandalar
+
+        -- Hearthstone Replacements
+        [64488] = true, -- The Innkeeper's Daughter
+        [162973] = true, -- Greatfather Winter's Hearthstone
+        [163045] = true, -- Headless Horseman's Hearthstone
+        [165669] = true, -- Lunar Elder's Hearthstone
+        [165670] = true, -- Peddlefeet's Lovely Hearthstone
+        [165802] = true, -- Noble Gardener's Hearthstone
+        [166746] = true, -- Fire Eater's Hearthstone
+        [166747] = true, -- Brewfest Reveler's Hearthstone
+        [168907] = true, -- Holographic Digitalization Hearthstone
+        [172179] = true, -- Eternal Traveler's Hearthstone
+        [180290] = true, -- Night Fae Hearthstone
+        [182773] = true, -- Necrolord Hearthstone
+        [184353] = true, -- Kyrian Hearthstone
+
+        --Misc
+        [54452] = true, -- Ethereal Portal
+        [93672] = true, -- Dark Portal
+        [153004] = true, -- Unstable Portal Emitter
+    },
+
+    -- TBD
+    ["Unclassified"] = {
+        -- Draenor
+        [108735] = true, -- Arena Master's War Horn
+        [108743] = true, -- Deceptia's Smoldering Boots
+        [109739] = true, -- Star Chart
+        [113375] = true, -- Vindicator's Armor Polish Kit
+        [117569] = true, -- Giant Deathweb Egg
+        [118716] = true, -- Goren Garb
+        [127859] = true, -- Dazzling Rod
+        [127766] = true, -- The Perfect Blossom
+        [127668] = true, -- Jewel of Hellfire
+        [127709] = true, -- Throbbing Blood Orb
+        [116120] = true, -- Tasty Talador Lunch
+        [128223] = true, -- Bottomless Stygana Mushroom Brew
+
+        -- Legion
+        [130147] = true, -- Thistleleaf Branch
+        [141296] = true, -- Ancient Mana Basin
+        [140786] = true, -- Ley Spider Eggs
+        [141299] = true, -- Kaldorei Light Globe
+        [134024] = true, -- Cursed Swabby Helmet
+        [141306] = true, -- Wisp in a Bottle
+        [122681] = true, -- Sternfathom's Pet Journal
+        [102467] = true, -- Censer of Eternal Agony
+        [130169] = true, -- Tournament Favor
+        [131811] = true, -- Rocfeather Skyhorn Kite
+        [129165] = true, -- Barnacle-Encrusted Gem
+        [127669] = true, -- Skull of the Mad Chief
+        [129055] = true, -- Shoe Shine Kit
+        [141297] = true, -- Arcano-Shower
+        [141298] = true, -- Displacer Meditation Stone
+        [143534] = true, -- Wand of Simulated Life
+        [130194] = true, -- Silver Gilnean Brooch
+
+        -- Battle for Azeroth
+        [161342] = true, -- Gem of Acquiescence
+        [163740] = true, -- Drust Ritual Knife
+        [163742] = true, -- Heartsbane Grimoire
+        [163603] = true, -- Lucille's Handkerchief
+        [168824] = true, -- Ocean Simulator
+        [174920] = true, -- Coifcurl's Close Shave Kit
+        [174921] = true, -- Void-Touched Skull
+        [174924] = true, -- Void-Touched Souvenir Totem
+
+        -- Shadowlands
+        [173984] = true, -- Scroll of Aeons
+        [174286] = true, -- Kyrian Ritual Vestments
+        [179393] = true, -- Mirror of Envious Dreams
+        [180993] = true, -- Bat Visage Bobber
+        [181825] = true, -- Phial of Ravenous Slime
+        [182694] = true, -- Stylish Black Parasol
+        [182696] = true, -- The Countess's Parasol
+        [182729] = true, -- Hearty Dragon Plume
+        [182780] = true, -- Muckpool Cookpot
+        [183986] = true, -- Bondable Sinstone
+        [183988] = true, -- Bondable Val'kyr Diadem
+        [184075] = true, -- Stonewrought Sentry
+        [184318] = true, -- Battlecry of Krexus
+        [184447] = true, -- Kevin's Party Supplies
+        [182732] = true, -- The Necronom-i-nom
+
+        [37254] = true, -- Super Simian Sphere
+
+        -- Pandaria
+        [86568] = true, -- Mr. Smite's Brass Compass
+        [86571] = true, -- Kang's Bindstone
+        [86573] = true, -- Shard of Archstone
+        [86575] = true, -- Chalice of Secrets
+        [86581] = true, -- Farwater Conch
+        [90067] = true, -- B. F. F. Necklace
+        [104262] = true, -- Odd Polished Stone
+        [104294] = true, -- Rime of the Time-Lost Mariner
+        [104302] = true, -- Blackflame Daggers
+        [104309] = true, -- Eternal Kiln
+        [104331] = true, -- Warning Sign
+        [86594] = true, -- Helpful Wikky's Whistle
+        [86565] = true, -- Battle Horn
+        [104329] = true, -- Ash-Covered Horn
+        [86578] = true, -- Eternal Warrior's Sigil
+        [86583] = true, -- Salyin Battle Banner
+        [86584] = true, -- Hardened Shell
+
+        -- Draenor
+        [113631] = true, -- Hypnosis Goggles
+        [113670] = true, -- Mournful Moan of Murmur
+        [114227] = true, -- Bubble Wand
+        [116122] = true, -- Burning Legion Missive
+        [116125] = true, -- Klikixx's Webspinner
+        [118221] = true, -- Petrification Stone
+        [118222] = true, -- Spirit of Bashiok
+        [118244] = true, -- Iron Buccaneer's Hat
+        [119163] = true, -- Soul Inhaler
+        [119178] = true, -- Black Whirlwind
+        [119432] = true, -- Botani Camouflage
+        [120276] = true, -- Outrider's Bridle Chain
+        [127659] = true, -- Ghostly Iron Buccaneer's Hat
+        [127666] = true, -- Vial of Red Goo
+        [122117] = true, -- Cursed Feather of Ikzan
+        [113540] = true, -- Ba'ruun's Bountiful Bloom
+        [113542] = true, -- Whispers of Rai'Vosh
+        [113543] = true, -- Spirit of Shinri
+        [116113] = true, -- Breath of Talador
+        [119180] = true, -- Goren "Log" Roller
+        [118224] = true, -- Ogre Brewing Kit
+
+        -- Legion
+        [134019] = true, -- Don Carlos' Famous Hat
+        [130214] = true, -- Worn Doll
+        [130171] = true, -- Cursed Orb
+        [129113] = true, -- Faintly Glowing Flagon of Mead
+        [134022] = true, -- Burgy Blackheart's Handsome Hat
+        [131900] = true, -- Majestic Elderhorn Hoof
+        [142265] = true, -- Big Red Raygun
+        [147867] = true, -- Pilfered Sweeper
+        [140314] = true, -- Crab Shank
+        [129045] = true, -- Whitewater Tsunami
+        [153126] = true, -- Micro-Artillery Controller
+        [153182] = true, -- Holy Lightsphere
+        [153183] = true, -- Barrier Generator
+        [153193] = true, -- Baarut the Brisk
+        [153194] = true, -- Legion Communication Orb
+        [153253] = true, -- S.F.E. Interceptor
+        [153293] = true, -- Sightless Eye
+        [134831] = true, -- Doomsayer's Robes
+
+        -- Battle for Azeroth
+        [163713] = true, -- Brazier Cap
+        [163744] = true, -- Coldrage's Cooler
+        [163735] = true, -- Foul Belly
+        [163750] = true, -- Kovork Kostume
+        [163775] = true, -- Molok Morion
+        [163736] = true, -- Spectral Visage
+        [163828] = true, -- Toy Siege Tower
+        [163829] = true, -- Toy War Machine
+        [163745] = true, -- Witherbark Gong
+        [163741] = true, -- Magic Fun Rock
+        [166702] = true, -- Proudmoore Music Box -- Proudmoore Admiralty Supplies
+        [166808] = true, -- Bewitching Tea Set -- Order of Embers Supplies
+        [166879] = true, -- Rallying War Banner -- 7th Legion Supplies & Honorbound Supplies
+        [166703] = true, -- Goldtusk Inn Breakfast Buffet -- Voldunai Supplies
+        [165021] = true, -- Words of Akunda -- Voldunai Supplies
+        [166880] = true, -- Meerah's Jukebox -- Voldunai Supplies
+        [166701] = true, -- Warbeast Kraal Dinner Bell -- Zandalari Empire Supplies
+        [166308] = true, -- For da Blood God! -- Talanjis Expedition
+        [166877] = true, -- Azerite Firework Launcher -- Champions of Azeroth Supplies
+        [166851] = true, -- Kojo's Master Matching Set -- Tortollan Seekers Supplies
+        [166704] = true, -- Bowl of Glowing Pufferfish -- Tortollan Seekers Supplies
+        [166784] = true, -- Narassin's Soul Gem -- Darkshore
+        [166785] = true, -- Detoxified Blight Grenade -- Darkshore
+        [166787] = true, -- Twiddle Twirler: Sentinel's Glaive -- Darkshore
+        [166788] = true, -- Twiddle Twirler: Shredder Blade -- Darkshore
+        [166790] = true, -- Highborne Memento -- Darkshore
+        [167931] = true, -- Mechagonian Sawblades
+        [169347] = true, -- Judgment of Mechagon
+        [170187] = true, -- Shadescale
+        [170196] = true, -- Shirakess Warning Sign
+        [170198] = true, -- Eternal Palace Dining Set
+        [170199] = true, -- Zanj'ir Weapon Rack
+        [170203] = true, -- Flopping Fish -- Ankoan/Unshackled Supplies
+        [170469] = true, -- Memento of the Deeps -- Ankoan/Unshackled Supplies
+        -- Island Expeditions
+        [163795] = true, -- Oomgut Ritual Drum
+        [163924] = true, -- Whiskerwax Candle
+        [164373] = true, -- Enchanted Soup Stone
+        [164374] = true, -- Magic Monkey Banana
+        [164375] = true, -- Bad Mojo Banana
+
+        [169303] = true, -- Hell-Bent Bracers
+        [174873] = true, -- Trans-mogu-rifier
+        [174874] = true, -- Budget K'thir Disguise
+        [174926] = true, -- Overly Sensitive Void Spectacles
+        [175140] = true, -- All-Seeing Eyes
+
+        -- Shadowlands
+        [174445] = true, -- Glimmerfly Cocoon
+        [180873] = true, -- Smolderheart
+        [181794] = true, -- Orophea's Lyre
+        [182655] = true, -- Hill King's Roarbox
+        [184292] = true, -- Ancient Elethium Coin
+        [184312] = true, -- Borr-Geth's Fiery Brimstone
+        [184476] = true, -- Regenerating Slime Vial
+
+        [30690] = true, -- Power Converter
+        [123851] = true, -- Photo B.O.M.B. -- Blingtron-5000
+
+        -- Molten Front
+        [71259] = true, -- Leyara's Locket
+
+        -- Cataclysm
+        [54651] = true, -- Gnomeregan Pride
+        [54653] = true, -- Darkspear Pride
+
+        -- Pandaria
+        [80822] = true, -- The Golden Banana
+        [82467] = true, -- Ruthers' Harness
+        [88589] = true, -- Cremating Torch
+        [88417] = true, -- Gokk'lok's Shell
+        [88385] = true, -- Hozen Idol
+        [88579] = true, -- Jin Warmkeg's Brew
+        [88580] = true, -- Ken-Ken's Mask
+        [88531] = true, -- Lao Chin's Last Mug
+        [88377] = true, -- Turnip Paint "Gun"
+        [88387] = true, -- Shushen's Spittoon
+        [88381] = true, -- Silversage Incense
+        [88584] = true, -- Totem of Harmony
+        [88375] = true, -- Turnip Punching Bag1
+        [95567] = true, -- Kirin Tor Beacon -- Alliance
+        [95568] = true, -- Sunreaver Beacon -- Horde
+
+        -- Draenor
+        [119001] = true, -- Mystery Keg
+        [119144] = true, -- Touch of the Naaru
+        [119145] = true, -- Firefury Totem
+        [119093] = true, -- Aviana's Feather
+        [115506] = true, -- Treessassin's Guise
+        [118935] = true, -- Ever-Blooming Frond
+
+        -- Legion
+        [129093] = true, -- Ravenbear Disguise
+        [138873] = true, -- Mystical Frosh Hat
+        [134021] = true, -- X-52 Rocket Helmet
+        [141879] = true, -- Berglrgl Perrgl Girggrlf
+        [133997] = true, -- Black Ice
+        [138876] = true, -- Runas' Crystal Grinder
+        [130209] = true, -- Never Ending Toy Chest
+        [138878] = true, -- Copy of Daglop's Contract
+        [133998] = true, -- Rainbow Generator
+        [142496] = true, -- Dirty Spoon
+        [143727] = true, -- Champion's Salute -- class hall quest
+
+        -- Battle for Azeroth
+        [160509] = true, -- Echoes of Rezan -- WQ
+        [163607] = true, -- Lucille's Sewing Needle
+        [166544] = true, -- Dark Ranger's Spare Cowl
+        [166678] = true, -- Brynja's Beacon
+        [168123] = true, -- Twitching Eyeball
+        [169796] = true, -- Azeroth Mini Collection: Mechagon
+        [169768] = true, -- Heart of a Champion
+        [170154] = true, -- Book of the Unshackled
+        [170155] = true, -- Carved Ankoan Charm
+        [173951] = true, -- N'lyeth, Sliver of N'Zoth
+        [175063] = true, -- Aqir Egg Cluster
+
+        -- Shadowlands
+        [177665] = true, -- Spectral Hankerchief
+        [177951] = true, -- Glimmerflies on Strings
+        [180947] = true, -- Tithe Collector's Vessel
+        [183847] = true, -- Acolyte's Guise
+        [183856] = true, -- Mystical Orb of Meditation
+
+        [43499] = true, -- Iron Boot Flask
+        [68806] = true, -- Kalytha's Haunted Locket
+        [88802] = true, -- Foxicopter Controller
+        [91904] = true, -- Stackable Stag
+
+        -- Toy vendors
+        [44606] = true, -- Toy Train Set
+        [45057] = true, -- Wind-Up Train Wrecker
+        [54343] = true, -- Blue Crashin' Thrashin' Racer Controller
+        [54437] = true, -- Tiny Green Ragdoll
+        [54438] = true, -- Tiny Blue Ragdoll
+        [104323] = true, -- The Pigskin
+        [104324] = true, -- Foot Ball
+
+        -- Molten Front
+        [70159] = true, -- Mylune's Call
+
+        -- Battlefield Barrens
+        [97921] = true, -- Bom'bay's Color-Seein' Sauce -- no longer available
+        [97942] = true, -- Sen'jin Spirit Drum
+
+        -- Garrison
+        [113096] = true, -- Bloodmane Charm
+        [119210] = true, -- Hearthstone Board
+        [119212] = true, -- Winning Hand
+
+        [127696] = true, -- Magic Pet Mirror
+        [127707] = true, -- Indestructible Bone
+        [127864] = true, -- Personal Spotlight
+        [44820] = true, -- Red Ribbon Pet Leash
+        [37460] = true, -- Rope Pet Leash
+        -- Ashran
+        [115501] = true, -- Kowalski's Music Box
+        [115505] = true, -- LeBlanc's Recorder
+        [116396] = true, -- LeBlanc's Recorder
+
+        -- Legion
+        [137294] = true, -- Dalaran Initiates' Pin
+        [136846] = true, -- Familiar Stone
+        [134007] = true, -- Eternal Black Diamond Ring
+        [140231] = true, -- Narcissa's Mirror
+        [140309] = true, -- Prismatic Bauble
+        [137663] = true, -- Soft Foam Sword
+        [130151] = true, -- The "Devilsaur" Lunchbox
+        [134004] = true, -- Noble's Eternal Elementium Signet
+        [142452] = true, -- Lingering Wyrmtongue Essence
+        [150743] = true, -- Surviving Kalimdor
+        [150744] = true, -- Walking Kalimdor with the Earthmother
+        [150745] = true, -- The Azeroth Campaign
+        [150746] = true, -- To Modernize the Provisioning of Azeroth
+
+        -- Battle for Azeroth
+        [163705] = true, -- Imaginary Gun
+        [159749] = true, -- Haw'li's Hot & Spicy Chili
+        [164983] = true, -- Rhan'ka's Escape Plan
+        [166662] = true, -- Cranky Crab
+        [166663] = true, -- Hand Anchor
+        [166461] = true, -- Gnarlwood Waveboard
+        [166743] = true, -- Blight Bomber
+        [166744] = true, -- Glaive Tosser
+        [170204] = true, -- Symbol of Gral
+        [170380] = true, -- Jar of Sunwarmed Sand
+
+        -- Shadowlands
+        [183716] = true, -- Venthyr Sinstone
+        [183876] = true, -- Quill of Correspondence
+        [183989] = true, -- Dredger Barrow Racer
+
+        [52253] = true, -- Sylvanas' Music Box - Icecrown Citadel
+        [88566] = true, -- Krastinov's Bag of Horrors - Scholomance
+        [98132] = true, -- Shado-Pan Geyser Gun - Throne of Thunder
+        [98136] = true, -- Gastropod Shell - Throne of Thunder
+        [119211] = true, -- Golden Hearthstone Card: Lord Jaraxxus - Nighthold, Guldan
+        [122304] = true, -- Fandral's Seed Pouch - Firelands
+        [141331] = true, -- Vial of Green Goo - Gnomeregan, Endgineer Omegaplugg
+        [143544] = true, -- Skull of Corruption - Nighthold
+        [142536] = true, -- Memory Cube - Nighthold
+        [152982] = true, -- Vixx's Chest of Tricks - Seat of the Triumvirate
+
+        [44719] = true, -- Frenzyheart Brew
+        [63141] = true, -- Tol Barad Searchlight
+        [64997] = true, -- Tol Barad Searchlight
+
+        -- Pandaria
+        [89222] = true, -- Cloud Ring
+        [89869] = true, -- Pandaren Scarecrow
+        [90175] = true, -- Gin-Ji Knife Set
+        [95589] = true, -- Glorious Standard of the Kirin Tor Offensive
+        [95590] = true, -- Glorious Standard of the Sunreaver Onslaught
+        [103685] = true, -- Celestial Defender's Medallion
+
+        -- Draenor
+        [115468] = true, -- Permanent Frost Essence
+        [119160] = true, -- Tickle Totem
+        [119182] = true, -- Soul Evacuation Crystal
+        [119421] = true, -- Sha'tari Defender's Medallion
+        [128462] = true, -- Karabor Councilor's Attire
+        [128471] = true, -- Frostwolf Grunt's Battlegear
+        [115472] = true, -- Permanent Time Bubble -- Alliance
+
+        -- Legion
+        [129367] = true, -- Vrykul Toy Boat Kit
+        [130157] = true, -- Syxsehnz Rod
+        [130158] = true, -- Path of Elothir
+        [130191] = true, -- Trapped Treasure Chest Kit
+        [130199] = true, -- Legion Pocket Portal
+        [131814] = true, -- Whitewater Carp
+        [131812] = true, -- Darkshard Fragment
+        [130170] = true, -- Tear of the Green Aspect
+        [129149] = true, -- Death's Door Charm
+        [130232] = true, -- Moonfeather Statue
+        [140324] = true, -- Mobile Telemancy Beacon
+        [129279] = true, -- Enchanted Stone Whistle
+        [140325] = true, -- Home Made Party Mask
+        [147307] = true, -- Carved Wooden Helm
+        [147308] = true, -- Enchanted Bobber
+        [147309] = true, -- Face of the Forest
+        [147310] = true, -- Floating Totem
+        [147311] = true, -- Replica Gondola
+        [147312] = true, -- Demon Noggin
+        [147708] = true, -- Legion Invasion Simulator
+
+        -- Battle for Azeroth
+        [163565] = true, -- Vulpera Scrapper's Armor
+        [163566] = true, -- Vulpera Battle Banner
+        [163206] = true, -- Weary Spirit Binding
+        [163463] = true, -- Dead Ringer
+        [163200] = true, -- Cursed Spyglass
+        [163201] = true, -- Gnoll Targetting Barrel
+
+        -- Shadowlands
+        [182890] = true, -- Rapid Recitation Quill
+        [183900] = true, -- Sinvyr Tea Set
+        [184218] = true, -- Vulgarity Arbiter
+
+        [43824] = true, -- The Schools of Arcane Magic - Mastery
+        [87528] = true, -- Honorary Brewmaster Keg
+        [89205] = true, -- Mini Mana Bomb -- no longer available
+        [92738] = true, -- Safari Hat
+        [116115] = true, -- Blazing Wings
+        [119215] = true, -- Robo-Gnomebulator
+        [122293] = true, -- Trans-Dimensional Bird Whistle
+
+        -- Legion
+
+        -- Battle for Azeroth
+        [163697] = true, -- Laser Pointer
+        [166247] = true, -- Citizens Brigade Whistle
+        [168016] = true, -- Hyper-Compressed Ocean
+        [174830] = true, -- Shadowy Disguise
+        [174871] = true, -- Mayhem Mind Melder
+
+        -- Shadowlands
+        [182695] = true, -- Weathered Purple Parasol
+        [184223] = true, -- Helm of the Dominated
+        [184449] = true, -- Jiggles's Favorite Toy
+        [184508] = true, -- Mawsworn Pet Leash
+        [183903] = true, -- Smelly Jelly
+
+        -- Toys from prestige PvP system
+        [134031] = true, -- Prestigious Pennant
+        [134032] = true, -- Elite Pennant
+        [134034] = true, -- Esteemed Pennant
+        [164310] = true, -- Glorious Pennant
+        [169297] = true, -- Stormpike Insignia
+        [169298] = true, -- Frostwolf Insignia
+
+        [122700] = true, -- Portable Audiophone
+
+        -- Garrison Mission
+        [118191] = true, -- Archmage Vargoth's Spare Staff
+        [118427] = true, -- Autographed Hearthstone Card
+        [122674] = true, -- S.E.L.F.I.E. Camera MkII
+        [128310] = true, -- Burning Blade
+
+        -- Gladiator's Sanctum
+
+        -- Lunarfall Inn / Frostwall Tavern
+        [117573] = true, -- Wayfarer's Bonfire
+        [118937] = true, -- Gamon's Braid
+        [118938] = true, -- Manastorm's Duplicator
+        [119003] = true, -- Void Totem
+        [119039] = true, -- Lilian's Warning Sign
+        [119083] = true, -- Fruit Basket
+        [119092] = true, -- Moroes' Famous Polish
+
+        -- Jonathan Stephens, Moz'def
+        [122298] = true, -- Bodyguard Miniaturization Device
+
+        [136855] = true, -- Hunter's Call -- only Hunter
+        [136849] = true, -- Nature's Beacon -- only Druid
+        [136927] = true, -- Scarlet Confessional Book -- only Priest
+        [136928] = true, -- Thaumaturgist's Orb -- only Priest
+        [136934] = true, -- Raging Elemental Stone -- only Shaman
+        [136935] = true, -- Tadpole Cloudseeder -- only Shaman
+        [136937] = true, -- Vol'jin's Serpent Totem -- only Shaman
+        [138490] = true, -- Waterspeaker's Totem -- only Shaman
+        [140160] = true, -- Stormforged Vrykul Horn
+
+        [120857] = true, -- Barrel of Bandanas
+        [151877] = true, -- Barrel of Eyepatches
+
+        [32542] = true, -- Imp in a Ball
+        [32566] = true, -- Picnic Basket
+        [33219] = true, -- Goblin Gumbo Kettle
+        [34499] = true, -- Paper Flying Machine Kit
+        [35227] = true, -- Goblin Weather Machine - Prototype 01-B
+        [38578] = true, -- The Flag of Ownership
+        [45063] = true, -- Foam Sword Rack
+        [46780] = true, -- Ogre Pinata
+
+        [112324] = true, -- Nightmarish Hitching Post
+        [166777] = true, -- Lion's Pride Firework
+        [166778] = true, -- Horde's Might Firework
+        [166779] = true, -- Transmorpher Beacon
+
+        [33079] = true, -- Murloc Costume
+        [142542] = true, -- Tome of Town Portal
+        [143543] = true, -- Twelve-String Guitar
+        [158149] = true, -- Overtuned Corgi Goggles
+        [163986] = true, -- Orgrimmar Hero's War Banner --Blizzcon 2018
+        [163987] = true, -- Stormwind Champion's War Banner  --Blizzcon 2018
+
+        -- Trading Card Game
+
+        [38301] = true, -- D.I.S.C.O.
+        [49703] = true, -- Perpetual Purple Firework
+        [49704] = true, -- Carved Ogre Idol
+        [54212] = true, -- Instant Statue Pedestal
+        [69215] = true, -- War Party Hitching Post
+        [69227] = true, -- Fool's Gold
+        [71628] = true, -- Sack of Starfish
+        [72159] = true, -- Magical Ogre Idol
+        [72161] = true, -- Spurious Sarcophagus
+        [79769] = true, -- Demon Hunter's Aspect
+    }
+}
