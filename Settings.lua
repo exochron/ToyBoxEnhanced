@@ -35,6 +35,7 @@ local function PrepareDefaults()
             profession = {},
             worldEvent = {},
             expansion = {},
+            use = {},
             hidden = false,
         },
     }
@@ -50,6 +51,9 @@ local function PrepareDefaults()
     end
     for name, _ in pairs(ADDON.db.expansion) do
         defaultSettings.filter.expansion[name] = true
+    end
+    for name, _ in pairs(ADDON.db.use) do
+        defaultSettings.filter.use[name] = true
     end
 
     return defaultSettings
