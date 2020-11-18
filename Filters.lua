@@ -110,6 +110,11 @@ local function FilterToysByExpansion(itemId)
     return false
 end
 
+local function FilterToysByUse(itemId)
+
+    return CheckItemInList(ADDON.settings.filter.use, ADDON.db.use, itemId)
+end
+
 function ADDON:FilterToy(itemId)
     local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(itemId)
     local collected = PlayerHasToy(itemId)
@@ -120,6 +125,7 @@ function ADDON:FilterToy(itemId)
             and FilterUsableToys(itemId)
             and FilterToysByFaction(itemId)
             and FilterToysByExpansion(itemId)
+            and FilterToysByUse(itemId)
             and (FilterToysBySource(itemId)
                 or FilterToysByProfession(itemId)
                 or FilterToysByWorldEvent(itemId))) then
