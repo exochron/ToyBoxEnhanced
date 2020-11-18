@@ -1039,7 +1039,6 @@ ADDON.db.use = {
     ["Appearance Modifications"] = {
         [147537] = true, -- A Tiny Set of Warglaives
         [127670] = true, -- Accursed Tome of the Sargerei
-        [153204] = true, -- All-Seeing Eyes
         [169275] = true, -- Alliance War Banner
         [169278] = true, -- Alliance War Standard
         [117550] = true, -- Angry Beehive
@@ -1057,6 +1056,8 @@ ADDON.db.use = {
         [97919] = true, -- Whole-Body Shrinka'
         [165791] = true, -- Worn Cloak
         [153180] = true, -- Yellow Conservatory Scroll
+        [175140] = true, -- All-Seeing Eyes
+
     },
 
     -- Modify the entire character model, giving the player a new model
@@ -1124,7 +1125,7 @@ ADDON.db.use = {
         [108631] = true, -- Crashin' Thrashin' Roller Controller
     },
 
-    -- Non-combat creatures unrelated to battle pets
+    -- Non-combat creatures; unrelated to battle pets
     ["Critters"] = {
         [131933] = true, -- Critter Hand Cannon
         [159753] = true, -- Desert Flute
@@ -1135,7 +1136,7 @@ ADDON.db.use = {
         [98552] = true, -- Xan'tish's Flute
     },
 
-    -- Dances, Poses
+    -- Dances, Laughter, Poses, etc
     ["Emotes"] = {
         [147838] = true, -- Akazamzarak's Spare Hat
         [13379] = true, -- Piccolo of the Flaming Fire
@@ -1145,6 +1146,7 @@ ADDON.db.use = {
     -- Effects the ground, weather, etc for you and/or other players
     ["Environment"] = {
         [140363] = true, -- Pocket Fel Spreader
+        [141297] = true, -- Arcano-Shower
     },
 
     -- Controlled explosives
@@ -1168,7 +1170,7 @@ ADDON.db.use = {
         [156649] = true, -- Zandalari Effigy Amulet
     },
 
-    -- Access your mailbox
+    -- Remote mailbox access
     ["Mail"] = {
         [40768] = true, -- MOLL-E
         [127655] = true, -- Sassy Imp
@@ -1184,7 +1186,7 @@ ADDON.db.use = {
         [86590] = true, -- Essence of the Breeze
     },
 
-    -- Battle pets
+    -- Battle pets; No critters or combat pets
     ["Pets"] = {
         [89139] = true, -- Chain Pet Leash
         [129057] = true, -- Dalaran Disc
@@ -1205,7 +1207,7 @@ ADDON.db.use = {
         [36862] = true, -- Worn Troll Dice
     },
 
-    -- Moves your character somewhere
+    -- Teleports your character somewhere
     ["Teleportation"] = {
         -- Engineering Teleports
         [18984] = true, -- Dimensional Ripper - Everlook
@@ -1242,6 +1244,8 @@ ADDON.db.use = {
 
     -- TBD
     ["Unclassified"] = {
+        [153204] = true, -- All-Seer's Eye
+
         -- Draenor
         [108735] = true, -- Arena Master's War Horn
         [108743] = true, -- Deceptia's Smoldering Boots
@@ -1270,7 +1274,6 @@ ADDON.db.use = {
         [129165] = true, -- Barnacle-Encrusted Gem
         [127669] = true, -- Skull of the Mad Chief
         [129055] = true, -- Shoe Shine Kit
-        [141297] = true, -- Arcano-Shower
         [141298] = true, -- Displacer Meditation Stone
         [143534] = true, -- Wand of Simulated Life
         [130194] = true, -- Silver Gilnean Brooch
@@ -1412,7 +1415,6 @@ ADDON.db.use = {
         [174873] = true, -- Trans-mogu-rifier
         [174874] = true, -- Budget K'thir Disguise
         [174926] = true, -- Overly Sensitive Void Spectacles
-        [175140] = true, -- All-Seeing Eyes
 
         -- Shadowlands
         [174445] = true, -- Glimmerfly Cocoon
