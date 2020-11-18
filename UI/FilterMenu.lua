@@ -10,6 +10,7 @@ local SETTING_PROFESSION = "profession"
 local SETTING_WORLD_EVENT = "worldEvent"
 local SETTING_FACTION = "faction"
 local SETTING_EXPANSION = "expansion"
+local SETTING_USE = "use"
 
 local L = ADDON.L
 
@@ -176,6 +177,7 @@ local function InitializeDropDown(filterMenu, level)
         UIDropDownMenu_AddButton(CreateFilterCategory(SOURCES, SETTING_SOURCE), level)
         UIDropDownMenu_AddButton(CreateFilterCategory(FACTION, SETTING_FACTION), level)
         UIDropDownMenu_AddButton(CreateFilterCategory(EXPANSION_FILTER_TEXT, SETTING_EXPANSION), level)
+        UIDropDownMenu_AddButton(CreateFilterCategory(USE, SETTING_USE), level)
 
         UIDropDownMenu_AddSpace(level)
         info = CreateFilterInfo(L["Reset filters"])
@@ -251,6 +253,29 @@ local function InitializeDropDown(filterMenu, level)
         for i = 0, #ADDON.db.expansion do
             UIDropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], i, settings), level)
         end
+
+    elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_USE) then
+        local settings = ADDON.settings.filter[SETTING_USE]
+        AddCheckAllAndNoneInfo({ settings }, level)
+
+        UIDropDownMenu_AddButton(CreateFilterInfo("Appearance Modifications", "Appearance Modifications", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Appearance Transformations", "Appearance Transformations", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Banners", "Banners", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Chairs", "Chairs", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Cooking Fires", "Cooking Fires", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Controllers", "Controllers", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Critters", "Critters", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Emotes", "Emotes", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Environment", "Environment", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Fireworks", "Fireworks", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Fishing", "Fishing", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Interactables", "Interactables", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Mail", "Mail", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Movement", "Movement", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Pets", "Pets", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("RNG", "RNG", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Teleportation", "Teleportation", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Unclassified", "Unclassified", settings), level)
     end
 
 end
