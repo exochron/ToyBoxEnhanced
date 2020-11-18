@@ -1,0 +1,36 @@
+## Interface: 90001
+## Title: Toy Box Enhanced
+## Notes: Extends the default Toy Box
+## Author: eXochron
+## Version: 2.5.2
+## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
+## X-Curse-Project-ID: 87878
+
+Libs\TaintLess.xml
+
+Locals\enUS.lua
+Locals\deDE.lua
+Locals\esES.lua
+Locals\frFR.lua
+Locals\koKR.lua
+Locals\ruRU.lua
+Locals\zhCN.lua
+Locals\zhTW.lua
+
+Database.lua
+Filters.lua
+ToyBoxEnhanced.lua
+Settings.lua
+SettingsPanel.lua
+DebugTest.lua
+Favorites.lua
+UI\Templates.xml
+UI\Functions.lua
+UI\EnhancedLayer.lua
+UI\AchievementPoints.lua
+UI\FilterMenu.lua
+UI\Hotkeys.lua
+UI\OptionsMenu.lua
+UI\RandomToyButton.lua
+UI\ToyCount.lua
+SlashCommand.lua
