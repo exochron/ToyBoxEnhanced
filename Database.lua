@@ -1057,7 +1057,8 @@ ADDON.db.use = {
         [165791] = true, -- Worn Cloak
         [153180] = true, -- Yellow Conservatory Scroll
         [175140] = true, -- All-Seeing Eyes
-
+        [108743] = true, -- Deceptia's Smoldering Boots
+        [113375] = true, -- Vindicator's Armor Polish Kit
     },
 
     -- Modify the entire character model, giving the player a new model
@@ -1077,6 +1078,11 @@ ADDON.db.use = {
         [66888] = true, -- Stave of Fur and Claw
         [139587] = true, -- Suspicious Crate
         [32782] = true, -- Time-Lost Figurine
+        [118716] = true, -- Goren Garb
+        [127668] = true, -- Jewel of Hellfire
+        [127709] = true, -- Throbbing Blood Orb
+        [130147] = true, -- Thistleleaf Branch
+        [143534] = true, -- Wand of Simulated Life
     },
 
     -- Poles that stick out of the ground
@@ -1141,6 +1147,8 @@ ADDON.db.use = {
         [128328] = true, -- Skoller's Bag of Squirrel Treats
         [153124] = true, -- Spire of Spite
         [98552] = true, -- Xan'tish's Flute
+        [117569] = true, -- Giant Deathweb Egg
+        [140786] = true, -- Ley Spider Eggs
     },
 
     -- Dances, Laughter, Poses, Roleplaying, etc
@@ -1152,6 +1160,10 @@ ADDON.db.use = {
         [63269] = true, -- Loaded Gnomish Dice
         [44430] = true, -- Titanium Seal of Dalaran
         [36862] = true, -- Worn Troll Dice
+        [130169] = true, -- Tournament Favor
+        [129055] = true, -- Shoe Shine Kit
+        [141298] = true, -- Displacer Meditation Stone
+        [130194] = true, -- Silver Gilnean Brooch
     },
 
     -- Effects the ground, weather, etc for you and/or other players
@@ -1179,6 +1191,7 @@ ADDON.db.use = {
         [174928] = true, -- Rotten Apple
         [170476] = true, -- Underlight Sealamp
         [156649] = true, -- Zandalari Effigy Amulet
+        [141299] = true, -- Kaldorei Light Globe
     },
 
     -- Remote mailbox access
@@ -1188,13 +1201,17 @@ ADDON.db.use = {
         [156833] = true, -- Katy's Stampwhistle
     },
 
-    -- Running, jumping, flying, swimming; No teleportation
+    -- Running, jumping, flying, slow-fall, swimming; No teleportation
     ["Movement"] = {
         [86582] = true, -- Aqua Jewel
         [134023] = true, -- Bottled Tornado
         [140336] = true, -- Brulfist Idol
         [139773] = true, -- Emerald Winds
         [86590] = true, -- Essence of the Breeze
+        [134024] = true, -- Cursed Swabby Helmet
+        [131811] = true, -- Rocfeather Skyhorn Kite
+        [129165] = true, -- Barnacle-Encrusted Gem
+        [127669] = true, -- Skull of the Mad Chief
     },
 
     -- Battle pets; No critters or combat pets
@@ -1208,6 +1225,8 @@ ADDON.db.use = {
         [163704] = true, -- Tiny Mechanical Mouse
         [142497] = true, -- Tiny Pack
         [174995] = true, -- Void Tendril Pet Leash
+        [127766] = true, -- The Perfect Blossom
+        [122681] = true, -- Sternfathom's Pet Journal
     },
 
     -- Teleports your character somewhere
@@ -1247,39 +1266,18 @@ ADDON.db.use = {
 
     -- TBD
     ["Unclassified"] = {
-        [153204] = true, -- All-Seer's Eye
+        [108735] = true, -- Arena Master's War Horn -- summons 2 ogres to fight
+        [153204] = true, -- All-Seer's Eye -- mind vision
+        [109739] = true, -- Star Chart -- drops a thing on the ground
+        [127859] = true, -- Dazzling Rod -- adds an ability
+        [116120] = true, -- Tasty Talador Lunch -- consumable
+        [128223] = true, -- Bottomless Stygana Mushroom Brew -- consumable
+        [141296] = true, -- Ancient Mana Basin -- drops a thing on the ground, clickable, gives a food enhancer buff
+        [141306] = true, -- Wisp in a Bottle -- makes a wisp fly around?
+        [102467] = true, -- Censer of Eternal Agony -- tansform but also lets you get bloody coins
 
-        -- Draenor
-        [108735] = true, -- Arena Master's War Horn
-        [108743] = true, -- Deceptia's Smoldering Boots
-        [109739] = true, -- Star Chart
-        [113375] = true, -- Vindicator's Armor Polish Kit
-        [117569] = true, -- Giant Deathweb Egg
-        [118716] = true, -- Goren Garb
-        [127859] = true, -- Dazzling Rod
-        [127766] = true, -- The Perfect Blossom
-        [127668] = true, -- Jewel of Hellfire
-        [127709] = true, -- Throbbing Blood Orb
-        [116120] = true, -- Tasty Talador Lunch
-        [128223] = true, -- Bottomless Stygana Mushroom Brew
 
         -- Legion
-        [130147] = true, -- Thistleleaf Branch
-        [141296] = true, -- Ancient Mana Basin
-        [140786] = true, -- Ley Spider Eggs
-        [141299] = true, -- Kaldorei Light Globe
-        [134024] = true, -- Cursed Swabby Helmet
-        [141306] = true, -- Wisp in a Bottle
-        [122681] = true, -- Sternfathom's Pet Journal
-        [102467] = true, -- Censer of Eternal Agony
-        [130169] = true, -- Tournament Favor
-        [131811] = true, -- Rocfeather Skyhorn Kite
-        [129165] = true, -- Barnacle-Encrusted Gem
-        [127669] = true, -- Skull of the Mad Chief
-        [129055] = true, -- Shoe Shine Kit
-        [141298] = true, -- Displacer Meditation Stone
-        [143534] = true, -- Wand of Simulated Life
-        [130194] = true, -- Silver Gilnean Brooch
 
         -- Battle for Azeroth
         [161342] = true, -- Gem of Acquiescence
