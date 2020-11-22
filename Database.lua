@@ -380,7 +380,6 @@ ADDON.db.source = {
 
         -- Shadowlands
         [173984] = true, -- Scroll of Aeons
-        [174286] = true, -- Kyrian Ritual Vestments
         [179393] = true, -- Mirror of Envious Dreams
         [180993] = true, -- Bat Visage Bobber
         [181825] = true, -- Phial of Ravenous Slime
@@ -455,7 +454,7 @@ ADDON.db.source = {
         [113542] = true, -- Whispers of Rai'Vosh
         [113543] = true, -- Spirit of Shinri
         [116113] = true, -- Breath of Talador
-        [119180] = 'Goren "Log" Roller',
+        [119180] = true, -- Goren "Log" Roller
         [118224] = true, -- Ogre Brewing Kit
         [127655] = true, -- Sassy Imp
 
@@ -540,10 +539,12 @@ ADDON.db.source = {
         [174445] = true, -- Glimmerfly Cocoon
         [180873] = true, -- Smolderheart
         [181794] = true, -- Orophea's Lyre
-        [182655] = true, -- Hill King's Roarbox
         [184292] = true, -- Ancient Elethium Coin
         [184312] = true, -- Borr-Geth's Fiery Brimstone
+        [184396] = true, -- Malfunctioning Goliath Gauntlet -- Ascended Supplies
+        [184435] = true, -- Mark of Purity -- Ascended Supplies
         [184476] = true, -- Regenerating Slime Vial
+        [184495] = true, -- Infested Arachnid Casing -- Supplies of the Undying Army
     },
 
     ["Quest"] = {
@@ -619,7 +620,6 @@ ADDON.db.source = {
         [175063] = true, -- Aqir Egg Cluster
 
         -- Shadowlands
-        [177665] = true, -- Spectral Hankerchief
         [177951] = true, -- Glimmerflies on Strings
         [180947] = true, -- Tithe Collector's Vessel
         [183847] = true, -- Acolyte's Guise
@@ -813,6 +813,7 @@ ADDON.db.source = {
         [182890] = true, -- Rapid Recitation Quill
         [183900] = true, -- Sinvyr Tea Set
         [184218] = true, -- Vulgarity Arbiter
+        [184410] = true, -- Aspirant's Stretcher
     },
 
     ["Achievement"] = {
@@ -1029,7 +1030,6 @@ ADDON.db.expansion = {
         ["maxID"] = 999999,
         [172179] = true, -- Eternal Traveler's Hearthstone
         [173984] = true, -- Scroll of Aeons
-        [174286] = true, -- Kyrian Ritual Vestments
         [174445] = true, -- Glimmerfly Cocoon
     }
 }

@@ -19,7 +19,11 @@ end
 --endregion
 
 local function LoadUI()
-    PetJournal:HookScript("OnShow", function() if (not PetJournalPetCard.petID) then PetJournal_ShowPetCard(1) end end)
+    PetJournal:HookScript("OnShow", function()
+        if not PetJournalPetCard.petID then
+            PetJournal_ShowPetCard(1)
+        end
+    end)
 
     FireCallbacks(loadUICallbacks)
     ADDON:FilterAndRefresh()
@@ -72,8 +76,6 @@ function ADDON:FilterToys()
 end
 
 local function OnLogin()
-    ResetAPIFilters()
-
     for toyIndex = 1, C_ToyBox.GetNumFilteredToys() do
         local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
         if itemId then
@@ -85,6 +87,7 @@ local function OnLogin()
 end
 
 local loggedIn = false
+local waitTillLoaded = false
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN")
 frame:RegisterEvent("ADDON_LOADED")
@@ -93,17 +96,28 @@ frame:RegisterEvent("PLAYER_REGEN_ENABLED")
 frame:RegisterEvent("PLAYER_REGEN_DISABLED")
 frame:SetScript("OnEvent", function(self, event, arg1)
     if event == "PLAYER_LOGIN" and false == loggedIn then
+        ResetAPIFilters()
+
+        if C_ToyBox.GetNumFilteredToys() < 555 then
+            waitTillLoaded = true
+            --C_ToyBox is not fully loaded yet on a freshly launched client. So we just wait until its ready.
+        else
+            loggedIn = true
+            OnLogin()
+        end
+    elseif event == "TOYS_UPDATED" and waitTillLoaded and not loggedIn and nil == arg1 and C_ToyBox.GetNumFilteredToys() > 555 then
         loggedIn = true
         OnLogin()
     end
 
     if ToyBox and not ADDON.initialized and ADDON.settings then
+        frame:UnregisterEvent("ADDON_LOADED")
         if false == loggedIn then
-            loggedIn = true
             frame:UnregisterEvent("PLAYER_LOGIN")
+            loggedIn = true
+            ResetAPIFilters()
             OnLogin()
         end
-        frame:UnregisterEvent("ADDON_LOADED")
         LoadUI()
         ADDON.initialized = true
     elseif ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then

@@ -1,4 +1,4 @@
-## Interface: 90001
+## Interface: 90002
 ## Title: Toy Box Enhanced
 ## Notes: Extends the default Toy Box
 ## Author: eXochron

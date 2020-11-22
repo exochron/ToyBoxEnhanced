@@ -2,7 +2,7 @@ local ADDON_NAME, ADDON = ...
 
 local function ContainsItem(data, itemId)
     for _, category in pairs(data) do
-        if (category[itemId]) then
+        if category[itemId] then
             return true
         end
     end
@@ -12,39 +12,64 @@ end
 
 local function DebugTest()
     for _, itemId in pairs(ADDON.db.ingameList) do
-        if (not ContainsItem(ADDON.db.source, itemId)
-            and not ContainsItem(ADDON.db.profession, itemId)
-            and not ContainsItem(ADDON.db.worldEvent, itemId)
-        ) then
+        if not ContainsItem(ADDON.db.source, itemId)
+                and not ContainsItem(ADDON.db.profession, itemId)
+                and not ContainsItem(ADDON.db.worldEvent, itemId)
+        then
             print("New toy (by Source): " .. itemId)
         end
     end
 
     for _, source in pairs(ADDON.db.source) do
         for itemId, _ in pairs(source) do
-            if (not C_ToyBox.GetToyInfo(itemId)) then
+            if not C_ToyBox.GetToyInfo(itemId) then
                 print("Old toy (by Source): " .. itemId)
             end
         end
     end
     for _, source in pairs(ADDON.db.profession) do
         for itemId, _ in pairs(source) do
-            if (not C_ToyBox.GetToyInfo(itemId)) then
+            if not C_ToyBox.GetToyInfo(itemId) then
                 print("Old toy (by Profession): " .. itemId)
             end
         end
     end
     for _, source in pairs(ADDON.db.worldEvent) do
         for itemId, _ in pairs(source) do
-            if (not C_ToyBox.GetToyInfo(itemId)) then
+            if not C_ToyBox.GetToyInfo(itemId) then
                 print("Old toy (by World Event): " .. itemId)
             end
         end
     end
 end
 
+-- Test for https://www.curseforge.com/wow/addons/toy-box-enhanced/issues/16
+local function UnusableOnLowLevelTest()
+    if UnitLevel("player") < 50 and C_ToyBox.IsToyUsable(95589) then
+        print("TBE: C_ToyBox.IsToyUsable() has been fixed!")
+    end
+end
+
+ADDON:RegisterLoginCallback(function ()
+    if ADDON.settings.debugMode then
+        UnusableOnLowLevelTest()
+    end
+end)
 ADDON:RegisterLoadUICallback(function()
-    if (ADDON.settings.debugMode) then
+    if ADDON.settings.debugMode then
         DebugTest()
     end
 end)
+
+-- After starting the client fresh the first character doesn't have a fully loaded C_ToyBox on PLAYER_LOGIN
+-- (since at least 8.3)
+--[[
+local test = CreateFrame("Frame")
+test:RegisterEvent("PLAYER_LOGIN")
+test:SetScript("OnEvent", function(self, event, arg1, arg2)
+    print(event, arg1, arg2, C_ToyBox.GetNumFilteredToys()) --prints 20
+    C_Timer.After(0, function()
+        print('after next frame', C_ToyBox.GetNumFilteredToys()) --prints 638
+    end)
+end)
+]]

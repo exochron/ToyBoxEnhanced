@@ -16,3 +16,10 @@ function SlashCmdList.TOYBOXENHANCED(msg, editBox)
         InterfaceOptionsFrame_OpenToCategory(title)
     end
 end
+
+if not SLASH_TOYS1 then
+    SLASH_TOYS1 = '/toys'
+    function SlashCmdList.TOYS()
+        ToggleCollectionsJournal(3);
+    end
+end
