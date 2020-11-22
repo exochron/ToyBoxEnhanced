@@ -10,7 +10,7 @@ local SETTING_PROFESSION = "profession"
 local SETTING_WORLD_EVENT = "worldEvent"
 local SETTING_FACTION = "faction"
 local SETTING_EXPANSION = "expansion"
-local SETTING_USE = "use"
+local SETTING_EFFECT = "effect"
 
 local L = ADDON.L
 
@@ -177,7 +177,7 @@ local function InitializeDropDown(filterMenu, level)
         UIDropDownMenu_AddButton(CreateFilterCategory(SOURCES, SETTING_SOURCE), level)
         UIDropDownMenu_AddButton(CreateFilterCategory(FACTION, SETTING_FACTION), level)
         UIDropDownMenu_AddButton(CreateFilterCategory(EXPANSION_FILTER_TEXT, SETTING_EXPANSION), level)
-        UIDropDownMenu_AddButton(CreateFilterCategory(USE, SETTING_USE), level)
+        UIDropDownMenu_AddButton(CreateFilterCategory(EFFECT, SETTING_EFFECT), level)
 
         UIDropDownMenu_AddSpace(level)
         info = CreateFilterInfo(L["Reset filters"])
@@ -254,8 +254,8 @@ local function InitializeDropDown(filterMenu, level)
             UIDropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], i, settings), level)
         end
 
-    elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_USE) then
-        local settings = ADDON.settings.filter[SETTING_USE]
+    elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_EFFECT) then
+        local settings = ADDON.settings.filter[SETTING_EFFECT]
         AddCheckAllAndNoneInfo({ settings }, level)
 
         UIDropDownMenu_AddButton(CreateFilterInfo("Appearance Modifications", "Appearance Modifications", settings), level)

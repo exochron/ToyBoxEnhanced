@@ -1034,7 +1034,7 @@ ADDON.db.expansion = {
     }
 }
 
-ADDON.db.use = {
+ADDON.db.effect = {
     -- Add to or slightly change the existing character model, keeping the same model
     ["Appearance Modifications"] = {
         [147537] = true, -- A Tiny Set of Warglaives
@@ -1275,12 +1275,12 @@ ADDON.db.use = {
         [141296] = true, -- Ancient Mana Basin -- drops a thing on the ground, clickable, gives a food enhancer buff
         [141306] = true, -- Wisp in a Bottle -- makes a wisp fly around?
         [102467] = true, -- Censer of Eternal Agony -- tansform but also lets you get bloody coins
+        [161342] = true, -- Gem of Acquiescence -- adds brainsucker, and tentacles on screen edges
 
 
         -- Legion
 
         -- Battle for Azeroth
-        [161342] = true, -- Gem of Acquiescence
         [163740] = true, -- Drust Ritual Knife
         [163742] = true, -- Heartsbane Grimoire
         [163603] = true, -- Lucille's Handkerchief

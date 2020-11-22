@@ -110,9 +110,9 @@ local function FilterToysByExpansion(itemId)
     return false
 end
 
-local function FilterToysByUse(itemId)
+local function FilterToysByEffect(itemId)
 
-    return CheckItemInList(ADDON.settings.filter.use, ADDON.db.use, itemId)
+    return CheckItemInList(ADDON.settings.filter.effect, ADDON.db.effect, itemId)
 end
 
 function ADDON:FilterToy(itemId)
@@ -125,7 +125,7 @@ function ADDON:FilterToy(itemId)
             and FilterUsableToys(itemId)
             and FilterToysByFaction(itemId)
             and FilterToysByExpansion(itemId)
-            and FilterToysByUse(itemId)
+            and FilterToysByEffect(itemId)
             and (FilterToysBySource(itemId)
                 or FilterToysByProfession(itemId)
                 or FilterToysByWorldEvent(itemId))) then
