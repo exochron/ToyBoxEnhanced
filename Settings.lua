@@ -56,15 +56,9 @@ local function PrepareDefaults()
         defaultSettings.filter.effect[name] = {}
         for x, _ in pairs(categoriesOrToys) do
             if type(x) == "string" then
-                -- `categoriesOrToys` is more categories of nested toys
-                for categoryName, _ in pairs(categoriesOrToys) do
-                    defaultSettings.filter.effect[name][categoryName] = true
-                end
+                defaultSettings.filter.effect[name][x] = true
             else -- type(x) is a number, indicating we're iterating over toys
                 defaultSettings.filter.effect[name] = true
-                -- we don't actually want to iterate over toys
-                -- we just needed to check if it was a toy or another category
-                break
             end
         end
     end
