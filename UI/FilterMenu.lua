@@ -11,6 +11,7 @@ local SETTING_WORLD_EVENT = "worldEvent"
 local SETTING_FACTION = "faction"
 local SETTING_EXPANSION = "expansion"
 local SETTING_EFFECT = "effect"
+local SETTING_APPEARANCE = "Appearance"
 
 local L = ADDON.L
 
@@ -258,14 +259,7 @@ local function InitializeDropDown(filterMenu, level)
         local settings = ADDON.settings.filter[SETTING_EFFECT]
         AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateInfoWithMenu("Appearance", "Appearance", ADDON.settings.filter[SETTING_EFFECT]["Appearance"]), level)
-        -- Color
-        -- Full
-        -- Minor
-        -- Bigger
-        -- Smaller
-        -- Stuns (multi-select)
-        -- Roots (multi-select)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_APPEARANCE, SETTING_APPEARANCE, ADDON.settings.filter[SETTING_EFFECT][SETTING_APPEARANCE]), level)
         UIDropDownMenu_AddButton(CreateInfoWithMenu("Cooking", "Cooking", ADDON.settings.filter[SETTING_EFFECT]["Cooking"]), level)
         -- Fires
         -- Speed
@@ -307,6 +301,17 @@ local function InitializeDropDown(filterMenu, level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Playmates", "Playmates", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Vision", "Vision", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Unclassified", "Unclassified", settings), level)
+
+    elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_APPEARANCE) then
+        local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_APPEARANCE]
+        AddCheckAllAndNoneInfo({ settings }, level)
+
+        UIDropDownMenu_AddButton(CreateFilterInfo("Color", "Color", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Full", "Full", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Minor", "Minor", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Bigger", "Bigger", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Smaller", "Smaller", settings), level)
+
     end
 
 end

@@ -53,7 +53,14 @@ local function PrepareDefaults()
         defaultSettings.filter.expansion[name] = true
     end
     for name, _ in pairs(ADDON.db.effect) do
-        defaultSettings.filter.effect[name] = true
+        if type(ADDON.db.effect[name]) == "table" then
+            defaultSettings.filter.effect[name] = {}
+            for nestedName, _ in pairs(ADDON.db.effect[name]) do
+                defaultSettings.filter.effect[name][nestedName] = true
+            end
+        else
+            defaultSettings.filter.effect[name] = true
+        end
     end
 
     return defaultSettings
