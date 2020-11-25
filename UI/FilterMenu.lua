@@ -377,8 +377,9 @@ local function InitializeDropDown(filterMenu, level)
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_TRANSPORTATION]
         AddCheckAllAndNoneInfo({ settings }, level)
 
+        UIDropDownMenu_AddButton(CreateFilterInfo("Fly/Fall", "Fly", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Jump", "Jump", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Run", "Run", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Slow Fall", "Slow Fall", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Swim", "Swim", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Teleportation", "Teleportation", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Water Walk", "Water Walk", settings), level)

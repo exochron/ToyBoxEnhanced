@@ -1039,23 +1039,73 @@ ADDON.db.effect = {
         ["Color"] = {
 
         },
+
+        -- Modify the entire character model, giving the player a new model
         ["Full"] = {
-
+            [1973] = true, -- Orb of Deception
+            [32782] = true, -- Time-Lost Figurine
+            [35275] = true, -- Orb of the Sin'dorei
+            [52201] = true, -- Muradin's Favor
+            [53057] = true, -- Faded Wizard Hat
+            [66888] = true, -- Stave of Fur and Claw
+            [86589] = true, -- Ai-Li's Skymirror
+            [86593] = true, -- Hozen Beach Ball
+            [113570] = true, -- Ancient's Bloom
+            [118716] = true, -- Goren Garb
+            [122283] = true, -- Rukhmar's Sacred Memory
+            [127394] = true, -- Podling Camoflage
+            [127668] = true, -- Jewel of Hellfire
+            [127709] = true, -- Throbbing Blood Orb
+            [130147] = true, -- Thistleleaf Branch
+            [139587] = true, -- Suspicious Crate
+            [140780] = true, -- Fal'dorei Egg
+            [141862] = true, -- Mote of Light
+            [143534] = true, -- Wand of Simulated Life
+            [147843] = true, -- Sira's Extra Cloak
         },
+
+        -- Add to or slightly change the existing character model, keeping the same model
         ["Minor"] = {
-
+            [97919] = true, -- Whole-Body Shrinka'
+            [108739] = true, -- Pretty Draenor Pearl
+            [108743] = true, -- Deceptia's Smoldering Boots
+            [111476] = true, -- Stolen Breath
+            [113375] = true, -- Vindicator's Armor Polish Kit
+            [117550] = true, -- Angry Beehive
+            [119134] = true, -- Sargerei Disguise
+            [127670] = true, -- Accursed Tome of the Sargerei
+            [134026] = true, -- Honorable Pennant
+            [141301] = true, -- Unstable Powder Box
+            [147537] = true, -- A Tiny Set of Warglaives
+            [153179] = true, -- Blue Conservatory Scroll
+            [153180] = true, -- Yellow Conservatory Scroll
+            [153181] = true, -- Red Conservatory Scroll
+            [156871] = true, -- Spitzy
+            [163738] = true, -- Syndicate Mask
+            [165791] = true, -- Worn Cloak
+            [169275] = true, -- Alliance War Banner
+            [169276] = true, -- Horde War Banner
+            [169277] = true, -- Horde War Standard
+            [169278] = true, -- Alliance War Standard
+            [175140] = true, -- All-Seeing Eyes
         },
+
         ["Bigger"] = {
 
         },
+
         ["Smaller"] = {
 
         }
     },
 
     ["Cooking"] = {
+        -- Can cook by these
         ["Fires"] = {
-
+            [67097] = true, -- Grim Campfire
+            [127652] = true, -- Felflame Campfire
+            [153039] = true, -- Crystalline Campfire
+            [163211] = true, -- Akunda's Firesticks
         },
         ["Speed"] = {
 
@@ -1067,16 +1117,28 @@ ADDON.db.effect = {
 
         },
         ["Food"] = {
-
+            [116120] = true, -- Tasty Talador Lunch
         },
         ["Water"] = {
 
         }
     },
 
+    -- Control a separate entity while the player character stands still
     ["Controllers"] = {
         ["Aircraft"] = {
-
+            -- TODO: sort these correctly
+            -- [] = true, -- Crashin' Thrashin' XX
+            [108634] = true, -- Crashin' Thrashin' Mortar Controller
+            [108633] = true, -- Crashin' Thrashin' Cannon Controller
+            [108631] = true, -- Crashin' Thrashin' Roller Controller
+            [37710] = true, -- Crashin' Thrashin' Racer Controller
+            [104318] = true, -- Crashin' Thrashin' Flyer Controller
+            [116763] = true, -- Crashin' Thrashin' Shredder Controller
+            [108632] = true, -- Crashin' Thrashin' Flamer Controller
+            [108635] = true, -- Crashin' Thrashin' Killdozer Controller
+            [172222] = true, -- Crashin' Thrashin' Juggernaught
+            [172223] = true, -- Crashin' Thrashin' Battleship
         },
         ["Tanks"] = {
 
@@ -1087,23 +1149,64 @@ ADDON.db.effect = {
     },
 
     ["Environment"] = {
+
+        -- Poles that stick out of the ground
         ["Banners"] = {
-
+            [45011] = true, -- Stormwind Banner
+            [45013] = true, -- Thunder Bluff Banner
+            [45014] = true, -- Orgrimmar Banner
+            [45015] = true, -- Sen'jin Banner
+            [45016] = true, -- Undercity Banner
+            [45017] = true, -- Silvermoon City Banner
+            [45018] = true, -- Ironforge Banner
+            [45019] = true, -- Gnomeregan Banner
+            [45020] = true, -- Exodar Banner
+            [45021] = true, -- Darnassus Banner
+            [46843] = true, -- Argent Crusader's Banner
+            [119217] = true, -- Alliance Flag of Victory
+            [119219] = true, -- Warlord's Flag of Victory
+            [166879] = true, -- Rallying War Banner
+            [169108] = true, -- Rustbolt Banner
         },
+
+        -- Controlled explosives
         ["Fireworks"] = {
-
+            [86588] = true, -- Pandaren Firework Launcher
         },
+
+        --
+        ["Ground"] = {
+            [108735] = true, -- Arena Master's War Horn
+            [109739] = true, -- Star Chart
+            [140363] = true, -- Pocket Fel Spreader
+            [141297] = true, -- Arcano-Shower
+        },
+
         ["Weather"] = {
 
         }
     },
 
     ["Interactables"] = {
+
+        -- Can sit in these
         ["Chairs"] = {
-
+            [33223] = true, -- Fishing Chair
+            [70161] = true, -- Mushroom Chair
+            [86596] = true, -- Nat's Fishing Chair
+            [116689] = true, -- Pineapple Lounge Cushion
+            [116690] = true, -- Safari Lounge Cushion
+            [116691] = true, -- Zhevra Lounge Cushion
+            [116692] = true, -- Fuzzy Green Lounge Cushion
         },
-        ["Clickables"] = {
 
+        -- Can click on these
+        ["Clickables"] = {
+            [88370] = true, -- Puntable Marmot
+            [141299] = true, -- Kaldorei Light Globe
+            [156649] = true, -- Zandalari Effigy Amulet
+            [170476] = true, -- Underlight Sealamp
+            [174928] = true, -- Rotten Apple
         }
     },
 
@@ -1129,190 +1232,99 @@ ADDON.db.effect = {
     },
 
     ["Transportation"] = {
+        ["Fly"] = {
+            [131811] = true, -- Rocfeather Skyhorn Kite
+        },
+
+        ["Jump"] = {
+            [86590] = true, -- Essence of the Breeze
+            [134023] = true, -- Bottled Tornado
+            [139773] = true, -- Emerald Winds
+            [140336] = true, -- Brulfist Idol
+        },
+
         ["Run"] = {
-
+            [127669] = true, -- Skull of the Mad Chief
         },
-        ["Slow Fall"] = {
 
-        },
         ["Swim"] = {
-
+            [86582] = true, -- Aqua Jewel
+            [129165] = true, -- Barnacle-Encrusted Gem
+            [134024] = true, -- Cursed Swabby Helmet
         },
+
         ["Teleportation"] = {
+            -- Engineering Teleports
+            [18984] = true, -- Dimensional Ripper - Everlook
+            [18986] = true, -- Ultrasafe Transporter: Gadgetzan
+            [30542] = true, -- Dimensional Ripper - Area 52
+            [30544] = true, -- Ultrasafe Transporter: Toshley's Station
+            [48933] = true, -- Wormhole Generator: Northrend
+            [87215] = true, -- Wormhole Generator: Pandaria
+            [112059] = true, -- Wormhole Centrifuge
+            [151652] = true, -- Wormhole Generator: Argus
+            [168807] = true, -- Wormhole Generator: Kul Tiras
+            [168808] = true, -- Wormhole Generator: Zandalar
 
+            -- Hearthstone Replacements
+            [64488] = true, -- The Innkeeper's Daughter
+            [162973] = true, -- Greatfather Winter's Hearthstone
+            [163045] = true, -- Headless Horseman's Hearthstone
+            [165669] = true, -- Lunar Elder's Hearthstone
+            [165670] = true, -- Peddlefeet's Lovely Hearthstone
+            [165802] = true, -- Noble Gardener's Hearthstone
+            [166746] = true, -- Fire Eater's Hearthstone
+            [166747] = true, -- Brewfest Reveler's Hearthstone
+            [168907] = true, -- Holographic Digitalization Hearthstone
+            [172179] = true, -- Eternal Traveler's Hearthstone
+            [180290] = true, -- Night Fae Hearthstone
+            [182773] = true, -- Necrolord Hearthstone
+            [184353] = true, -- Kyrian Hearthstone
+
+            --Misc
+            [54452] = true, -- Ethereal Portal
+            [93672] = true, -- Dark Portal
+            [153004] = true, -- Unstable Portal Emitter
         },
+
         ["Water Walk"] = {
-
+            [85500] = true, -- Angler's Fishing Raft
         }
-    },
-
-    ["Critters"] = {},
-    ["Emotes"] = {},
-    ["Fishing"] = {},
-    ["Mail"] = {},
-    ["Minigames"] = {},
-    ["Pets"] = {},
-    ["Playmates"] = {},
-    ["Vision"] = {},
-
-    --[[
-    -- Add to or slightly change the existing character model, keeping the same model
-    ["Appearance Modifications"] = {
-        [147537] = true, -- A Tiny Set of Warglaives
-        [127670] = true, -- Accursed Tome of the Sargerei
-        [169275] = true, -- Alliance War Banner
-        [169278] = true, -- Alliance War Standard
-        [117550] = true, -- Angry Beehive
-        [153179] = true, -- Blue Conservatory Scroll
-        [134026] = true, -- Honorable Pennant
-        [169276] = true, -- Horde War Banner
-        [169277] = true, -- Horde War Standard
-        [108739] = true, -- Pretty Draenor Pearl
-        [153181] = true, -- Red Conservatory Scroll
-        [119134] = true, -- Sargerei Disguise
-        [156871] = true, -- Spitzy
-        [111476] = true, -- Stolen Breath
-        [163738] = true, -- Syndicate Mask
-        [141301] = true, -- Unstable Powder Box
-        [97919] = true, -- Whole-Body Shrinka'
-        [165791] = true, -- Worn Cloak
-        [153180] = true, -- Yellow Conservatory Scroll
-        [175140] = true, -- All-Seeing Eyes
-        [108743] = true, -- Deceptia's Smoldering Boots
-        [113375] = true, -- Vindicator's Armor Polish Kit
-    },
-
-    -- Modify the entire character model, giving the player a new model
-    ["Appearance Transformations"] = {
-        [86589] = true, -- Ai-Li's Skymirror
-        [113570] = true, -- Ancient's Bloom
-        [53057] = true, -- Faded Wizard Hat
-        [140780] = true, -- Fal'dorei Egg
-        [86593] = true, -- Hozen Beach Ball
-        [141862] = true, -- Mote of Light
-        [52201] = true, -- Muradin's Favor
-        [1973] = true, -- Orb of Deception
-        [35275] = true, -- Orb of the Sin'dorei
-        [127394] = true, -- Podling Camoflage
-        [122283] = true, -- Rukhmar's Sacred Memory
-        [147843] = true, -- Sira's Extra Cloak
-        [66888] = true, -- Stave of Fur and Claw
-        [139587] = true, -- Suspicious Crate
-        [32782] = true, -- Time-Lost Figurine
-        [118716] = true, -- Goren Garb
-        [127668] = true, -- Jewel of Hellfire
-        [127709] = true, -- Throbbing Blood Orb
-        [130147] = true, -- Thistleleaf Branch
-        [143534] = true, -- Wand of Simulated Life
-    },
-
-    -- Poles that stick out of the ground
-    ["Banners"] = {
-        [119217] = true, -- Alliance Flag of Victory
-        [166879] = true, -- Rallying War Banner
-        [169108] = true, -- Rustbolt Banner
-        [119219] = true, -- Warlord's Flag of Victory
-        [45011] = true, -- Stormwind Banner
-        [45013] = true, -- Thunder Bluff Banner
-        [45014] = true, -- Orgrimmar Banner
-        [45015] = true, -- Sen'jin Banner
-        [45016] = true, -- Undercity Banner
-        [45017] = true, -- Silvermoon City Banner
-        [45018] = true, -- Ironforge Banner
-        [45019] = true, -- Gnomeregan Banner
-        [45020] = true, -- Exodar Banner
-        [45021] = true, -- Darnassus Banner
-        [46843] = true, -- Argent Crusader's Banner
-    },
-
-    -- Can sit in these
-    ["Chairs"] = {
-        [33223] = true, -- Fishing Chair
-        [70161] = true, -- Mushroom Chair
-        [116692] = true, -- Fuzzy Green Lounge Cushion
-        [116689] = true, -- Pineapple Lounge Cushion
-        [116690] = true, -- Safari Lounge Cushion
-        [116691] = true, -- Zhevra Lounge Cushion
-        [86596] = true, -- Nat's Fishing Chair
-    },
-
-    -- Can cook by these
-    ["Cooking Fires"] = {
-        [163211] = true, -- Akunda's Firesticks
-        [153039] = true, -- Crystalline Campfire
-        [67097] = true, -- Grim Campfire
-        [127652] = true, -- Felflame Campfire
-    },
-
-    -- Control a separate entity while the player character stands still
-    ["Controllers"] = {
-        -- [] = true, -- Crashin' Thrashin' XX
-        [108634] = true, -- Crashin' Thrashin' Mortar Controller
-        [108633] = true, -- Crashin' Thrashin' Cannon Controller
-        [108631] = true, -- Crashin' Thrashin' Roller Controller
-        [37710] = true, -- Crashin' Thrashin' Racer Controller
-        [104318] = true, -- Crashin' Thrashin' Flyer Controller
-        [116763] = true, -- Crashin' Thrashin' Shredder Controller
-        [108632] = true, -- Crashin' Thrashin' Flamer Controller
-        [108635] = true, -- Crashin' Thrashin' Killdozer Controller
-        [172222] = true, -- Crashin' Thrashin' Juggernaught
-        [172223] = true, -- Crashin' Thrashin' Battleship
     },
 
     -- Non-combat creatures; unrelated to battle pets
     ["Critters"] = {
-        [131933] = true, -- Critter Hand Cannon
-        [159753] = true, -- Desert Flute
-        [143660] = true, -- Mrgrglhjorn
         [86586] = true, -- Panflute of Pandaria
-        [128328] = true, -- Skoller's Bag of Squirrel Treats
-        [153124] = true, -- Spire of Spite
         [98552] = true, -- Xan'tish's Flute
         [117569] = true, -- Giant Deathweb Egg
+        [128328] = true, -- Skoller's Bag of Squirrel Treats
+        [131933] = true, -- Critter Hand Cannon
         [140786] = true, -- Ley Spider Eggs
+        [143660] = true, -- Mrgrglhjorn
+        [153124] = true, -- Spire of Spite
+        [159753] = true, -- Desert Flute
     },
 
     -- Dances, Laughter, Poses, Roleplaying, etc
     ["Emotes"] = {
-        [147838] = true, -- Akazamzarak's Spare Hat
-        [13379] = true, -- Piccolo of the Flaming Fire
-        [163210] = true, -- Party Totem
-        [36863] = true, -- Decahedral Dwarven Dice
-        [63269] = true, -- Loaded Gnomish Dice
-        [44430] = true, -- Titanium Seal of Dalaran
         [36862] = true, -- Worn Troll Dice
-        [130169] = true, -- Tournament Favor
+        [36863] = true, -- Decahedral Dwarven Dice
+        [44430] = true, -- Titanium Seal of Dalaran
+        [63269] = true, -- Loaded Gnomish Dice
         [129055] = true, -- Shoe Shine Kit
-        [141298] = true, -- Displacer Meditation Stone
+        [130169] = true, -- Tournament Favor
         [130194] = true, -- Silver Gilnean Brooch
-    },
-
-    -- Effects the ground, weather, etc for you and/or other players
-    ["Environment"] = {
-        [140363] = true, -- Pocket Fel Spreader
-        [141297] = true, -- Arcano-Shower
-    },
-
-    -- Controlled explosives
-    ["Fireworks"] = {
-        [86588] = true, -- Pandaren Firework Launcher
+        [13379] = true, -- Piccolo of the Flaming Fire
+        [141298] = true, -- Displacer Meditation Stone
+        [147838] = true, -- Akazamzarak's Spare Hat
+        [163210] = true, -- Party Totem
     },
 
     -- Related to fishing
     ["Fishing"] = {
-        [85500] = true, -- Angler's Fishing Raft
         -- [] = true, -- Crate of Bobbers: XX
         [142531] = true, -- Crate of Bobbers: Squeaky Duck
         [142532] = true, -- Crate of Bobbers: Murloc Head
-    },
-
-    -- Clickable
-    ["Interactables"] = {
-        [88370] = true, -- Puntable Marmot
-        [174928] = true, -- Rotten Apple
-        [170476] = true, -- Underlight Sealamp
-        [156649] = true, -- Zandalari Effigy Amulet
-        [141299] = true, -- Kaldorei Light Globe
     },
 
     -- Remote mailbox access
@@ -1322,18 +1334,7 @@ ADDON.db.effect = {
         [156833] = true, -- Katy's Stampwhistle
     },
 
-    -- Running, jumping, flying, slow-fall, swimming; No teleportation
-    ["Movement"] = {
-        [86582] = true, -- Aqua Jewel
-        [134023] = true, -- Bottled Tornado
-        [140336] = true, -- Brulfist Idol
-        [139773] = true, -- Emerald Winds
-        [86590] = true, -- Essence of the Breeze
-        [134024] = true, -- Cursed Swabby Helmet
-        [131811] = true, -- Rocfeather Skyhorn Kite
-        [129165] = true, -- Barnacle-Encrusted Gem
-        [127669] = true, -- Skull of the Mad Chief
-    },
+    ["Minigames"] = {},
 
     -- Battle pets; No critters or combat pets
     ["Pets"] = {
@@ -1349,49 +1350,17 @@ ADDON.db.effect = {
         [127766] = true, -- The Perfect Blossom
         [122681] = true, -- Sternfathom's Pet Journal
     },
-
-    -- Teleports your character somewhere
-    ["Teleportation"] = {
-        -- Engineering Teleports
-        [18984] = true, -- Dimensional Ripper - Everlook
-        [18986] = true, -- Ultrasafe Transporter: Gadgetzan
-        [30542] = true, -- Dimensional Ripper - Area 52
-        [30544] = true, -- Ultrasafe Transporter: Toshley's Station
-        [48933] = true, -- Wormhole Generator: Northrend
-        [87215] = true, -- Wormhole Generator: Pandaria
-        [112059] = true, -- Wormhole Centrifuge
-        [151652] = true, -- Wormhole Generator: Argus
-        [168807] = true, -- Wormhole Generator: Kul Tiras
-        [168808] = true, -- Wormhole Generator: Zandalar
-
-        -- Hearthstone Replacements
-        [64488] = true, -- The Innkeeper's Daughter
-        [162973] = true, -- Greatfather Winter's Hearthstone
-        [163045] = true, -- Headless Horseman's Hearthstone
-        [165669] = true, -- Lunar Elder's Hearthstone
-        [165670] = true, -- Peddlefeet's Lovely Hearthstone
-        [165802] = true, -- Noble Gardener's Hearthstone
-        [166746] = true, -- Fire Eater's Hearthstone
-        [166747] = true, -- Brewfest Reveler's Hearthstone
-        [168907] = true, -- Holographic Digitalization Hearthstone
-        [172179] = true, -- Eternal Traveler's Hearthstone
-        [180290] = true, -- Night Fae Hearthstone
-        [182773] = true, -- Necrolord Hearthstone
-        [184353] = true, -- Kyrian Hearthstone
-
-        --Misc
-        [54452] = true, -- Ethereal Portal
-        [93672] = true, -- Dark Portal
-        [153004] = true, -- Unstable Portal Emitter
+    ["Playmates"] = {
+        [127859] = true, -- Dazzling Rod
     },
-]]--
+
+    ["Vision"] = {
+        [153204] = true, -- All-Seer's Eye
+    },
+
     -- TBD
     ["Unclassified"] = {
-        [108735] = true, -- Arena Master's War Horn -- summons 2 ogres to fight
-        [153204] = true, -- All-Seer's Eye -- mind vision
-        [109739] = true, -- Star Chart -- drops a thing on the ground
-        [127859] = true, -- Dazzling Rod -- adds an ability
-        [116120] = true, -- Tasty Talador Lunch -- consumable
+         -- consumable
         [128223] = true, -- Bottomless Stygana Mushroom Brew -- consumable
         [141296] = true, -- Ancient Mana Basin -- drops a thing on the ground, clickable, gives a food enhancer buff
         [141306] = true, -- Wisp in a Bottle -- makes a wisp fly around?
