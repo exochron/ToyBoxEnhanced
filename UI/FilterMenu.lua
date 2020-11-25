@@ -258,22 +258,54 @@ local function InitializeDropDown(filterMenu, level)
         local settings = ADDON.settings.filter[SETTING_EFFECT]
         AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo("Appearance Modifications", "Appearance Modifications", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Appearance Transformations", "Appearance Transformations", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Banners", "Banners", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Chairs", "Chairs", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Cooking Fires", "Cooking Fires", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Controllers", "Controllers", settings), level)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu("Appearance", "Appearance", ADDON.settings.filter[SETTING_EFFECT]["Appearance"]), level)
+        -- Color
+        -- Full
+        -- Minor
+        -- Bigger
+        -- Smaller
+        -- Stuns (multi-select)
+        -- Roots (multi-select)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu("Cooking", "Cooking", ADDON.settings.filter[SETTING_EFFECT]["Cooking"]), level)
+        -- Fires
+        -- Speed
+        UIDropDownMenu_AddButton(CreateInfoWithMenu("Consumables", "Consumables", ADDON.settings.filter[SETTING_EFFECT]["Consumables"]), level)
+        -- Alcohol
+        -- Food
+        -- Water
+        UIDropDownMenu_AddButton(CreateInfoWithMenu("Controllers", "Controllers", ADDON.settings.filter[SETTING_EFFECT]["Controllers"]), level)
+        -- Aircraft
+        -- Tanks
+        -- Vision
+        UIDropDownMenu_AddButton(CreateInfoWithMenu("Environment", "Environment", ADDON.settings.filter[SETTING_EFFECT]["Environment"]), level)
+        -- Banners
+        -- Fireworks
+        -- Weather
+        UIDropDownMenu_AddButton(CreateInfoWithMenu("Interactables", "Interactables", ADDON.settings.filter[SETTING_EFFECT]["Interactables"]), level)
+        -- Chairs
+        -- Clickables
+        UIDropDownMenu_AddButton(CreateInfoWithMenu("PVP", "PVP", ADDON.settings.filter[SETTING_EFFECT]["PVP"]), level)
+        -- Dismounts
+        -- Flags
+        UIDropDownMenu_AddButton(CreateInfoWithMenu("Sounds", "Sounds", ADDON.settings.filter[SETTING_EFFECT]["Sounds"]), level)
+        -- Effects
+        -- Music
+        -- Voice
+        UIDropDownMenu_AddButton(CreateInfoWithMenu("Transportation", "Transportation", ADDON.settings.filter[SETTING_EFFECT]["Transportation"]), level)
+        -- Run
+        -- Slow Fall
+        -- Swim
+        -- Teleportation
+        -- Water Walk
+
         UIDropDownMenu_AddButton(CreateFilterInfo("Critters", "Critters", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Emotes", "Emotes", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Environment", "Environment", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Fireworks", "Fireworks", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Fishing", "Fishing", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Interactables", "Interactables", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Mail", "Mail", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Movement", "Movement", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Minigames", "Minigames", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Pets", "Pets", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Teleportation", "Teleportation", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Playmates", "Playmates", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Vision", "Vision", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Unclassified", "Unclassified", settings), level)
     end
 

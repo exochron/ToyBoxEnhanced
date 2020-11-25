@@ -1035,6 +1035,127 @@ ADDON.db.expansion = {
 }
 
 ADDON.db.effect = {
+    ["Appearance"] = {
+        ["Color"] = {
+
+        },
+        ["Full"] = {
+
+        },
+        ["Minor"] = {
+
+        },
+        ["Bigger"] = {
+
+        },
+        ["Smaller"] = {
+
+        }
+    },
+
+    ["Cooking"] = {
+        ["Fires"] = {
+
+        },
+        ["Speed"] = {
+
+        }
+    },
+
+    ["Consumables"] = {
+        ["Alcohol"] = {
+
+        },
+        ["Food"] = {
+
+        },
+        ["Water"] = {
+
+        }
+    },
+
+    ["Controllers"] = {
+        ["Aircraft"] = {
+
+        },
+        ["Tanks"] = {
+
+        },
+        ["Vision"] = {
+
+        }
+    },
+
+    ["Environment"] = {
+        ["Banners"] = {
+
+        },
+        ["Fireworks"] = {
+
+        },
+        ["Weather"] = {
+
+        }
+    },
+
+    ["Interactables"] = {
+        ["Chairs"] = {
+
+        },
+        ["Clickables"] = {
+
+        }
+    },
+
+    ["PVP"] = {
+        ["Dismounts"] = {
+
+        },
+        ["Flags"] = {
+
+        }
+    },
+
+    ["Sounds"] = {
+        ["Effects"] = {
+
+        },
+        ["Music"] = {
+
+        },
+        ["Voice"] = {
+
+        }
+    },
+
+    ["Transportation"] = {
+        ["Run"] = {
+
+        },
+        ["Slow Fall"] = {
+
+        },
+        ["Swim"] = {
+
+        },
+        ["Teleportation"] = {
+
+        },
+        ["Water Walk"] = {
+
+        }
+    },
+
+    ["Critters"] = {},
+    ["Emotes"] = {},
+    ["Fishing"] = {},
+    ["Mail"] = {},
+    ["Minigames"] = {},
+    ["Pets"] = {},
+    ["Playmates"] = {},
+    ["Vision"] = {},
+
+    --[[
     -- Add to or slightly change the existing character model, keeping the same model
     ["Appearance Modifications"] = {
         [147537] = true, -- A Tiny Set of Warglaives
@@ -1263,7 +1384,7 @@ ADDON.db.effect = {
         [93672] = true, -- Dark Portal
         [153004] = true, -- Unstable Portal Emitter
     },
-
+]]--
     -- TBD
     ["Unclassified"] = {
         [108735] = true, -- Arena Master's War Horn -- summons 2 ogres to fight

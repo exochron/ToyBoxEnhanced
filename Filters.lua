@@ -56,6 +56,30 @@ local function CheckItemInList(settings, sourceData, itemId)
     return nil
 end
 
+-- This is a copy of CheckItemInList with some modifications.
+-- The code duplication is not ideal.
+local function CheckItemInTable(settings, sourceData, itemId)
+    local isInMap = false
+
+    for setting, value in pairs(settings) do
+        if type(value) == "table" and CheckItemInTable(value, sourceData, itemId) then
+            return true
+        elseif sourceData[setting] and sourceData[setting][itemId] then
+            if (value) then
+                return true
+            else
+                isInMap = true
+            end
+        end
+    end
+
+    if isInMap then
+        return false
+    end
+
+    return nil
+end
+
 local function FilterToysByFaction(itemId)
 
     local allSettings = CheckAllSettings(ADDON.settings.filter.faction)
@@ -112,7 +136,8 @@ end
 
 local function FilterToysByEffect(itemId)
 
-    return CheckItemInList(ADDON.settings.filter.effect, ADDON.db.effect, itemId)
+    return CheckItemInTable(ADDON.settings.filter.effect, ADDON.db.effect, itemId)
+    -- return CheckItemInList(ADDON.settings.filter.effect, ADDON.db.effect, itemId)
 end
 
 function ADDON:FilterToy(itemId)
