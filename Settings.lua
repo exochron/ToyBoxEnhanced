@@ -52,14 +52,20 @@ local function PrepareDefaults()
     for name, _ in pairs(ADDON.db.expansion) do
         defaultSettings.filter.expansion[name] = true
     end
-    for name, _ in pairs(ADDON.db.effect) do
-        if type(ADDON.db.effect[name]) == "table" then
-            defaultSettings.filter.effect[name] = {}
-            for nestedName, _ in pairs(ADDON.db.effect[name]) do
-                defaultSettings.filter.effect[name][nestedName] = true
+    for name, categoriesOrToys in pairs(ADDON.db.effect) do
+        defaultSettings.filter.effect[name] = {}
+        for x, _ in pairs(categoriesOrToys) do
+            if type(x) == "string" then
+                -- `categoriesOrToys` is more categories of nested toys
+                for categoryName, _ in pairs(categoriesOrToys) do
+                    defaultSettings.filter.effect[name][categoryName] = true
+                end
+            else -- type(x) is a number, indicating we're iterating over toys
+                defaultSettings.filter.effect[name] = true
+                -- we don't actually want to iterate over toys
+                -- we just needed to check if it was a toy or another category
+                break
             end
-        else
-            defaultSettings.filter.effect[name] = true
         end
     end
 
