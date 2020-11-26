@@ -1243,6 +1243,22 @@ ADDON.db.effect = {
             [140336] = true, -- Brulfist Idol
         },
 
+        ["Hearthstones"] = {
+            [64488] = true, -- The Innkeeper's Daughter
+            [162973] = true, -- Greatfather Winter's Hearthstone
+            [163045] = true, -- Headless Horseman's Hearthstone
+            [165669] = true, -- Lunar Elder's Hearthstone
+            [165670] = true, -- Peddlefeet's Lovely Hearthstone
+            [165802] = true, -- Noble Gardener's Hearthstone
+            [166746] = true, -- Fire Eater's Hearthstone
+            [166747] = true, -- Brewfest Reveler's Hearthstone
+            [168907] = true, -- Holographic Digitalization Hearthstone
+            [172179] = true, -- Eternal Traveler's Hearthstone
+            [180290] = true, -- Night Fae Hearthstone
+            [182773] = true, -- Necrolord Hearthstone
+            [184353] = true, -- Kyrian Hearthstone
+        },
+
         ["Run"] = {
             [127669] = true, -- Skull of the Mad Chief
         },
@@ -1265,21 +1281,6 @@ ADDON.db.effect = {
             [151652] = true, -- Wormhole Generator: Argus
             [168807] = true, -- Wormhole Generator: Kul Tiras
             [168808] = true, -- Wormhole Generator: Zandalar
-
-            -- Hearthstone Replacements
-            [64488] = true, -- The Innkeeper's Daughter
-            [162973] = true, -- Greatfather Winter's Hearthstone
-            [163045] = true, -- Headless Horseman's Hearthstone
-            [165669] = true, -- Lunar Elder's Hearthstone
-            [165670] = true, -- Peddlefeet's Lovely Hearthstone
-            [165802] = true, -- Noble Gardener's Hearthstone
-            [166746] = true, -- Fire Eater's Hearthstone
-            [166747] = true, -- Brewfest Reveler's Hearthstone
-            [168907] = true, -- Holographic Digitalization Hearthstone
-            [172179] = true, -- Eternal Traveler's Hearthstone
-            [180290] = true, -- Night Fae Hearthstone
-            [182773] = true, -- Necrolord Hearthstone
-            [184353] = true, -- Kyrian Hearthstone
 
             --Misc
             [54452] = true, -- Ethereal Portal
@@ -1334,7 +1335,10 @@ ADDON.db.effect = {
         [156833] = true, -- Katy's Stampwhistle
     },
 
-    ["Minigames"] = {},
+    ["Minigames"] = {
+        [127859] = true, -- Dazzling Rod
+        [130251] = true, -- JewelCraft
+    },
 
     -- Battle pets; No critters or combat pets
     ["Pets"] = {
@@ -1349,9 +1353,6 @@ ADDON.db.effect = {
         [174995] = true, -- Void Tendril Pet Leash
         [127766] = true, -- The Perfect Blossom
         [122681] = true, -- Sternfathom's Pet Journal
-    },
-    ["Playmates"] = {
-        [127859] = true, -- Dazzling Rod
     },
 
     ["Vision"] = {

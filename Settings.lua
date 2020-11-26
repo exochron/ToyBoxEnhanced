@@ -54,6 +54,8 @@ local function PrepareDefaults()
     end
     for name, categoriesOrToys in pairs(ADDON.db.effect) do
         defaultSettings.filter.effect[name] = {}
+        -- we need to go one layer deeper to check if the current
+        -- layer is a Table or an Array
         for x, _ in pairs(categoriesOrToys) do
             if type(x) == "string" then
                 defaultSettings.filter.effect[name][x] = true

@@ -56,30 +56,6 @@ local function CheckItemInList(settings, sourceData, itemId)
     return nil
 end
 
--- This is a copy of CheckItemInList with some modifications.
--- The code duplication is not ideal.
-local function CheckItemInTable(settings, sourceData, itemId)
-    local isInMap = false
-
-    for setting, value in pairs(settings) do
-        if type(value) == "table" and CheckItemInTable(value, sourceData, itemId) then
-            return true
-        elseif sourceData[setting] and sourceData[setting][itemId] then
-            if (value) then
-                return true
-            else
-                isInMap = true
-            end
-        end
-    end
-
-    if isInMap then
-        return false
-    end
-
-    return nil
-end
-
 local function FilterToysByFaction(itemId)
 
     local allSettings = CheckAllSettings(ADDON.settings.filter.faction)
@@ -135,9 +111,30 @@ local function FilterToysByExpansion(itemId)
 end
 
 local function FilterToysByEffect(itemId)
+    local topLevelCategories = {}
+    local topLevelSettings = {}
 
-    return CheckItemInTable(ADDON.settings.filter.effect, ADDON.db.effect, itemId)
-    -- return CheckItemInList(ADDON.settings.filter.effect, ADDON.db.effect, itemId)
+    for name, categoriesOrToys in pairs(ADDON.db.effect) do
+        -- we need to go one layer deeper to check if the current
+        -- layer is a Table or an Array
+        for x, _ in pairs(categoriesOrToys) do
+            if type(x) == "string" then
+                -- categoriesOrToys is a nested category
+                local isInList = CheckItemInList(ADDON.settings.filter.effect[name], categoriesOrToys, itemId)
+                if (isInList == nil) then
+                    break
+                else
+                    return isInList
+                end
+            else -- categoriesOrToys is a list of toys - save these for later, we'll do em all at once
+                topLevelCategories[name] = categoriesOrToys
+                topLevelSettings[name] = ADDON.settings.filter.effect[name]
+                break
+            end
+        end
+    end
+
+    return CheckItemInList(topLevelSettings, topLevelCategories, itemId)
 end
 
 function ADDON:FilterToy(itemId)
