@@ -317,7 +317,7 @@ local function InitializeDropDown(filterMenu, level)
         AddCheckAllAndNoneInfo({ settings }, level)
 
         UIDropDownMenu_AddButton(CreateFilterInfo("Aircraft", "Aircraft", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Tanks", "Tanks", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Tonks", "Tonks", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Vision", "Vision", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_ENVIRONMENT) then
@@ -326,6 +326,7 @@ local function InitializeDropDown(filterMenu, level)
 
         UIDropDownMenu_AddButton(CreateFilterInfo("Banners", "Banners", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Fireworks", "Fireworks", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Ground", "Ground", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Weather", "Weather", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_INTERACTABLES) then
@@ -347,7 +348,8 @@ local function InitializeDropDown(filterMenu, level)
         AddCheckAllAndNoneInfo({ settings }, level)
 
         UIDropDownMenu_AddButton(CreateFilterInfo("Dismounts", "Dismounts", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Flags", "Flags", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Taunts", "Taunts", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Transforms", "Transforms", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_SOUNDS) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_SOUNDS]
@@ -362,7 +364,7 @@ local function InitializeDropDown(filterMenu, level)
         AddCheckAllAndNoneInfo({ settings }, level)
 
         UIDropDownMenu_AddButton(CreateFilterInfo("Fly/Fall", "Fly", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Hearthstone", "Hearthstone", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Hearthstones", "Hearthstones", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Jump", "Jump", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Run", "Run", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Swim", "Swim", settings), level)

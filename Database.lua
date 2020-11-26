@@ -1036,8 +1036,10 @@ ADDON.db.expansion = {
 
 ADDON.db.effect = {
     ["Appearance"] = {
-        ["Color"] = {
 
+        ["Color"] = {
+            [88377] = true, -- Turnip Paint "Gun"
+            [129149] = true, -- Death's Door Charm
         },
 
         -- Modify the entire character model, giving the player a new model
@@ -1088,18 +1090,20 @@ ADDON.db.effect = {
             [169277] = true, -- Horde War Standard
             [169278] = true, -- Alliance War Standard
             [175140] = true, -- All-Seeing Eyes
+            [161342] = true, -- Gem of Acquiescence
         },
 
         ["Bigger"] = {
-
+            [109183] = true, -- World Shrinker
         },
 
         ["Smaller"] = {
-
+            [18660] = true, -- World Enlarger
         }
     },
 
     ["Cooking"] = {
+
         -- Can cook by these
         ["Fires"] = {
             [67097] = true, -- Grim Campfire
@@ -1107,42 +1111,50 @@ ADDON.db.effect = {
             [153039] = true, -- Crystalline Campfire
             [163211] = true, -- Akunda's Firesticks
         },
-        ["Speed"] = {
 
+        ["Speed"] = {
+            [134020] = true, -- Chef's Hat
         }
     },
 
     ["Consumables"] = {
-        ["Alcohol"] = {
 
+        ["Alcohol"] = {
+            [118224] = true, -- Ogre Brewing Kit
         },
+
         ["Food"] = {
             [116120] = true, -- Tasty Talador Lunch
+            [141296] = true, -- Ancient Mana Basin
         },
-        ["Water"] = {
 
+        ["Water"] = {
+            [128223] = true, -- Bottomless Stygana Mushroom Brew
         }
     },
 
     -- Control a separate entity while the player character stands still
     ["Controllers"] = {
+
         ["Aircraft"] = {
-            -- TODO: sort these correctly
-            -- [] = true, -- Crashin' Thrashin' XX
-            [108634] = true, -- Crashin' Thrashin' Mortar Controller
-            [108633] = true, -- Crashin' Thrashin' Cannon Controller
-            [108631] = true, -- Crashin' Thrashin' Roller Controller
-            [37710] = true, -- Crashin' Thrashin' Racer Controller
             [104318] = true, -- Crashin' Thrashin' Flyer Controller
-            [116763] = true, -- Crashin' Thrashin' Shredder Controller
-            [108632] = true, -- Crashin' Thrashin' Flamer Controller
-            [108635] = true, -- Crashin' Thrashin' Killdozer Controller
+        },
+
+        ["Tonks"] = {
+            [54343] = true, -- Blue Crashin' Thrashin' Racer Controller
+            [122122] = true, -- Darkmoon Tonk Controller
             [172222] = true, -- Crashin' Thrashin' Juggernaught
             [172223] = true, -- Crashin' Thrashin' Battleship
+            [108633] = true, -- Crashin' Thrashin' Cannon Controller
+            [108632] = true, -- Crashin' Thrashin' Flamer Controller
+            [108635] = true, -- Crashin' Thrashin' Killdozer Controller
+            [108634] = true, -- Crashin' Thrashin' Mortar Controller
+            [37710] = true, -- Crashin' Thrashin' Racer Controller
+            [108631] = true, -- Crashin' Thrashin' Roller Controller
+            [116763] = true, -- Crashin' Thrashin' Shredder Controller
         },
-        ["Tanks"] = {
 
-        },
+        -- isn't there an eye of kilrogg type pet?? am i just crazy? it even flies in flying areas
         ["Vision"] = {
 
         }
@@ -1163,8 +1175,6 @@ ADDON.db.effect = {
             [45020] = true, -- Exodar Banner
             [45021] = true, -- Darnassus Banner
             [46843] = true, -- Argent Crusader's Banner
-            [119217] = true, -- Alliance Flag of Victory
-            [119219] = true, -- Warlord's Flag of Victory
             [166879] = true, -- Rallying War Banner
             [169108] = true, -- Rustbolt Banner
         },
@@ -1183,7 +1193,9 @@ ADDON.db.effect = {
         },
 
         ["Weather"] = {
-
+            [119145] = true, -- Firefury Totem
+            [136935] = true, -- Tadpole Cloudseeder -- only Shaman
+            [35227] = true, -- Goblin Weather Machine - Prototype 01-B
         }
     },
 
@@ -1211,6 +1223,7 @@ ADDON.db.effect = {
     },
 
     ["Minigames"] = {
+
         ["Solo"] = {
             [130251] = true, -- JewelCraft
         },
@@ -1221,27 +1234,42 @@ ADDON.db.effect = {
     },
 
     ["PVP"] = {
+
         ["Dismounts"] = {
-
+            [86584] = true, -- Hardened Shell
         },
-        ["Flags"] = {
 
+        ["Taunts"] = {
+            [86575] = true, -- Chalice of Secrets
+            [119217] = true, -- Alliance Flag of Victory
+            [119218] = true, -- Horde Flag of Victory
+            [119219] = true, -- Warlord's Flag of Victory
+        },
+
+        ["Transforms"] = {
+            [102467] = true, -- Censer of Eternal Agony
         }
     },
 
     ["Sounds"] = {
+
         ["Effects"] = {
-
+            [113670] = true, -- Mournful Moan of Murmur
+            [86565] = true, -- Battle Horn
         },
+
         ["Music"] = {
-
+            [122700] = true, -- Portable Audiophone
+            [143543] = true, -- Twelve-String Guitar
         },
-        ["Voice"] = {
 
+        ["Voice"] = {
         }
     },
 
     ["Transportation"] = {
+
+        -- Fly or Slowfall
         ["Fly"] = {
             [131811] = true, -- Rocfeather Skyhorn Kite
         },
@@ -1329,6 +1357,7 @@ ADDON.db.effect = {
         [141298] = true, -- Displacer Meditation Stone
         [147838] = true, -- Akazamzarak's Spare Hat
         [163210] = true, -- Party Totem
+        [133542] = true, -- Tosselwrench's Mega-Accurate Simulation Viewfinder
     },
 
     -- Related to fishing
@@ -1366,15 +1395,8 @@ ADDON.db.effect = {
 
     -- TBD
     ["Unclassified"] = {
-         -- consumable
-        [128223] = true, -- Bottomless Stygana Mushroom Brew -- consumable
-        [141296] = true, -- Ancient Mana Basin -- drops a thing on the ground, clickable, gives a food enhancer buff
+
         [141306] = true, -- Wisp in a Bottle -- makes a wisp fly around?
-        [102467] = true, -- Censer of Eternal Agony -- tansform but also lets you get bloody coins
-        [161342] = true, -- Gem of Acquiescence -- adds brainsucker, and tentacles on screen edges
-
-
-        -- Legion
 
         -- Battle for Azeroth
         [163740] = true, -- Drust Ritual Knife
@@ -1408,7 +1430,6 @@ ADDON.db.effect = {
         [86568] = true, -- Mr. Smite's Brass Compass
         [86571] = true, -- Kang's Bindstone
         [86573] = true, -- Shard of Archstone
-        [86575] = true, -- Chalice of Secrets
         [86581] = true, -- Farwater Conch
         [90067] = true, -- B. F. F. Necklace
         [104262] = true, -- Odd Polished Stone
@@ -1417,15 +1438,12 @@ ADDON.db.effect = {
         [104309] = true, -- Eternal Kiln
         [104331] = true, -- Warning Sign
         [86594] = true, -- Helpful Wikky's Whistle
-        [86565] = true, -- Battle Horn
         [104329] = true, -- Ash-Covered Horn
         [86578] = true, -- Eternal Warrior's Sigil
         [86583] = true, -- Salyin Battle Banner
-        [86584] = true, -- Hardened Shell
 
         -- Draenor
         [113631] = true, -- Hypnosis Goggles
-        [113670] = true, -- Mournful Moan of Murmur
         [114227] = true, -- Bubble Wand
         [116122] = true, -- Burning Legion Missive
         [116125] = true, -- Klikixx's Webspinner
@@ -1444,7 +1462,6 @@ ADDON.db.effect = {
         [113543] = true, -- Spirit of Shinri
         [116113] = true, -- Breath of Talador
         [119180] = true, -- Goren "Log" Roller
-        [118224] = true, -- Ogre Brewing Kit
 
         -- Legion
         [134019] = true, -- Don Carlos' Famous Hat
@@ -1552,7 +1569,6 @@ ADDON.db.effect = {
         -- Draenor
         [119001] = true, -- Mystery Keg
         [119144] = true, -- Touch of the Naaru
-        [119145] = true, -- Firefury Totem
         [119093] = true, -- Aviana's Feather
         [115506] = true, -- Treessassin's Guise
         [118935] = true, -- Ever-Blooming Frond
@@ -1598,7 +1614,6 @@ ADDON.db.effect = {
         -- Toy vendors
         [44606] = true, -- Toy Train Set
         [45057] = true, -- Wind-Up Train Wrecker
-        [54343] = true, -- Blue Crashin' Thrashin' Racer Controller
         [54437] = true, -- Tiny Green Ragdoll
         [54438] = true, -- Tiny Blue Ragdoll
         [104323] = true, -- The Pigskin
@@ -1699,7 +1714,6 @@ ADDON.db.effect = {
         [131814] = true, -- Whitewater Carp
         [131812] = true, -- Darkshard Fragment
         [130170] = true, -- Tear of the Green Aspect
-        [129149] = true, -- Death's Door Charm
         [130232] = true, -- Moonfeather Statue
         [140324] = true, -- Mobile Telemancy Beacon
         [129279] = true, -- Enchanted Stone Whistle
@@ -1757,7 +1771,6 @@ ADDON.db.effect = {
         [169297] = true, -- Stormpike Insignia
         [169298] = true, -- Frostwolf Insignia
 
-        [122700] = true, -- Portable Audiophone
 
         -- Garrison Mission
         [118191] = true, -- Archmage Vargoth's Spare Staff
@@ -1784,7 +1797,6 @@ ADDON.db.effect = {
         [136927] = true, -- Scarlet Confessional Book -- only Priest
         [136928] = true, -- Thaumaturgist's Orb -- only Priest
         [136934] = true, -- Raging Elemental Stone -- only Shaman
-        [136935] = true, -- Tadpole Cloudseeder -- only Shaman
         [136937] = true, -- Vol'jin's Serpent Totem -- only Shaman
         [138490] = true, -- Waterspeaker's Totem -- only Shaman
         [140160] = true, -- Stormforged Vrykul Horn
@@ -1796,7 +1808,6 @@ ADDON.db.effect = {
         [32566] = true, -- Picnic Basket
         [33219] = true, -- Goblin Gumbo Kettle
         [34499] = true, -- Paper Flying Machine Kit
-        [35227] = true, -- Goblin Weather Machine - Prototype 01-B
         [38578] = true, -- The Flag of Ownership
         [45063] = true, -- Foam Sword Rack
         [46780] = true, -- Ogre Pinata
@@ -1808,7 +1819,6 @@ ADDON.db.effect = {
 
         [33079] = true, -- Murloc Costume
         [142542] = true, -- Tome of Town Portal
-        [143543] = true, -- Twelve-String Guitar
         [158149] = true, -- Overtuned Corgi Goggles
         [163986] = true, -- Orgrimmar Hero's War Banner --Blizzcon 2018
         [163987] = true, -- Stormwind Champion's War Banner  --Blizzcon 2018
