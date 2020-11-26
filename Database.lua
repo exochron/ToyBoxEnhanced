@@ -1210,6 +1210,16 @@ ADDON.db.effect = {
         }
     },
 
+    ["Minigames"] = {
+        ["Solo"] = {
+            [130251] = true, -- JewelCraft
+        },
+
+        ["Co-op"] = {
+            [127859] = true, -- Dazzling Rod
+        }
+    },
+
     ["PVP"] = {
         ["Dismounts"] = {
 
@@ -1236,13 +1246,6 @@ ADDON.db.effect = {
             [131811] = true, -- Rocfeather Skyhorn Kite
         },
 
-        ["Jump"] = {
-            [86590] = true, -- Essence of the Breeze
-            [134023] = true, -- Bottled Tornado
-            [139773] = true, -- Emerald Winds
-            [140336] = true, -- Brulfist Idol
-        },
-
         ["Hearthstones"] = {
             [64488] = true, -- The Innkeeper's Daughter
             [162973] = true, -- Greatfather Winter's Hearthstone
@@ -1257,6 +1260,13 @@ ADDON.db.effect = {
             [180290] = true, -- Night Fae Hearthstone
             [182773] = true, -- Necrolord Hearthstone
             [184353] = true, -- Kyrian Hearthstone
+        },
+
+        ["Jump"] = {
+            [86590] = true, -- Essence of the Breeze
+            [134023] = true, -- Bottled Tornado
+            [139773] = true, -- Emerald Winds
+            [140336] = true, -- Brulfist Idol
         },
 
         ["Run"] = {
@@ -1333,11 +1343,6 @@ ADDON.db.effect = {
         [40768] = true, -- MOLL-E
         [127655] = true, -- Sassy Imp
         [156833] = true, -- Katy's Stampwhistle
-    },
-
-    ["Minigames"] = {
-        [127859] = true, -- Dazzling Rod
-        [130251] = true, -- JewelCraft
     },
 
     -- Battle pets; No critters or combat pets

@@ -18,6 +18,7 @@ local SETTING_CONTROLLERS = "Controllers"
 local SETTING_ENVIRONMENT = "Environment"
 local SETTING_INTERACTABLES = "Interactables"
 local SETTING_PVP = "PVP"
+local SETTING_MINIGAMES = "Minigames"
 local SETTING_SOUNDS = "Sounds"
 local SETTING_TRANSPORTATION = "Transportation"
 
@@ -269,42 +270,19 @@ local function InitializeDropDown(filterMenu, level)
 
         UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_APPEARANCE, SETTING_APPEARANCE, ADDON.settings.filter[SETTING_EFFECT][SETTING_APPEARANCE]), level)
         UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_COOKING, SETTING_COOKING, ADDON.settings.filter[SETTING_EFFECT][SETTING_COOKING]), level)
-        -- Fires
-        -- Speed
         UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_CONSUMABLES, SETTING_CONSUMABLES, ADDON.settings.filter[SETTING_EFFECT][SETTING_CONSUMABLES]), level)
-        -- Alcohol
-        -- Food
-        -- Water
         UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_CONTROLLERS, SETTING_CONTROLLERS, ADDON.settings.filter[SETTING_EFFECT][SETTING_CONTROLLERS]), level)
-        -- Aircraft
-        -- Tanks
-        -- Vision
         UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_ENVIRONMENT, SETTING_ENVIRONMENT, ADDON.settings.filter[SETTING_EFFECT][SETTING_ENVIRONMENT]), level)
-        -- Banners
-        -- Fireworks
-        -- Weather
         UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_INTERACTABLES, SETTING_INTERACTABLES, ADDON.settings.filter[SETTING_EFFECT][SETTING_INTERACTABLES]), level)
-        -- Chairs
-        -- Clickables
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_MINIGAMES, SETTING_MINIGAMES, ADDON.settings.filter[SETTING_EFFECT][SETTING_MINIGAMES]), level)
         UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_PVP, SETTING_PVP, ADDON.settings.filter[SETTING_EFFECT][SETTING_PVP]), level)
-        -- Dismounts
-        -- Flags
         UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_SOUNDS, SETTING_SOUNDS, ADDON.settings.filter[SETTING_EFFECT][SETTING_SOUNDS]), level)
-        -- Effects
-        -- Music
-        -- Voice
         UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_TRANSPORTATION, SETTING_TRANSPORTATION, ADDON.settings.filter[SETTING_EFFECT][SETTING_TRANSPORTATION]), level)
-        -- Run
-        -- Slow Fall
-        -- Swim
-        -- Teleportation
-        -- Water Walk
 
         UIDropDownMenu_AddButton(CreateFilterInfo("Critters", "Critters", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Emotes", "Emotes", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Fishing", "Fishing", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Mail", "Mail", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Minigames", "Minigames", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Pets", "Pets", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Vision", "Vision", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Unclassified", "Unclassified", settings), level)
@@ -356,6 +334,13 @@ local function InitializeDropDown(filterMenu, level)
 
         UIDropDownMenu_AddButton(CreateFilterInfo("Chairs", "Chairs", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Clickables", "Clickables", settings), level)
+
+    elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_MINIGAMES) then
+        local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_MINIGAMES]
+        AddCheckAllAndNoneInfo({ settings }, level)
+
+        UIDropDownMenu_AddButton(CreateFilterInfo("Solo", "Solo", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Co-op", "Co-op", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_PVP) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_PVP]
