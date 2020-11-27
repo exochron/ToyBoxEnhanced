@@ -1818,6 +1818,28 @@ ADDON.db.effect = {
         }
     },
 
+    ["Perception"] = {
+        [40895] = true, -- Gnomish X-Ray Specs
+        [86581] = true, -- Farwater Conch
+        [97921] = true, -- Bom'bay's Color-Seein' Sauce
+        [116456] = true, -- Scroll of Storytelling
+        [122120] = true, -- Gaze of the Darkmoon
+        [122298] = true, -- Bodyguard Miniaturization Device
+        [122674] = true, -- S.E.L.F.I.E. Camera MkII
+        [123851] = true, -- Photo B.O.M.B.
+        [129211] = true, -- Steamy Romance Novel Kit
+        [130157] = true, -- Syxsehnz Rod
+        [142536] = true, -- Memory Cube
+        [153194] = true, -- Legion Communication Orb
+        [153204] = true, -- All-Seer's Eye
+        [158149] = true, -- Overtuned Corgi Goggles
+        [163200] = true, -- Cursed Spyglass
+        [166678] = true, -- Brynja's Beacon
+        [170187] = true, -- Shadescale
+        [170380] = true, -- Jar of Sunwarmed Sand
+        [174926] = true, -- Overly Sensitive Void Spectacles
+    },
+
     -- Battle pets; No critters or combat/hunter pets
     ["Pets"] = {
         [127707] = true, -- Indestructible Bone
@@ -1846,27 +1868,5 @@ ADDON.db.effect = {
         [174871] = true, -- Mayhem Mind Melder
         [174995] = true, -- Void Tendril Pet Leash
         [184508] = true, -- Mawsworn Pet Leash
-    },
-
-    ["Vision"] = {
-        [40895] = true, -- Gnomish X-Ray Specs
-        [86581] = true, -- Farwater Conch
-        [97921] = true, -- Bom'bay's Color-Seein' Sauce
-        [116456] = true, -- Scroll of Storytelling
-        [122120] = true, -- Gaze of the Darkmoon
-        [122298] = true, -- Bodyguard Miniaturization Device
-        [122674] = true, -- S.E.L.F.I.E. Camera MkII
-        [123851] = true, -- Photo B.O.M.B.
-        [129211] = true, -- Steamy Romance Novel Kit
-        [130157] = true, -- Syxsehnz Rod
-        [142536] = true, -- Memory Cube
-        [153194] = true, -- Legion Communication Orb
-        [153204] = true, -- All-Seer's Eye
-        [158149] = true, -- Overtuned Corgi Goggles
-        [163200] = true, -- Cursed Spyglass
-        [166678] = true, -- Brynja's Beacon
-        [170187] = true, -- Shadescale
-        [170380] = true, -- Jar of Sunwarmed Sand
-        [174926] = true, -- Overly Sensitive Void Spectacles
     },
 }

@@ -283,8 +283,8 @@ local function InitializeDropDown(filterMenu, level)
         UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_SOUNDS, SETTING_SOUNDS, ADDON.settings.filter[SETTING_EFFECT][SETTING_SOUNDS]), level)
         UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_TRANSPORTATION, SETTING_TRANSPORTATION, ADDON.settings.filter[SETTING_EFFECT][SETTING_TRANSPORTATION]), level)
 
+        UIDropDownMenu_AddButton(CreateFilterInfo("Perception", "Perception", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Pets", "Pets", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Vision", "Vision", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_APPEARANCE) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_APPEARANCE]
