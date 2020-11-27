@@ -1129,6 +1129,8 @@ ADDON.db.effect = {
             [180947] = true, -- Tithe Collector's Vessel
             [183847] = true, -- Acolyte's Guise
             [183903] = true, -- Smelly Jelly
+            [170154] = true, -- Book of the Unshackled
+            [170155] = true, -- Carved Ankoan Charm
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1239,6 +1241,7 @@ ADDON.db.effect = {
             [168014] = true, -- Banner of the Burning Blade
             [169275] = true, -- Alliance War Banner
             [169276] = true, -- Horde War Banner
+            [150547] = true, -- Jolly Roger
         },
     },
 
@@ -1264,7 +1267,7 @@ ADDON.db.effect = {
             [166703] = true, -- Goldtusk Inn Breakfast Buffet
         },
 
-        ["Other"] = {
+        ["Other Usable Items"] = {
             [17716] = true, -- Snowmaster 9000
             [21540] = true, -- Elune's Lantern
         }
@@ -1349,23 +1352,14 @@ ADDON.db.effect = {
             [174445] = true, -- Glimmerfly Cocoon
             [183986] = true, -- Bondable Sinstone
             [183988] = true, -- Bondable Val'kyr Diadem
+            [136928] = true, -- Thaumaturgist's Orb
         },
     },
 
     -- Dances, Laughter, Poses, Roleplaying, etc
     ["Emotes"] = {
 
-        ["Corpse"] = {
-            [88589] = true, -- Cremating Torch
-            [90175] = true, -- Gin-Ji Knife Set
-            [119163] = true, -- Soul Inhaler
-            [119182] = true, -- Soul Evacuation Crystal
-            [163740] = true, -- Drust Ritual Knife
-            [166701] = true, -- Warbeast Kraal Dinner Bell
-            [166784] = true, -- Narassin's Soul Gem
-        },
-
-        ["Other"] = {
+        ["Acts"] = {
             [13379] = true, -- Piccolo of the Flaming Fire
             [33219] = true, -- Goblin Gumbo Kettle
             [34686] = true, -- Brazier of Dancing Flames
@@ -1414,6 +1408,17 @@ ADDON.db.effect = {
             [181794] = true, -- Orophea's Lyre
             [182732] = true, -- The Necronom-i-nom
             [183856] = true, -- Mystical Orb of Meditation
+            [136927] = true, -- Scarlet Confessional Book
+        },
+
+        ["Corpse"] = {
+            [88589] = true, -- Cremating Torch
+            [90175] = true, -- Gin-Ji Knife Set
+            [119163] = true, -- Soul Inhaler
+            [119182] = true, -- Soul Evacuation Crystal
+            [163740] = true, -- Drust Ritual Knife
+            [166701] = true, -- Warbeast Kraal Dinner Bell
+            [166784] = true, -- Narassin's Soul Gem
         },
 
         ["Roll"] = {
@@ -1477,6 +1482,8 @@ ADDON.db.effect = {
             [122119] = true, -- Everlasting Darkmoon Firework
             [138202] = true, -- Sparklepony XL
             [166877] = true, -- Azerite Firework Launcher
+            [166778] = true, -- Horde's Might Firework
+            [166777] = true, -- Lion's Pride Firework
         },
 
         --
@@ -1504,6 +1511,7 @@ ADDON.db.effect = {
             [141297] = true, -- Arcano-Shower
             [160751] = true, -- Dance of the Dead
             [169347] = true, -- Judgment of Mechagon
+            [140632] = true, -- Lava Fountain
         },
 
         ["Weather"] = {
@@ -1555,6 +1563,7 @@ ADDON.db.effect = {
             [170476] = true, -- Underlight Sealamp
             [174920] = true, -- Coifcurl's Close Shave Kit
             [174928] = true, -- Rotten Apple
+            [120857] = true, -- Barrel of Bandanas
         },
 
         ["Mail"] = {
@@ -1571,6 +1580,7 @@ ADDON.db.effect = {
             [122681] = true, -- Sternfathom's Pet Journal
             [127655] = true, -- Sassy Imp
             [166247] = true, -- Citizens Brigade Whistle
+            [168667] = true, -- Blingtron 7000
         },
 
         -- Can attack these
@@ -1809,6 +1819,10 @@ ADDON.db.effect = {
             [168808] = true, -- Wormhole Generator: Zandalar
             [169297] = true, -- Stormpike Insignia
             [169298] = true, -- Frostwolf Insignia
+            [30542] = true, -- Dimensional Ripper - Area 52
+            [18984] = true, -- Dimensional Ripper - Everlook
+            [136849] = true, -- Nature's Beacon
+            [153004] = true, -- Unstable Portal Emitter
         },
 
         ["Water Walk"] = {
@@ -1838,6 +1852,7 @@ ADDON.db.effect = {
         [170187] = true, -- Shadescale
         [170380] = true, -- Jar of Sunwarmed Sand
         [174926] = true, -- Overly Sensitive Void Spectacles
+        [163603] = true, -- Lucille's Handkerchief
     },
 
     -- Battle pets; No critters or combat/hunter pets

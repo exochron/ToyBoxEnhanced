@@ -303,7 +303,7 @@ local function InitializeDropDown(filterMenu, level)
 
         UIDropDownMenu_AddButton(CreateFilterInfo("Alcohol", "Alcohol", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Food/Water", "Food/Water", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Other", "Other", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Other Usable Items", "Other Usable Items", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_CONTROLLERS) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_CONTROLLERS]
@@ -324,8 +324,8 @@ local function InitializeDropDown(filterMenu, level)
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_EMOTES]
         AddCheckAllAndNoneInfo({ settings }, level)
 
+        UIDropDownMenu_AddButton(CreateFilterInfo("Acts", "Acts", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Corpse", "Corpse", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Other", "Other", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Roll", "Roll", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Statue", "Statue", settings), level)
 
