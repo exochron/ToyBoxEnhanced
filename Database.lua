@@ -1060,18 +1060,15 @@ ADDON.db.effect = {
             [68806] = true, -- Kalytha's Haunted Locket
             [71259] = true, -- Leyara's Locket
             [86568] = true, -- Mr. Smite's Brass Compass
-            [86573] = true, -- Shard of Archstone
             [86589] = true, -- Ai-Li's Skymirror
             [88566] = true, -- Krastinov's Bag of Horrors
             [103685] = true, -- Celestial Defender's Medallion
             [104294] = true, -- Rime of the Time-Lost Mariner
             [105898] = true, -- Moonfang's Paw
             [113096] = true, -- Bloodmane Charm
-            [113570] = true, -- Ancient's Bloom
             [115506] = true, -- Treessassin's Guise
             [116067] = true, -- Ring of Broken Promises
             [116139] = true, -- Haunting Memento
-            [116400] = true, -- Silver-Plated Turkey Shooter
             [116440] = true, -- Burning Defender's Medallion
             [118244] = true, -- Iron Buccaneer's Hat
             [118716] = true, -- Goren Garb
@@ -1079,13 +1076,11 @@ ADDON.db.effect = {
             [118938] = true, -- Manastorm's Duplicator
             [119215] = true, -- Robo-Gnomebulator
             [119421] = true, -- Sha'tari Defender's Medallion
-            [119432] = true, -- Botani Camouflage
             [120276] = true, -- Outrider's Bridle Chain
             [122117] = true, -- Cursed Feather of Ikzan
             [122304] = true, -- Fandral's Seed Pouch
             [127394] = true, -- Podling Camouflage
             [127659] = true, -- Ghostly Iron Buccaneer's Hat
-            [127666] = true, -- Vial of Red Goo
             [127668] = true, -- Jewel of Hellfire
             [127696] = true, -- Magic Pet Mirror
             [127709] = true, -- Throbbing Blood Orb
@@ -1097,7 +1092,6 @@ ADDON.db.effect = {
             [133511] = true, -- Gurboggle's Gleaming Bauble
             [134022] = true, -- Burgy Blackheart's Handsome Hat
             [138873] = true, -- Mystical Frosh Hat
-            [139587] = true, -- Suspicious Crate
             [140160] = true, -- Stormforged Vrykul Horn
             [140780] = true, -- Fal'dorei Egg
             [141862] = true, -- Mote of Light
@@ -1409,6 +1403,8 @@ ADDON.db.effect = {
             [182732] = true, -- The Necronom-i-nom
             [183856] = true, -- Mystical Orb of Meditation
             [136927] = true, -- Scarlet Confessional Book
+            [139587] = true, -- Suspicious Crate
+            [127666] = true, -- Vial of Red Goo
         },
 
         ["Corpse"] = {
@@ -1437,6 +1433,9 @@ ADDON.db.effect = {
             [130171] = true, -- Cursed Orb
             [141879] = true, -- Berglrgl Perrgl Girggrlf
             [164983] = true, -- Rhan'ka's Escape Plan
+            [113570] = true, -- Ancient's Bloom
+            [119432] = true, -- Botani Camouflage
+            [86573] = true, -- Shard of Archstone
         },
 
     },
@@ -1631,6 +1630,7 @@ ADDON.db.effect = {
             [163741] = true, -- Magic Fun Rock
             [174921] = true, -- Void-Touched Skull
             [181825] = true, -- Phial of Ravenous Slime
+            [116400] = true, -- Silver-Plated Turkey Shooter
         }
     },
 
