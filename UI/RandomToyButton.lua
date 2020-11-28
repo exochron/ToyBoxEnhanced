@@ -1,5 +1,6 @@
 local ADDON_NAME, ADDON = ...
 
+local MAX_GLOBAL_MACRO_COUNT = 120
 local CLICK_TARGET_NAME = "TBERandomFavoredToy"
 local MACRO_NAME, MACRO_ICON, MACRO_BODY = 'TBE: Random Toy', 'inv_misc_dice_02', "/click " .. CLICK_TARGET_NAME
 
@@ -50,8 +51,8 @@ local function updateButtonFavorites()
     end
 end
 
-local function createActionButton()
-    actionButton = CreateFrame("Button", CLICK_TARGET_NAME, UIParent, "SecureHandlerBaseTemplate,SecureActionButtonTemplate")
+local function initActionButton()
+    actionButton = _G[CLICK_TARGET_NAME]
     actionButton:WrapScript(actionButton, 'OnClick', [=[
     if #toys > 0 then
         self:SetAttribute("toy", toys[random(#toys)])
@@ -88,12 +89,12 @@ local function createDisplayButton()
 end
 
 local function checkClickMacro()
-    if not InCombatLockdown() and not GetMacroInfo(MACRO_NAME) then
+    if not InCombatLockdown() and not GetMacroInfo(MACRO_NAME) and GetNumMacros() < MAX_GLOBAL_MACRO_COUNT then
         CreateMacro(MACRO_NAME, MACRO_ICON, MACRO_BODY)
     end
 end
 
-ADDON:RegisterLoginCallback(createActionButton)
+ADDON:RegisterLoginCallback(initActionButton)
 ADDON:RegisterLoginCallback(checkClickMacro)
 ADDON:RegisterLoadUICallback(createDisplayButton)
 ADDON:RegisterLoadUICallback(checkClickMacro)

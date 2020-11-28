@@ -312,4 +312,7 @@
         <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
         <HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
     </Button>
+
+    <Button name="TBERandomFavoredToy" inherits="SecureHandlerBaseTemplate,SecureActionButtonTemplate" protected="true">
+    </Button>
 </Ui>
