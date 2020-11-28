@@ -1137,7 +1137,6 @@ ADDON.db.effect = {
             [79769] = true, -- Demon Hunter's Aspect
             [86593] = true, -- Hozen Beach Ball
             [87528] = true, -- Honorary Brewmaster Keg
-            [88417] = true, -- Gokk'lok's Shell
             [88580] = true, -- Ken-Ken's Mask
             [101571] = true, -- Moonfang Shroud
             [104302] = true, -- Blackflame Daggers
@@ -1147,11 +1146,9 @@ ADDON.db.effect = {
             [113375] = true, -- Vindicator's Armor Polish Kit
             [115503] = true, -- Blazing Diamond Pendant
             [116115] = true, -- Blazing Wings
-            [116651] = true, -- True Love Prism
             [119092] = true, -- Moroes' Famous Polish
             [119134] = true, -- Sargerei Disguise
             [119144] = true, -- Touch of the Naaru
-            [122293] = true, -- Trans-Dimensional Bird Whistle
             [127670] = true, -- Accursed Tome of the Sargerei
             [127864] = true, -- Personal Spotlight
             [128462] = true, -- Karabor Councilor's Attire
@@ -1175,7 +1172,6 @@ ADDON.db.effect = {
             [153179] = true, -- Blue Conservatory Scroll
             [153180] = true, -- Yellow Conservatory Scroll
             [153181] = true, -- Red Conservatory Scroll
-            [161342] = true, -- Gem of Acquiescence
             [162642] = true, -- Toy Armor Set
             [162643] = true, -- Toy Armor Set
             [163713] = true, -- Brazier Cap
@@ -1188,7 +1184,6 @@ ADDON.db.effect = {
             [168123] = true, -- Twitching Eyeball
             [170198] = true, -- Eternal Palace Dining Set
             [170199] = true, -- Zanj'ir Weapon Rack
-            [174874] = true, -- Budget K'thir Disguise
             [175140] = true, -- All-Seeing Eyes
             [179393] = true, -- Mirror of Envious Dreams
             [180873] = true, -- Smolderheart
@@ -1347,6 +1342,9 @@ ADDON.db.effect = {
             [183986] = true, -- Bondable Sinstone
             [183988] = true, -- Bondable Val'kyr Diadem
             [136928] = true, -- Thaumaturgist's Orb
+            [174874] = true, -- Budget K'thir Disguise
+            [161342] = true, -- Gem of Acquiescence
+            [122293] = true, -- Trans-Dimensional Bird Whistle
         },
     },
 
@@ -1405,6 +1403,7 @@ ADDON.db.effect = {
             [136927] = true, -- Scarlet Confessional Book
             [139587] = true, -- Suspicious Crate
             [127666] = true, -- Vial of Red Goo
+            [116651] = true, -- True Love Prism
         },
 
         ["Corpse"] = {
@@ -1436,6 +1435,7 @@ ADDON.db.effect = {
             [113570] = true, -- Ancient's Bloom
             [119432] = true, -- Botani Camouflage
             [86573] = true, -- Shard of Archstone
+            [88417] = true, -- Gokk'lok's Shell
         },
 
     },
