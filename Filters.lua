@@ -110,6 +110,39 @@ local function FilterToysByExpansion(itemId)
     return false
 end
 
+local function FilterToysByEffect(itemId)
+    local effectCategories = {}
+    local effectSettings = {}
+
+    -- flatten nested categorization
+    for name, categoriesOrToys in pairs(ADDON.db.effect) do
+        -- we need to go one layer deeper to check what categoriesOrToys holds
+        for key, value in pairs(categoriesOrToys) do
+            if type(key) == "string" then
+                -- categoriesOrToys is a nested category.
+                -- key is a filterKey and value is an array of toy IDs.
+                effectCategories[key] = value
+                effectSettings[key] = ADDON.settings.filter.effect[name][key]
+            else
+                -- categoriesOrToys is a list of toys.
+                -- key is a toy ID and value is `true`.
+                effectCategories[name] = categoriesOrToys
+                effectSettings[name] = ADDON.settings.filter.effect[name]
+            end
+        end
+    end
+
+    local itemInList = CheckItemInList(effectSettings, effectCategories, itemId)
+    if (itemInList == nil) then -- toy effect isn't categorized
+        local allSettingsEnabled = CheckAllSettings(effectSettings)
+        if (allSettingsEnabled == false) then -- every toy effect setting is disabled
+            return true -- uncategorized toys should be shown when all filters are disabled
+        end
+    end
+
+    return itemInList
+end
+
 function ADDON:FilterToy(itemId)
     local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(itemId)
     local collected = PlayerHasToy(itemId)
@@ -120,6 +153,7 @@ function ADDON:FilterToy(itemId)
             and FilterUsableToys(itemId)
             and FilterToysByFaction(itemId)
             and FilterToysByExpansion(itemId)
+            and FilterToysByEffect(itemId)
             and (FilterToysBySource(itemId)
                 or FilterToysByProfession(itemId)
                 or FilterToysByWorldEvent(itemId))) then
