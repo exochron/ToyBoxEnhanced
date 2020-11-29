@@ -157,6 +157,16 @@ local function AddCheckAllAndNoneInfo(settings, level)
     UIDropDownMenu_AddButton(info, level)
 end
 
+local function HasUserHiddenToys()
+    for _, value in pairs(ADDON.settings.hiddenToys) do
+        if value == true then
+            return true
+        end
+    end
+
+    return false
+end
+
 local function InitializeDropDown(filterMenu, level)
     local info
 
@@ -183,13 +193,15 @@ local function InitializeDropDown(filterMenu, level)
         UIDropDownMenu_AddButton(info, level)
 
         UIDropDownMenu_AddButton(CreateFilterInfo(NOT_COLLECTED, SETTING_NOT_COLLECTED), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L["Hidden"], SETTING_HIDDEN), level)
+        if ADDON.settings.filter[SETTING_HIDDEN] or HasUserHiddenToys() then
+            UIDropDownMenu_AddButton(CreateFilterInfo(L["Hidden"], SETTING_HIDDEN), level)
+        end
 
         UIDropDownMenu_AddSpace(level)
+        UIDropDownMenu_AddButton(CreateFilterCategory(L["Effect"], SETTING_EFFECT), level)
         UIDropDownMenu_AddButton(CreateFilterCategory(SOURCES, SETTING_SOURCE), level)
         UIDropDownMenu_AddButton(CreateFilterCategory(FACTION, SETTING_FACTION), level)
         UIDropDownMenu_AddButton(CreateFilterCategory(EXPANSION_FILTER_TEXT, SETTING_EXPANSION), level)
-        UIDropDownMenu_AddButton(CreateFilterCategory("Effect", SETTING_EFFECT), level)
 
         UIDropDownMenu_AddSpace(level)
         info = CreateFilterInfo(L["Reset filters"])
@@ -270,129 +282,123 @@ local function InitializeDropDown(filterMenu, level)
         local settings = ADDON.settings.filter[SETTING_EFFECT]
         AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_APPEARANCE, SETTING_APPEARANCE, ADDON.settings.filter[SETTING_EFFECT][SETTING_APPEARANCE]), level)
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_CONSUMABLES, SETTING_CONSUMABLES, ADDON.settings.filter[SETTING_EFFECT][SETTING_CONSUMABLES]), level)
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_CONTROLLERS, SETTING_CONTROLLERS, ADDON.settings.filter[SETTING_EFFECT][SETTING_CONTROLLERS]), level)
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_CRITTERS, SETTING_CRITTERS, ADDON.settings.filter[SETTING_EFFECT][SETTING_CRITTERS]), level)
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_EMOTES, SETTING_EMOTES, ADDON.settings.filter[SETTING_EFFECT][SETTING_EMOTES]), level)
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_ENVIRONMENT, SETTING_ENVIRONMENT, ADDON.settings.filter[SETTING_EFFECT][SETTING_ENVIRONMENT]), level)
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_INTERACTABLES, SETTING_INTERACTABLES, ADDON.settings.filter[SETTING_EFFECT][SETTING_INTERACTABLES]), level)
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_MINIGAMES, SETTING_MINIGAMES, ADDON.settings.filter[SETTING_EFFECT][SETTING_MINIGAMES]), level)
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_PROFESSION_EFFECTS, SETTING_PROFESSION_EFFECTS, ADDON.settings.filter[SETTING_EFFECT][SETTING_PROFESSION_EFFECTS]), level)
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_PVP, SETTING_PVP, ADDON.settings.filter[SETTING_EFFECT][SETTING_PVP]), level)
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_SOUNDS, SETTING_SOUNDS, ADDON.settings.filter[SETTING_EFFECT][SETTING_SOUNDS]), level)
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(SETTING_TRANSPORTATION, SETTING_TRANSPORTATION, ADDON.settings.filter[SETTING_EFFECT][SETTING_TRANSPORTATION]), level)
-
-        UIDropDownMenu_AddButton(CreateFilterInfo("Perception", "Perception", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Pets", "Pets", settings), level)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(L["Appearance"], SETTING_APPEARANCE, ADDON.settings.filter[SETTING_EFFECT][SETTING_APPEARANCE]), level)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(L["Consumable"], SETTING_CONSUMABLES, ADDON.settings.filter[SETTING_EFFECT][SETTING_CONSUMABLES]), level)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(L["Controller"], SETTING_CONTROLLERS, ADDON.settings.filter[SETTING_EFFECT][SETTING_CONTROLLERS]), level)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_NAME_5, SETTING_CRITTERS, ADDON.settings.filter[SETTING_EFFECT][SETTING_CRITTERS]), level)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(EMOTE, SETTING_EMOTES, ADDON.settings.filter[SETTING_EFFECT][SETTING_EMOTES]), level)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(ENVIRONMENT_SUBHEADER, SETTING_ENVIRONMENT, ADDON.settings.filter[SETTING_EFFECT][SETTING_ENVIRONMENT]), level)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(L["Interactable"], SETTING_INTERACTABLES, ADDON.settings.filter[SETTING_EFFECT][SETTING_INTERACTABLES]), level)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(GAMES, SETTING_MINIGAMES, ADDON.settings.filter[SETTING_EFFECT][SETTING_MINIGAMES]), level)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_SOURCE_4, SETTING_PROFESSION_EFFECTS, ADDON.settings.filter[SETTING_EFFECT][SETTING_PROFESSION_EFFECTS]), level)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(PVP, SETTING_PVP, ADDON.settings.filter[SETTING_EFFECT][SETTING_PVP]), level)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(SOUND, SETTING_SOUNDS, ADDON.settings.filter[SETTING_EFFECT][SETTING_SOUNDS]), level)
+        UIDropDownMenu_AddButton(CreateInfoWithMenu(L["Transportation"], SETTING_TRANSPORTATION, ADDON.settings.filter[SETTING_EFFECT][SETTING_TRANSPORTATION]), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Perception"], "Perception", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(AUCTION_CATEGORY_BATTLE_PETS, "Pets", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_APPEARANCE) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_APPEARANCE]
         AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo("Full", "Full", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Minor", "Minor", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Bigger", "Bigger", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Smaller", "Smaller", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Color", "Color", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Pennant", "Pennant", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(LOC_TYPE_FULL, "Full", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Minor"], "Minor", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Bigger"], "Bigger", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Smaller"], "Smaller", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(COLOR, "Color", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Pennant"], "Pennant", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_CONSUMABLES) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_CONSUMABLES]
-        AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo("Alcohol", "Alcohol", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Food/Water", "Food/Water", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Other Usable Items", "Other Usable Items", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Alcohol"], "Alcohol", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(MINIMAP_TRACKING_VENDOR_FOOD, "Food/Water", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(OTHER, "Other Usable Items", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_CONTROLLERS) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_CONTROLLERS]
-        AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo("Aircraft", "Aircraft", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Tonks", "Tonks", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Vision", "Vision", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Aircraft"], "Aircraft", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Tonk"], "Tonks", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Vision"], "Vision", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_CRITTERS) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_CRITTERS]
-        AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo("Nearby", "Nearby", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Summon", "Summon", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Nearby"], "Nearby", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(SUMMON, "Summon", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_EMOTES) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_EMOTES]
         AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo("Acts", "Acts", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Corpse", "Corpse", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Roll", "Roll", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Statue", "Statue", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Act"], "Acts", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(CORPSE, "Corpse", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(ROLL, "Roll", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Statue"], "Statue", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_ENVIRONMENT) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_ENVIRONMENT]
         AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo("Banners", "Banners", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Clone", "Clone", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Fireworks", "Fireworks", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Ground", "Ground", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Weather", "Weather", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Banner"], "Banners", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Clone"], "Clone", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Firework"], "Fireworks", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Ground"], "Ground", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(PET_BATTLE_WEATHER_LABEL, "Weather", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_INTERACTABLES) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_INTERACTABLES]
         AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo("Chairs", "Chairs", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Clickables", "Clickables", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Mail", "Mail", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("NPCs", "NPCs", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Target Dummies", "Target Dummies", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Chair", "Chairs", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Clickable", "Clickables", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(MAIL_LABEL, "Mail", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("NPC", "NPCs", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Target Dummy", "Target Dummies", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_MINIGAMES) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_MINIGAMES]
-        AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo("Solo", "Solo", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(SOLO, "Solo", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Co-op", "Co-op", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_PROFESSION_EFFECTS) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_PROFESSION_EFFECTS]
         AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo("Cooking", "Cooking Effects", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Fishing", "Fishing Effects", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Jewelcrafting", "Jewelcrafting Effects", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Skinning", "Skinning Effects", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_COOKING, "Cooking Effects", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_FISHING, "Fishing Effects", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Jewelcrafting"], "Jewelcrafting Effects", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Skinning"], "Skinning Effects", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_PVP) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_PVP]
         AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo("Ashran", "Ashran", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Dismounts", "Dismounts", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Taunts", "Taunts", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Transforms", "Transforms", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(WORLD_PVP, "Ashran", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(BINDING_NAME_DISMOUNT, "Dismounts", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Taunt"], "Taunts", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Transform"], "Transforms", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_SOUNDS) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_SOUNDS]
-        AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo("Effects", "Effects", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Music", "Music", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Voice", "Voice", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Effect"], "Effects", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(VOICE_MUSIC, "Music", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L["Voice"], "Voice", settings), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_TRANSPORTATION) then
         local settings = ADDON.settings.filter[SETTING_EFFECT][SETTING_TRANSPORTATION]
         AddCheckAllAndNoneInfo({ settings }, level)
 
         UIDropDownMenu_AddButton(CreateFilterInfo("Fly/Fall", "Fly/Fall", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Flight Paths", "Flight Paths", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Hearthstones", "Hearthstones", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Jump", "Jump", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Flight Path", "Flight Paths", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Hearthstone", "Hearthstones", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(NPE_JUMP, "Jump", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Run", "Run", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Swim", "Swim", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo("Teleports", "Teleports", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo("Teleport", "Teleports", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo("Water Walk", "Water Walk", settings), level)
 
     end

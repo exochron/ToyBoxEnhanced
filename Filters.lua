@@ -1,6 +1,6 @@
 local ADDON_NAME, ADDON = ...
 
-local function FilterHiddenToys(itemId)
+local function FilterUserHiddenToys(itemId)
     return ADDON.settings.filter.hidden or not ADDON.settings.hiddenToys[itemId]
 end
 
@@ -147,7 +147,7 @@ function ADDON:FilterToy(itemId)
     local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(itemId)
     local collected = PlayerHasToy(itemId)
 
-    if (FilterHiddenToys(itemId)
+    if (FilterUserHiddenToys(itemId)
             and FilterCollectedToys(collected)
             and FilterFavoriteToys(favorited)
             and FilterUsableToys(itemId)
