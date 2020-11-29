@@ -1234,7 +1234,7 @@ ADDON.db.effect = {
         },
     },
 
-    ["Consumables"] = {
+    ["Consumable"] = {
 
         ["Alcohol"] = {
             [33927] = true, -- Brewfest Pony Keg
@@ -1256,14 +1256,14 @@ ADDON.db.effect = {
             [166703] = true, -- Goldtusk Inn Breakfast Buffet
         },
 
-        ["Other Usable Items"] = {
+        ["Other"] = {
             [17716] = true, -- Snowmaster 9000
             [21540] = true, -- Elune's Lantern
         }
     },
 
     -- Control a separate entity while the player character stands still
-    ["Controllers"] = {
+    ["Controller"] = {
 
         ["Aircraft"] = {
             [46709] = true, -- MiniZep Controller
@@ -1272,7 +1272,7 @@ ADDON.db.effect = {
             [147708] = true, -- Legion Invasion Simulator
         },
 
-        ["Tonks"] = {
+        ["Tonk"] = {
             [37710] = true, -- Crashin' Thrashin' Racer Controller
             [54343] = true, -- Blue Crashin' Thrashin' Racer Controller
             [98136] = true, -- Gastropod Shell
@@ -1299,7 +1299,7 @@ ADDON.db.effect = {
     },
 
     -- Non-combat creatures; unrelated to battle pets
-    ["Critters"] = {
+    ["Critter"] = {
 
         ["Nearby"] = {
             [86586] = true, -- Panflute of Pandaria
@@ -1349,9 +1349,9 @@ ADDON.db.effect = {
     },
 
     -- Dances, Laughter, Poses, Roleplaying, etc
-    ["Emotes"] = {
+    ["Emote"] = {
 
-        ["Acts"] = {
+        ["Act"] = {
             [13379] = true, -- Piccolo of the Flaming Fire
             [33219] = true, -- Goblin Gumbo Kettle
             [34686] = true, -- Brazier of Dancing Flames
@@ -1443,7 +1443,7 @@ ADDON.db.effect = {
     ["Environment"] = {
 
         -- Poles that stick out of the ground
-        ["Banners"] = {
+        ["Banner"] = {
             [45011] = true, -- Stormwind Banner
             [45013] = true, -- Thunder Bluff Banner
             [45014] = true, -- Orgrimmar Banner
@@ -1471,7 +1471,7 @@ ADDON.db.effect = {
         },
 
         -- Controlled explosives
-        ["Fireworks"] = {
+        ["Firework"] = {
             [30690] = true, -- Power Converter
             [49703] = true, -- Perpetual Purple Firework
             [86588] = true, -- Pandaren Firework Launcher
@@ -1522,10 +1522,10 @@ ADDON.db.effect = {
         }
     },
 
-    ["Interactables"] = {
+    ["Interactable"] = {
 
         -- Can sit in these
-        ["Chairs"] = {
+        ["Chair"] = {
             [33223] = true, -- Fishing Chair
             [70161] = true, -- Mushroom Chair
             [86596] = true, -- Nat's Fishing Chair
@@ -1538,7 +1538,7 @@ ADDON.db.effect = {
         },
 
         -- Can click on these
-        ["Clickables"] = {
+        ["Clickable"] = {
             [32566] = true, -- Picnic Basket
             [34480] = true, -- Romantic Picnic Basket
             [69215] = true, -- War Party Hitching Post
@@ -1570,7 +1570,7 @@ ADDON.db.effect = {
             [156833] = true, -- Katy's Stampwhistle
         },
 
-        ["NPCs"] = {
+        ["NPC"] = {
             [86583] = true, -- Salyin Battle Banner
             [86594] = true, -- Helpful Wikky's Whistle
             [87214] = true, -- Blingtron 4000
@@ -1583,7 +1583,7 @@ ADDON.db.effect = {
         },
 
         -- Can attack these
-        ["Target Dummies"] = {
+        ["Target Dummy"] = {
             [46780] = true, -- Ogre Pinata
             [88375] = true, -- Turnip Punching Bag
             [89614] = true, -- Anatomical Dummy
@@ -1592,7 +1592,7 @@ ADDON.db.effect = {
         },
     },
 
-    ["Minigames"] = {
+    ["Game"] = {
 
         ["Solo"] = {
             [130251] = true, -- JewelCraft
@@ -1634,9 +1634,9 @@ ADDON.db.effect = {
         }
     },
 
-    ["Profession Effects"] = {
+    ["Profession"] = {
 
-        ["Cooking Effects"] = {
+        ["Cooking"] = {
             [67097] = true, -- Grim Campfire
             [70722] = true, -- Little Wickerman
             [104309] = true, -- Eternal Kiln
@@ -1651,7 +1651,7 @@ ADDON.db.effect = {
             [182780] = true, -- Muckpool Cookpot
         },
 
-        ["Fishing Effects"] = {
+        ["Fishing"] = {
             [85973] = true, -- Ancient Pandaren Fishing Charm
             [142528] = true, -- Crate of Bobbers: Can of Worms
             [142529] = true, -- Crate of Bobbers: Cat Head
@@ -1670,11 +1670,11 @@ ADDON.db.effect = {
             [180993] = true, -- Bat Visage Bobber
         },
 
-        ["Jewelcrafting Effects"] = {
+        ["Jewelcrafting"] = {
             [130254] = true, -- Chatterstone
         },
 
-        ["Skinning Effects"] = {
+        ["Skinning"] = {
             [130102] = true, -- Mother's Skinning Knife
         },
     },
@@ -1686,11 +1686,11 @@ ADDON.db.effect = {
             [116396] = true, -- LeBlanc's Recorder
         },
 
-        ["Dismounts"] = {
+        ["Dismount"] = {
             [86584] = true, -- Hardened Shell
         },
 
-        ["Taunts"] = {
+        ["Taunt"] = {
             [38578] = true, -- The Flag of Ownership
             [86575] = true, -- Chalice of Secrets
             [119217] = true, -- Alliance Flag of Victory
@@ -1698,15 +1698,15 @@ ADDON.db.effect = {
             [119219] = true, -- Warlord's Flag of Victory
         },
 
-        ["Transforms"] = {
+        ["Transform"] = {
             [102467] = true, -- Censer of Eternal Agony
             [173951] = true, -- N'lyeth, Sliver of N'Zoth
         }
     },
 
-    ["Sounds"] = {
+    ["Sound"] = {
 
-        ["Effects"] = {
+        ["Effect"] = {
             [64383] = true, -- Kaldorei Wind Chimes
             [86565] = true, -- Battle Horn
             [90899] = true, -- Darkmoon Whistle
@@ -1753,14 +1753,14 @@ ADDON.db.effect = {
         },
 
         -- Unlocks flight paths
-        ["Flight Paths"] = {
+        ["Flight Path"] = {
             [150743] = true, -- Surviving Kalimdor
             [150744] = true, -- Walking Kalimdor with the Earthmother
             [150745] = true, -- The Azeroth Campaign
             [150746] = true, -- To Modernize the Provisioning of Azeroth
         },
 
-        ["Hearthstones"] = {
+        ["Hearthstone"] = {
             [64488] = true, -- The Innkeeper's Daughter
             [162973] = true, -- Greatfather Winter's Hearthstone
             [163045] = true, -- Headless Horseman's Hearthstone
@@ -1802,7 +1802,7 @@ ADDON.db.effect = {
             [134024] = true, -- Cursed Swabby Helmet
         },
 
-        ["Teleports"] = {
+        ["Teleport"] = {
             [18986] = true, -- Ultrasafe Transporter: Gadgetzan
             [30544] = true, -- Ultrasafe Transporter: Toshley's Station
             [43824] = true, -- The Schools of Arcane Magic - Mastery
@@ -1856,7 +1856,7 @@ ADDON.db.effect = {
     },
 
     -- Battle pets; No critters or combat/hunter pets
-    ["Pets"] = {
+    ["Battle Pet"] = {
         [127707] = true, -- Indestructible Bone
         [37460] = true, -- Rope Pet Leash
         [44820] = true, -- Red Ribbon Pet Leash
