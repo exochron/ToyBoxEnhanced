@@ -386,14 +386,16 @@ ADDON.db.source = {
         [182694] = true, -- Stylish Black Parasol
         [182696] = true, -- The Countess's Parasol
         [182729] = true, -- Hearty Dragon Plume
+        [182732] = true, -- The Necronom-i-nom
         [182780] = true, -- Muckpool Cookpot
         [183986] = true, -- Bondable Sinstone
         [183988] = true, -- Bondable Val'kyr Diadem
         [184075] = true, -- Stonewrought Sentry
         [184318] = true, -- Battlecry of Krexus
+        [184418] = true, -- Acrobatic Steward -- Gilded Chest
         [184447] = true, -- Kevin's Party Supplies
-        [182732] = true, -- The Necronom-i-nom
-
+        [184489] = true, -- Fae Harp
+        [184490] = true, -- Fae Pipes
     },
 
     ["Drop"] = {
@@ -542,9 +544,11 @@ ADDON.db.source = {
         [184292] = true, -- Ancient Elethium Coin
         [184312] = true, -- Borr-Geth's Fiery Brimstone
         [184396] = true, -- Malfunctioning Goliath Gauntlet -- Ascended Supplies
+        [184404] = true, -- Ever-Abundant Hearth
         [184435] = true, -- Mark of Purity -- Ascended Supplies
         [184476] = true, -- Regenerating Slime Vial
         [184495] = true, -- Infested Arachnid Casing -- Supplies of the Undying Army
+        [184413] = true, -- Mnemonic Attunement Pane
     },
 
     ["Quest"] = {
