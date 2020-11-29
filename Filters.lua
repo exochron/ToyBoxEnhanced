@@ -4,12 +4,13 @@ local function FilterUserHiddenToys(itemId)
     return ADDON.settings.filter.hidden or not ADDON.settings.hiddenToys[itemId]
 end
 
-local function FilterCollectedToys(collected)
+local function FilterCollectedToys(itemId)
+    local collected = PlayerHasToy(itemId)
     return (ADDON.settings.filter.collected and collected) or (ADDON.settings.filter.notCollected and not collected)
 end
 
-local function FilterFavoriteToys(isFavorite)
-    return not ADDON.settings.filter.onlyFavorites or isFavorite or not ADDON.settings.filter.collected
+local function FilterFavoriteToys(itemId)
+    return not ADDON.settings.filter.onlyFavorites or not ADDON.settings.filter.collected or select(4, C_ToyBox.GetToyInfo(itemId))
 end
 
 local function FilterUsableToys(itemId)
@@ -20,10 +21,21 @@ local function CheckAllSettings(settings)
     local allDisabled = true
     local allEnabled = true
     for _, value in pairs(settings) do
-        if (value) then
+        if type(value) == "table" then
+            local subResult = CheckAllSettings(value)
+            if subResult == true then
+                allDisabled = false
+            elseif subResult == false  then
+                allEnabled = false
+            end
+        elseif value then
             allDisabled = false
         else
             allEnabled = false
+        end
+
+        if allEnabled == false and allDisabled == false then
+            break
         end
     end
 
@@ -111,45 +123,47 @@ local function FilterToysByExpansion(itemId)
 end
 
 local function FilterToysByEffect(itemId)
-    local effectCategories = {}
-    local effectSettings = {}
+    local settings = ADDON.settings.filter.effect
 
-    -- flatten nested categorization
+    local allSettingsResult = CheckAllSettings(settings)
+    if allSettingsResult then
+        return true
+    end
+
     for name, categoriesOrToys in pairs(ADDON.db.effect) do
-        -- we need to go one layer deeper to check what categoriesOrToys holds
-        for key, value in pairs(categoriesOrToys) do
-            if type(key) == "string" then
-                -- categoriesOrToys is a nested category.
-                -- key is a filterKey and value is an array of toy IDs.
-                effectCategories[key] = value
-                effectSettings[key] = ADDON.settings.filter.effect[name][key]
-            else
-                -- categoriesOrToys is a list of toys.
-                -- key is a toy ID and value is `true`.
-                effectCategories[name] = categoriesOrToys
-                effectSettings[name] = ADDON.settings.filter.effect[name]
+        local hasCategories = false
+        for _, value in pairs(categoriesOrToys) do
+            if type(value) == "table" then
+                hasCategories = true
+            end
+            break
+        end
+
+        if hasCategories then
+            local settingResult = CheckItemInList(settings[name], categoriesOrToys, itemId)
+            if settingResult ~= nil then
+                return settingResult
             end
         end
     end
 
-    local itemInList = CheckItemInList(effectSettings, effectCategories, itemId)
-    if (itemInList == nil) then -- toy effect isn't categorized
-        local allSettingsEnabled = CheckAllSettings(effectSettings)
-        if (allSettingsEnabled == false) then -- every toy effect setting is disabled
-            return true -- uncategorized toys should be shown when all filters are disabled
-        end
+    local settingResult = CheckItemInList(settings, ADDON.db.effect, itemId)
+    if settingResult ~= nil then
+        return settingResult
     end
 
-    return itemInList
+    -- Todo: Remove later
+    if allSettingsResult == false then
+        return true -- uncategorized toys should be shown when all filters are disabled
+    end
+
+    return false
 end
 
 function ADDON:FilterToy(itemId)
-    local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(itemId)
-    local collected = PlayerHasToy(itemId)
-
     if (FilterUserHiddenToys(itemId)
-            and FilterCollectedToys(collected)
-            and FilterFavoriteToys(favorited)
+            and FilterCollectedToys(itemId)
+            and FilterFavoriteToys(itemId)
             and FilterUsableToys(itemId)
             and FilterToysByFaction(itemId)
             and FilterToysByExpansion(itemId)

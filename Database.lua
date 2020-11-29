@@ -281,6 +281,8 @@ ADDON.db.faction = {
         [169275] = true, -- Alliance War Banner
         [169278] = true, -- Alliance War Standard
         [169297] = true, -- Stormpike Insignia
+        [170155] = true, -- Carved Ankoan Charm
+        [172223] = true, -- Crashin' Thrashin' Battleship
     },
 
     horde = {
@@ -323,6 +325,8 @@ ADDON.db.faction = {
         [169276] = true, -- Horde War Banner
         [169277] = true, -- Horde War Standard
         [169298] = true, -- Frostwolf Insignia
+        [170154] = true, -- Book of the Unshackled
+        [172222] = true, -- Crashin' Thrashin' Juggernaught
     },
 }
 
@@ -392,6 +396,7 @@ ADDON.db.source = {
         [183988] = true, -- Bondable Val'kyr Diadem
         [184075] = true, -- Stonewrought Sentry
         [184318] = true, -- Battlecry of Krexus
+        [184415] = true, -- Soothing Vesper -- Skyward Bell
         [184418] = true, -- Acrobatic Steward -- Gilded Chest
         [184447] = true, -- Kevin's Party Supplies
         [184489] = true, -- Fae Harp
@@ -972,6 +977,7 @@ ADDON.db.source = {
         [49703] = true, -- Perpetual Purple Firework
         [49704] = true, -- Carved Ogre Idol
         [54212] = true, -- Instant Statue Pedestal
+        [54452] = true, -- Ethereal Portal
         [67097] = true, -- Grim Campfire
         [69215] = true, -- War Party Hitching Post
         [69227] = true, -- Fool's Gold
@@ -979,6 +985,7 @@ ADDON.db.source = {
         [72159] = true, -- Magical Ogre Idol
         [72161] = true, -- Spurious Sarcophagus
         [79769] = true, -- Demon Hunter's Aspect
+        [93672] = true, -- Dark Portal
     },
 }
 
@@ -1078,6 +1085,7 @@ ADDON.db.effect = {
             [118716] = true, -- Goren Garb
             [118937] = true, -- Gamon's Braid
             [118938] = true, -- Manastorm's Duplicator
+            [119211] = true, -- Golden Hearthstone Card: Lord Jaraxxus
             [119215] = true, -- Robo-Gnomebulator
             [119421] = true, -- Sha'tari Defender's Medallion
             [120276] = true, -- Outrider's Bridle Chain
@@ -1095,9 +1103,9 @@ ADDON.db.effect = {
             [130147] = true, -- Thistleleaf Branch
             [133511] = true, -- Gurboggle's Gleaming Bauble
             [134022] = true, -- Burgy Blackheart's Handsome Hat
-            [138873] = true, -- Mystical Frosh Hat
             [140160] = true, -- Stormforged Vrykul Horn
             [140780] = true, -- Fal'dorei Egg
+            [141331] = true, -- Vial of Green Goo
             [141862] = true, -- Mote of Light
             [142452] = true, -- Lingering Wyrmtongue Essence
             [143827] = true, -- Red Dragon Head Costume
@@ -1124,7 +1132,6 @@ ADDON.db.effect = {
             [166790] = true, -- Highborne Memento
             [172219] = true, -- Wild Holly
             [174873] = true, -- Trans-mogu-rifier
-            [180947] = true, -- Tithe Collector's Vessel
             [183847] = true, -- Acolyte's Guise
             [183903] = true, -- Smelly Jelly
             [170154] = true, -- Book of the Unshackled
@@ -1166,6 +1173,7 @@ ADDON.db.effect = {
             [134831] = true, -- Doomsayer's Robes
             [137294] = true, -- Dalaran Initiates' Pin
             [138490] = true, -- Waterspeaker's Totem
+            [138873] = true, -- Mystical Frosh Hat
             [138900] = true, -- Gravil Goldbraid's Famous Sausage Hat
             [139337] = true, -- Disposable Winter Veil Suits
             [140314] = true, -- Crab Shank
@@ -1191,6 +1199,7 @@ ADDON.db.effect = {
             [175140] = true, -- All-Seeing Eyes
             [179393] = true, -- Mirror of Envious Dreams
             [180873] = true, -- Smolderheart
+            [180947] = true, -- Tithe Collector's Vessel
         },
 
         ["Bigger"] = {
@@ -1314,6 +1323,7 @@ ADDON.db.effect = {
             [136937] = true, -- Vol'jin's Serpent Totem
             [153124] = true, -- Spire of Spite
             [174924] = true, -- Void-Touched Souvenir Totem
+            [184396] = true, -- Malfunctioning Goliath Gauntlet
         },
 
         ["Summon"] = {
@@ -1322,7 +1332,6 @@ ADDON.db.effect = {
             [64881] = true, -- Pendant of the Scarab Storm
             [69227] = true, -- Fool's Gold
             [82467] = true, -- Ruthers' Harness
-            [91904] = true, -- Stackable Stag
             [98552] = true, -- Xan'tish's Flute
             [117569] = true, -- Giant Deathweb Egg
             [128328] = true, -- Skoller's Bag of Squirrel Treats
@@ -1408,6 +1417,7 @@ ADDON.db.effect = {
             [139587] = true, -- Suspicious Crate
             [127666] = true, -- Vial of Red Goo
             [116651] = true, -- True Love Prism
+            [184489] = true, -- Fae Harp
         },
 
         ["Corpse"] = {
@@ -1502,9 +1512,11 @@ ADDON.db.effect = {
             [88584] = true, -- Totem of Harmony
             [89205] = true, -- Mini Mana Bomb
             [89869] = true, -- Pandaren Scarecrow
+            [91904] = true, -- Stackable Stag
             [109739] = true, -- Star Chart
             [116122] = true, -- Burning Legion Missive
             [118222] = true, -- Spirit of Bashiok
+            [119211] = true, -- Golden Hearthstone Card: Lord Jaraxxus
             [122126] = true, -- Attraction Sign
             [130170] = true, -- Tear of the Green Aspect
             [130199] = true, -- Legion Pocket Portal
@@ -1515,6 +1527,7 @@ ADDON.db.effect = {
             [160751] = true, -- Dance of the Dead
             [169347] = true, -- Judgment of Mechagon
             [140632] = true, -- Lava Fountain
+            [184418] = true, -- Acrobatic Steward
         },
 
         ["Weather"] = {
@@ -1653,6 +1666,7 @@ ADDON.db.effect = {
             [153039] = true, -- Crystalline Campfire
             [163211] = true, -- Akunda's Firesticks
             [182780] = true, -- Muckpool Cookpot
+            [184404] = true, -- Ever-Abundant Hearth
         },
 
         ["Fishing"] = {
@@ -1732,9 +1746,12 @@ ADDON.db.effect = {
             [143543] = true, -- Twelve-String Guitar
             [166702] = true, -- Proudmoore Music Box
             [166880] = true, -- Meerah's Jukebox
+            [184489] = true, -- Fae Harp
+            [184490] = true, -- Fae Pipes
         },
 
         ["Voice"] = {
+            [119211] = true, -- Golden Hearthstone Card: Lord Jaraxxus
             [170469] = true, -- Memento of the Deeps
         }
     },
@@ -1754,6 +1771,7 @@ ADDON.db.effect = {
             [182695] = true, -- Weathered Purple Parasol
             [182696] = true, -- The Countess's Parasol
             [182729] = true, -- Hearty Dragon Plume
+            [184312] = true, -- Borr-Geth's Fiery Brimstone
         },
 
         -- Unlocks flight paths
@@ -1764,10 +1782,15 @@ ADDON.db.effect = {
             [150746] = true, -- To Modernize the Provisioning of Azeroth
         },
 
+        -- https://wow.tools/dbc/?dbc=spellcategories#page=1&colFilter[2]=1176
         ["Hearthstone"] = {
+            [54452] = true, -- Ethereal Portal
             [64488] = true, -- The Innkeeper's Daughter
+            [93672] = true, -- Dark Portal
+            [142542] = true, -- Tome of Town Portal
             [162973] = true, -- Greatfather Winter's Hearthstone
             [163045] = true, -- Headless Horseman's Hearthstone
+            [163206] = true, -- Weary Spirit Binding
             [165669] = true, -- Lunar Elder's Hearthstone
             [165670] = true, -- Peddlefeet's Lovely Hearthstone
             [165802] = true, -- Noble Gardener's Hearthstone
