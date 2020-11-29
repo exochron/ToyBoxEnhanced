@@ -1786,7 +1786,7 @@ ADDON.db.effect = {
             [140336] = true, -- Brulfist Idol
         },
 
-        ["Run"] = {
+        ["Running"] = {
             [104329] = true, -- Ash-Covered Horn
             [113543] = true, -- Spirit of Shinri
             [119180] = true, -- Goren "Log" Roller
@@ -1796,7 +1796,7 @@ ADDON.db.effect = {
             [153193] = true, -- Baarut the Brisk
         },
 
-        ["Swim"] = {
+        ["Swimming"] = {
             [86582] = true, -- Aqua Jewel
             [129165] = true, -- Barnacle-Encrusted Gem
             [134024] = true, -- Cursed Swabby Helmet
@@ -1825,7 +1825,7 @@ ADDON.db.effect = {
             [153004] = true, -- Unstable Portal Emitter
         },
 
-        ["Water Walk"] = {
+        ["Water Walking"] = {
             [85500] = true, -- Angler's Fishing Raft
             [142341] = true, -- Love Boat
             [166461] = true, -- Gnarlwood Waveboard
