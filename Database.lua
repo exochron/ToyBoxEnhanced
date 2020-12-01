@@ -1517,7 +1517,6 @@ ADDON.db.effect = {
             [109739] = true, -- Star Chart
             [116122] = true, -- Burning Legion Missive
             [118222] = true, -- Spirit of Bashiok
-            [119211] = true, -- Golden Hearthstone Card: Lord Jaraxxus
             [122126] = true, -- Attraction Sign
             [130170] = true, -- Tear of the Green Aspect
             [130199] = true, -- Legion Pocket Portal
