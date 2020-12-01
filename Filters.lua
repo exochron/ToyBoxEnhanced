@@ -23,9 +23,13 @@ local function CheckAllSettings(settings)
     for _, value in pairs(settings) do
         if type(value) == "table" then
             local subResult = CheckAllSettings(value)
-            if subResult == true then
+            if subResult == nil then
                 allDisabled = false
-            elseif subResult == false  then
+                allEnabled = false
+                break
+            elseif subResult == true then
+                allDisabled = false
+            elseif subResult == false then
                 allEnabled = false
             end
         elseif value then

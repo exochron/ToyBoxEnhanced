@@ -1324,6 +1324,7 @@ ADDON.db.effect = {
             [153124] = true, -- Spire of Spite
             [174924] = true, -- Void-Touched Souvenir Totem
             [184396] = true, -- Malfunctioning Goliath Gauntlet
+            [184447] = true, -- Kevin's Party Supplies
         },
 
         ["Summon"] = {
@@ -1527,6 +1528,7 @@ ADDON.db.effect = {
             [160751] = true, -- Dance of the Dead
             [169347] = true, -- Judgment of Mechagon
             [140632] = true, -- Lava Fountain
+            [184075] = true, -- Stonewrought Sentry
             [184418] = true, -- Acrobatic Steward
         },
 
@@ -1653,6 +1655,7 @@ ADDON.db.effect = {
 
     ["Profession"] = {
 
+        -- https://wow.tools/dbc/?dbc=spellcategories#page=1&colFilter[2]=exact:97
         ["Cooking"] = {
             [67097] = true, -- Grim Campfire
             [70722] = true, -- Little Wickerman
@@ -1766,7 +1769,6 @@ ADDON.db.effect = {
             [131811] = true, -- Rocfeather Skyhorn Kite
             [134021] = true, -- X-52 Rocket Helmet
             [173727] = true, -- Nomi's Vintage
-            [177951] = true, -- Glimmerflies on Strings
             [182694] = true, -- Stylish Black Parasol
             [182695] = true, -- Weathered Purple Parasol
             [182696] = true, -- The Countess's Parasol
@@ -1856,6 +1858,7 @@ ADDON.db.effect = {
             [85500] = true, -- Angler's Fishing Raft
             [142341] = true, -- Love Boat
             [166461] = true, -- Gnarlwood Waveboard
+            [177951] = true, -- Glimmerflies on Strings
         }
     },
 
@@ -1909,6 +1912,7 @@ ADDON.db.effect = {
         [166662] = true, -- Cranky Crab
         [174871] = true, -- Mayhem Mind Melder
         [174995] = true, -- Void Tendril Pet Leash
+        [184449] = true, -- Jiggles's Favorite Toy
         [184508] = true, -- Mawsworn Pet Leash
     },
 }
