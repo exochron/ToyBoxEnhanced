@@ -10,6 +10,7 @@ local SETTING_PROFESSION = "profession"
 local SETTING_WORLD_EVENT = "worldEvent"
 local SETTING_FACTION = "faction"
 local SETTING_EXPANSION = "expansion"
+local SETTING_EFFECT = "effect"
 
 local L = ADDON.L
 
@@ -144,6 +145,16 @@ local function AddCheckAllAndNoneInfo(settings, level)
     UIDropDownMenu_AddButton(info, level)
 end
 
+local function HasUserHiddenToys()
+    for _, value in pairs(ADDON.settings.hiddenToys) do
+        if value == true then
+            return true
+        end
+    end
+
+    return false
+end
+
 local function InitializeDropDown(filterMenu, level)
     local info
 
@@ -170,9 +181,12 @@ local function InitializeDropDown(filterMenu, level)
         UIDropDownMenu_AddButton(info, level)
 
         UIDropDownMenu_AddButton(CreateFilterInfo(NOT_COLLECTED, SETTING_NOT_COLLECTED), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L["Hidden"], SETTING_HIDDEN), level)
+        if ADDON.settings.filter[SETTING_HIDDEN] or HasUserHiddenToys() then
+            UIDropDownMenu_AddButton(CreateFilterInfo(L["Hidden"], SETTING_HIDDEN), level)
+        end
 
         UIDropDownMenu_AddSpace(level)
+        UIDropDownMenu_AddButton(CreateFilterCategory(L["Effect"], SETTING_EFFECT), level)
         UIDropDownMenu_AddButton(CreateFilterCategory(SOURCES, SETTING_SOURCE), level)
         UIDropDownMenu_AddButton(CreateFilterCategory(FACTION, SETTING_FACTION), level)
         UIDropDownMenu_AddButton(CreateFilterCategory(EXPANSION_FILTER_TEXT, SETTING_EXPANSION), level)
@@ -193,7 +207,7 @@ local function InitializeDropDown(filterMenu, level)
         UIDropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_SOURCE_4, SETTING_PROFESSION, ADDON.settings.filter[SETTING_PROFESSION]), level)
         UIDropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_SOURCE_7, SETTING_WORLD_EVENT, ADDON.settings.filter[SETTING_WORLD_EVENT]), level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo(L["Treasure"], "Treasure", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(225652), "Treasure", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_1, "Drop", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_2, "Quest", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_3, "Vendor", settings), level)
@@ -203,7 +217,7 @@ local function InitializeDropDown(filterMenu, level)
         UIDropDownMenu_AddButton(CreateFilterInfo(PVP, "PvP", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(L["Order Hall"], "Order Hall", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(GARRISON_LOCATION_TOOLTIP, "Garrison", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L["Pick Pocket"], "Pick Pocket", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(921), "Pick Pocket", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(L["Black Market"], "Black Market", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_10, "Shop", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_8, "Promotion", settings), level)
@@ -212,11 +226,11 @@ local function InitializeDropDown(filterMenu, level)
         local settings = ADDON.settings.filter[SETTING_PROFESSION]
         AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo(L["Jewelcrafting"], "Jewelcrafting", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L["Enchanting"], "Enchanting", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L["Engineering"], "Engineering", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(25229), "Jewelcrafting", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(7411), "Enchanting", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(4036), "Engineering", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(INSCRIPTION, "Inscription", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L["Leatherworking"], "Leatherworking", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(2108), "Leatherworking", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_ARCHAEOLOGY, "Archaeology", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_COOKING, "Cooking", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_FISHING, "Fishing", settings), level)
@@ -250,6 +264,51 @@ local function InitializeDropDown(filterMenu, level)
         AddCheckAllAndNoneInfo({ settings }, level)
         for i = 0, #ADDON.db.expansion do
             UIDropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], i, settings), level)
+        end
+
+    elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_EFFECT) then
+        local settings = ADDON.settings.filter[SETTING_EFFECT]
+        AddCheckAllAndNoneInfo({ settings }, level)
+
+        local sortedEffects, hasSubCategories = {}, {}
+        for effect, mainConfig in pairs(ADDON.db.effect) do
+            hasSubCategories[effect] = false
+            for _, subConfig in pairs(mainConfig) do
+                if type(subConfig) == "table" then
+                    hasSubCategories[effect] = true
+                end
+                break
+            end
+            table.insert(sortedEffects, effect)
+        end
+        table.sort(sortedEffects, function(a, b)
+            return (L[a] or a) < (L[b] or b)
+        end)
+
+        for _, effect in pairs(sortedEffects) do
+            if hasSubCategories[effect] then
+                UIDropDownMenu_AddButton(CreateInfoWithMenu(L[effect] or effect, effect, settings[effect]), level)
+            else
+                UIDropDownMenu_AddButton(CreateFilterInfo(L[effect] or effect, effect, settings), level)
+            end
+        end
+
+    elseif (level == 3 and ADDON.db.effect[UIDROPDOWNMENU_MENU_VALUE]) then
+        local settings = ADDON.settings.filter[SETTING_EFFECT][UIDROPDOWNMENU_MENU_VALUE]
+        local sortedEffects = {}
+        for effect, _ in pairs(ADDON.db.effect[UIDROPDOWNMENU_MENU_VALUE]) do
+            table.insert(sortedEffects, effect)
+        end
+        table.sort(sortedEffects, function(a, b)
+            return (L[a] or a) < (L[b] or b)
+        end)
+
+        if #sortedEffects > 3 then
+            AddCheckAllAndNoneInfo({ settings }, level)
+        end
+
+        for _, effect in pairs(sortedEffects) do
+            UIDropDownMenu_AddButton(CreateFilterInfo(L[effect] or effect, effect, settings), level)
         end
     end
 

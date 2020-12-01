@@ -1,8 +1,20 @@
 local ADDON_NAME, ADDON = ...
 
+local function FirstTableValue(table)
+    for _, value in pairs(table) do
+        return value
+    end
+
+    return nil
+end
+
 local function ContainsItem(data, itemId)
     for _, category in pairs(data) do
         if category[itemId] then
+            return true
+        end
+
+        if type(FirstTableValue(category)) == "table" and ContainsItem(category, itemId) then
             return true
         end
     end
@@ -16,7 +28,10 @@ local function DebugTest()
                 and not ContainsItem(ADDON.db.profession, itemId)
                 and not ContainsItem(ADDON.db.worldEvent, itemId)
         then
-            print("New toy (by Source): " .. itemId)
+            print("New toy (by Source): " .. itemId .. " " .. (GetItemInfo(itemId) or ''))
+        end
+        if not ContainsItem(ADDON.db.effect, itemId) then
+            print("New toy (by Effect): " .. itemId .. " " .. (GetItemInfo(itemId) or ''))
         end
     end
 
@@ -41,18 +56,31 @@ local function DebugTest()
             end
         end
     end
-end
-
--- Test for https://www.curseforge.com/wow/addons/toy-box-enhanced/issues/16
-local function UnusableOnLowLevelTest()
-    if UnitLevel("player") < 50 and C_ToyBox.IsToyUsable(95589) then
-        print("TBE: C_ToyBox.IsToyUsable() has been fixed!")
+    for _, source in pairs(ADDON.db.effect) do
+        for key, value in pairs(source) do
+            if type(value) == "table" then
+                for subKey, _ in pairs(value) do
+                    if not C_ToyBox.GetToyInfo(subKey) then
+                        print("Old toy (by Effect): " .. subKey)
+                    end
+                end
+            elseif not C_ToyBox.GetToyInfo(key) then
+                print("Old toy (by Effect): " .. key)
+            end
+        end
     end
 end
 
-ADDON:RegisterLoginCallback(function ()
+-- Test for https://www.curseforge.com/wow/addons/toy-box-enhanced/issues/16
+local function UnusableTest()
+    if UnitLevel("player") < 50 and C_ToyBox.IsToyUsable(95589) or C_ToyBox.IsToyUsable(85500) then
+        print("TBE: C_ToyBox.IsToyUsable() has been fixed!?")
+    end
+end
+
+ADDON:RegisterLoginCallback(function()
     if ADDON.settings.debugMode then
-        UnusableOnLowLevelTest()
+        UnusableTest()
     end
 end)
 ADDON:RegisterLoadUICallback(function()

@@ -1,15 +1,16 @@
 local ADDON_NAME, ADDON = ...
 
-local function FilterHiddenToys(itemId)
+local function FilterUserHiddenToys(itemId)
     return ADDON.settings.filter.hidden or not ADDON.settings.hiddenToys[itemId]
 end
 
-local function FilterCollectedToys(collected)
+local function FilterCollectedToys(itemId)
+    local collected = PlayerHasToy(itemId)
     return (ADDON.settings.filter.collected and collected) or (ADDON.settings.filter.notCollected and not collected)
 end
 
-local function FilterFavoriteToys(isFavorite)
-    return not ADDON.settings.filter.onlyFavorites or isFavorite or not ADDON.settings.filter.collected
+local function FilterFavoriteToys(itemId)
+    return not ADDON.settings.filter.onlyFavorites or not ADDON.settings.filter.collected or select(4, C_ToyBox.GetToyInfo(itemId))
 end
 
 local function FilterUsableToys(itemId)
@@ -20,10 +21,25 @@ local function CheckAllSettings(settings)
     local allDisabled = true
     local allEnabled = true
     for _, value in pairs(settings) do
-        if (value) then
+        if type(value) == "table" then
+            local subResult = CheckAllSettings(value)
+            if subResult == nil then
+                allDisabled = false
+                allEnabled = false
+                break
+            elseif subResult == true then
+                allDisabled = false
+            elseif subResult == false then
+                allEnabled = false
+            end
+        elseif value then
             allDisabled = false
         else
             allEnabled = false
+        end
+
+        if allEnabled == false and allDisabled == false then
+            break
         end
     end
 
@@ -110,16 +126,52 @@ local function FilterToysByExpansion(itemId)
     return false
 end
 
-function ADDON:FilterToy(itemId)
-    local itemId, name, icon, favorited = C_ToyBox.GetToyInfo(itemId)
-    local collected = PlayerHasToy(itemId)
+local function FilterToysByEffect(itemId)
+    local settings = ADDON.settings.filter.effect
 
-    if (FilterHiddenToys(itemId)
-            and FilterCollectedToys(collected)
-            and FilterFavoriteToys(favorited)
+    local allSettingsResult = CheckAllSettings(settings)
+    if allSettingsResult then
+        return true
+    end
+
+    for name, categoriesOrToys in pairs(ADDON.db.effect) do
+        local hasCategories = false
+        for _, value in pairs(categoriesOrToys) do
+            if type(value) == "table" then
+                hasCategories = true
+            end
+            break
+        end
+
+        if hasCategories then
+            local settingResult = CheckItemInList(settings[name], categoriesOrToys, itemId)
+            if settingResult ~= nil then
+                return settingResult
+            end
+        end
+    end
+
+    local settingResult = CheckItemInList(settings, ADDON.db.effect, itemId)
+    if settingResult ~= nil then
+        return settingResult
+    end
+
+    -- Todo: Remove later
+    if allSettingsResult == false then
+        return true -- uncategorized toys should be shown when all filters are disabled
+    end
+
+    return false
+end
+
+function ADDON:FilterToy(itemId)
+    if (FilterUserHiddenToys(itemId)
+            and FilterCollectedToys(itemId)
+            and FilterFavoriteToys(itemId)
             and FilterUsableToys(itemId)
             and FilterToysByFaction(itemId)
             and FilterToysByExpansion(itemId)
+            and FilterToysByEffect(itemId)
             and (FilterToysBySource(itemId)
                 or FilterToysByProfession(itemId)
                 or FilterToysByWorldEvent(itemId))) then
