@@ -327,6 +327,7 @@ ADDON.db.faction = {
         [169298] = true, -- Frostwolf Insignia
         [170154] = true, -- Book of the Unshackled
         [172222] = true, -- Crashin' Thrashin' Juggernaught
+        [173727] = true, -- Nomi's Vintage
     },
 }
 
@@ -369,7 +370,6 @@ ADDON.db.source = {
         [141298] = true, -- Displacer Meditation Stone
         [140780] = true, -- Fal'dorei Egg
         [143534] = true, -- Wand of Simulated Life
-        [130194] = true, -- Silver Gilnean Brooch
 
         -- Battle for Azeroth
         [161342] = true, -- Gem of Acquiescence
@@ -392,6 +392,7 @@ ADDON.db.source = {
         [182729] = true, -- Hearty Dragon Plume
         [182732] = true, -- The Necronom-i-nom
         [182780] = true, -- Muckpool Cookpot
+        [183810] = true, -- Shadowlands Mini: Grandmaster Vole
         [183986] = true, -- Bondable Sinstone
         [183988] = true, -- Bondable Val'kyr Diadem
         [184075] = true, -- Stonewrought Sentry
@@ -478,7 +479,6 @@ ADDON.db.source = {
         [147843] = true, -- Sira's Extra Cloak -- from warden paragon cache
         [147867] = true, -- Pilfered Sweeper
         [140314] = true, -- Crab Shank
-        [129045] = true, -- Whitewater Tsunami
         [153124] = true, -- Spire of Spite
         [153126] = true, -- Micro-Artillery Controller
         [153179] = true, -- Blue Conservatory Scroll
@@ -625,6 +625,7 @@ ADDON.db.source = {
         [169768] = true, -- Heart of a Champion
         [170154] = true, -- Book of the Unshackled
         [170155] = true, -- Carved Ankoan Charm
+        [173727] = true, -- Nomi's Vintage
         [173951] = true, -- N'lyeth, Sliver of N'Zoth
         [175063] = true, -- Aqir Egg Cluster
 
@@ -633,7 +634,7 @@ ADDON.db.source = {
         [180947] = true, -- Tithe Collector's Vessel
         [183847] = true, -- Acolyte's Guise
         [183856] = true, -- Mystical Orb of Meditation
-
+        [184487] = true, -- Gormling in a Bag
     },
 
     ["Vendor"] = {
@@ -806,9 +807,6 @@ ADDON.db.source = {
         [153039] = true, -- Crystalline Campfire
 
         -- Battle for Azeroth
-        [163565] = true, -- Vulpera Scrapper's Armor
-        [163566] = true, -- Vulpera Battle Banner
-        [163206] = true, -- Weary Spirit Binding
         [163463] = true, -- Dead Ringer
         [163211] = true, -- Akunda's Firesticks
         [163210] = true, -- Party Totem
@@ -925,6 +923,7 @@ ADDON.db.source = {
         [147832] = true, -- Magical Saucer -- mage class hall
         [139587] = true, -- Suspicious Crate
         [140160] = true, -- Stormforged Vrykul Horn
+        [140632] = true, -- Lava Fountain
     },
 
     ["Pick Pocket"] = {
@@ -964,11 +963,11 @@ ADDON.db.source = {
         [172179] = true, -- Eternal Traveler's Hearthstone - Shadowlands Epic Edition
 
         -- Trading Card Game
+        [32542] = true, -- Imp in a Ball
+        [32566] = true, -- Picnic Basket
         [33219] = true, -- Goblin Gumbo Kettle
         [33223] = true, -- Fishing Chair
-        [32566] = true, -- Picnic Basket
         [34499] = true, -- Paper Flying Machine Kit
-        [32542] = true, -- Imp in a Ball
         [35227] = true, -- Goblin Weather Machine - Prototype 01-B
         [38301] = true, -- D.I.S.C.O.
         [38578] = true, -- The Flag of Ownership
@@ -1052,14 +1051,14 @@ ADDON.db.effect = {
         -- Modify the entire character model, giving the player a new model
         ["Full"] = {
             [1973] = true, -- Orb of Deception
-            [122283] = true, -- Rukhmar's Sacred Memory
             [17712] = true, -- Winter Veil Disguise Kit
             [32782] = true, -- Time-Lost Figurine
+            [33079] = true, -- Murloc Costume
             [35275] = true, -- Orb of the Sin'dorei
             [37254] = true, -- Super Simian Sphere
-            [72159] = true, -- Magical Ogre Idol
             [43499] = true, -- Iron Boot Flask
             [44719] = true, -- Frenzyheart Brew
+            [49704] = true, -- Carved Ogre Idol
             [52201] = true, -- Muradin's Favor
             [53057] = true, -- Faded Wizard Hat
             [54651] = true, -- Gnomeregan Pride
@@ -1070,6 +1069,7 @@ ADDON.db.effect = {
             [66888] = true, -- Stave of Fur and Claw
             [68806] = true, -- Kalytha's Haunted Locket
             [71259] = true, -- Leyara's Locket
+            [72159] = true, -- Magical Ogre Idol
             [86568] = true, -- Mr. Smite's Brass Compass
             [86589] = true, -- Ai-Li's Skymirror
             [88566] = true, -- Krastinov's Bag of Horrors
@@ -1090,6 +1090,7 @@ ADDON.db.effect = {
             [119421] = true, -- Sha'tari Defender's Medallion
             [120276] = true, -- Outrider's Bridle Chain
             [122117] = true, -- Cursed Feather of Ikzan
+            [122283] = true, -- Rukhmar's Sacred Memory
             [122304] = true, -- Fandral's Seed Pouch
             [127394] = true, -- Podling Camouflage
             [127659] = true, -- Ghostly Iron Buccaneer's Hat
@@ -1130,12 +1131,12 @@ ADDON.db.effect = {
             [166544] = true, -- Dark Ranger's Spare Cowl
             [166779] = true, -- Transmorpher Beacon
             [166790] = true, -- Highborne Memento
+            [170154] = true, -- Book of the Unshackled
+            [170155] = true, -- Carved Ankoan Charm
             [172219] = true, -- Wild Holly
             [174873] = true, -- Trans-mogu-rifier
             [183847] = true, -- Acolyte's Guise
             [183903] = true, -- Smelly Jelly
-            [170154] = true, -- Book of the Unshackled
-            [170155] = true, -- Carved Ankoan Charm
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1267,6 +1268,7 @@ ADDON.db.effect = {
             [128223] = true, -- Bottomless Stygana Mushroom Brew
             [130151] = true, -- The "Devilsaur" Lunchbox
             [166703] = true, -- Goldtusk Inn Breakfast Buffet
+            [183900] = true, -- Sinvyr Tea Set
         },
 
         ["Other"] = {
@@ -1335,12 +1337,14 @@ ADDON.db.effect = {
             [82467] = true, -- Ruthers' Harness
             [98552] = true, -- Xan'tish's Flute
             [117569] = true, -- Giant Deathweb Egg
+            [122293] = true, -- Trans-Dimensional Bird Whistle
             [128328] = true, -- Skoller's Bag of Squirrel Treats
             [128794] = true, -- Sack of Spectral Spiders
             [129279] = true, -- Enchanted Stone Whistle
             [134019] = true, -- Don Carlos' Famous Hat
             [136846] = true, -- Familiar Stone
             [136855] = true, -- Hunter's Call
+            [136928] = true, -- Thaumaturgist's Orb
             [136934] = true, -- Raging Elemental Stone
             [138878] = true, -- Copy of Daglop's Contract
             [140786] = true, -- Ley Spider Eggs
@@ -1352,13 +1356,13 @@ ADDON.db.effect = {
             [156871] = true, -- Spitzy
             [159753] = true, -- Desert Flute
             [160740] = true, -- Croak Crock
+            [161342] = true, -- Gem of Acquiescence
             [174445] = true, -- Glimmerfly Cocoon
+            [174874] = true, -- Budget K'thir Disguise
             [183986] = true, -- Bondable Sinstone
             [183988] = true, -- Bondable Val'kyr Diadem
-            [136928] = true, -- Thaumaturgist's Orb
-            [174874] = true, -- Budget K'thir Disguise
-            [161342] = true, -- Gem of Acquiescence
-            [122293] = true, -- Trans-Dimensional Bird Whistle
+            [184413] = true, -- Mnemonic Attunement Pane
+            [184476] = true, -- Regenerating Slime Vial
         },
     },
 
@@ -1527,6 +1531,7 @@ ADDON.db.effect = {
             [160751] = true, -- Dance of the Dead
             [169347] = true, -- Judgment of Mechagon
             [140632] = true, -- Lava Fountain
+            [183900] = true, -- Sinvyr Tea Set
             [184075] = true, -- Stonewrought Sentry
             [184418] = true, -- Acrobatic Steward
         },
@@ -1581,6 +1586,8 @@ ADDON.db.effect = {
             [174920] = true, -- Coifcurl's Close Shave Kit
             [174928] = true, -- Rotten Apple
             [120857] = true, -- Barrel of Bandanas
+            [151877] = true, -- Barrel of Eyepatches
+            [183810] = true, -- Shadowlands Mini: Grandmaster Vole
         },
 
         ["Mail"] = {
@@ -1791,7 +1798,6 @@ ADDON.db.effect = {
             [142542] = true, -- Tome of Town Portal
             [162973] = true, -- Greatfather Winter's Hearthstone
             [163045] = true, -- Headless Horseman's Hearthstone
-            [163206] = true, -- Weary Spirit Binding
             [165669] = true, -- Lunar Elder's Hearthstone
             [165670] = true, -- Peddlefeet's Lovely Hearthstone
             [165802] = true, -- Noble Gardener's Hearthstone
@@ -1831,7 +1837,9 @@ ADDON.db.effect = {
         },
 
         ["Teleport"] = {
+            [18984] = true, -- Dimensional Ripper - Everlook
             [18986] = true, -- Ultrasafe Transporter: Gadgetzan
+            [30542] = true, -- Dimensional Ripper - Area 52
             [30544] = true, -- Ultrasafe Transporter: Toshley's Station
             [43824] = true, -- The Schools of Arcane Magic - Mastery
             [48933] = true, -- Wormhole Generator: Northrend
@@ -1840,17 +1848,16 @@ ADDON.db.effect = {
             [95568] = true, -- Sunreaver Beacon
             [112059] = true, -- Wormhole Centrifuge
             [129929] = true, -- Ever-Shifting Mirror
+            [136849] = true, -- Nature's Beacon
             [140324] = true, -- Mobile Telemancy Beacon
             [151016] = true, -- Fractured Necrolyte Skull
             [151652] = true, -- Wormhole Generator: Argus
+            [153004] = true, -- Unstable Portal Emitter
             [168807] = true, -- Wormhole Generator: Kul Tiras
             [168808] = true, -- Wormhole Generator: Zandalar
             [169297] = true, -- Stormpike Insignia
             [169298] = true, -- Frostwolf Insignia
-            [30542] = true, -- Dimensional Ripper - Area 52
-            [18984] = true, -- Dimensional Ripper - Everlook
-            [136849] = true, -- Nature's Beacon
-            [153004] = true, -- Unstable Portal Emitter
+            [172924] = true, -- Wormhole Generator: Shadowlands
         },
 
         ["Water Walking"] = {

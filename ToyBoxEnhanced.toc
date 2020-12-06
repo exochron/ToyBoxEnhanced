@@ -18,6 +18,8 @@ Locals\zhCN.lua
 Locals\zhTW.lua
 
 Database.lua
+toys.db.lua
+
 Filters.lua
 ToyBoxEnhanced.lua
 Settings.lua

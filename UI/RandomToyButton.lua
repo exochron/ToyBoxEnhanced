@@ -19,9 +19,14 @@ end
 local function collectItemIds()
     local items = {}
 
-    for _, itemId in pairs(ADDON.db.ingameList) do
+    local now = GetTime() + 60
+
+    for itemId in pairs(ADDON.db.ingameList) do
         if PlayerHasToy(itemId) and C_ToyBox.GetIsFavorite(itemId) and C_ToyBox.IsToyUsable(itemId) then
-            items[#items + 1] = itemId
+            local startTime, duration = GetItemCooldown(itemId)
+            if startTime == 0 or (startTime + duration) <= now then
+                items[#items + 1] = itemId
+            end
         end
     end
 
@@ -62,17 +67,15 @@ local function initActionButton()
 
     actionButton:RegisterEvent("PLAYER_REGEN_ENABLED")
     actionButton:SetScript("OnEvent", updateButtonFavorites)
+    actionButton:HookScript("OnClick", updateButtonFavorites)
     hooksecurefunc(C_ToyBox, "SetIsFavorite", updateButtonFavorites)
 end
 
 local function createDisplayButton()
     local L = ADDON.L
-
     displayButton = CreateFrame("Button", nil, ToyBox, "TBEUseRandomToyButtonTemplate")
-    displayButton:SetAttribute("type", "click")
-    displayButton:SetAttribute("clickbutton", _G[CLICK_TARGET_NAME])
-    displayButton:SetAttribute("_ondragstart", 'return "clear", "macro", "' .. MACRO_NAME .. '"')
     displayButton:RegisterForDrag("LeftButton")
+
     local toys = collectItemIds()
     displayButton.LockIcon:SetShown(#toys == 0)
 
@@ -89,12 +92,29 @@ local function createDisplayButton()
 end
 
 local function checkClickMacro()
-    if not InCombatLockdown() and not GetMacroInfo(MACRO_NAME) and GetNumMacros() < MAX_GLOBAL_MACRO_COUNT then
+    if not GetMacroInfo(MACRO_NAME) and GetNumMacros() < MAX_GLOBAL_MACRO_COUNT then
         CreateMacro(MACRO_NAME, MACRO_ICON, MACRO_BODY)
     end
 end
 
-ADDON:RegisterLoginCallback(initActionButton)
-ADDON:RegisterLoginCallback(checkClickMacro)
-ADDON:RegisterLoadUICallback(createDisplayButton)
-ADDON:RegisterLoadUICallback(checkClickMacro)
+local function buildDelayTillOutOfCombat(func)
+    return function()
+        if InCombatLockdown() then
+            local delayFrame = CreateFrame("Frame")
+            delayFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+            delayFrame:SetScript("OnEvent", function()
+                delayFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
+                func()
+            end)
+        else
+            func()
+        end
+    end
+end
+
+ADDON:RegisterLoginCallback(buildDelayTillOutOfCombat(function()
+    checkClickMacro()
+    initActionButton()
+end))
+
+ADDON:RegisterLoadUICallback(buildDelayTillOutOfCombat(createDisplayButton))

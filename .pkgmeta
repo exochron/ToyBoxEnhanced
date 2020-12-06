@@ -1,7 +1,7 @@
 ignore:
+    - generator
     - LICENSE
     - README.md
     - CHANGELOG.md
-    - pkgmeta.yaml
 
 license-output: LICENSE

@@ -22,8 +22,24 @@ local function ContainsItem(data, itemId)
     return false
 end
 
+local function testExists(list, byName)
+    for _, source in pairs(list) do
+        for itemId, value in pairs(source) do
+            if type(value) == "table" then
+                testExists(source, byName)
+                break
+            else
+                local id, name = C_ToyBox.GetToyInfo(itemId)
+                if not id or not name then
+                    print("Old toy (by " .. byName .. "): " .. itemId)
+                end
+            end
+        end
+    end
+end
+
 local function DebugTest()
-    for _, itemId in pairs(ADDON.db.ingameList) do
+    for itemId in pairs(ADDON.db.ingameList) do
         if not ContainsItem(ADDON.db.source, itemId)
                 and not ContainsItem(ADDON.db.profession, itemId)
                 and not ContainsItem(ADDON.db.worldEvent, itemId)
@@ -35,40 +51,10 @@ local function DebugTest()
         end
     end
 
-    for _, source in pairs(ADDON.db.source) do
-        for itemId, _ in pairs(source) do
-            if not C_ToyBox.GetToyInfo(itemId) then
-                print("Old toy (by Source): " .. itemId)
-            end
-        end
-    end
-    for _, source in pairs(ADDON.db.profession) do
-        for itemId, _ in pairs(source) do
-            if not C_ToyBox.GetToyInfo(itemId) then
-                print("Old toy (by Profession): " .. itemId)
-            end
-        end
-    end
-    for _, source in pairs(ADDON.db.worldEvent) do
-        for itemId, _ in pairs(source) do
-            if not C_ToyBox.GetToyInfo(itemId) then
-                print("Old toy (by World Event): " .. itemId)
-            end
-        end
-    end
-    for _, source in pairs(ADDON.db.effect) do
-        for key, value in pairs(source) do
-            if type(value) == "table" then
-                for subKey, _ in pairs(value) do
-                    if not C_ToyBox.GetToyInfo(subKey) then
-                        print("Old toy (by Effect): " .. subKey)
-                    end
-                end
-            elseif not C_ToyBox.GetToyInfo(key) then
-                print("Old toy (by Effect): " .. key)
-            end
-        end
-    end
+    testExists(ADDON.db.source, "Source")
+    testExists(ADDON.db.profession, "Profession")
+    testExists(ADDON.db.worldEvent, "World Event")
+    testExists(ADDON.db.effect, "Effect")
 end
 
 -- Test for https://www.curseforge.com/wow/addons/toy-box-enhanced/issues/16

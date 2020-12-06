@@ -1,2 +1,4 @@
 .idea/
 /.release/
+generator/*.db.lua
+generator/*.exe

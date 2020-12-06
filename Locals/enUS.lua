@@ -24,7 +24,6 @@ L["SETTING_REPLACE_PROGRESSBAR"] = "Replace progress bar with achievement points
 -- Source
 L["Black Market"] = "Black Market"
 L["Order Hall"] = "Order Hall"
-L["Pick Pocket"] = "Pick Pocket"
 
 -- Effects
 L["Act"] = "Act"

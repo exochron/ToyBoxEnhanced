@@ -78,8 +78,8 @@ end
 local function OnLogin()
     for toyIndex = 1, C_ToyBox.GetNumFilteredToys() do
         local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
-        if itemId then
-            tinsert(ADDON.db.ingameList, itemId)
+        if itemId and not ADDON.db.ingameList[itemId] then
+            ADDON.db.ingameList[itemId] = true
         end
     end
 
