@@ -76,7 +76,7 @@ local function FilterToys()
         end
 
         if ADDON.settings.sort.by == 'name' then
-            result = nameA:upper() > nameB:upper()
+            result = strcmputf8i(nameA, nameB) < 0
         elseif ADDON.settings.sort.by == 'expansion' then
             result = itemA < itemB
         end
