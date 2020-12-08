@@ -135,7 +135,7 @@ frame:SetScript("OnEvent", function(self, event, arg1)
         delayLoginUntilFullyLoaded = false
     end
 
-    if playerLoggedIn and addonLoaded and not delayLoginUntilFullyLoaded and not InCombatLockdown() then
+    if playerLoggedIn and addonLoaded and not delayLoginUntilFullyLoaded and not loggedIn and not InCombatLockdown() then
         loggedIn = true
         OnLogin()
     end
