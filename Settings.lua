@@ -1,15 +1,20 @@
 local ADDON_NAME, ADDON = ...
 
 ToyBoxEnhancedSettings = ToyBoxEnhancedSettings or {}
-local defaultFilterStates
+local defaultFilterStates, defaultSortStates
 
 function ADDON:ResetFilterSettings()
     ADDON.settings.filter = CopyTable(defaultFilterStates)
 end
 
+function ADDON:ResetSortSettings()
+    ADDON.settings.sort = CopyTable(defaultSortStates)
+    ToyBoxEnhancedSettings.sort = ADDON.settings.sort
+end
+
 function ADDON:ResetUISettings()
     ADDON.settings.enableCursorKeys = true
-    ADDON.settings.replaceProgressBar = true
+    ADDON.settings.searchInDescription = true
     ADDON.settings.favoritePerChar = false
 end
 
@@ -17,7 +22,7 @@ local function PrepareDefaults()
     local defaultSettings = {
         debugMode = false,
         enableCursorKeys = true,
-        replaceProgressBar = true,
+        searchInDescription = true,
         favoritePerChar = false,
         favoredToys = {},
         hiddenToys = {},
@@ -36,7 +41,15 @@ local function PrepareDefaults()
             worldEvent = {},
             expansion = {},
             effect = {},
-            hidden = false,
+            hidden = false, -- hidden by user
+            secret = false, -- hidden in game
+        },
+
+        sort = {
+            by = 'name', -- name|expansion
+            descending = false,
+            favoritesFirst = true,
+            unownedAtLast = false,
         },
     }
 
@@ -92,6 +105,7 @@ end
 ADDON:RegisterLoginCallback(function()
     local defaultSettings = PrepareDefaults()
     defaultFilterStates = CopyTable(defaultSettings.filter)
+    defaultSortStates = CopyTable(defaultSettings.sort)
     CombineSettings(ToyBoxEnhancedSettings, defaultSettings)
     ADDON.settings = ToyBoxEnhancedSettings
 end)

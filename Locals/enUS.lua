@@ -15,16 +15,19 @@ L["Toys"] = "Toys"
 L["Usable"] = "Usable"
 L["Day of the Dead"] = "Day of the Dead"
 L["Pirates' Day"] = "Pirates' Day"
+L["SORT_FAVORITES_FIRST"] = "Favorites First"
+L["SORT_REVERSE"] = "Reverse Sort"
+L["SORT_UNOWNED_AFTER"] = "Unowned at Last"
+L["FILTER_SECRET"] = "Hidden in game"
 
 -- Settings
 L["SETTING_CURSOR_KEYS"] = "Enable Left&Right keys to flip pages"
 L["SETTING_FAVORITE_PER_CHAR"] = "Favorite toys per character"
-L["SETTING_REPLACE_PROGRESSBAR"] = "Replace progress bar with achievement points"
+L["SETTING_SEARCH_IN_DESCRIPTION"] = "Search also in toy description"
 
 -- Source
 L["Black Market"] = "Black Market"
 L["Order Hall"] = "Order Hall"
-L["Pick Pocket"] = "Pick Pocket"
 
 -- Effects
 L["Act"] = "Act"

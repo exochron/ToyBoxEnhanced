@@ -18,6 +18,15 @@ local function FireCallbacks(callbacks)
 end
 --endregion
 
+local function ResetAPIFilters()
+    C_ToyBox.SetAllSourceTypeFilters(true)
+    C_ToyBox.SetAllExpansionTypeFilters(true)
+    C_ToyBox.SetCollectedShown(true)
+    C_ToyBox.SetUncollectedShown(true)
+    C_ToyBox.SetUnusableShown(true)
+    C_ToyBox.SetFilterString("")
+end
+
 local function LoadUI()
     PetJournal:HookScript("OnShow", function()
         if not PetJournalPetCard.petID then
@@ -29,57 +38,72 @@ local function LoadUI()
     ADDON:FilterAndRefresh()
 end
 
-function ADDON:FilterAndRefresh()
-    if not InCombatLockdown() then
-        self:FilterToys()
-        ToyBox_UpdatePages()
-        ToyBox_UpdateButtons()
-    end
-end
-
-local function SearchIsActive()
-    local searchString = ToyBox.searchString
-    if (not searchString or string.len(searchString) == 0) then
-        return false
-    end
-
-    return true
-end
-
-local function ResetAPIFilters()
-    C_ToyBox.SetAllSourceTypeFilters(true)
-    C_ToyBox.SetAllExpansionTypeFilters(true)
-    C_ToyBox.SetCollectedShown(true)
-    C_ToyBox.SetUncollectedShown(true)
-    C_ToyBox.SetUnusableShown(true)
-    C_ToyBox.SetFilterString("")
-end
-
-function ADDON:FilterToys()
-    local searchIsActive = SearchIsActive()
-
-    local toyCount = C_ToyBox.GetNumTotalDisplayedToys()
-    if (not searchIsActive and C_ToyBox.GetNumFilteredToys() ~= toyCount) then
-        ResetAPIFilters()
-    end
-
+local function FilterToys()
     local filteredToyList = {}
 
-    for toyIndex = 1, C_ToyBox.GetNumFilteredToys() do
-        local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
+    local searchString = ToyBox.searchString
+    if not searchString then
+        searchString = ""
+    else
+        searchString = searchString:lower()
+    end
 
-        if (searchIsActive or ADDON:FilterToy(itemId)) then
+    for itemId in pairs(ADDON.db.ingameList) do
+        if ADDON:FilterToy(itemId, searchString) then
             table.insert(filteredToyList, itemId)
         end
     end
-    self.filteredToyList = filteredToyList
+
+    table.sort(filteredToyList, function(itemA, itemB)
+        if itemA == itemB then
+            return false
+        end
+
+        local result = false
+
+        local _, nameA, _, isFavoriteA = C_ToyBox.GetToyInfo(itemA)
+        local _, nameB, _, isFavoriteB = C_ToyBox.GetToyInfo(itemB)
+
+        if ADDON.settings.sort.favoritesFirst and isFavoriteA ~= isFavoriteB then
+            return isFavoriteA and not isFavoriteB
+        end
+        if ADDON.settings.sort.unownedAtLast then
+            local isCollectedA = PlayerHasToy(itemA)
+            local isCollectedB = PlayerHasToy(itemB)
+            if isCollectedA ~= isCollectedB then
+                return isCollectedA and not isCollectedB
+            end
+        end
+
+        if ADDON.settings.sort.by == 'name' then
+            result = strcmputf8i(nameA, nameB) < 0
+        elseif ADDON.settings.sort.by == 'expansion' then
+            result = itemA < itemB
+        end
+
+        if ADDON.settings.sort.descending then
+            result = not result
+        end
+
+        return result
+    end)
+
+    ADDON.filteredToyList = filteredToyList
+end
+
+function ADDON:FilterAndRefresh()
+    if not InCombatLockdown() then
+        FilterToys()
+        ToyBox_UpdatePages()
+        ToyBox_UpdateButtons()
+    end
 end
 
 local function OnLogin()
     for toyIndex = 1, C_ToyBox.GetNumFilteredToys() do
         local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
         if itemId then
-            tinsert(ADDON.db.ingameList, itemId)
+            ADDON.db.ingameList[itemId] = true
         end
     end
 
@@ -87,7 +111,10 @@ local function OnLogin()
 end
 
 local loggedIn = false
-local waitTillLoaded = false
+local addonLoaded = false
+local playerLoggedIn = false
+local delayLoginUntilFullyLoaded = false
+
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN")
 frame:RegisterEvent("ADDON_LOADED")
@@ -95,29 +122,26 @@ frame:RegisterEvent("TOYS_UPDATED")
 frame:RegisterEvent("PLAYER_REGEN_ENABLED")
 frame:RegisterEvent("PLAYER_REGEN_DISABLED")
 frame:SetScript("OnEvent", function(self, event, arg1)
-    if event == "PLAYER_LOGIN" and false == loggedIn then
+    if event == "ADDON_LOADED" and arg1 == ADDON_NAME then
+        addonLoaded = true
+    elseif event == "PLAYER_LOGIN" and false == playerLoggedIn then
         ResetAPIFilters()
 
         if C_ToyBox.GetNumFilteredToys() < 555 then
-            waitTillLoaded = true
-            --C_ToyBox is not fully loaded yet on a freshly launched client. So we just wait until its ready.
-        else
-            loggedIn = true
-            OnLogin()
+            delayLoginUntilFullyLoaded = true
         end
-    elseif event == "TOYS_UPDATED" and waitTillLoaded and not loggedIn and nil == arg1 and C_ToyBox.GetNumFilteredToys() > 555 then
+        playerLoggedIn = true
+    elseif event == "TOYS_UPDATED" and delayLoginUntilFullyLoaded and playerLoggedIn and nil == arg1 and C_ToyBox.GetNumFilteredToys() > 555 then
+        delayLoginUntilFullyLoaded = false
+    end
+
+    if playerLoggedIn and addonLoaded and not delayLoginUntilFullyLoaded and not InCombatLockdown() then
         loggedIn = true
         OnLogin()
     end
 
-    if ToyBox and not ADDON.initialized and ADDON.settings then
+    if ToyBox and loggedIn and not ADDON.initialized and ADDON.settings and not InCombatLockdown() then
         frame:UnregisterEvent("ADDON_LOADED")
-        if false == loggedIn then
-            frame:UnregisterEvent("PLAYER_LOGIN")
-            loggedIn = true
-            ResetAPIFilters()
-            OnLogin()
-        end
         LoadUI()
         ADDON.initialized = true
     elseif ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then

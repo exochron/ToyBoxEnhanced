@@ -6,7 +6,7 @@ local starButton
 function ADDON:CollectFavoredToys()
     local personalFavored = {}
     if ADDON.settings.favoritePerChar then
-        for _, itemId in pairs(ADDON.db.ingameList) do
+        for itemId in pairs(ADDON.db.ingameList) do
             if PlayerHasToy(itemId) and C_ToyBox.GetIsFavorite(itemId) then
                 personalFavored[#personalFavored + 1] = itemId
             end
@@ -26,7 +26,7 @@ local function FavorToys(itemIds, finishedCallback)
     end
 
     local updateCount = 0
-    for _, itemId in pairs(ADDON.db.ingameList) do
+    for itemId in pairs(ADDON.db.ingameList) do
         if PlayerHasToy(itemId) then
             local isFavorite = C_ToyBox.GetIsFavorite(itemId)
             local shouldFavor = tContains(itemIds, itemId)

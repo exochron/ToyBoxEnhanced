@@ -279,8 +279,14 @@
         </Frames>
     </Frame>
 
-    <!-- from PetCollection.SummonRandomFavoritePetButton-->
+    <!-- from PetCollection.SummonRandomFavoritePetButton -->
     <Button name="TBEUseRandomToyButtonTemplate" inherits="SecureHandlerDragTemplate,SecureActionButtonTemplate" virtual="true">
+        <Attributes>
+            <Attribute name="type1" value="macro"/>
+            <Attribute name="macrotext" value="/click TBERandomFavoredToy"/>
+            <Attribute name="_ondragstart" value='return "clear", "macro", "TBE: Random Toy"'/>
+        </Attributes>
+
         <Size>
             <AbsDimension x="33" y="33"/>
         </Size>

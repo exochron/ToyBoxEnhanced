@@ -5,6 +5,9 @@ Toy Box Enhanced extends the default Toy Box.
 ### Features
 
 - Filter toys by Effect, Source, Faction and Expansion
+- Show toys, which are normally hidden by the game
+- Search also in toy description (like search for "post" and find [Katy's Stampwhistle] ;)
+- Sort toys by name or expansion (or in reverse)
 - Save filter options
 - Hide unusable or unwanted toys
 - Displays the number of usable toys

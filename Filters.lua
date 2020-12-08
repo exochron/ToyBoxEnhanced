@@ -1,7 +1,28 @@
 local ADDON_NAME, ADDON = ...
 
+local function FilterBySearch(itemId, searchString)
+    local _, name = C_ToyBox.GetToyInfo(itemId)
+    name = name:lower()
+    local pos = strfind(name, searchString, 1, true)
+    local result = pos ~= nil
+    if result then
+        return result
+    end
+
+    local _, spellId = GetItemSpell(itemId)
+    local spellDescription = GetSpellDescription(spellId)
+    spellDescription = spellDescription:lower()
+    pos = strfind(spellDescription, searchString, 1, true)
+    result = pos ~= nil
+
+    return result
+end
+
 local function FilterUserHiddenToys(itemId)
     return ADDON.settings.filter.hidden or not ADDON.settings.hiddenToys[itemId]
+end
+local function FilterSecretToys(itemId)
+    return ADDON.settings.filter.secret or ADDON.db.ingameList[itemId] == true
 end
 
 local function FilterCollectedToys(itemId)
@@ -164,17 +185,20 @@ local function FilterToysByEffect(itemId)
     return false
 end
 
-function ADDON:FilterToy(itemId)
-    if (FilterUserHiddenToys(itemId)
+function ADDON:FilterToy(itemId, searchString)
+    if (searchString ~= "" and FilterBySearch(itemId, searchString))
+            or (searchString == ""
+            and FilterUserHiddenToys(itemId)
+            and FilterSecretToys(itemId)
             and FilterCollectedToys(itemId)
             and FilterFavoriteToys(itemId)
             and FilterUsableToys(itemId)
             and FilterToysByFaction(itemId)
             and FilterToysByExpansion(itemId)
             and FilterToysByEffect(itemId)
-            and (FilterToysBySource(itemId)
-                or FilterToysByProfession(itemId)
-                or FilterToysByWorldEvent(itemId))) then
+            and (FilterToysBySource(itemId) or FilterToysByProfession(itemId) or FilterToysByWorldEvent(itemId))
+    )
+    then
         return true
     end
 

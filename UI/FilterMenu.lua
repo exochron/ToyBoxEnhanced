@@ -5,7 +5,9 @@ local SETTING_ONLY_FAVORITES = "onlyFavorites"
 local SETTING_NOT_COLLECTED = "notCollected"
 local SETTING_ONLY_USEABLE = "onlyUsable"
 local SETTING_HIDDEN = "hidden"
+local SETTING_SECRET = "secret"
 local SETTING_SOURCE = "source"
+local SETTING_SORT = "sort"
 local SETTING_PROFESSION = "profession"
 local SETTING_WORLD_EVENT = "worldEvent"
 local SETTING_FACTION = "faction"
@@ -30,8 +32,8 @@ local function CreateFilterInfo(text, filterKey, filterSettings, callback)
         info.checked = function(self)
             return self.arg1[filterKey]
         end
-        info.func = function(_, arg1, _, value)
-            arg1[filterKey] = value
+        info.func = function(_, arg1, arg2, value)
+            arg1[filterKey] = arg2 or value
             ADDON:FilterAndRefresh()
             UIDropDownMenu_RefreshAll(_G[ADDON_NAME .. "FilterMenu"])
 
@@ -41,6 +43,17 @@ local function CreateFilterInfo(text, filterKey, filterSettings, callback)
         end
     else
         info.notCheckable = true
+    end
+
+    return info
+end
+
+local function CreateFilterRadio(text, filterKey, filterSettings, filterValue)
+    local info = CreateFilterInfo(text, filterKey, filterSettings)
+    info.isNotRadio = false
+    info.arg2 = filterValue
+    info.checked = function(self)
+        return self.arg1[filterKey] == filterValue
     end
 
     return info
@@ -160,7 +173,7 @@ local function InitializeDropDown(filterMenu, level)
 
     if (level == 1) then
         info = CreateFilterInfo(COLLECTED, SETTING_COLLECTED, nil, function(value)
-            if (value) then
+            if value then
                 UIDropDownMenu_EnableButton(1, 2)
                 UIDropDownMenu_EnableButton(1, 3)
             else
@@ -180,7 +193,20 @@ local function InitializeDropDown(filterMenu, level)
         info.disabled = not ADDON.settings.filter.collected
         UIDropDownMenu_AddButton(info, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo(NOT_COLLECTED, SETTING_NOT_COLLECTED), level)
+        info = CreateFilterInfo(NOT_COLLECTED, SETTING_NOT_COLLECTED, nil, function (value)
+            if value then
+                UIDropDownMenu_EnableButton(1, 5)
+            else
+                UIDropDownMenu_DisableButton(1, 5)
+            end
+        end)
+        UIDropDownMenu_AddButton(info, level)
+
+        info = CreateFilterInfo(L.FILTER_SECRET, SETTING_SECRET)
+        info.leftPadding = 16
+        info.disabled = not ADDON.settings.filter.collected
+        UIDropDownMenu_AddButton(info, level)
+
         if ADDON.settings.filter[SETTING_HIDDEN] or HasUserHiddenToys() then
             UIDropDownMenu_AddButton(CreateFilterInfo(L["Hidden"], SETTING_HIDDEN), level)
         end
@@ -199,6 +225,9 @@ local function InitializeDropDown(filterMenu, level)
             ADDON:FilterAndRefresh()
         end
         UIDropDownMenu_AddButton(info, level)
+
+        UIDropDownMenu_AddSpace(level)
+        UIDropDownMenu_AddButton(CreateFilterCategory(CLUB_FINDER_SORT_BY, SETTING_SORT), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_SOURCE) then
         local settings = ADDON.settings.filter[SETTING_SOURCE]
@@ -310,6 +339,23 @@ local function InitializeDropDown(filterMenu, level)
         for _, effect in pairs(sortedEffects) do
             UIDropDownMenu_AddButton(CreateFilterInfo(L[effect] or effect, effect, settings), level)
         end
+    elseif UIDROPDOWNMENU_MENU_VALUE == SETTING_SORT then
+        local settings = ADDON.settings[SETTING_SORT]
+        UIDropDownMenu_AddButton(CreateFilterRadio(NAME, "by", settings, 'name'), level)
+        UIDropDownMenu_AddButton(CreateFilterRadio(EXPANSION_FILTER_TEXT, "by", settings, 'expansion'), level)
+        UIDropDownMenu_AddSpace(level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_REVERSE, 'descending', settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_FAVORITES_FIRST, 'favoritesFirst', settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_UNOWNED_AFTER, 'unownedAtLast', settings), level)
+        UIDropDownMenu_AddSpace(level)
+
+        info = CreateFilterInfo(NEWBIE_TOOLTIP_STOPWATCH_RESETBUTTON)
+        info.keepShownOnClick = false
+        info.func = function(_, _, _, value)
+            ADDON:ResetSortSettings()
+            ADDON:FilterAndRefresh()
+        end
+        UIDropDownMenu_AddButton(info, level)
     end
 
 end

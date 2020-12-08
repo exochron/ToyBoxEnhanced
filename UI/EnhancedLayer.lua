@@ -186,7 +186,7 @@ ADDON:RegisterLoadUICallback(function()
     layer:RegisterEvent("PLAYER_REGEN_ENABLED")
     layer:RegisterEvent("PLAYER_REGEN_DISABLED")
     layer:SetScript("OnEvent", function(self, event, arg1)
-        self:SetShown(event == "PLAYER_REGEN_ENABLED")
+        self:SetShown(not InCombatLockdown())
     end)
 
     ToyBox:HookScript("OnMouseWheel", function(self, value)
