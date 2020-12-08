@@ -1039,6 +1039,7 @@ ADDON.db.expansion = {
         ["minID"] = 175141,
         ["maxID"] = 999999,
         [172179] = true, -- Eternal Traveler's Hearthstone
+        [172924] = true, -- Wormhole Generator: Shadowlands
         [173984] = true, -- Scroll of Aeons
         [174445] = true, -- Glimmerfly Cocoon
     }

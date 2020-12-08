@@ -97,24 +97,6 @@ local function checkClickMacro()
     end
 end
 
-local function buildDelayTillOutOfCombat(func)
-    return function()
-        if InCombatLockdown() then
-            local delayFrame = CreateFrame("Frame")
-            delayFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-            delayFrame:SetScript("OnEvent", function()
-                delayFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
-                func()
-            end)
-        else
-            func()
-        end
-    end
-end
-
-ADDON:RegisterLoginCallback(buildDelayTillOutOfCombat(function()
-    checkClickMacro()
-    initActionButton()
-end))
-
-ADDON:RegisterLoadUICallback(buildDelayTillOutOfCombat(createDisplayButton))
+ADDON:RegisterLoginCallback(checkClickMacro)
+ADDON:RegisterLoginCallback(initActionButton)
+ADDON:RegisterLoadUICallback(createDisplayButton)

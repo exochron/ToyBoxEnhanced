@@ -8,12 +8,12 @@ import (
 )
 
 func (t toy) WriteToFile(file *os.File) {
-	file.WriteString("[" + strconv.Itoa(t.ItemID) + "] = true, -- " + t.Name + "\n")
+	file.WriteString("[" + strconv.Itoa(t.ItemID) + "] = false, -- " + t.Name + "\n")
 }
 
 func prepareLuaDB(filename string, varname string) *os.File {
 
-	file, err := os.OpenFile(filename, os.O_TRUNC|os.O_WRONLY|os.O_CREATE, 0755)
+	file, err := os.OpenFile("../" + filename, os.O_TRUNC|os.O_WRONLY|os.O_CREATE, 0755)
 
 	if err != nil {
 		log.Fatal(err)
