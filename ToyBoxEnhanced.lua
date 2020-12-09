@@ -28,17 +28,11 @@ local function ResetAPIFilters()
 end
 
 local function LoadUI()
-    PetJournal:HookScript("OnShow", function()
-        if not PetJournalPetCard.petID then
-            PetJournal_ShowPetCard(1)
-        end
-    end)
-
     FireCallbacks(loadUICallbacks)
-    ADDON:FilterAndRefresh()
+    ADDON:FilterAndRefresh(true)
 end
 
-local function FilterToys()
+local function FilterToys(calledFromEvent)
     local filteredToyList = {}
 
     local searchString = ToyBox.searchString
@@ -52,6 +46,10 @@ local function FilterToys()
         if ADDON:FilterToy(itemId, searchString) then
             table.insert(filteredToyList, itemId)
         end
+    end
+
+    if calledFromEvent and #filteredToyList == #ADDON.filteredToyList then
+        return
     end
 
     table.sort(filteredToyList, function(itemA, itemB)
@@ -76,7 +74,7 @@ local function FilterToys()
         end
 
         if ADDON.settings.sort.by == 'name' then
-            result = strcmputf8i(nameA, nameB) < 0
+            result = nameA < nameB -- warning: names can be nil on untranslated toys
         elseif ADDON.settings.sort.by == 'expansion' then
             result = itemA < itemB
         end
@@ -91,9 +89,9 @@ local function FilterToys()
     ADDON.filteredToyList = filteredToyList
 end
 
-function ADDON:FilterAndRefresh()
+function ADDON:FilterAndRefresh(calledFromEvent)
     if not InCombatLockdown() then
-        FilterToys()
+        FilterToys(calledFromEvent)
         ToyBox_UpdatePages()
         ToyBox_UpdateButtons()
     end
@@ -145,6 +143,6 @@ frame:SetScript("OnEvent", function(self, event, arg1)
         LoadUI()
         ADDON.initialized = true
     elseif ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then
-        ADDON:FilterAndRefresh()
+        ADDON:FilterAndRefresh(true)
     end
 end)

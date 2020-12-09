@@ -45,17 +45,16 @@ local function FavorToys(itemIds, finishedCallback)
         end
     end
 
-    if ADDON.initialized then
-        ADDON:FilterAndRefresh()
-    end
-
     if updateCount > 0 then
         C_Timer.After(1, function()
             FavorToys(itemIds, finishedCallback)
         end)
-    elseif finishedCallback then
+    else
         if starButton then
             starButton:Enable()
+        end
+        if ADDON.initialized then
+            ADDON:FilterAndRefresh()
         end
         finishedCallback()
     end

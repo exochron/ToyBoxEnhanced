@@ -2,6 +2,10 @@ local ADDON_NAME, ADDON = ...
 
 local function FilterBySearch(itemId, searchString)
     local _, name = C_ToyBox.GetToyInfo(itemId)
+    if name == nil or name == '' then
+        return false
+    end
+
     name = name:lower()
     local pos = strfind(name, searchString, 1, true)
     local result = pos ~= nil
@@ -9,11 +13,13 @@ local function FilterBySearch(itemId, searchString)
         return result
     end
 
-    local _, spellId = GetItemSpell(itemId)
-    local spellDescription = GetSpellDescription(spellId)
-    spellDescription = spellDescription:lower()
-    pos = strfind(spellDescription, searchString, 1, true)
-    result = pos ~= nil
+    if ADDON.settings.searchInDescription then
+        local _, spellId = GetItemSpell(itemId)
+        local spellDescription = GetSpellDescription(spellId)
+        spellDescription = spellDescription:lower()
+        pos = strfind(spellDescription, searchString, 1, true)
+        result = pos ~= nil
+    end
 
     return result
 end
@@ -31,7 +37,7 @@ local function FilterCollectedToys(itemId)
 end
 
 local function FilterFavoriteToys(itemId)
-    return not ADDON.settings.filter.onlyFavorites or not ADDON.settings.filter.collected or select(4, C_ToyBox.GetToyInfo(itemId))
+    return not ADDON.settings.filter.onlyFavorites or not ADDON.settings.filter.collected or C_ToyBox.GetIsFavorite(itemId)
 end
 
 local function FilterUsableToys(itemId)
