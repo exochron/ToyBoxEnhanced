@@ -125,11 +125,11 @@ frame:SetScript("OnEvent", function(self, event, arg1)
     elseif event == "PLAYER_LOGIN" and false == playerLoggedIn then
         ResetAPIFilters()
 
-        if C_ToyBox.GetNumFilteredToys() < 555 then
+        if C_ToyBox.GetNumFilteredToys() <= 600 then
             delayLoginUntilFullyLoaded = true
         end
         playerLoggedIn = true
-    elseif event == "TOYS_UPDATED" and delayLoginUntilFullyLoaded and playerLoggedIn and nil == arg1 and C_ToyBox.GetNumFilteredToys() > 555 then
+    elseif event == "TOYS_UPDATED" and delayLoginUntilFullyLoaded and playerLoggedIn and nil == arg1 and C_ToyBox.GetNumFilteredToys() > 600 then
         delayLoginUntilFullyLoaded = false
     end
 
