@@ -19,7 +19,7 @@ function ADDON:CollectFavoredToys()
 end
 
 local function FavorToys(itemIds, finishedCallback)
-    -- appearantly Blizzard only allows ~5 requests per second
+    -- apparently WoW only allows ~5 requests per second
 
     if starButton then
         starButton:Disable()
