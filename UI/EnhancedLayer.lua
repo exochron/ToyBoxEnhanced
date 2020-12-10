@@ -196,14 +196,13 @@ ADDON:RegisterLoadUICallback(function()
     for i = 1, ADDON.TOYS_PER_PAGE do
         local button = layer["spellButton" .. i]
         button:HookScript("OnClick", function(self, button)
-            if (IsModifiedClick()) then
+            if IsModifiedClick() then
                 ToySpellButton_OnModifiedClick(self, button)
             end
         end)
     end
 
     layer:SetShown(not InCombatLockdown())
-    ToyBox.EnhancedLayer = layer
 
     hooksecurefunc("ToyBox_UpdatePages", function()
         local maxPages = 1 + math.floor( math.max((#ADDON.filteredToyList - 1), 0) / ADDON.TOYS_PER_PAGE)

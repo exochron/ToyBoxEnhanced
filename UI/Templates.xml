@@ -160,7 +160,7 @@
     </CheckButton>
 
     <!-- from Toybox.iconsFrame -->
-    <Frame name="TBEButtonFrameTemplate" inherits="CollectionsBackgroundTemplate" virtual="true" enablemouse="true">
+    <Frame name="TBEButtonFrameTemplate" parentKey="EnhancedLayer" inherits="CollectionsBackgroundTemplate" virtual="true" enablemouse="true">
         <Layers>
             <Layer level="BACKGROUND" textureSubLevel="-6">
                 <Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
@@ -180,6 +180,12 @@
         </Layers>
         <!-- Toy Buttons -->
         <Frames>
+            <Frame parentKey="PagingFrame" inherits="CollectionsPagingFrameTemplate">
+                <Anchors>
+                    <Anchor point="BOTTOM" x="22" y="38"/>
+                </Anchors>
+            </Frame>
+
             <CheckButton parentKey="spellButton1" inherits="TBEToySpellButtonTemplate" id="1">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="40" y="-53" />
@@ -270,12 +276,6 @@
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton17" x="208" y="0" />
                 </Anchors>
             </CheckButton>
-
-            <Frame parentKey="PagingFrame" inherits="CollectionsPagingFrameTemplate">
-                <Anchors>
-                    <Anchor point="BOTTOM" x="22" y="38"/>
-                </Anchors>
-            </Frame>
         </Frames>
     </Frame>
 

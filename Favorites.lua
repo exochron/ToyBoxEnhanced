@@ -19,7 +19,7 @@ function ADDON:CollectFavoredToys()
 end
 
 local function FavorToys(itemIds, finishedCallback)
-    -- appearantly Blizzard only allows ~5 requests per second
+    -- apparently WoW only allows ~5 requests per second
 
     if starButton then
         starButton:Disable()
@@ -45,17 +45,16 @@ local function FavorToys(itemIds, finishedCallback)
         end
     end
 
-    if ADDON.initialized then
-        ADDON:FilterAndRefresh()
-    end
-
     if updateCount > 0 then
         C_Timer.After(1, function()
             FavorToys(itemIds, finishedCallback)
         end)
-    elseif finishedCallback then
+    else
         if starButton then
             starButton:Enable()
+        end
+        if ADDON.initialized then
+            ADDON:FilterAndRefresh()
         end
         finishedCallback()
     end
