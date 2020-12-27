@@ -630,6 +630,7 @@ ADDON.db.ingameList = {
 [175063] = false, -- Aqir Egg Cluster
 [175140] = false, -- All-Seeing Eyes
 [177951] = false, -- Glimmerflies on Strings
+[178530] = false, -- Wreath-A-Rang
 [179393] = false, -- Mirror of Envious Dreams
 [180290] = false, -- Night Fae Hearthstone
 [180873] = false, -- Smolderheart

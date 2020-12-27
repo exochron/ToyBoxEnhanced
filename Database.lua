@@ -2,9 +2,6 @@ local ADDON_NAME, ADDON = ...
 
 ADDON.db = {}
 
--- itemIds of all initially scanned toys
-ADDON.db.ingameList = {}
-
 ADDON.db.worldEvent = {
 
     ["Timewalking"] = {
@@ -153,6 +150,7 @@ ADDON.db.worldEvent = {
         [172219] = true, -- Wild Holly
         [172222] = true, -- Crashin' Thrashin' Juggernaught
         [172223] = true, -- Crashin' Thrashin' Battleship
+        [178530] = true, -- Wreath-A-Rang
     },
 }
 
@@ -1559,6 +1557,7 @@ ADDON.db.effect = {
             [116691] = true, -- Zhevra Lounge Cushion
             [116692] = true, -- Fuzzy Green Lounge Cushion
             [129956] = true, -- Leather Love Seat
+            [184410] = true, -- Aspirant's Stretcher
         },
 
         -- Can click on these
@@ -1637,6 +1636,7 @@ ADDON.db.effect = {
             [98132] = true, -- Shado-Pan Geyser Gun
             [104323] = true, -- The Swineskin
             [104324] = true, -- Foot Ball
+            [116400] = true, -- Silver-Plated Turkey Shooter
             [116856] = true, -- "Blooming Rose" Contender's Costume
             [116888] = true, -- "Night Demon" Contender's Costume
             [116889] = true, -- "Purple Phantom" Contender's Costume
@@ -1655,8 +1655,9 @@ ADDON.db.effect = {
             [163607] = true, -- Lucille's Sewing Needle
             [163741] = true, -- Magic Fun Rock
             [174921] = true, -- Void-Touched Skull
+            [178530] = true, -- Wreath-A-Rang
             [181825] = true, -- Phial of Ravenous Slime
-            [116400] = true, -- Silver-Plated Turkey Shooter
+            [184292] = true, -- Ancient Elethium Coin
         }
     },
 

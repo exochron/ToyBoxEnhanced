@@ -22,7 +22,7 @@ For technical reasons it's not possible to use some enhanced features during com
 
 ### Help wanted
 
-- Have you found any bug or do you have some suggestions? Please let me know in the issue tracker on [Curseforge](https://www.curseforge.com/wow/addons/toy-box-enhanced/issues) or [GitHub](https://github.com/exochron/ToyBoxEnhanced/issues).
+- Have you found any bug or do you have some suggestions? Please let us know in the issue tracker on [Curseforge](https://www.curseforge.com/wow/addons/toy-box-enhanced/issues) or [GitHub](https://github.com/exochron/ToyBoxEnhanced/issues).
 - Is your language still missing some texts? You can localize the addon into your language on [Curseforge](https://www.curseforge.com/wow/addons/toy-box-enhanced/localization).
-- Want to try out some cool new stuff earlier than everybody else? Just switch to the Beta-Channel in your Addon Updater and let me know of anything you might find in our issue tracker. After a few days without bugs the same version goes stable for everybody else.
+- Want to try out some cool new stuff earlier than everybody else? Just switch to the Beta-Channel in your Addon Updater and let us know of anything you might find in our issue tracker. After a few days without bugs the same version goes stable for everybody else.
 - Are you interested in developing addons as well? Then come join us at [GutHub](https://github.com/exochron/ToyBoxEnhanced). And don't worry about knowing nothing of LUA. It's easy to learn. ;-)
