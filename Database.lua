@@ -233,10 +233,14 @@ ADDON.db.profession = {
         [129961] = true, -- Flaming Hoop
         [129958] = true, -- Leather Pet Leash
         [130102] = true, -- Mother's Skinning Knife
+        [186686] = true, -- Pallid Oracle Bones
+        [186985] = true, -- Elisive Pet Treat
+        [186702] = true, -- Pallid Bone Flute
     },
 
     ["Enchanting"] = {
         [128536] = true, -- Leylight Brazier
+        [186973] = true, -- Anima-ted Leash
     },
 
     ["Inscription"] = {
@@ -400,6 +404,15 @@ ADDON.db.source = {
         [184447] = true, -- Kevin's Party Supplies
         [184489] = true, -- Fae Harp
         [184490] = true, -- Fae Pipes
+        [187051] = true, -- Forgotten Feather
+        [187113] = true, -- Personal Ball and Chain
+        [187140] = true, -- Ring of Duplicity
+        [187154] = true, -- Ancient Korthian Runes
+        [187155] = true, -- Guise of the Changeling
+        [187159] = true, -- Shadow Slicing Shortsword
+        [187339] = true, -- Silver Shardhide Whistle
+        [187344] = true, -- Offering Kit Maker
+        [187416] = true, -- Jailer's Cage
     },
 
     ["Drop"] = {
@@ -544,14 +557,22 @@ ADDON.db.source = {
         [174445] = true, -- Glimmerfly Cocoon
         [180873] = true, -- Smolderheart
         [181794] = true, -- Orophea's Lyre
+        [183901] = true, -- Bonestorm Top
         [184292] = true, -- Ancient Elethium Coin
         [184312] = true, -- Borr-Geth's Fiery Brimstone
         [184396] = true, -- Malfunctioning Goliath Gauntlet -- Ascended Supplies
         [184404] = true, -- Ever-Abundant Hearth
+        [184413] = true, -- Mnemonic Attunement Pane
         [184435] = true, -- Mark of Purity -- Ascended Supplies
         [184476] = true, -- Regenerating Slime Vial
         [184495] = true, -- Infested Arachnid Casing -- Supplies of the Undying Army
-        [184413] = true, -- Mnemonic Attunement Pane
+        [187075] = true, -- Box of Rattling Chains
+        [187139] = true, -- Bottled Shade Heart
+        [187174] = true, -- Shaded Judgement Stone
+        [187176] = true, -- Vesper of Harmony
+        [187185] = true, -- Vesper of Faith
+        [187417] = true, -- Adamant Vaults Cell
+        [187420] = true, -- Maw-Ocular Viewfinder
     },
 
     ["Quest"] = {
@@ -633,6 +654,7 @@ ADDON.db.source = {
         [183847] = true, -- Acolyte's Guise
         [183856] = true, -- Mystical Orb of Meditation
         [184487] = true, -- Gormling in a Bag
+        [187184] = true, -- Vesper of Clarity
     },
 
     ["Vendor"] = {
@@ -728,12 +750,9 @@ ADDON.db.source = {
         [170380] = true, -- Jar of Sunwarmed Sand
 
         -- Shadowlands
-        [180290] = true, -- Night Fae Hearthstone
-        [183716] = true, -- Venthyr Sinstone
-        [182773] = true, -- Necrolord Hearthstone
         [183876] = true, -- Quill of Correspondence
         [183989] = true, -- Dredger Barrow Racer
-        [184353] = true, -- Kyrian Hearthstone
+        [186974] = true, -- Experimental Anima Cell
     },
 
     ["Instance"] = {
@@ -819,6 +838,10 @@ ADDON.db.source = {
         [183900] = true, -- Sinvyr Tea Set
         [184218] = true, -- Vulgarity Arbiter
         [184410] = true, -- Aspirant's Stretcher
+        [180290] = true, -- Night Fae Hearthstone
+        [183716] = true, -- Venthyr Sinstone
+        [182773] = true, -- Necrolord Hearthstone
+        [184353] = true, -- Kyrian Hearthstone
     },
 
     ["Achievement"] = {
@@ -1136,6 +1159,9 @@ ADDON.db.effect = {
             [174873] = true, -- Trans-mogu-rifier
             [183847] = true, -- Acolyte's Guise
             [183903] = true, -- Smelly Jelly
+            [184223] = true, -- Helm of the Dominated
+            [187139] = true, -- Bottled Shade Heart
+            [187155] = true, -- Guise of the Changeling
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1362,6 +1388,8 @@ ADDON.db.effect = {
             [183988] = true, -- Bondable Val'kyr Diadem
             [184413] = true, -- Mnemonic Attunement Pane
             [184476] = true, -- Regenerating Slime Vial
+            [184487] = true, -- Gormling in a Bag
+            [183901] = true, -- Bonestorm Top
         },
     },
 
@@ -1421,7 +1449,9 @@ ADDON.db.effect = {
             [139587] = true, -- Suspicious Crate
             [127666] = true, -- Vial of Red Goo
             [116651] = true, -- True Love Prism
+            [182890] = true, -- Rapid Recitation Quill
             [184489] = true, -- Fae Harp
+            [186702] = true, -- Pallid Bone Flute
         },
 
         ["Corpse"] = {
@@ -1432,6 +1462,7 @@ ADDON.db.effect = {
             [163740] = true, -- Drust Ritual Knife
             [166701] = true, -- Warbeast Kraal Dinner Bell
             [166784] = true, -- Narassin's Soul Gem
+            [187174] = true, -- Shaded Judgement Stone
         },
 
         ["Roll"] = {
@@ -1445,15 +1476,15 @@ ADDON.db.effect = {
             [54212] = true, -- Instant Statue Pedestal
             [69776] = true, -- Ancient Amber
             [72161] = true, -- Spurious Sarcophagus
+            [86573] = true, -- Shard of Archstone
+            [88417] = true, -- Gokk'lok's Shell
+            [113570] = true, -- Ancient's Bloom
             [115472] = true, -- Permanent Time Bubble
             [116125] = true, -- Klikixx's Webspinner
+            [119432] = true, -- Botani Camouflage
             [130171] = true, -- Cursed Orb
             [141879] = true, -- Berglrgl Perrgl Girggrlf
             [164983] = true, -- Rhan'ka's Escape Plan
-            [113570] = true, -- Ancient's Bloom
-            [119432] = true, -- Botani Camouflage
-            [86573] = true, -- Shard of Archstone
-            [88417] = true, -- Gokk'lok's Shell
         },
 
     },
@@ -1486,6 +1517,7 @@ ADDON.db.effect = {
             [64358] = true, -- Highborne Soul Mirror
             [108745] = true, -- Personal Hologram
             [129952] = true, -- Hourglass of Eternity
+            [187140] = true, -- Ring of Duplicity
         },
 
         -- Controlled explosives
@@ -1526,13 +1558,19 @@ ADDON.db.effect = {
             [130214] = true, -- Worn Doll
             [130232] = true, -- Moonfeather Statue
             [140363] = true, -- Pocket Fel Spreader
+            [140632] = true, -- Lava Fountain
             [141297] = true, -- Arcano-Shower
             [160751] = true, -- Dance of the Dead
             [169347] = true, -- Judgment of Mechagon
-            [140632] = true, -- Lava Fountain
             [183900] = true, -- Sinvyr Tea Set
             [184075] = true, -- Stonewrought Sentry
+            [184318] = true, -- Battlecry of Krexus
+            [184415] = true, -- Soothing Vesper
             [184418] = true, -- Acrobatic Steward
+            [187154] = true, -- Ancient Korthian Runes
+            [187176] = true, -- Vesper of Harmony
+            [187184] = true, -- Vesper of Clarity
+            [187185] = true, -- Vesper of Faith
         },
 
         ["Weather"] = {
@@ -1588,11 +1626,13 @@ ADDON.db.effect = {
             [120857] = true, -- Barrel of Bandanas
             [151877] = true, -- Barrel of Eyepatches
             [183810] = true, -- Shadowlands Mini: Grandmaster Vole
+            [184495] = true, -- Infested Arachnid Casing
         },
 
         ["Mail"] = {
             [40768] = true, -- MOLL-E
             [156833] = true, -- Katy's Stampwhistle
+            [183876] = true, -- Quill of Correspondence
         },
 
         ["NPC"] = {
@@ -1605,6 +1645,8 @@ ADDON.db.effect = {
             [127655] = true, -- Sassy Imp
             [166247] = true, -- Citizens Brigade Whistle
             [168667] = true, -- Blingtron 7000
+            [184218] = true, -- Vulgarity Arbiter
+            [184435] = true, -- Mark of Purity
         },
 
         -- Can attack these
@@ -1822,6 +1864,7 @@ ADDON.db.effect = {
             [140336] = true, -- Brulfist Idol
         },
 
+        -- faster or slower ground movement
         ["Running"] = {
             [104329] = true, -- Ash-Covered Horn
             [113543] = true, -- Spirit of Shinri
@@ -1830,6 +1873,8 @@ ADDON.db.effect = {
             [129965] = true, -- Grizzlesnout's Fang
             [131900] = true, -- Majestic Elderhorn Hoof
             [153193] = true, -- Baarut the Brisk
+            [183989] = true, -- Dredger Barrow Racer
+            [187339] = true, -- Silver Shardhide Whistle
         },
 
         ["Swimming"] = {
@@ -1922,5 +1967,8 @@ ADDON.db.effect = {
         [174995] = true, -- Void Tendril Pet Leash
         [184449] = true, -- Jiggles's Favorite Toy
         [184508] = true, -- Mawsworn Pet Leash
+        [186973] = true, -- Anima-ted Leash
+        [186985] = true, -- Elisive Pet Treat
+        [187051] = true, -- Forgotten Feather
     },
 }
