@@ -7,10 +7,10 @@ local function hookStripTextures()
         local org_Strip = mt.StripTextures
         mt.StripTextures = function(self, a, b, c, d, e, f, g, h, i)
             if _G['ToyBox'] then
-                ADDON.Event:TriggerEvent("OnStripUI", self)
+                ADDON.Events:TriggerEvent("OnStripUI", self)
             end
             return org_Strip(self, a, b, c, d, e, f, g, h, i)
         end
     end
 end
-ADDON.Event:RegisterCallback("OnLogin", hookStripTextures, "ui-hooks")
+ADDON.Events:RegisterCallback("OnLogin", hookStripTextures, "ui-hooks")

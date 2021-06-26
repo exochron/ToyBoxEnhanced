@@ -64,12 +64,12 @@ local function UnusableTest()
     end
 end
 
-ADDON.Event:RegisterCallback("OnLogin", function()
+ADDON.Events:RegisterCallback("OnLogin", function()
     if ADDON.settings.debugMode then
         UnusableTest()
     end
 end, "debug")
-ADDON.Event:RegisterCallback("PostLoadUI", function()
+ADDON.Events:RegisterCallback("PostLoadUI", function()
     if ADDON.settings.debugMode then
         DebugTest()
     end

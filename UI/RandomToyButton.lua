@@ -97,6 +97,6 @@ local function checkClickMacro()
     end
 end
 
-ADDON.Event:RegisterCallback("OnLogin", checkClickMacro, "random-macro")
-ADDON.Event:RegisterCallback("OnLogin", initActionButton, "random-init")
+ADDON.Events:RegisterCallback("OnLogin", checkClickMacro, "random-macro")
+ADDON.Events:RegisterCallback("OnLogin", initActionButton, "random-init")
 ADDON.Events:RegisterCallback("OnLoadUI", createDisplayButton, "random-button")

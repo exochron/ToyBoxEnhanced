@@ -38,7 +38,7 @@ local function OKHandler(frame)
     end
 end
 
-ADDON.Event:RegisterCallback("OnLogin", function()
+ADDON.Events:RegisterCallback("OnLogin", function()
     local frame = BuildFrame()
     frame.name = GetAddOnMetadata(ADDON_NAME, "Title")
     frame.refresh = function()

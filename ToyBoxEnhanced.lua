@@ -180,13 +180,13 @@ frame:SetScript("OnEvent", function(_, event, arg1)
         loadUIisRunning = true
         frame:UnregisterEvent("ADDON_LOADED")
         LoadItemsIntoCache(function()
-            ADDON:FilterAndRefresh(true)
-            ADDON.initialized = true
-
             ADDON.Events:TriggerEvent("PreLoadUI")
             ADDON.Events:TriggerEvent("OnLoadUI")
             ADDON.Events:TriggerEvent("PostLoadUI")
-            ADDON.Events:UnregisterEvents({"preloadUI", "loadUI", "postloadUI"})
+            ADDON.Events:UnregisterEvents({"PreLoadUI", "OnLoadUI", "PostLoadUI"})
+
+            ADDON:FilterAndRefresh(true)
+            ADDON.initialized = true
         end)
     elseif ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then
         ADDON:FilterAndRefresh(true)

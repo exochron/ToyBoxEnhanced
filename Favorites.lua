@@ -149,7 +149,7 @@ local function HookSetIsFavorite(itemId, value)
     end
 end
 
-ADDON.Event:RegisterCallback("OnLogin", function()
+ADDON.Events:RegisterCallback("OnLogin", function()
     if ADDON.settings.favoritePerChar then
         FavorToys(ADDON.settings.favoredToys, function()
             hooksecurefunc(C_ToyBox, "SetIsFavorite", HookSetIsFavorite)
