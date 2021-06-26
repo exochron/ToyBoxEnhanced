@@ -1,4 +1,4 @@
-local ADDON_NAME, ADDON = ...
+local _, ADDON = ...
 
 local MAX_GLOBAL_MACRO_COUNT = 120
 local CLICK_TARGET_NAME = "TBERandomFavoredToy"
@@ -86,7 +86,7 @@ local function createDisplayButton()
         GameTooltip:AddLine(L["RANDOM_TOY_DESCRIPTION"])
         GameTooltip:Show()
     end);
-    displayButton:SetScript("OnLeave", function(sender)
+    displayButton:SetScript("OnLeave", function()
         GameTooltip:Hide()
     end);
 end
@@ -97,6 +97,6 @@ local function checkClickMacro()
     end
 end
 
-ADDON:RegisterLoginCallback(checkClickMacro)
-ADDON:RegisterLoginCallback(initActionButton)
-ADDON:RegisterLoadUICallback(createDisplayButton)
+ADDON.Event:RegisterCallback("OnLogin", checkClickMacro, "random-macro")
+ADDON.Event:RegisterCallback("OnLogin", initActionButton, "random-init")
+ADDON.Events:RegisterCallback("OnLoadUI", createDisplayButton, "random-button")

@@ -1,4 +1,4 @@
-local ADDON_NAME, ADDON = ...
+local _, ADDON = ...
 
 local function FirstTableValue(table)
     for _, value in pairs(table) do
@@ -64,16 +64,16 @@ local function UnusableTest()
     end
 end
 
-ADDON:RegisterLoginCallback(function()
+ADDON.Event:RegisterCallback("OnLogin", function()
     if ADDON.settings.debugMode then
         UnusableTest()
     end
-end)
-ADDON:RegisterLoadUICallback(function()
+end, "debug")
+ADDON.Event:RegisterCallback("PostLoadUI", function()
     if ADDON.settings.debugMode then
         DebugTest()
     end
-end)
+end, "debug")
 
 -- After starting the client fresh the first character doesn't have a fully loaded C_ToyBox on PLAYER_LOGIN
 -- (since at least 8.3)

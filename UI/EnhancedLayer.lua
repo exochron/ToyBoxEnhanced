@@ -1,4 +1,4 @@
-local ADDON_NAME, ADDON = ...
+local _, ADDON = ...
 
 local hideNew = {}
 
@@ -172,32 +172,32 @@ local function UpdateButttons()
     end
 end
 
-ADDON:RegisterLoadUICallback(function()
+ADDON.Events:RegisterCallback("PreLoadUI", function()
 
     local layer = CreateFrame("Frame", nil, ToyBox, "TBEButtonFrameTemplate")
     layer:SetFrameStrata("DIALOG")
     layer:SetFrameLevel(555)
 
-    layer.OnPageChanged = function(userAction)
+    layer.OnPageChanged = function()
         PlaySound(SOUNDKIT.IG_ABILITY_PAGE_TURN)
         UpdateButttons()
     end
 
     layer:RegisterEvent("PLAYER_REGEN_ENABLED")
     layer:RegisterEvent("PLAYER_REGEN_DISABLED")
-    layer:SetScript("OnEvent", function(self, event, arg1)
+    layer:SetScript("OnEvent", function(self)
         self:SetShown(not InCombatLockdown())
     end)
 
-    ToyBox:HookScript("OnMouseWheel", function(self, value)
+    ToyBox:HookScript("OnMouseWheel", function(_, value)
         layer.PagingFrame:OnMouseWheel(value);
     end)
 
     for i = 1, ADDON.TOYS_PER_PAGE do
         local button = layer["spellButton" .. i]
-        button:HookScript("OnClick", function(self, button)
+        button:HookScript("OnClick", function(self, clickButton)
             if IsModifiedClick() then
-                ToySpellButton_OnModifiedClick(self, button)
+                ToySpellButton_OnModifiedClick(self, clickButton)
             end
         end)
     end
@@ -220,4 +220,4 @@ ADDON:RegisterLoadUICallback(function()
             end
         end
     end)
-end)
+end, "EnhancedLayer")

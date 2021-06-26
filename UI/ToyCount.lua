@@ -1,4 +1,4 @@
-local ADDON_NAME, ADDON = ...
+local _, ADDON = ...
 
 local doStrip = false
 
@@ -23,7 +23,7 @@ local function CreateCountFrame(text, counterFunc)
     uniqueCount:SetText(counterFunc())
 
     frame:RegisterEvent("TOYS_UPDATED")
-    frame:SetScript("OnEvent", function(self, event, arg1)
+    frame:SetScript("OnEvent", function()
         uniqueCount:SetText(counterFunc())
     end)
 
@@ -41,14 +41,14 @@ local function GetUsableToysCount()
     return usableCount
 end
 
-ADDON:RegisterLoadUICallback(function ()
+ADDON.Events:RegisterCallback("OnLoadUI", function ()
     local L = ADDON.L
     CreateCountFrame(L["Toys"], C_ToyBox.GetNumLearnedDisplayedToys)
     CreateCountFrame(L["Usable"], GetUsableToysCount):SetPoint("TOPLEFT", ToyBox, 70, -41)
-end)
+end, "count")
 
-ADDON.UI:RegisterUIOverhaulCallback(function(self)
-    if (self == ToyBox.iconsFrame) then
+ADDON.Events:RegisterCallback("OnStripUI", function(_, self)
+    if self == ToyBox.iconsFrame then
         doStrip = true
     end
-end)
+end, "count")
