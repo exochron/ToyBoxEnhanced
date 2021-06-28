@@ -17,3 +17,20 @@ if (tonumber(UI_DROPDOWN_ENABLE_ART_PATCH_VERSION) or 0) < 1 then
         set(_G["DropDownList" .. level .. "Button" .. id .. "UnCheck"], false)
     end)
 end
+
+-- still needed ?
+--if (tonumber(UI_PETJOURNAL_INIT_FIRST_CARD_PATCH_VERSION) or 0) < 1 then
+--    UI_PETJOURNAL_INIT_FIRST_CARD_PATCH_VERSION = 1
+--    local frame = CreateFrame("Frame")
+--    frame:RegisterEvent("ADDON_LOADED")
+--    frame:SetScript("OnEvent", function(self, event, arg1)
+--        if PetJournal then
+--            frame:UnregisterEvent("ADDON_LOADED")
+--            PetJournal:HookScript("OnShow", function()
+--                if not PetJournalPetCard.petID then
+--                    --PetJournal_ShowPetCard(1)
+--                end
+--            end)
+--        end
+--    end)
+--end

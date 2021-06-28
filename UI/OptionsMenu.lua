@@ -61,7 +61,7 @@ local function InitMenu(sender, level)
     UIDropDownMenu_AddButton(info, level)
 end
 
-ADDON:RegisterLoadUICallback(function()
+ADDON.Events:RegisterCallback("OnLoadUI", function()
     local menu = CreateFrame("Frame", ADDON_NAME .. "ToyMenu", ToyBox, "UIDropDownMenuTemplate")
     UIDropDownMenu_Initialize(menu, InitMenu, "MENU")
 
@@ -74,4 +74,4 @@ ADDON:RegisterLoadUICallback(function()
             end
         end)
     end
-end)
+end, "options-menu")

@@ -1,4 +1,4 @@
-local ADDON_NAME, ADDON = ...
+local _, ADDON = ...
 
 ToyBoxEnhancedSettings = ToyBoxEnhancedSettings or {}
 local defaultFilterStates, defaultSortStates
@@ -102,10 +102,10 @@ local function CombineSettings(settings, defaultSettings)
 end
 
 -- Settings have to be loaded during PLAYER_LOGIN
-ADDON:RegisterLoginCallback(function()
+ADDON.Events:RegisterCallback("OnInit", function()
     local defaultSettings = PrepareDefaults()
     defaultFilterStates = CopyTable(defaultSettings.filter)
     defaultSortStates = CopyTable(defaultSettings.sort)
     CombineSettings(ToyBoxEnhancedSettings, defaultSettings)
     ADDON.settings = ToyBoxEnhancedSettings
-end)
+end, "settings")

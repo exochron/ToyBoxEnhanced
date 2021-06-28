@@ -125,9 +125,9 @@ local function CreateInfoWithMenu(text, filterKey, settings)
     info.isNotRadio = not hasTrue or not hasFalse
 
     info.checked = function(button)
-        local hasTrue, hasFalse = CheckSetting(settings)
-        RefreshCategoryButton(button, not hasTrue or not hasFalse)
-        return hasTrue
+        local isTrue, isFalse = CheckSetting(settings)
+        RefreshCategoryButton(button, not isTrue or not isFalse)
+        return isTrue
     end
     info.func = function(button, _, _, value)
         if button.isNotRadio == value then
@@ -168,7 +168,7 @@ local function HasUserHiddenToys()
     return false
 end
 
-local function InitializeDropDown(filterMenu, level)
+local function InitializeDropDown(_, level)
     local info
 
     if (level == 1) then
@@ -220,7 +220,7 @@ local function InitializeDropDown(filterMenu, level)
         UIDropDownMenu_AddSpace(level)
         info = CreateFilterInfo(L["Reset filters"])
         info.keepShownOnClick = false
-        info.func = function(_, _, _, value)
+        info.func = function()
             ADDON:ResetFilterSettings()
             ADDON:FilterAndRefresh()
         end
@@ -351,7 +351,7 @@ local function InitializeDropDown(filterMenu, level)
 
         info = CreateFilterInfo(NEWBIE_TOOLTIP_STOPWATCH_RESETBUTTON)
         info.keepShownOnClick = false
-        info.func = function(_, _, _, value)
+        info.func = function()
             ADDON:ResetSortSettings()
             ADDON:FilterAndRefresh()
         end
@@ -360,7 +360,7 @@ local function InitializeDropDown(filterMenu, level)
 
 end
 
-ADDON:RegisterLoadUICallback(function()
+ADDON.Events:RegisterCallback("OnLoadUI", function()
     local menu = CreateFrame("Frame", ADDON_NAME .. "FilterMenu", ToyBox, "UIDropDownMenuTemplate")
     UIDropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
 
@@ -371,7 +371,7 @@ ADDON:RegisterLoadUICallback(function()
         end
     end)
 
-    ToyBoxFilterButton:HookScript('OnMouseDown', function(sender, button)
+    ToyBoxFilterButton:HookScript('OnMouseDown', function(sender)
         if not InCombatLockdown() then
             HideDropDownMenu(1)
             if toggle then
@@ -382,4 +382,4 @@ ADDON:RegisterLoadUICallback(function()
             end
         end
     end)
-end)
+end, "filter-menu")

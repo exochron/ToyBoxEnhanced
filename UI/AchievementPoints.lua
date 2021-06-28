@@ -1,4 +1,4 @@
-local ADDON_NAME, ADDON = ...
+local _, ADDON = ...
 
 local function CreateAchievementPoints()
     local COLLECTION_ACHIEVEMENT_CATEGORY = 15246
@@ -70,9 +70,9 @@ local function CreateAchievementPoints()
     frame:SetScript("OnLeave", function(sender) sender.highlight:SetShown(false) end)
 
     frame:RegisterEvent("ACHIEVEMENT_EARNED")
-    frame:SetScript("OnEvent", function(self, event, arg1)
+    frame:SetScript("OnEvent", function()
         frame.staticText:SetText(GetCategoryAchievementPoints(TOY_ACHIEVEMENT_CATEGORY, true))
     end)
 end
 
-ADDON:RegisterLoadUICallback(CreateAchievementPoints)
+ADDON.Events:RegisterCallback("OnLoadUI", CreateAchievementPoints, "achievements")

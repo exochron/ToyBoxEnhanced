@@ -2,21 +2,20 @@ local ADDON_NAME, ADDON = ...
 
 ADDON.TOYS_PER_PAGE = 18
 ADDON.filteredToyList = {}
+ADDON.UI = {}
 
---region callbacks
-local loginCallbacks, loadUICallbacks = {}, {}
-function ADDON:RegisterLoginCallback(func)
-    table.insert(loginCallbacks, func)
-end
-function ADDON:RegisterLoadUICallback(func)
-    table.insert(loadUICallbacks, func)
-end
-local function FireCallbacks(callbacks)
-    for _, callback in pairs(callbacks) do
-        callback()
+-- see: https://www.townlong-yak.com/framexml/ptr/CallbackRegistry.lua
+ADDON.Events = CreateFromMixins(CallbackRegistryMixin)
+ADDON.Events:OnLoad()
+ADDON.Events:SetUndefinedEventsAllowed(true)
+-- remove after 9.1 release
+if ADDON.Events.UnregisterAllCallbacksByEvent then
+    ADDON.Events.UnregisterEvents = function(events)
+        for event in pairs(events) do
+            ADDON.Events:UnregisterAllCallbacksByEvent(event)
+        end
     end
 end
---endregion
 
 local function ResetAPIFilters()
     C_ToyBox.SetAllSourceTypeFilters(true)
@@ -25,11 +24,6 @@ local function ResetAPIFilters()
     C_ToyBox.SetUncollectedShown(true)
     C_ToyBox.SetUnusableShown(true)
     C_ToyBox.SetFilterString("")
-end
-
-local function LoadUI()
-    FireCallbacks(loadUICallbacks)
-    ADDON:FilterAndRefresh(true)
 end
 
 local function FilterToys(calledFromEvent)
@@ -122,8 +116,6 @@ local function OnLogin()
         end
         ADDON.db.ingameList = newTbl
     end
-
-    FireCallbacks(loginCallbacks)
 end
 
 -- some items might not be cached. therefore you won't get any name etc.
@@ -162,7 +154,7 @@ frame:RegisterEvent("ADDON_LOADED")
 frame:RegisterEvent("TOYS_UPDATED")
 frame:RegisterEvent("PLAYER_REGEN_ENABLED")
 frame:RegisterEvent("PLAYER_REGEN_DISABLED")
-frame:SetScript("OnEvent", function(self, event, arg1)
+frame:SetScript("OnEvent", function(_, event, arg1)
     if event == "ADDON_LOADED" and arg1 == ADDON_NAME then
         addonLoaded = true
     elseif event == "PLAYER_LOGIN" and false == playerLoggedIn then
@@ -179,13 +171,21 @@ frame:SetScript("OnEvent", function(self, event, arg1)
     if playerLoggedIn and addonLoaded and not delayLoginUntilFullyLoaded and not loggedIn and not InCombatLockdown() then
         loggedIn = true
         OnLogin()
+        ADDON.Events:TriggerEvent("OnInit")
+        ADDON.Events:TriggerEvent("OnLogin")
+        ADDON.Events:UnregisterEvents({"OnInit", "OnLogin"})
     end
 
     if ToyBox and loggedIn and not ADDON.initialized and ADDON.settings and not loadUIisRunning and not InCombatLockdown() then
         loadUIisRunning = true
         frame:UnregisterEvent("ADDON_LOADED")
         LoadItemsIntoCache(function()
-            LoadUI()
+            ADDON.Events:TriggerEvent("PreLoadUI")
+            ADDON.Events:TriggerEvent("OnLoadUI")
+            ADDON.Events:TriggerEvent("PostLoadUI")
+            ADDON.Events:UnregisterEvents({"PreLoadUI", "OnLoadUI", "PostLoadUI"})
+
+            ADDON:FilterAndRefresh(true)
             ADDON.initialized = true
         end)
     elseif ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then

@@ -1,11 +1,11 @@
-local ADDON_NAME, ADDON = ...
+local _, ADDON = ...
 
 -- Keyboard Shortcuts:
 -- LEFT: Previous page
 -- RIGHT: Next page
 
 
-ADDON:RegisterLoadUICallback(function()
+ADDON.Events:RegisterCallback("OnLoadUI", function()
     ToyBox.EnhancedLayer:SetPropagateKeyboardInput(true)
     ToyBox.EnhancedLayer:EnableKeyboard(true)
     ToyBox.EnhancedLayer:HookScript("OnKeyDown", function(self, key)
@@ -21,4 +21,4 @@ ADDON:RegisterLoadUICallback(function()
             self:SetPropagateKeyboardInput(true)
         end
     end)
-end)
+end, "hotkeys")

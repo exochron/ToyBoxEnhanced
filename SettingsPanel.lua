@@ -38,10 +38,10 @@ local function OKHandler(frame)
     end
 end
 
-ADDON:RegisterLoginCallback(function()
+ADDON.Events:RegisterCallback("OnLogin", function()
     local frame = BuildFrame()
     frame.name = GetAddOnMetadata(ADDON_NAME, "Title")
-    frame.refresh = function(frame)
+    frame.refresh = function()
         frame.enableCursorKeysCheck:SetChecked(ADDON.settings.enableCursorKeys)
         frame.favoritesPerCharCheck:SetChecked(ADDON.settings.favoritePerChar)
         frame.searchInSpellCheck:SetChecked(ADDON.settings.searchInDescription)
@@ -49,4 +49,4 @@ ADDON:RegisterLoginCallback(function()
     frame.okay = OKHandler
     frame.default = ADDON.ResetUISettings
     InterfaceOptions_AddCategory(frame)
-end)
+end, "settings-panel")

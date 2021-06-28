@@ -69,7 +69,7 @@ local function RunSetFavorites(itemIds)
     end)
 end
 
-local function InitializeDropDown(menu, level)
+local function InitializeDropDown(_, level)
     if level == 1 then
         local info = {
             isNotRadio = true,
@@ -118,7 +118,7 @@ local function BuildStarButton()
         GameTooltip:SetText(FAVORITES)
         GameTooltip:Show()
     end);
-    starButton:SetScript("OnLeave", function(sender)
+    starButton:SetScript("OnLeave", function()
         GameTooltip:Hide()
     end);
     starButton:SetScript("OnClick", function()
@@ -126,13 +126,13 @@ local function BuildStarButton()
     end)
     starButton:RegisterEvent("PLAYER_REGEN_ENABLED")
     starButton:RegisterEvent("PLAYER_REGEN_DISABLED")
-    starButton:SetScript("OnEvent", function(self, event, arg1)
+    starButton:SetScript("OnEvent", function(self, event)
         self:SetShown(event == "PLAYER_REGEN_ENABLED")
     end)
     starButton:SetShown(not InCombatLockdown())
 end
 
-ADDON:RegisterLoadUICallback(BuildStarButton)
+ADDON.Events:RegisterCallback("OnLoadUI", BuildStarButton, "favorites")
 
 --endregion
 
@@ -149,7 +149,7 @@ local function HookSetIsFavorite(itemId, value)
     end
 end
 
-ADDON:RegisterLoginCallback(function()
+ADDON.Events:RegisterCallback("OnLogin", function()
     if ADDON.settings.favoritePerChar then
         FavorToys(ADDON.settings.favoredToys, function()
             hooksecurefunc(C_ToyBox, "SetIsFavorite", HookSetIsFavorite)
@@ -157,4 +157,4 @@ ADDON:RegisterLoginCallback(function()
     else
         hooksecurefunc(C_ToyBox, "SetIsFavorite", HookSetIsFavorite)
     end
-end)
+end, "favorites")
