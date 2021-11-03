@@ -8,14 +8,6 @@ ADDON.UI = {}
 ADDON.Events = CreateFromMixins(CallbackRegistryMixin)
 ADDON.Events:OnLoad()
 ADDON.Events:SetUndefinedEventsAllowed(true)
--- remove after 9.1 release
-if ADDON.Events.UnregisterAllCallbacksByEvent then
-    ADDON.Events.UnregisterEvents = function(events)
-        for event in pairs(events) do
-            ADDON.Events:UnregisterAllCallbacksByEvent(event)
-        end
-    end
-end
 
 local function ResetAPIFilters()
     C_ToyBox.SetAllSourceTypeFilters(true)
@@ -96,6 +88,7 @@ local function OnLogin()
         local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
         if itemId then
             ADDON.db.ingameList[itemId] = true
+            C_Item.RequestLoadItemDataByID(itemId)
         end
     end
 
@@ -160,11 +153,11 @@ frame:SetScript("OnEvent", function(_, event, arg1)
     elseif event == "PLAYER_LOGIN" and false == playerLoggedIn then
         ResetAPIFilters()
 
-        if C_ToyBox.GetNumFilteredToys() <= 600 then
+        if C_ToyBox.GetNumFilteredToys() <= 670 then
             delayLoginUntilFullyLoaded = true
         end
         playerLoggedIn = true
-    elseif event == "TOYS_UPDATED" and delayLoginUntilFullyLoaded and playerLoggedIn and nil == arg1 and C_ToyBox.GetNumFilteredToys() > 600 then
+    elseif event == "TOYS_UPDATED" and delayLoginUntilFullyLoaded and playerLoggedIn and nil == arg1 and C_ToyBox.GetNumFilteredToys() > 670 then
         delayLoginUntilFullyLoaded = false
     end
 
