@@ -88,7 +88,6 @@ local function OnLogin()
         local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
         if itemId then
             ADDON.db.ingameList[itemId] = true
-            C_Item.RequestLoadItemDataByID(itemId)
         end
     end
 
@@ -114,25 +113,23 @@ end
 -- some items might not be cached. therefore you won't get any name etc.
 -- we have to load them initially, so we can work with that data.
 local function LoadItemsIntoCache(onDone)
-    local loopIsRunning = true
-    local countOfUncachedItems = 0
-    for itemId in pairs(ADDON.db.ingameList) do
-        if C_Item.IsItemDataCachedByID(itemId) == false then
-            countOfUncachedItems = countOfUncachedItems + 1
-            -- AddCallback() also requests the item data
-            ItemEventListener:AddCallback(itemId, function()
-                countOfUncachedItems = countOfUncachedItems - 1
-                if loopIsRunning == false and countOfUncachedItems <= 0 then
-                    onDone()
-                end
-            end)
-        end
+    local itemLoader = Mixin(CreateFrame("Frame"), AsyncCallbackSystemMixin);
+    itemLoader:Init(AsyncCallbackAPIType.ASYNC_ITEM);
+    local countOfUnloadedItems = 0
+    for _ in pairs(ADDON.db.ingameList) do
+        countOfUnloadedItems = countOfUnloadedItems + 1
     end
 
-    if countOfUncachedItems <= 0 then
-        onDone()
+    local delayDone = function()
+        countOfUnloadedItems = countOfUnloadedItems - 1
+        if countOfUnloadedItems == 0 then
+            onDone()
+        end
     end
-    loopIsRunning = false
+    for itemId in pairs(ADDON.db.ingameList) do
+        -- AddCallback() also requests the item data
+        ItemEventListener:AddCallback(itemId, delayDone)
+    end
 end
 
 local loggedIn = false

@@ -1,4 +1,4 @@
-local ADDON_NAME, ADDON = ...
+local _, ADDON = ...
 
 ADDON.db = {}
 
@@ -533,7 +533,6 @@ ADDON.db.source = {
         [166701] = true, -- Warbeast Kraal Dinner Bell -- Zandalari Empire Supplies
         [166308] = true, -- For da Blood God! -- Talanjis Expedition
         [166877] = true, -- Azerite Firework Launcher -- Champions of Azeroth Supplies
-        [166851] = true, -- Kojo's Master Matching Set -- Tortollan Seekers Supplies
         [166704] = true, -- Bowl of Glowing Pufferfish -- Tortollan Seekers Supplies
         [166784] = true, -- Narassin's Soul Gem -- Darkshore
         [166785] = true, -- Detoxified Blight Grenade -- Darkshore
