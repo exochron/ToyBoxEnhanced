@@ -1,4 +1,4 @@
-local ADDON_NAME, ADDON = ...
+local _, ADDON = ...
 
 ADDON.db = {}
 
@@ -19,11 +19,13 @@ ADDON.db.worldEvent = {
         [168012] = true, -- Apexis Focusing Shard
         [168014] = true, -- Banner of the Burning Blade
         [170380] = true, -- Jar of Sunwarmed Sand
+        [187591] = true, -- Nightborne Guard's Vigilance
     },
 
     ["Darkmoon Faire"] = {
         [75042] = true, -- Flimsy Yellow Balloon
         [90899] = true, -- Darkmoon Whistle
+        [97994] = true, -- Darkmoon Seesaw
         [101571] = true, -- Moonfang Shroud
         [105898] = true, -- Moonfang's Paw
         [116067] = true, -- Ring of Broken Promises
@@ -37,7 +39,6 @@ ADDON.db.worldEvent = {
         [122126] = true, -- Attraction Sign
         [122129] = true, -- Fire-Eater's Vial
         [126931] = true, -- Seafarer's Slidewhistle
-        [97994] = true, -- Darkmoon Seesaw
         [138202] = true, -- Sparklepony XL
         [151265] = true, -- Blight Boar Microphone
         [162539] = true, -- Hot Buttered Popcorn
@@ -70,6 +71,8 @@ ADDON.db.worldEvent = {
 
     ["Noblegarden"] = {
         [165802] = true, -- Noble Gardener's Hearthstone
+        [188694] = true, -- Spring Florist's Pouch
+        [188698] = true, -- Eagger Basket
     },
 
     ["Children's Week"] = {
@@ -83,6 +86,9 @@ ADDON.db.worldEvent = {
         [116440] = true, -- Burning Defender's Medallion
         [141649] = true, -- Set of Matches
         [166746] = true, -- Fire Eater's Hearthstone
+        [188695] = true, -- Summer Cranial Skillet
+        [188699] = true, -- Insulated Dancing Insoles
+        [188701] = true, -- Fire Festival Batons
     },
 
     ["Brewfest"] = {
@@ -151,6 +157,8 @@ ADDON.db.worldEvent = {
         [172222] = true, -- Crashin' Thrashin' Juggernaught
         [172223] = true, -- Crashin' Thrashin' Battleship
         [178530] = true, -- Wreath-A-Rang
+        [187422] = true, -- Rockin' Rollin' Racer Customizer 19.9.3
+        [188680] = true, -- Winter Veil Chorus Book
     },
 }
 
@@ -268,8 +276,8 @@ ADDON.db.faction = {
         [128462] = true, -- Karabor Councilor's Attire
         [115472] = true, -- Permanent Time Bubble
         [119421] = true, -- Sha'tari Defender's Medallion
-        [150743] = true, -- Surviving Kalimdor
-        [150746] = true, -- To Modernize the Provisioning of Azeroth
+        [150743] = true, -- Scouting Map: Surviving Kalimdor
+        [150746] = true, -- Scouting Map: Modern Provisioning of the Eastern Kingdom
         [151343] = true, -- Hearthstation
         [151349] = true, -- Toy Weapon Set
         [162643] = true, -- Toy Armor Set
@@ -307,8 +315,8 @@ ADDON.db.faction = {
         [119160] = true, -- Tickle Totem
         [119218] = true, -- Horde Flag of Victory
         [128471] = true, -- Frostwolf Grunt's Battlegear
-        [150744] = true, -- Walking Kalimdor with the Earthmother
-        [150745] = true, -- The Azeroth Campaign
+        [150744] = true, -- Scouting Map: Walking Kalimdor with the Earthmother
+        [150745] = true, -- Scouting Map: The Eastern Kingdoms Campaign
         [151344] = true, -- Hearthstation
         [151348] = true, -- Toy Weapon Set
         [162642] = true, -- Toy Armor Set
@@ -413,6 +421,7 @@ ADDON.db.source = {
         [187339] = true, -- Silver Shardhide Whistle
         [187344] = true, -- Offering Kit Maker
         [187416] = true, -- Jailer's Cage
+        [187705] = true, -- Choofa's Call
     },
 
     ["Drop"] = {
@@ -524,7 +533,6 @@ ADDON.db.source = {
         [166701] = true, -- Warbeast Kraal Dinner Bell -- Zandalari Empire Supplies
         [166308] = true, -- For da Blood God! -- Talanjis Expedition
         [166877] = true, -- Azerite Firework Launcher -- Champions of Azeroth Supplies
-        [166851] = true, -- Kojo's Master Matching Set -- Tortollan Seekers Supplies
         [166704] = true, -- Bowl of Glowing Pufferfish -- Tortollan Seekers Supplies
         [166784] = true, -- Narassin's Soul Gem -- Darkshore
         [166785] = true, -- Detoxified Blight Grenade -- Darkshore
@@ -655,6 +663,10 @@ ADDON.db.source = {
         [183856] = true, -- Mystical Orb of Meditation
         [184487] = true, -- Gormling in a Bag
         [187184] = true, -- Vesper of Clarity
+        [187419] = true, -- Steward's First Feather
+        [187512] = true, -- Tome of Small Sins
+        [187840] = true, -- Sparkle Wings
+        [187913] = true, -- Apprentice Slimemancer's Boots
     },
 
     ["Vendor"] = {
@@ -671,6 +683,20 @@ ADDON.db.source = {
         [54438] = true, -- Tiny Blue Ragdoll
         [104323] = true, -- The Pigskin
         [104324] = true, -- Foot Ball
+
+        -- Heirloom Vendor
+        [150743] = true, -- Scouting Map: Surviving Kalimdor
+        [150744] = true, -- Scouting Map: Walking Kalimdor with the Earthmother
+        [150745] = true, -- Scouting Map: The Eastern Kingdoms Campaign
+        [150746] = true, -- Scouting Map: Modern Provisioning of the Eastern Kingdoms
+        [187869] = true, -- Scouting Map: Into the Shadowlands
+        [187875] = true, -- Scouting Map: United Fronts of the Broken Isles
+        [187895] = true, -- Scouting Map: The Dangers of Draenor
+        [187896] = true, -- Scouting Map: A Stormstout's Guide to Pandaria
+        [187897] = true, -- Scouting Map: Cataclysm's Consequences
+        [187898] = true, -- Scouting Map: True Cost of the Northrend Campaign
+        [187899] = true, -- Scouting Map: The Many Curiosities of Outland
+        [187900] = true, -- Scouting Map: The Wonders of Kul Tiras and Zandalar
 
         -- Argent Tournament
         [45011] = true, -- Stormwind Banner
@@ -724,10 +750,6 @@ ADDON.db.source = {
         [134004] = true, -- Noble's Eternal Elementium Signet
         [141862] = true, -- Mote of Light
         [142452] = true, -- Lingering Wyrmtongue Essence
-        [150743] = true, -- Surviving Kalimdor
-        [150744] = true, -- Walking Kalimdor with the Earthmother
-        [150745] = true, -- The Azeroth Campaign
-        [150746] = true, -- To Modernize the Provisioning of Azeroth
         [153204] = true, -- All-Seer's Eye -- argus eye trader
 
         -- Battle for Azeroth
@@ -982,6 +1004,13 @@ ADDON.db.source = {
         [163986] = true, -- Orgrimmar Hero's War Banner --Blizzcon 2018
         [163987] = true, -- Stormwind Champion's War Banner  --Blizzcon 2018
         [172179] = true, -- Eternal Traveler's Hearthstone - Shadowlands Epic Edition
+        [186501] = true, -- Doomwalker Trophy Stand
+
+        -- MDI
+        [187834] = true, -- Tormented Banner of the Opportune
+        [187957] = true, -- PH - Banner of the Opportune
+        [187958] = true, -- PH - Banner of the Opportune
+        [187959] = true, -- PH - Banner of the Opportune
 
         -- Trading Card Game
         [32542] = true, -- Imp in a Ball
@@ -1226,6 +1255,9 @@ ADDON.db.effect = {
             [179393] = true, -- Mirror of Envious Dreams
             [180873] = true, -- Smolderheart
             [180947] = true, -- Tithe Collector's Vessel
+            [187840] = true, -- Sparkle Wings
+            [188701] = true, -- Fire Festival Batons
+            [188699] = true, -- Insulated Dancing Insoles
         },
 
         ["Bigger"] = {
@@ -1330,6 +1362,7 @@ ADDON.db.effect = {
             [166744] = true, -- Glaive Tosser
             [172222] = true, -- Crashin' Thrashin' Juggernaught
             [172223] = true, -- Crashin' Thrashin' Battleship
+            [187422] = true, -- Rockin' Rollin' Racer Customizer 19.9.3
         },
 
         ["Vision"] = {
@@ -1352,6 +1385,7 @@ ADDON.db.effect = {
             [174924] = true, -- Void-Touched Souvenir Totem
             [184396] = true, -- Malfunctioning Goliath Gauntlet
             [184447] = true, -- Kevin's Party Supplies
+            [187512] = true, -- Tome of Small Sins
         },
 
         ["Summon"] = {
@@ -1390,6 +1424,7 @@ ADDON.db.effect = {
             [184476] = true, -- Regenerating Slime Vial
             [184487] = true, -- Gormling in a Bag
             [183901] = true, -- Bonestorm Top
+            [187705] = true, -- Choofa's Call
         },
     },
 
@@ -1452,6 +1487,8 @@ ADDON.db.effect = {
             [182890] = true, -- Rapid Recitation Quill
             [184489] = true, -- Fae Harp
             [186702] = true, -- Pallid Bone Flute
+            [187075] = true, -- Box of Rattling Chains
+            [187591] = true, -- Nightborne Guard's Vigilance
         },
 
         ["Corpse"] = {
@@ -1485,6 +1522,8 @@ ADDON.db.effect = {
             [130171] = true, -- Cursed Orb
             [141879] = true, -- Berglrgl Perrgl Girggrlf
             [164983] = true, -- Rhan'ka's Escape Plan
+            [187416] = true, -- Jailer's Cage
+            [187417] = true, -- Adamant Vaults Cell
         },
 
     },
@@ -1510,6 +1549,11 @@ ADDON.db.effect = {
             [163987] = true, -- Stormwind Champion's War Banner
             [166879] = true, -- Rallying War Banner
             [169108] = true, -- Rustbolt Banner
+            [186501] = true, -- Doomwalker Trophy Stand
+            [187834] = true, -- Tormented Banner of the Opportune
+            [187957] = true, -- PH - Banner of the Opportune
+            [187958] = true, -- PH - Banner of the Opportune
+            [187959] = true, -- PH - Banner of the Opportune
         },
 
         -- Summons a clone of the character
@@ -1518,6 +1562,7 @@ ADDON.db.effect = {
             [108745] = true, -- Personal Hologram
             [129952] = true, -- Hourglass of Eternity
             [187140] = true, -- Ring of Duplicity
+            [187159] = true, -- Shadow Slicing Shortsword
         },
 
         -- Controlled explosives
@@ -1571,6 +1616,8 @@ ADDON.db.effect = {
             [187176] = true, -- Vesper of Harmony
             [187184] = true, -- Vesper of Clarity
             [187185] = true, -- Vesper of Faith
+            [187420] = true, -- Maw-Ocular Viewfinder
+            [188694] = true, -- Spring Florist's Pouch
         },
 
         ["Weather"] = {
@@ -1627,6 +1674,7 @@ ADDON.db.effect = {
             [151877] = true, -- Barrel of Eyepatches
             [183810] = true, -- Shadowlands Mini: Grandmaster Vole
             [184495] = true, -- Infested Arachnid Casing
+            [186974] = true, -- Experimental Anima Cell
         },
 
         ["Mail"] = {
@@ -1647,6 +1695,7 @@ ADDON.db.effect = {
             [168667] = true, -- Blingtron 7000
             [184218] = true, -- Vulgarity Arbiter
             [184435] = true, -- Mark of Purity
+            [187419] = true, -- Steward's First Feather
         },
 
         -- Can attack these
@@ -1720,6 +1769,7 @@ ADDON.db.effect = {
             [163211] = true, -- Akunda's Firesticks
             [182780] = true, -- Muckpool Cookpot
             [184404] = true, -- Ever-Abundant Hearth
+            [188695] = true, -- Summer Cranial Skillet
         },
 
         ["Fishing"] = {
@@ -1801,6 +1851,7 @@ ADDON.db.effect = {
             [166880] = true, -- Meerah's Jukebox
             [184489] = true, -- Fae Harp
             [184490] = true, -- Fae Pipes
+            [188680] = true, -- Winter Veil Chorus Book
         },
 
         ["Voice"] = {
@@ -1828,10 +1879,18 @@ ADDON.db.effect = {
 
         -- Unlocks flight paths
         ["Flight Path"] = {
-            [150743] = true, -- Surviving Kalimdor
-            [150744] = true, -- Walking Kalimdor with the Earthmother
-            [150745] = true, -- The Azeroth Campaign
-            [150746] = true, -- To Modernize the Provisioning of Azeroth
+            [150743] = true, -- Scouting Map: Surviving Kalimdor
+            [150744] = true, -- Scouting Map: Walking Kalimdor with the Earthmother
+            [150745] = true, -- Scouting Map: The Azeroth Campaign
+            [150746] = true, -- Scouting Map: To Modernize the Provisioning of Azeroth
+            [187869] = true, -- Scouting Map: Into the Shadowlands
+            [187875] = true, -- Scouting Map: United Fronts of the Broken Isles
+            [187895] = true, -- Scouting Map: The Dangers of Draenor
+            [187896] = true, -- Scouting Map: A Stormstout's Guide to Pandaria
+            [187897] = true, -- Scouting Map: Cataclysm's Consequences
+            [187898] = true, -- Scouting Map: True Cost of the Northrend Campaign
+            [187899] = true, -- Scouting Map: The Many Curiosities of Outland
+            [187900] = true, -- Scouting Map: The Wonders of Kul Tiras and Zandalar
         },
 
         -- https://wow.tools/dbc/?dbc=spellcategories#page=1&colFilter[2]=1176
@@ -1875,6 +1934,8 @@ ADDON.db.effect = {
             [153193] = true, -- Baarut the Brisk
             [183989] = true, -- Dredger Barrow Racer
             [187339] = true, -- Silver Shardhide Whistle
+            [187113] = true, -- Personal Ball and Chain
+            [188698] = true, -- Eagger Basket
         },
 
         ["Swimming"] = {

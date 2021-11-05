@@ -8,14 +8,6 @@ ADDON.UI = {}
 ADDON.Events = CreateFromMixins(CallbackRegistryMixin)
 ADDON.Events:OnLoad()
 ADDON.Events:SetUndefinedEventsAllowed(true)
--- remove after 9.1 release
-if ADDON.Events.UnregisterAllCallbacksByEvent then
-    ADDON.Events.UnregisterEvents = function(events)
-        for event in pairs(events) do
-            ADDON.Events:UnregisterAllCallbacksByEvent(event)
-        end
-    end
-end
 
 local function ResetAPIFilters()
     C_ToyBox.SetAllSourceTypeFilters(true)
@@ -121,25 +113,21 @@ end
 -- some items might not be cached. therefore you won't get any name etc.
 -- we have to load them initially, so we can work with that data.
 local function LoadItemsIntoCache(onDone)
-    local loopIsRunning = true
-    local countOfUncachedItems = 0
-    for itemId in pairs(ADDON.db.ingameList) do
-        if C_Item.IsItemDataCachedByID(itemId) == false then
-            countOfUncachedItems = countOfUncachedItems + 1
-            -- AddCallback() also requests the item data
-            ItemEventListener:AddCallback(itemId, function()
-                countOfUncachedItems = countOfUncachedItems - 1
-                if loopIsRunning == false and countOfUncachedItems <= 0 then
-                    onDone()
-                end
-            end)
-        end
+    local countOfUnloadedItems = 0
+    for _ in pairs(ADDON.db.ingameList) do
+        countOfUnloadedItems = countOfUnloadedItems + 1
     end
 
-    if countOfUncachedItems <= 0 then
-        onDone()
+    local delayDone = function()
+        countOfUnloadedItems = countOfUnloadedItems - 1
+        if countOfUnloadedItems == 0 then
+            onDone()
+        end
     end
-    loopIsRunning = false
+    for itemId in pairs(ADDON.db.ingameList) do
+        -- AddCallback() also requests the item data
+        ItemEventListener:AddCallback(itemId, delayDone)
+    end
 end
 
 local loggedIn = false
@@ -160,11 +148,11 @@ frame:SetScript("OnEvent", function(_, event, arg1)
     elseif event == "PLAYER_LOGIN" and false == playerLoggedIn then
         ResetAPIFilters()
 
-        if C_ToyBox.GetNumFilteredToys() <= 600 then
+        if C_ToyBox.GetNumFilteredToys() <= 670 then
             delayLoginUntilFullyLoaded = true
         end
         playerLoggedIn = true
-    elseif event == "TOYS_UPDATED" and delayLoginUntilFullyLoaded and playerLoggedIn and nil == arg1 and C_ToyBox.GetNumFilteredToys() > 600 then
+    elseif event == "TOYS_UPDATED" and delayLoginUntilFullyLoaded and playerLoggedIn and nil == arg1 and C_ToyBox.GetNumFilteredToys() > 670 then
         delayLoginUntilFullyLoaded = false
     end
 

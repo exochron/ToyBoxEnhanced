@@ -41,7 +41,7 @@
                         <Anchor point="CENTER" x="8" y="0" relativePoint="TOPLEFT"/>
                     </Anchors>
                     <Shadow>
-                        <Color r="0.32" g="0.5" b="1.0"/>
+                        <Color color="NEW_FEATURE_SHADOW_COLOR"/>
                     </Shadow>
                 </FontString>
 
@@ -162,14 +162,6 @@
     <!-- from Toybox.iconsFrame -->
     <Frame name="TBEButtonFrameTemplate" parentKey="EnhancedLayer" inherits="CollectionsBackgroundTemplate" virtual="true" enablemouse="true">
         <Layers>
-            <Layer level="BACKGROUND" textureSubLevel="-6">
-                <Texture file="Interface\FrameGeneral\UI-Background-Rock" horizTile="true" vertTile="true">
-                    <Anchors>
-                        <Anchor point="TOPLEFT" x="2" y="-21"/>
-                        <Anchor point="BOTTOMRIGHT" x="-2" y="2"/>
-                    </Anchors>
-                </Texture>
-            </Layer>
             <Layer level="BORDER" textureSubLevel="1">
                 <Texture parentKey="watermark" atlas="collections-watermark-toy" useAtlasSize="true">
                     <Anchors>
