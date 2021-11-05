@@ -113,8 +113,6 @@ end
 -- some items might not be cached. therefore you won't get any name etc.
 -- we have to load them initially, so we can work with that data.
 local function LoadItemsIntoCache(onDone)
-    local itemLoader = Mixin(CreateFrame("Frame"), AsyncCallbackSystemMixin);
-    itemLoader:Init(AsyncCallbackAPIType.ASYNC_ITEM);
     local countOfUnloadedItems = 0
     for _ in pairs(ADDON.db.ingameList) do
         countOfUnloadedItems = countOfUnloadedItems + 1
