@@ -86,4 +86,4 @@ test:SetScript("OnEvent", function(self, event, arg1, arg2)
         print('after next frame', C_ToyBox.GetNumFilteredToys()) --prints 638
     end)
 end)
-]]
+--]]
