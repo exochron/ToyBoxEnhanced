@@ -9,15 +9,7 @@
 Libs\TaintLess.xml
 Libs\UIFixes.lua
 
-Locals\enUS.lua
-Locals\deDE.lua
-Locals\esES.lua
-Locals\frFR.lua
-Locals\koKR.lua
-Locals\ruRU.lua
-Locals\zhCN.lua
-Locals\zhTW.lua
-
+Locals.lua
 Database.lua
 toys.db.lua
 

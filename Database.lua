@@ -1,6 +1,13 @@
 local _, ADDON = ...
 
+ADDON.DELAY_CHECK = 660 -- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag ( https://wow.tools/dbc/?dbc=toy#page=1&colFilter[3]=0x2 )
+
 ADDON.db = {}
+
+ADDON.db.Recent = {
+    ["minID"] = 187419,
+    ["blacklist"] = { 187420},
+}
 
 ADDON.db.worldEvent = {
 

@@ -16,7 +16,6 @@ local function ResetAPIFilters()
     C_ToyBox.SetUncollectedShown(true)
     C_ToyBox.SetUnusableShown(true)
     C_ToyBox.SetFilterString("")
-    C_ToyBox.ForceToyRefilter()
 
     return C_ToyBox.GetNumFilteredToys()
 end
@@ -138,7 +137,6 @@ local addonLoaded = false
 local playerLoggedIn = false
 local delayLoginUntilFullyLoaded = false
 local loadUIisRunning = false
-local DELAY_CHECK = 670 -- Threshold of at least loaded toy count (see: bottom of DebugTest)
 
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN") -- might already been triggered
@@ -149,14 +147,14 @@ frame:RegisterEvent("PLAYER_REGEN_DISABLED")
 frame:SetScript("OnEvent", function(_, event, arg1)
 
     if false == playerLoggedIn and IsLoggedIn() then
-        if ResetAPIFilters() <= DELAY_CHECK then
+        if ResetAPIFilters() < ADDON.DELAY_CHECK then
             delayLoginUntilFullyLoaded = true
         end
         playerLoggedIn = true
     end
     if event == "ADDON_LOADED" and arg1 == ADDON_NAME then
         addonLoaded = true
-    elseif event == "TOYS_UPDATED" and delayLoginUntilFullyLoaded and playerLoggedIn and nil == arg1 and ResetAPIFilters() > DELAY_CHECK then
+    elseif event == "TOYS_UPDATED" and delayLoginUntilFullyLoaded and playerLoggedIn and nil == arg1 and ResetAPIFilters() >= ADDON.DELAY_CHECK then
         delayLoginUntilFullyLoaded = false
     end
 

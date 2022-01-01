@@ -1,4 +1,4 @@
-local ADDON_NAME, ADDON = ...
+local _, ADDON = ...
 
 local function FilterBySearch(itemId, searchString)
     local _, name = C_ToyBox.GetToyInfo(itemId)
@@ -130,6 +130,10 @@ local function FilterToysByWorldEvent(itemId)
     return CheckItemInList(ADDON.settings.filter.worldEvent, ADDON.db.worldEvent, itemId)
 end
 
+local function FilterRecentToys(itemId)
+    return not ADDON.settings.filter.onlyRecent or (ADDON.db.Recent.minID <= itemId and not tContains(ADDON.db.Recent.blacklist, itemId))
+end
+
 local function FilterToysByExpansion(itemId)
 
     local settingsResult = CheckAllSettings(ADDON.settings.filter.expansion)
@@ -198,6 +202,7 @@ function ADDON:FilterToy(itemId, searchString)
             and FilterSecretToys(itemId)
             and FilterCollectedToys(itemId)
             and FilterFavoriteToys(itemId)
+            and FilterRecentToys(itemId)
             and FilterUsableToys(itemId)
             and FilterToysByFaction(itemId)
             and FilterToysByExpansion(itemId)
