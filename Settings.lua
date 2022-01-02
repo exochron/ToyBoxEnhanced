@@ -31,6 +31,7 @@ local function PrepareDefaults()
             notCollected = true,
             onlyFavorites = false,
             onlyUsable = false,
+            onlyTradable = false,
             onlyRecent = false,
             source = {},
             faction = {

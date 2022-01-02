@@ -130,6 +130,10 @@ local function FilterToysByWorldEvent(itemId)
     return CheckItemInList(ADDON.settings.filter.worldEvent, ADDON.db.worldEvent, itemId)
 end
 
+local function FilterTradableToys(itemId)
+    return not ADDON.settings.filter.onlyTradable or ADDON.db.Tradable[itemId]
+end
+
 local function FilterRecentToys(itemId)
     return not ADDON.settings.filter.onlyRecent or (ADDON.db.Recent.minID <= itemId and not tContains(ADDON.db.Recent.blacklist, itemId))
 end
@@ -202,6 +206,7 @@ function ADDON:FilterToy(itemId, searchString)
             and FilterSecretToys(itemId)
             and FilterCollectedToys(itemId)
             and FilterFavoriteToys(itemId)
+            and FilterTradableToys(itemId)
             and FilterRecentToys(itemId)
             and FilterUsableToys(itemId)
             and FilterToysByFaction(itemId)

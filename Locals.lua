@@ -21,6 +21,7 @@ L["SORT_FAVORITES_FIRST"] = "Favorites First"
 L["SORT_REVERSE"] = "Reverse Sort"
 L["SORT_UNOWNED_AFTER"] = "Unowned at Last"
 L["FILTER_SECRET"] = "Hidden in game"
+L["FILTER_ONLY_TRADABLE"] = "Only tradable"
 L["FILTER_ONLY_LATEST"] = "Only latest additions"
 
 -- Settings

@@ -10,8 +10,9 @@ Libs\TaintLess.xml
 Libs\UIFixes.lua
 
 Locals.lua
-Database.lua
-toys.db.lua
+Database\Database.lua
+Database\toys.db.lua
+Database\tradable.db.lua
 
 Filters.lua
 ToyBoxEnhanced.lua

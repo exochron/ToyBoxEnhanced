@@ -4,6 +4,7 @@ local SETTING_COLLECTED = "collected"
 local SETTING_ONLY_FAVORITES = "onlyFavorites"
 local SETTING_NOT_COLLECTED = "notCollected"
 local SETTING_ONLY_USEABLE = "onlyUsable"
+local SETTING_ONLY_TRADABLE = "onlyTradable"
 local SETTING_ONLY_RECENT = "onlyRecent"
 local SETTING_HIDDEN = "hidden"
 local SETTING_SECRET = "secret"
@@ -186,12 +187,10 @@ local function InitializeDropDown(_, level)
             end
         end)
         UIDropDownMenu_AddButton(info, level)
-
         info = CreateFilterInfo(FAVORITES_FILTER, SETTING_ONLY_FAVORITES)
         info.leftPadding = 16
         info.disabled = not ADDON.settings.filter.collected
         UIDropDownMenu_AddButton(info, level)
-
         info = CreateFilterInfo(PET_JOURNAL_FILTER_USABLE_ONLY, SETTING_ONLY_USEABLE)
         info.leftPadding = 16
         info.disabled = not ADDON.settings.filter.collected
@@ -205,13 +204,13 @@ local function InitializeDropDown(_, level)
             end
         end)
         UIDropDownMenu_AddButton(info, level)
-
         info = CreateFilterInfo(L.FILTER_SECRET, SETTING_SECRET)
         info.leftPadding = 16
-        info.disabled = not ADDON.settings.filter.collected
+        info.disabled = not ADDON.settings.filter.notCollected
         UIDropDownMenu_AddButton(info, level)
 
         UIDropDownMenu_AddButton(CreateFilterInfo(L.FILTER_ONLY_LATEST, SETTING_ONLY_RECENT), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L.FILTER_ONLY_TRADABLE, SETTING_ONLY_TRADABLE), level)
 
         if ADDON.settings.filter[SETTING_HIDDEN] or HasUserHiddenToys() then
             UIDropDownMenu_AddButton(CreateFilterInfo(L["Hidden"], SETTING_HIDDEN), level)

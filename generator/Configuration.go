@@ -1,21 +1,24 @@
 package main
 
-type Config struct {
-	Ignored []int
+import (
+	"io/ioutil"
+	"log"
+
+	"gopkg.in/yaml.v3"
+)
+
+type config struct {
+	DBFilePath string
+	HotfixFile string
+	Ignored    []int
 }
 
-func LoadConfig() Config {
-	return Config{
-		Ignored: []int{
-			88587, //Iron Belly Spirits
-			110586, //Mysterious Flower
-			119220, //Alliance Gladiator's Banner
-			119221, //Horde Gladiator's Banner
-			129111, //Kvaldir Raiding Horn
-			130249, //Waywatcher's Boon
-			141300, //Magi Focusing Crystal
-			143545, //Fel Focusing Crystal
-			166851, //Kojo's Master Matching Set
-		},
+func LoadConfig() config {
+
+	var c config
+	yfile, _ := ioutil.ReadFile("config.yml")
+	if err := yaml.Unmarshal(yfile, &c); err != nil {
+		log.Fatal(err)
 	}
+	return c
 }
