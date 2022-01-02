@@ -1,17 +1,27 @@
 package main
 
-import "tbe_generator/db2reader"
+import (
+	"io/ioutil"
+	"log"
+	"tbe_generator/db2reader"
+)
+
+func openFile(fileName string) []byte {
+	data, err := ioutil.ReadFile(fileName)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return data
+}
 
 func main() {
 	config := LoadConfig()
 
-	directFiles := FileLoader{}
-	hotfix := db2reader.ParseHotfix(directFiles.Open(config.HotfixFile))
-
-	dbFiles := FileLoader{config.DBFilePath}
+	hotfix := db2reader.ParseHotfix(openFile(config.HotfixFile))
 	toys := collectToys(
-		db2reader.ParseDB2(dbFiles.Open("toy.db2"), hotfix),
-		db2reader.ParseDB2(dbFiles.Open("itemsparse.db2"), hotfix),
+		db2reader.ParseDB2(openFile(config.DBFilePath+"toy.db2"), hotfix),
+		db2reader.ParseDB2(openFile(config.DBFilePath+"itemsparse.db2"), hotfix),
 	)
 
 	for _, ignoreItemId := range config.Ignored {
