@@ -4,6 +4,8 @@ local SETTING_COLLECTED = "collected"
 local SETTING_ONLY_FAVORITES = "onlyFavorites"
 local SETTING_NOT_COLLECTED = "notCollected"
 local SETTING_ONLY_USEABLE = "onlyUsable"
+local SETTING_ONLY_TRADABLE = "onlyTradable"
+local SETTING_ONLY_RECENT = "onlyRecent"
 local SETTING_HIDDEN = "hidden"
 local SETTING_SECRET = "secret"
 local SETTING_SOURCE = "source"
@@ -171,23 +173,24 @@ end
 local function InitializeDropDown(_, level)
     local info
 
-    if (level == 1) then
+    if level == 1 then
+        UIDropDownMenu_AddButton(CreateFilterCategory(CLUB_FINDER_SORT_BY, SETTING_SORT), level)
+        UIDropDownMenu_AddSpace(level)
+
         info = CreateFilterInfo(COLLECTED, SETTING_COLLECTED, nil, function(value)
             if value then
-                UIDropDownMenu_EnableButton(1, 2)
-                UIDropDownMenu_EnableButton(1, 3)
+                UIDropDownMenu_EnableButton(1, 4)
+                UIDropDownMenu_EnableButton(1, 5)
             else
-                UIDropDownMenu_DisableButton(1, 2)
-                UIDropDownMenu_DisableButton(1, 3)
+                UIDropDownMenu_DisableButton(1, 4)
+                UIDropDownMenu_DisableButton(1, 5)
             end
         end)
         UIDropDownMenu_AddButton(info, level)
-
         info = CreateFilterInfo(FAVORITES_FILTER, SETTING_ONLY_FAVORITES)
         info.leftPadding = 16
         info.disabled = not ADDON.settings.filter.collected
         UIDropDownMenu_AddButton(info, level)
-
         info = CreateFilterInfo(PET_JOURNAL_FILTER_USABLE_ONLY, SETTING_ONLY_USEABLE)
         info.leftPadding = 16
         info.disabled = not ADDON.settings.filter.collected
@@ -195,17 +198,19 @@ local function InitializeDropDown(_, level)
 
         info = CreateFilterInfo(NOT_COLLECTED, SETTING_NOT_COLLECTED, nil, function (value)
             if value then
-                UIDropDownMenu_EnableButton(1, 5)
+                UIDropDownMenu_EnableButton(1, 7)
             else
-                UIDropDownMenu_DisableButton(1, 5)
+                UIDropDownMenu_DisableButton(1, 7)
             end
         end)
         UIDropDownMenu_AddButton(info, level)
-
         info = CreateFilterInfo(L.FILTER_SECRET, SETTING_SECRET)
         info.leftPadding = 16
-        info.disabled = not ADDON.settings.filter.collected
+        info.disabled = not ADDON.settings.filter.notCollected
         UIDropDownMenu_AddButton(info, level)
+
+        UIDropDownMenu_AddButton(CreateFilterInfo(L.FILTER_ONLY_LATEST, SETTING_ONLY_RECENT), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L.FILTER_ONLY_TRADABLE, SETTING_ONLY_TRADABLE), level)
 
         if ADDON.settings.filter[SETTING_HIDDEN] or HasUserHiddenToys() then
             UIDropDownMenu_AddButton(CreateFilterInfo(L["Hidden"], SETTING_HIDDEN), level)
@@ -220,14 +225,12 @@ local function InitializeDropDown(_, level)
         UIDropDownMenu_AddSpace(level)
         info = CreateFilterInfo(L["Reset filters"])
         info.keepShownOnClick = false
+        info.justifyH = "CENTER"
         info.func = function()
             ADDON:ResetFilterSettings()
             ADDON:FilterAndRefresh()
         end
         UIDropDownMenu_AddButton(info, level)
-
-        UIDropDownMenu_AddSpace(level)
-        UIDropDownMenu_AddButton(CreateFilterCategory(CLUB_FINDER_SORT_BY, SETTING_SORT), level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_SOURCE) then
         local settings = ADDON.settings.filter[SETTING_SOURCE]
@@ -351,6 +354,7 @@ local function InitializeDropDown(_, level)
 
         info = CreateFilterInfo(NEWBIE_TOOLTIP_STOPWATCH_RESETBUTTON)
         info.keepShownOnClick = false
+        info.justifyH = "CENTER"
         info.func = function()
             ADDON:ResetSortSettings()
             ADDON:FilterAndRefresh()
