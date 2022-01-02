@@ -1263,6 +1263,7 @@ ADDON.db.effect = {
             [180873] = true, -- Smolderheart
             [180947] = true, -- Tithe Collector's Vessel
             [187840] = true, -- Sparkle Wings
+            [187913] = true, -- Apprentice Slimemancer's Boots
             [188701] = true, -- Fire Festival Batons
             [188699] = true, -- Insulated Dancing Insoles
         },
@@ -1338,6 +1339,7 @@ ADDON.db.effect = {
         ["Other"] = {
             [17716] = true, -- Snowmaster 9000
             [21540] = true, -- Elune's Lantern
+            [187344] = true, -- Offering Kit Maker
         }
     },
 
@@ -1514,6 +1516,7 @@ ADDON.db.effect = {
             [36863] = true, -- Decahedral Dwarven Dice
             [44430] = true, -- Titanium Seal of Dalaran
             [63269] = true, -- Loaded Gnomish Dice
+            [186686] = true, -- Pallid Oracle Bones
         },
 
         ["Statue"] = {
