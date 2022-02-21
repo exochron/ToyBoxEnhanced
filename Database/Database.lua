@@ -5,8 +5,8 @@ ADDON.DELAY_CHECK = 660 -- Threshold of at least loaded toy count (see: bottom o
 ADDON.db = {}
 
 ADDON.db.Recent = {
-    ["minID"] = 187419,
-    ["blacklist"] = { 187420},
+    ["minID"] = 187793,
+    ["blacklist"] = { 187834, 187840, 187869, 187875, 187895, 187896, 187897, 187898, 187899, 187900, 187913, 187957, 187958, 187959, 188680, 188694, 188695, 188698, 188699, 188701},
 }
 
 ADDON.db.worldEvent = {
@@ -429,6 +429,9 @@ ADDON.db.source = {
         [187344] = true, -- Offering Kit Maker
         [187416] = true, -- Jailer's Cage
         [187705] = true, -- Choofa's Call
+        [190457] = true, -- Protopological Cube
+        [190853] = true, -- Bushel of Mysterious Fruit
+        [190926] = true, -- Infested Automa Core
     },
 
     ["Drop"] = {
@@ -588,6 +591,9 @@ ADDON.db.source = {
         [187185] = true, -- Vesper of Faith
         [187417] = true, -- Adamant Vaults Cell
         [187420] = true, -- Maw-Ocular Viewfinder
+        [190177] = true, -- Sphere of Enlightened Cogitation -- Enlightened Broker Supplies
+        [190238] = true, -- Xy'rath's Booby-Trapped Cache -- Xy'rath the Covetous
+        [190734] = true, -- Makaris's Satchel of Mines
     },
 
     ["Quest"] = {
@@ -782,6 +788,7 @@ ADDON.db.source = {
         [183876] = true, -- Quill of Correspondence
         [183989] = true, -- Dredger Barrow Racer
         [186974] = true, -- Experimental Anima Cell
+        [190333] = true, -- Jiro Circle of Song
     },
 
     ["Instance"] = {
@@ -871,6 +878,7 @@ ADDON.db.source = {
         [183716] = true, -- Venthyr Sinstone
         [182773] = true, -- Necrolord Hearthstone
         [184353] = true, -- Kyrian Hearthstone
+        [190237] = true, -- Broker Translocation Matrix
     },
 
     ["Achievement"] = {
@@ -901,6 +909,9 @@ ADDON.db.source = {
         [184449] = true, -- Jiggles's Favorite Toy
         [184508] = true, -- Mawsworn Pet Leash
         [183903] = true, -- Smelly Jelly
+        [187793] = true, -- Personal Containment Trap
+        [187860] = true, -- Mortis Mover
+        [188952] = true, -- Dominated Hearthstone
     },
 
     ["PvP"] = {
@@ -1198,6 +1209,7 @@ ADDON.db.effect = {
             [184223] = true, -- Helm of the Dominated
             [187139] = true, -- Bottled Shade Heart
             [187155] = true, -- Guise of the Changeling
+            [190457] = true, -- Protopological Cube
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1266,6 +1278,7 @@ ADDON.db.effect = {
             [187913] = true, -- Apprentice Slimemancer's Boots
             [188701] = true, -- Fire Festival Batons
             [188699] = true, -- Insulated Dancing Insoles
+            [190926] = true, -- Infested Automa Core
         },
 
         ["Bigger"] = {
@@ -1498,6 +1511,7 @@ ADDON.db.effect = {
             [186702] = true, -- Pallid Bone Flute
             [187075] = true, -- Box of Rattling Chains
             [187591] = true, -- Nightborne Guard's Vigilance
+            [190853] = true, -- Bushel of Mysterious Fruit
         },
 
         ["Corpse"] = {
@@ -1534,6 +1548,7 @@ ADDON.db.effect = {
             [164983] = true, -- Rhan'ka's Escape Plan
             [187416] = true, -- Jailer's Cage
             [187417] = true, -- Adamant Vaults Cell
+            [187793] = true, -- Personal Containment Trap
         },
 
     },
@@ -1685,6 +1700,7 @@ ADDON.db.effect = {
             [183810] = true, -- Shadowlands Mini: Grandmaster Vole
             [184495] = true, -- Infested Arachnid Casing
             [186974] = true, -- Experimental Anima Cell
+            [190238] = true, -- Xy'rath's Booby-Trapped Cache
         },
 
         ["Mail"] = {
@@ -1922,6 +1938,9 @@ ADDON.db.effect = {
             [182773] = true, -- Necrolord Hearthstone
             [183716] = true, -- Venthyr Sinstone
             [184353] = true, -- Kyrian Hearthstone
+            [188952] = true, -- Dominated Hearthstone
+            [190196] = true, -- Enlightened Hearthstone
+            [190237] = true, -- Broker Translocation Matrix
         },
 
         ["Jump"] = {
