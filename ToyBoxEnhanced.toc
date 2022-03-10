@@ -5,6 +5,7 @@
 ## Version: @project-version@
 ## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
 ## X-Curse-Project-ID: 87878
+## X-Wago-ID: pkNMXrGz
 
 Libs\TaintLess.xml
 Libs\UIFixes.lua
