@@ -49,6 +49,7 @@ ADDON.db.worldEvent = {
         [138202] = true, -- Sparklepony XL
         [151265] = true, -- Blight Boar Microphone
         [162539] = true, -- Hot Buttered Popcorn
+        [187689] = true, -- Dance Dance Darkmoon
     },
 
     ["Lunar Festival"] = {
@@ -680,6 +681,7 @@ ADDON.db.source = {
         [187512] = true, -- Tome of Small Sins
         [187840] = true, -- Sparkle Wings
         [187913] = true, -- Apprentice Slimemancer's Boots
+        [190754] = true, -- Firim's Specimen Container
     },
 
     ["Vendor"] = {
@@ -909,6 +911,7 @@ ADDON.db.source = {
         [184449] = true, -- Jiggles's Favorite Toy
         [184508] = true, -- Mawsworn Pet Leash
         [183903] = true, -- Smelly Jelly
+        [187689] = true, -- Dance Dance Darkmoon
         [187793] = true, -- Personal Containment Trap
         [187860] = true, -- Mortis Mover
         [188952] = true, -- Dominated Hearthstone
@@ -1511,7 +1514,9 @@ ADDON.db.effect = {
             [186702] = true, -- Pallid Bone Flute
             [187075] = true, -- Box of Rattling Chains
             [187591] = true, -- Nightborne Guard's Vigilance
+            [187689] = true, -- Dance Dance Darkmoon
             [190853] = true, -- Bushel of Mysterious Fruit
+            [190177] = true, -- Sphere of Enlightened Cogitation
         },
 
         ["Corpse"] = {
@@ -1643,6 +1648,8 @@ ADDON.db.effect = {
             [187185] = true, -- Vesper of Faith
             [187420] = true, -- Maw-Ocular Viewfinder
             [188694] = true, -- Spring Florist's Pouch
+            [190734] = true, -- Makaris's Satchel of Mines
+            [190754] = true, -- Firim's Specimen Container
         },
 
         ["Weather"] = {
@@ -1878,6 +1885,7 @@ ADDON.db.effect = {
             [184489] = true, -- Fae Harp
             [184490] = true, -- Fae Pipes
             [188680] = true, -- Winter Veil Chorus Book
+            [190333] = true, -- Jiro Circle of Song
         },
 
         ["Voice"] = {
@@ -1964,6 +1972,7 @@ ADDON.db.effect = {
             [183989] = true, -- Dredger Barrow Racer
             [187339] = true, -- Silver Shardhide Whistle
             [187113] = true, -- Personal Ball and Chain
+            [187860] = true, -- Mortis Mover
             [188698] = true, -- Eagger Basket
         },
 
