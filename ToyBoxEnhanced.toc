@@ -1,4 +1,4 @@
-## Interface: 90200
+## Interface: 90205
 ## Title: Toy Box Enhanced
 ## Notes: Extends the ingame Toy Box
 ## Author: eXochron

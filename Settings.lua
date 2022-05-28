@@ -3,6 +3,10 @@ local _, ADDON = ...
 ToyBoxEnhancedSettings = ToyBoxEnhancedSettings or {}
 local defaultFilterStates, defaultSortStates
 
+function ADDON:IsUsingDefaultFilters()
+    return tCompare(ADDON.settings.filter, defaultFilterStates, 3)
+end
+
 function ADDON:ResetFilterSettings()
     ADDON.settings.filter = CopyTable(defaultFilterStates)
 end

@@ -720,7 +720,6 @@ ADDON.db.ingameList = {
 [187899] = false, -- Scouting Map: The Many Curiosities of Outland
 [187900] = false, -- Scouting Map: The Wonders of Kul Tiras and Zandalar
 [187913] = false, -- Apprentice Slimemancer's Boots
-[187957] = false, -- Encrypted Banner of the Opportune
 [187958] = false, -- PH - Banner of the Opportune
 [187959] = false, -- PH - Banner of the Opportune
 [188680] = false, -- Winter Veil Chorus Book
@@ -740,4 +739,5 @@ ADDON.db.ingameList = {
 [190754] = false, -- Firim's Specimen Container
 [190853] = false, -- Bushel of Mysterious Fruit
 [190926] = false, -- Infested Automa Core
+[192099] = false, -- Earpieces of Tranquil Focus
 }
