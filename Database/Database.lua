@@ -5,8 +5,8 @@ ADDON.DELAY_CHECK = 660 -- Threshold of at least loaded toy count (see: bottom o
 ADDON.db = {}
 
 ADDON.db.Recent = {
-    ["minID"] = 187793,
-    ["blacklist"] = { 187834, 187840, 187869, 187875, 187895, 187896, 187897, 187898, 187899, 187900, 187913, 187957, 187958, 187959, 188680, 188694, 188695, 188698, 188699, 188701},
+    ["minID"] = 192099,
+    ["blacklist"] = { },
 }
 
 ADDON.db.worldEvent = {
@@ -791,6 +791,7 @@ ADDON.db.source = {
         [183989] = true, -- Dredger Barrow Racer
         [186974] = true, -- Experimental Anima Cell
         [190333] = true, -- Jiro Circle of Song
+        [192099] = true, -- Earpieces of Tranquil Focus
     },
 
     ["Instance"] = {
@@ -1871,6 +1872,7 @@ ADDON.db.effect = {
             [163463] = true, -- Dead Ringer
             [163745] = true, -- Witherbark Gong
             [168824] = true, -- Ocean Simulator
+            [192099] = true, -- Earpieces of Tranquil Focus
         },
 
         ["Music"] = {

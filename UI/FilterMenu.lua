@@ -18,6 +18,12 @@ local SETTING_EFFECT = "effect"
 
 local L = ADDON.L
 
+local function UpdateResetVisibility()
+    if ToyBoxFilterButton.ResetButton then
+        ToyBoxFilterButton.ResetButton:SetShown(not ADDON:IsUsingDefaultFilters())
+    end
+end
+
 local function CreateFilterInfo(text, filterKey, filterSettings, callback)
     local info = {
         keepShownOnClick = true,
@@ -38,6 +44,7 @@ local function CreateFilterInfo(text, filterKey, filterSettings, callback)
             arg1[filterKey] = arg2 or value
             ADDON:FilterAndRefresh()
             UIDropDownMenu_RefreshAll(_G[ADDON_NAME .. "FilterMenu"])
+            UpdateResetVisibility()
 
             if callback then
                 callback(value)
@@ -100,6 +107,7 @@ local function SetAllSubFilters(settings, switch)
 
     UIDropDownMenu_RefreshAll(_G[ADDON_NAME .. "FilterMenu"])
     ADDON:FilterAndRefresh()
+    UpdateResetVisibility()
 end
 
 local function RefreshCategoryButton(button, isNotRadio)
@@ -227,8 +235,7 @@ local function InitializeDropDown(_, level)
         info.keepShownOnClick = false
         info.justifyH = "CENTER"
         info.func = function()
-            ADDON:ResetFilterSettings()
-            ADDON:FilterAndRefresh()
+            ToyBoxFilterButton.resetFunction()
         end
         UIDropDownMenu_AddButton(info, level)
 
@@ -386,4 +393,12 @@ ADDON.Events:RegisterCallback("OnLoadUI", function()
             end
         end
     end)
+
+    ToyBoxFilterButton.resetFunction = function()
+        ADDON:ResetFilterSettings()
+        ADDON:FilterAndRefresh()
+        UpdateResetVisibility()
+    end
+    UpdateResetVisibility()
+
 end, "filter-menu")
