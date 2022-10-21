@@ -15,9 +15,11 @@ local function BuildFrame()
     local frame = CreateFrame("Frame")
     local L = ADDON.L
 
-    local titleFont = frame:CreateFontString(nil, "ARTWORK", "GameFontNormalLarge")
-    titleFont:SetPoint("TOPLEFT", 22, -22)
+    local titleFont = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
+    titleFont:SetPoint("TOPLEFT", 10, -15)
     titleFont:SetText(GetAddOnMetadata(ADDON_NAME, "Title"))
+    titleFont:SetJustifyH("LEFT")
+    titleFont:SetJustifyV("TOP")
 
     frame.enableCursorKeysCheck = BuildCheckBox(frame, L.SETTING_CURSOR_KEYS, titleFont, 10)
     frame.favoritesPerCharCheck = BuildCheckBox(frame, L.SETTING_FAVORITE_PER_CHAR, frame.enableCursorKeysCheck)
@@ -38,15 +40,22 @@ local function OKHandler(frame)
     end
 end
 
+local category
+
 ADDON.Events:RegisterCallback("OnLogin", function()
     local frame = BuildFrame()
-    frame.name = GetAddOnMetadata(ADDON_NAME, "Title")
-    frame.refresh = function()
+    frame.ID = GetAddOnMetadata(ADDON_NAME, "Title")
+    frame.OnRefresh = function()
         frame.enableCursorKeysCheck:SetChecked(ADDON.settings.enableCursorKeys)
         frame.favoritesPerCharCheck:SetChecked(ADDON.settings.favoritePerChar)
         frame.searchInSpellCheck:SetChecked(ADDON.settings.searchInDescription)
     end
-    frame.okay = OKHandler
-    frame.default = ADDON.ResetUISettings
-    InterfaceOptions_AddCategory(frame)
+    frame.OnCommit = OKHandler
+    frame.OnDefault = ADDON.ResetUISettings
+    category = Settings.RegisterCanvasLayoutCategory(frame, frame.ID, frame.ID);
+    Settings.RegisterAddOnCategory(category)
 end, "settings-panel")
+
+function ADDON:OpenSettings()
+    Settings.OpenToCategory(category.ID)
+end

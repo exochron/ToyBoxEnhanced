@@ -89,10 +89,10 @@
         </Frames>
 
         <Animations>
-          <AnimationGroup parentKey="IconFadeIn" setToFinalAlpha="true">
-            <Alpha childKey="iconTexture" startDelay="1.0"  fromAlpha="0" toAlpha="1" duration="0.75" order="1"/>
-            <Alpha childKey="slotFrameCollected" startDelay="1.0"  fromAlpha="0" toAlpha="1" duration="0.75" order="1"/>
-          </AnimationGroup>
+            <AnimationGroup parentKey="IconFadeIn" setToFinalAlpha="true">
+                <Alpha childKey="iconTexture" startDelay="1.0"  fromAlpha="0" toAlpha="1" duration="0.75" order="1"/>
+                <Alpha childKey="slotFrameCollected" startDelay="1.0"  fromAlpha="0" toAlpha="1" duration="0.75" order="1"/>
+            </AnimationGroup>
         </Animations>
 
         <Scripts>
@@ -106,8 +106,8 @@
             <OnHide function="CollectionsSpellButton_OnHide"/>
 
             <OnLeave>
-                    GameTooltip_Hide();
-                    ResetCursor();
+                GameTooltip_Hide();
+                ResetCursor();
             </OnLeave>
         </Scripts>
         <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress">
@@ -141,7 +141,7 @@
                 <Texture parentKey="IsHidden" hidden="true" file="Interface\BUTTONS\UI-GroupLoot-Pass-Up">
                     <Size x="36" y="36"/>
                     <Anchors>
-                        <Anchor point="CENTER" CENTER="LEFT" x="0" y="2"/>
+                        <Anchor point="CENTER" relativePoint="CENTER" x="0" y="2"/>
                     </Anchors>
                 </Texture>
             </Layer>
@@ -279,9 +279,7 @@
             <Attribute name="_ondragstart" value='return "clear", "macro", "TBE: Random Toy"'/>
         </Attributes>
 
-        <Size>
-            <AbsDimension x="33" y="33"/>
-        </Size>
+        <Size x="33" y="33"/>
         <Anchors>
             <Anchor point="CENTER" relativePoint="TOP" x="65" y="-42"/>
         </Anchors>
@@ -295,20 +293,27 @@
                 </Texture>
             </Layer>
             <Layer level="OVERLAY" textureSubLevel="1">
-                <Texture inherits="ActionBarFlyoutButton-IconFrame">
+                <Texture name="$parentBorder" inherits="ActionBarFlyoutButton-IconFrame">
                     <Size x="35" y="35"/>
                     <Anchors>
                         <Anchor point="CENTER"/>
                     </Anchors>
                 </Texture>
-                <Texture parentKey="LockIcon" file="Interface\PetBattles\PetBattle-LockIcon" setAllPoints="true" hidden="true"/>
+                <Texture name="$parentLockIcon" parentKey="LockIcon" file="Interface\PetBattles\PetBattle-LockIcon" setAllPoints="true" hidden="true"/>
+                <FontString name="$parentSpellName" inherits="GameFontNormal" maxLines="2" justifyH="RIGHT" parentKey="spellname">
+                    <Anchors>
+                        <Anchor point="RIGHT" relativePoint="LEFT" relativeTo="$parentBorder" x="-2" y="0"/>
+                    </Anchors>
+                    <Size x="130" y="0"/>
+                    <Color r="1" g="1" b="1"/>
+                </FontString>
             </Layer>
         </Layers>
         <Frames>
-            <Cooldown parentKey="cooldown" inherits="CooldownFrameTemplate"/>
+            <Cooldown name="$parentCooldown" parentKey="cooldown" inherits="CooldownFrameTemplate"/>
         </Frames>
         <PushedTexture file="Interface\Buttons\UI-Quickslot-Depress"/>
-        <HighlightTexture file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
+        <HighlightTexture name="$parentHighlight" file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
     </Button>
 
     <Button name="TBERandomFavoredToy" inherits="SecureHandlerBaseTemplate,SecureActionButtonTemplate" protected="true">
