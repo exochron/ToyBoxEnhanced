@@ -35,4 +35,15 @@ ADDON.db.Tradable = {
 [172924] = true, -- Wormhole Generator: Shadowlands
 [183900] = true, -- Sinvyr Tea Set
 [186686] = true, -- Pallid Oracle Bones
+[192443] = true, -- Element-Infused Rocket Helmet
+[192495] = true, -- Malfunctioning Stealthman 54
+[198156] = true, -- Wyrmhole Generator
+[198206] = true, -- Environmental Emulator
+[198227] = true, -- Giggle Goggles
+[198264] = true, -- Centralized Precipitation Emitter
+[198720] = true, -- Soft Purple Pillow
+[198721] = true, -- Skinny Reliquary Pillow
+[198722] = true, -- Small Triangular Pillow
+[199554] = true, -- S.E.A.T.
+[199897] = true, -- Blue-Covered Beanbag
 }

@@ -1,12 +1,12 @@
 local _, ADDON = ...
 
-ADDON.DELAY_CHECK = 660 -- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag ( https://wow.tools/dbc/?dbc=toy#page=1&colFilter[3]=0x2 )
+ADDON.DELAY_CHECK = 749 -- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag ( https://wow.tools/dbc/?dbc=toy#page=1&colFilter[3]=0x2 )
 
 ADDON.db = {}
 
 ADDON.db.Recent = {
-    ["minID"] = 192099,
-    ["blacklist"] = { },
+    ["minID"] = 191891,
+    ["blacklist"] = { 192099, 192485, },
 }
 
 ADDON.db.worldEvent = {
@@ -167,6 +167,7 @@ ADDON.db.worldEvent = {
         [178530] = true, -- Wreath-A-Rang
         [187422] = true, -- Rockin' Rollin' Racer Customizer 19.9.3
         [188680] = true, -- Winter Veil Chorus Book
+        [191937] = true, -- Falling Star Catcher
     },
 }
 
@@ -175,6 +176,8 @@ ADDON.db.profession = {
         [115503] = true, -- Blazing Diamond Pendant
         [130251] = true, -- JewelCraft
         [130254] = true, -- Chatterstone
+        [193032] = true, -- Jeweled Offering
+        [193033] = true, -- Convergent Prism
     },
 
     ["Engineering"] = {
@@ -203,6 +206,13 @@ ADDON.db.profession = {
         [168807] = true, -- Wormhole Generator: Kul Tiras
         [168808] = true, -- Wormhole Generator: Zandalar
         [172924] = true, -- Wormhole Generator: Shadowlands
+        [192443] = true, -- Element-Infused Rocket Helmet
+        [192495] = true, -- Malfunctioning Stealthman 54
+        [198156] = true, -- Wyrmhole Generator
+        [198206] = true, -- Environmental Emulator
+        [198227] = true, -- Giggle Goggles
+        [198264] = true, -- Centralized Precipitation Emitter
+        [199554] = true, -- S.E.A.T.
     },
 
     ["Archaeology"] = {
@@ -252,15 +262,28 @@ ADDON.db.profession = {
         [186686] = true, -- Pallid Oracle Bones
         [186985] = true, -- Elisive Pet Treat
         [186702] = true, -- Pallid Bone Flute
+        [193476] = true, -- Gnoll Tent
+        [193478] = true, -- Tuskarr Beanbag
+        [197719] = true, -- Artisan's Sign
     },
 
     ["Enchanting"] = {
         [128536] = true, -- Leylight Brazier
         [186973] = true, -- Anima-ted Leash
+        [200469] = true, -- Khadgar's Disenchanting Rod
     },
 
     ["Inscription"] = {
         [129211] = true, -- Steamy Romance Novel Kit
+    },
+
+    ["Tailoring"] = {
+        [194052] = true, -- Forlorn Funeral Pall
+        [194056] = true, -- Duck-Stuffed Duck Lovie
+        [194057] = true, -- Cushion of Time Travel
+        [194058] = true, -- Cold Cushion
+        [194059] = true, -- Market Tent
+        [194060] = true, -- Dragonscale Expedition's Expedition Tent
     },
 }
 
@@ -410,7 +433,6 @@ ADDON.db.source = {
         [182729] = true, -- Hearty Dragon Plume
         [182732] = true, -- The Necronom-i-nom
         [182780] = true, -- Muckpool Cookpot
-        [183810] = true, -- Shadowlands Mini: Grandmaster Vole
         [183986] = true, -- Bondable Sinstone
         [183988] = true, -- Bondable Val'kyr Diadem
         [184075] = true, -- Stonewrought Sentry
@@ -433,6 +455,14 @@ ADDON.db.source = {
         [190457] = true, -- Protopological Cube
         [190853] = true, -- Bushel of Mysterious Fruit
         [190926] = true, -- Infested Automa Core
+        [192485] = true, -- Stored Wisdom Device
+
+        -- Dragonflight
+        [200640] = true, -- Obsidian Egg Clutch
+        [200878] = true, -- Wheeled Floaty Boaty Controller
+        [202019] = true, -- Golden Dragon Goblet
+        [202022] = true, -- Yennu's Kite
+
     },
 
     ["Drop"] = {
@@ -595,6 +625,17 @@ ADDON.db.source = {
         [190177] = true, -- Sphere of Enlightened Cogitation -- Enlightened Broker Supplies
         [190238] = true, -- Xy'rath's Booby-Trapped Cache -- Xy'rath the Covetous
         [190734] = true, -- Makaris's Satchel of Mines
+
+        -- Dragonflight
+        [198409] = true, -- Personal Shell
+        [200142] = true, -- Generous Goblin Grenade
+        [200148] = true, -- A Collection Of Me
+        [200160] = true, -- Notfar's Favorite Food
+        [200857] = true, -- Talisman of Sargha
+        [200999] = true, -- The Super Shellkhan Gang
+        [201933] = true, -- Black Dragon's Challenge Dummy
+        [202042] = true, -- Aquatic Shades
+
     },
 
     ["Quest"] = {
@@ -682,6 +723,22 @@ ADDON.db.source = {
         [187840] = true, -- Sparkle Wings
         [187913] = true, -- Apprentice Slimemancer's Boots
         [190754] = true, -- Firim's Specimen Container
+
+        -- Dragonflight
+        [191891] = true, -- Professor Chirpsnide's Im-PECK-able Harpy Disguise
+        [194885] = true, -- Ohuna Perch
+        [198039] = true, -- Rock of Appreciation
+        [198090] = true, -- Jar of Excess Slime
+        [198402] = true, -- Maruuk Cooking Pot
+        [198537] = true, -- Taivan's Trumpet
+        [198857] = true, -- Lucky Duck
+        [200550] = true, -- Very Comfortable Pelt
+        [200551] = true, -- Comfortable Pile of Pelts
+        [200597] = true, -- Lover's Bouquet
+        [200628] = true, -- Somewhat-Stabilized Arcana
+        [200960] = true, -- Seed of Renewed Souls
+        [201815] = true, -- Cloak of Many Faces
+
     },
 
     ["Vendor"] = {
@@ -792,6 +849,12 @@ ADDON.db.source = {
         [186974] = true, -- Experimental Anima Cell
         [190333] = true, -- Jiro Circle of Song
         [192099] = true, -- Earpieces of Tranquil Focus
+
+        -- Dragonflight
+        [198646] = true, -- Ornate Dragon Statue
+        [199337] = true, -- Bag of Furious Winds
+        [201435] = true, -- Shuffling Sands
+
     },
 
     ["Instance"] = {
@@ -882,6 +945,31 @@ ADDON.db.source = {
         [182773] = true, -- Necrolord Hearthstone
         [184353] = true, -- Kyrian Hearthstone
         [190237] = true, -- Broker Translocation Matrix
+
+        -- Dragonflight Renown
+        [198402] = true, -- Maruuk Cooking Pot
+        [198720] = true, -- Soft Purple Pillow
+        [198721] = true, -- Skinny Reliquary Pillow
+        [198722] = true, -- Small Triangular Pillow
+        [198728] = true, -- Explorer's League Banner
+        [198729] = true, -- Reliquary Banner
+        [198827] = true, -- Magical Snow Sled
+        [199649] = true, -- Dragon Tea Set
+        [199650] = true, -- Whale Bone Tea Set
+        [199767] = true, -- Red Dragon Banner
+        [199768] = true, -- Black Dragon Banner
+        [199769] = true, -- Blue Dragon Banner
+        [199770] = true, -- Bronze Dragon Banner
+        [199771] = true, -- Green Dragon Banner
+        [199892] = true, -- Tuskarr Traveling Soup Pot
+        [199894] = true, -- Fisherman's Folly Rack
+        [199896] = true, -- Rubbery Fish Head
+        [199897] = true, -- Blue-Covered Beanbag
+        [199899] = true, -- Iskaara Tug Sled
+        [199902] = true, -- Wayfinder's Compass
+        [200550] = true, -- Very Comfortable Pelt
+        [200551] = true, -- Comfortable Pile of Pelts
+
     },
 
     ["Achievement"] = {
@@ -916,6 +1004,13 @@ ADDON.db.source = {
         [187793] = true, -- Personal Containment Trap
         [187860] = true, -- Mortis Mover
         [188952] = true, -- Dominated Hearthstone
+
+        -- Dragonflight
+        [197986] = true, -- Murglasses
+        [198428] = true, -- Tuskarr Dinghy
+        [200630] = true, -- Ohn'ir Windsage's Hearthstone
+        [200631] = true, -- Happy Tuskarr Palooza
+
     },
 
     ["PvP"] = {
@@ -927,6 +1022,8 @@ ADDON.db.source = {
         [164310] = true, -- Glorious Pennant
         [169297] = true, -- Stormpike Insignia
         [169298] = true, -- Frostwolf Insignia
+
+        [202021] = true, -- Breaker's Flag of Victory
     },
 
     ["Garrison"] = {
@@ -1027,11 +1124,12 @@ ADDON.db.source = {
         [163987] = true, -- Stormwind Champion's War Banner  --Blizzcon 2018
         [172179] = true, -- Eternal Traveler's Hearthstone - Shadowlands Epic Edition
         [186501] = true, -- Doomwalker Trophy Stand
+        [193588] = true, -- Timewalker's Hearthstone - Dragonflight Epic Edition
 
         -- MDI
         [187834] = true, -- Tormented Banner of the Opportune
-        [187957] = true, -- PH - Banner of the Opportune
-        [187958] = true, -- PH - Banner of the Opportune
+        [187957] = true, -- Encrypted Banner of the Opportune
+        [187958] = true, -- Shrouded Banner of the Opportune
         [187959] = true, -- PH - Banner of the Opportune
 
         -- Trading Card Game
@@ -1109,12 +1207,19 @@ ADDON.db.expansion = {
 
     [8] = { -- Shadowlands
         ["minID"] = 175141,
-        ["maxID"] = 999999,
+        ["maxID"] = 190926,
         [172179] = true, -- Eternal Traveler's Hearthstone
         [172924] = true, -- Wormhole Generator: Shadowlands
         [173984] = true, -- Scroll of Aeons
         [174445] = true, -- Glimmerfly Cocoon
-    }
+        [192099] = true, -- Earpieces of Tranquil Focus
+        [192485] = true, -- Stored Wisdom Device
+    },
+
+    [9] = { -- Dragonflight
+        ["minID"] = 191891,
+        ["maxID"] = 999999,
+    },
 }
 
 ADDON.db.effect = {
@@ -1214,6 +1319,12 @@ ADDON.db.effect = {
             [187139] = true, -- Bottled Shade Heart
             [187155] = true, -- Guise of the Changeling
             [190457] = true, -- Protopological Cube
+            [191891] = true, -- Professor Chirpsnide's Im-PECK-able Harpy Disguise
+            [200178] = true, -- Infected Ichor
+            [200198] = true, -- Primalist Prison
+            [200857] = true, -- Talisman of Sargha
+            [200960] = true, -- Seed of Renewed Souls
+
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1283,6 +1394,7 @@ ADDON.db.effect = {
             [188701] = true, -- Fire Festival Batons
             [188699] = true, -- Insulated Dancing Insoles
             [190926] = true, -- Infested Automa Core
+            [198857] = true, -- Lucky Duck
         },
 
         ["Bigger"] = {
@@ -1340,6 +1452,7 @@ ADDON.db.effect = {
             [118224] = true, -- Ogre Brewing Kit
             [119001] = true, -- Mystery Keg
             [169865] = true, -- Brewfest Chowdown Trophy
+            [200869] = true, -- Ohn Lite Branded Horn
         },
 
         ["Food/Water"] = {
@@ -1389,6 +1502,7 @@ ADDON.db.effect = {
             [172222] = true, -- Crashin' Thrashin' Juggernaught
             [172223] = true, -- Crashin' Thrashin' Battleship
             [187422] = true, -- Rockin' Rollin' Racer Customizer 19.9.3
+            [200878] = true, -- Wheeled Floaty Boaty Controller
         },
 
         ["Vision"] = {
@@ -1412,6 +1526,7 @@ ADDON.db.effect = {
             [184396] = true, -- Malfunctioning Goliath Gauntlet
             [184447] = true, -- Kevin's Party Supplies
             [187512] = true, -- Tome of Small Sins
+            [199337] = true, -- Bag of Furious Winds
         },
 
         ["Summon"] = {
@@ -1451,6 +1566,7 @@ ADDON.db.effect = {
             [184487] = true, -- Gormling in a Bag
             [183901] = true, -- Bonestorm Top
             [187705] = true, -- Choofa's Call
+            [200999] = true, -- The Super Shellkhan Gang
         },
     },
 
@@ -1518,6 +1634,9 @@ ADDON.db.effect = {
             [187689] = true, -- Dance Dance Darkmoon
             [190853] = true, -- Bushel of Mysterious Fruit
             [190177] = true, -- Sphere of Enlightened Cogitation
+            [199902] = true, -- Wayfinder's Compass
+            [200631] = true, -- Happy Tuskarr Palooza
+
         },
 
         ["Corpse"] = {
@@ -1529,6 +1648,9 @@ ADDON.db.effect = {
             [166701] = true, -- Warbeast Kraal Dinner Bell
             [166784] = true, -- Narassin's Soul Gem
             [187174] = true, -- Shaded Judgement Stone
+            [194052] = true, -- Forlorn Funeral Pall
+            [202021] = true, -- Breaker's Flag of Victory
+
         },
 
         ["Roll"] = {
@@ -1555,6 +1677,8 @@ ADDON.db.effect = {
             [187416] = true, -- Jailer's Cage
             [187417] = true, -- Adamant Vaults Cell
             [187793] = true, -- Personal Containment Trap
+            [200198] = true, -- Primalist Prison
+
         },
 
     },
@@ -1581,9 +1705,16 @@ ADDON.db.effect = {
             [166879] = true, -- Rallying War Banner
             [169108] = true, -- Rustbolt Banner
             [187834] = true, -- Tormented Banner of the Opportune
-            [187957] = true, -- PH - Banner of the Opportune
-            [187958] = true, -- PH - Banner of the Opportune
+            [187957] = true, -- Encrypted Banner of the Opportune
+            [187958] = true, -- Shrouded Banner of the Opportune
             [187959] = true, -- PH - Banner of the Opportune
+            [198728] = true, -- Explorer's League Banner
+            [198729] = true, -- Reliquary Banner
+            [199767] = true, -- Red Dragon Banner
+            [199768] = true, -- Black Dragon Banner
+            [199769] = true, -- Blue Dragon Banner
+            [199770] = true, -- Bronze Dragon Banner
+            [199771] = true, -- Green Dragon Banner
         },
 
         -- Summons a clone of the character
@@ -1593,6 +1724,8 @@ ADDON.db.effect = {
             [129952] = true, -- Hourglass of Eternity
             [187140] = true, -- Ring of Duplicity
             [187159] = true, -- Shadow Slicing Shortsword
+            [200148] = true, -- A Collection Of Me
+
         },
 
         -- Controlled explosives
@@ -1610,7 +1743,7 @@ ADDON.db.effect = {
             [166777] = true, -- Lion's Pride Firework
         },
 
-        --
+        -- stuff to litter the ground
         ["Ground"] = {
             [54437] = true, -- Tiny Green Ragdoll
             [54438] = true, -- Tiny Blue Ragdoll
@@ -1651,6 +1784,12 @@ ADDON.db.effect = {
             [188694] = true, -- Spring Florist's Pouch
             [190734] = true, -- Makaris's Satchel of Mines
             [190754] = true, -- Firim's Specimen Container
+            [193033] = true, -- Convergent Prism
+            [193476] = true, -- Gnoll Tent
+            [197719] = true, -- Artisan's Sign
+            [198646] = true, -- Ornate Dragon Statue
+            [200550] = true, -- Very Comfortable Pelt
+            [200551] = true, -- Comfortable Pile of Pelts
         },
 
         ["Weather"] = {
@@ -1659,6 +1798,8 @@ ADDON.db.effect = {
             [131724] = true, -- Crystalline Eye of Undravius
             [136935] = true, -- Tadpole Cloudseeder
             [163744] = true, -- Coldrage's Cooler
+            [198206] = true, -- Environmental Emulator
+            [198264] = true, -- Centralized Precipitation Emitter
         }
     },
 
@@ -1676,6 +1817,11 @@ ADDON.db.effect = {
             [116692] = true, -- Fuzzy Green Lounge Cushion
             [129956] = true, -- Leather Love Seat
             [184410] = true, -- Aspirant's Stretcher
+            [193478] = true, -- Tuskarr Beanbag
+            [194057] = true, -- Cushion of Time Travel
+            [194058] = true, -- Cold Cushion
+            [199554] = true, -- S.E.A.T.
+            [199897] = true, -- Blue-Covered Beanbag
         },
 
         -- Can click on these
@@ -1705,16 +1851,17 @@ ADDON.db.effect = {
             [174928] = true, -- Rotten Apple
             [120857] = true, -- Barrel of Bandanas
             [151877] = true, -- Barrel of Eyepatches
-            [183810] = true, -- Shadowlands Mini: Grandmaster Vole
             [184495] = true, -- Infested Arachnid Casing
             [186974] = true, -- Experimental Anima Cell
             [190238] = true, -- Xy'rath's Booby-Trapped Cache
+            [193032] = true, -- Jeweled Offering
         },
 
         ["Mail"] = {
             [40768] = true, -- MOLL-E
             [156833] = true, -- Katy's Stampwhistle
             [183876] = true, -- Quill of Correspondence
+            [194885] = true, -- Ohuna Perch
         },
 
         ["NPC"] = {
@@ -1730,6 +1877,7 @@ ADDON.db.effect = {
             [184218] = true, -- Vulgarity Arbiter
             [184435] = true, -- Mark of Purity
             [187419] = true, -- Steward's First Feather
+            [192485] = true, -- Stored Wisdom Device
         },
 
         -- Can attack these
@@ -1739,6 +1887,9 @@ ADDON.db.effect = {
             [89614] = true, -- Anatomical Dummy
             [144339] = true, -- Sturdy Love Fool
             [163201] = true, -- Gnoll Targeting Barrel
+            [199896] = true, -- Rubbery Fish Head
+            [201933] = true, -- Black Dragon's Challenge Dummy
+
         },
     },
 
@@ -1783,6 +1934,8 @@ ADDON.db.effect = {
             [178530] = true, -- Wreath-A-Rang
             [181825] = true, -- Phial of Ravenous Slime
             [184292] = true, -- Ancient Elethium Coin
+            [199894] = true, -- Fisherman's Folly Rack
+            [200597] = true, -- Lover's Bouquet
         }
     },
 
@@ -1804,6 +1957,8 @@ ADDON.db.effect = {
             [182780] = true, -- Muckpool Cookpot
             [184404] = true, -- Ever-Abundant Hearth
             [188695] = true, -- Summer Cranial Skillet
+            [198402] = true, -- Maruuk Cooking Pot
+            [199892] = true, -- Tuskarr Traveling Soup Pot
         },
 
         ["Fishing"] = {
@@ -1911,6 +2066,8 @@ ADDON.db.effect = {
             [182696] = true, -- The Countess's Parasol
             [182729] = true, -- Hearty Dragon Plume
             [184312] = true, -- Borr-Geth's Fiery Brimstone
+            [192443] = true, -- Element-Infused Rocket Helmet
+            [197961] = true, -- Whelps on Strings
         },
 
         -- Unlocks flight paths
@@ -1951,6 +2108,9 @@ ADDON.db.effect = {
             [188952] = true, -- Dominated Hearthstone
             [190196] = true, -- Enlightened Hearthstone
             [190237] = true, -- Broker Translocation Matrix
+            [193588] = true, -- Timewalker's Hearthstone
+            [200630] = true, -- Ohn'ir Windsage's Hearthstone
+
         },
 
         ["Jump"] = {
@@ -1982,6 +2142,7 @@ ADDON.db.effect = {
             [86582] = true, -- Aqua Jewel
             [129165] = true, -- Barnacle-Encrusted Gem
             [134024] = true, -- Cursed Swabby Helmet
+            [200116] = true, -- Everlasting Horn of Lavaswimming
         },
 
         ["Teleport"] = {
@@ -2006,6 +2167,7 @@ ADDON.db.effect = {
             [169297] = true, -- Stormpike Insignia
             [169298] = true, -- Frostwolf Insignia
             [172924] = true, -- Wormhole Generator: Shadowlands
+            [198156] = true, -- Wyrmhole Generator
         },
 
         ["Water Walking"] = {
@@ -2013,6 +2175,8 @@ ADDON.db.effect = {
             [142341] = true, -- Love Boat
             [166461] = true, -- Gnarlwood Waveboard
             [177951] = true, -- Glimmerflies on Strings
+            [197961] = true, -- Whelps on Strings
+            [198428] = true, -- Tuskarr Dinghy
         }
     },
 
@@ -2037,6 +2201,8 @@ ADDON.db.effect = {
         [170380] = true, -- Jar of Sunwarmed Sand
         [174926] = true, -- Overly Sensitive Void Spectacles
         [163603] = true, -- Lucille's Handkerchief
+        [197986] = true, -- Murglasses
+        [198227] = true, -- Giggle Goggles
     },
 
     -- Battle pets; No critters or combat/hunter pets

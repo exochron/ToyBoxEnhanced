@@ -270,6 +270,7 @@ local function InitializeDropDown(_, level)
         UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(4036), "Engineering", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(INSCRIPTION, "Inscription", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(2108), "Leatherworking", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(3908), "Tailoring", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_ARCHAEOLOGY, "Archaeology", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_COOKING, "Cooking", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_FISHING, "Fishing", settings), level)
@@ -301,7 +302,7 @@ local function InitializeDropDown(_, level)
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_EXPANSION) then
         local settings = ADDON.settings.filter[SETTING_EXPANSION]
         AddCheckAllAndNoneInfo({ settings }, level)
-        for i = 0, #ADDON.db.expansion do
+        for i = #ADDON.db.expansion, 0, -1 do
             UIDropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], i, settings), level)
         end
 
