@@ -40,11 +40,10 @@ local function OKHandler(frame)
     end
 end
 
-local category
+local categoryID
 
 ADDON.Events:RegisterCallback("OnLogin", function()
     local frame = BuildFrame()
-    frame.ID = GetAddOnMetadata(ADDON_NAME, "Title")
     frame.OnRefresh = function()
         frame.enableCursorKeysCheck:SetChecked(ADDON.settings.enableCursorKeys)
         frame.favoritesPerCharCheck:SetChecked(ADDON.settings.favoritePerChar)
@@ -52,10 +51,11 @@ ADDON.Events:RegisterCallback("OnLogin", function()
     end
     frame.OnCommit = OKHandler
     frame.OnDefault = ADDON.ResetUISettings
-    category = Settings.RegisterCanvasLayoutCategory(frame, frame.ID, frame.ID);
+    local category = Settings.RegisterCanvasLayoutCategory(frame, GetAddOnMetadata(ADDON_NAME, "Title") )
     Settings.RegisterAddOnCategory(category)
+    categoryID = category.ID
 end, "settings-panel")
 
 function ADDON:OpenSettings()
-    Settings.OpenToCategory(category.ID)
+    Settings.OpenToCategory(categoryID)
 end

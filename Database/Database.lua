@@ -1395,6 +1395,8 @@ ADDON.db.effect = {
             [188699] = true, -- Insulated Dancing Insoles
             [190926] = true, -- Infested Automa Core
             [198857] = true, -- Lucky Duck
+            [202022] = true, -- Yennu's Kite
+            [202042] = true, -- Aquatic Shades
         },
 
         ["Bigger"] = {
