@@ -303,7 +303,9 @@ local function InitializeDropDown(_, level)
         local settings = ADDON.settings.filter[SETTING_EXPANSION]
         AddCheckAllAndNoneInfo({ settings }, level)
         for i = #ADDON.db.expansion, 0, -1 do
-            UIDropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], i, settings), level)
+            if _G["EXPANSION_NAME" .. i] then
+                UIDropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], i, settings), level)
+            end
         end
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_EFFECT) then
