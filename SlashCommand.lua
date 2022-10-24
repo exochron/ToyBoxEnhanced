@@ -1,4 +1,4 @@
-local ADDON_NAME, ADDON = ...
+local _, ADDON = ...
 
 SLASH_TOYBOXENHANCED1, SLASH_TOYBOXENHANCED2 = '/toyboxenhanced', '/tbe'
 function SlashCmdList.TOYBOXENHANCED(msg)
@@ -13,9 +13,7 @@ function SlashCmdList.TOYBOXENHANCED(msg)
         ADDON.settings.debugMode = false
         print("ToyBoxEnhanced: Debug mode deactivated.")
     else
-        local title = GetAddOnMetadata(ADDON_NAME, "Title")
-        InterfaceOptionsFrame_OpenToCategory(title)
-        InterfaceOptionsFrame_OpenToCategory(title)
+        ADDON:OpenSettings()
     end
 end
 

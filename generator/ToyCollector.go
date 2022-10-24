@@ -38,7 +38,7 @@ func collectToys(
 				toyDB.ReadString(toyId, 0),
 				0,
 				itemSparseDB.ReadString(itemId, 5),
-				itemSparseDB.ReadInt(itemId, 54) == 3, // Bonding is Bind On Use
+				itemSparseDB.ReadInt(itemId, 55) == 3, // Bonding is Bind On Use
 			}
 		}
 	}
