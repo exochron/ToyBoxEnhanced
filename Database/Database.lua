@@ -1,6 +1,10 @@
 local _, ADDON = ...
 
-ADDON.DELAY_CHECK = 749 -- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag ( https://wow.tools/dbc/?dbc=toy#page=1&colFilter[3]=0x2 )
+if select(4, GetBuildInfo()) < 100000 then
+    ADDON.DELAY_CHECK = 660 -- TODO: remove after patch 10.0 launch
+else
+    ADDON.DELAY_CHECK = 749 -- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag ( https://wow.tools/dbc/?dbc=toy#page=1&colFilter[3]=0x2 )
+end
 
 ADDON.db = {}
 
