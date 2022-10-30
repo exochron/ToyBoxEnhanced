@@ -1,4 +1,5 @@
-<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/ ..\..\FrameXML/UI.xsd">
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\..\FrameXML\UI.xsd">
 
     <!-- from CollectionsSpellButtonTemplate -->
     <CheckButton name="TBEInsecureCollectionsSpellButtonTemplate" inherits="InsecureActionButtonTemplate" virtual="true">
@@ -151,6 +152,14 @@
                 CollectionsSpellButton_OnLoad(self, TBE_ToySpellButton_UpdateButton)
             </OnLoad>
 
+            <PreClick>
+                self.savedVar = C_CVar.GetCVarBool("ActionButtonUseKeyDown")
+                C_CVar.SetCVar("ActionButtonUseKeyDown", "0")
+            </PreClick>
+            <PostClick>
+                C_CVar.SetCVar("ActionButtonUseKeyDown", self.savedVar and "1" or "0")
+            </PostClick>
+
             <OnShow function="ToySpellButton_OnShow"/>
             <OnHide function="ToySpellButton_OnHide"/>
             <OnDragStart function="ToySpellButton_OnDrag"/>
@@ -178,96 +187,96 @@
                 </Anchors>
             </Frame>
 
-            <CheckButton parentKey="spellButton1" inherits="TBEToySpellButtonTemplate" id="1">
+            <Button parentKey="spellButton1" inherits="TBEToySpellButtonTemplate" id="1">
                 <Anchors>
                     <Anchor point="TOPLEFT" x="40" y="-53" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton2" inherits="TBEToySpellButtonTemplate" id="2">
+            </Button>
+            <Button parentKey="spellButton2" inherits="TBEToySpellButtonTemplate" id="2">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton1" x="208" y="0" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton3" inherits="TBEToySpellButtonTemplate" id="3">
+            </Button>
+            <Button parentKey="spellButton3" inherits="TBEToySpellButtonTemplate" id="3">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton2" x="208" y="0" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton4" inherits="TBEToySpellButtonTemplate" id="4">
+            </Button>
+            <Button parentKey="spellButton4" inherits="TBEToySpellButtonTemplate" id="4">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton1" relativePoint="BOTTOMLEFT" x="0" y="-16" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton5" inherits="TBEToySpellButtonTemplate" id="5">
+            </Button>
+            <Button parentKey="spellButton5" inherits="TBEToySpellButtonTemplate" id="5">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton4" x="208" y="0" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton6" inherits="TBEToySpellButtonTemplate" id="6">
+            </Button>
+            <Button parentKey="spellButton6" inherits="TBEToySpellButtonTemplate" id="6">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton5" x="208" y="0" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton7" inherits="TBEToySpellButtonTemplate" id="7">
+            </Button>
+            <Button parentKey="spellButton7" inherits="TBEToySpellButtonTemplate" id="7">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton4" relativePoint="BOTTOMLEFT" x="0" y="-16" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton8" inherits="TBEToySpellButtonTemplate" id="8">
+            </Button>
+            <Button parentKey="spellButton8" inherits="TBEToySpellButtonTemplate" id="8">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton7" x="208" y="0" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton9" inherits="TBEToySpellButtonTemplate" id="9">
+            </Button>
+            <Button parentKey="spellButton9" inherits="TBEToySpellButtonTemplate" id="9">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton8" x="208" y="0" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton10" inherits="TBEToySpellButtonTemplate" id="10">
+            </Button>
+            <Button parentKey="spellButton10" inherits="TBEToySpellButtonTemplate" id="10">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton7" relativePoint="BOTTOMLEFT" x="0" y="-16" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton11" inherits="TBEToySpellButtonTemplate" id="11">
+            </Button>
+            <Button parentKey="spellButton11" inherits="TBEToySpellButtonTemplate" id="11">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton10" x="208" y="0" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton12" inherits="TBEToySpellButtonTemplate" id="12">
+            </Button>
+            <Button parentKey="spellButton12" inherits="TBEToySpellButtonTemplate" id="12">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton11" x="208" y="0" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton13" inherits="TBEToySpellButtonTemplate" id="13">
+            </Button>
+            <Button parentKey="spellButton13" inherits="TBEToySpellButtonTemplate" id="13">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton10" relativePoint="BOTTOMLEFT" x="0" y="-16" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton14" inherits="TBEToySpellButtonTemplate" id="14">
+            </Button>
+            <Button parentKey="spellButton14" inherits="TBEToySpellButtonTemplate" id="14">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton13" x="208" y="0" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton15" inherits="TBEToySpellButtonTemplate" id="15">
+            </Button>
+            <Button parentKey="spellButton15" inherits="TBEToySpellButtonTemplate" id="15">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton14"  x="208" y="0" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton16" inherits="TBEToySpellButtonTemplate" id="16">
+            </Button>
+            <Button parentKey="spellButton16" inherits="TBEToySpellButtonTemplate" id="16">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton13" relativePoint="BOTTOMLEFT" x="0" y="-16" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton17" inherits="TBEToySpellButtonTemplate" id="17">
+            </Button>
+            <Button parentKey="spellButton17" inherits="TBEToySpellButtonTemplate" id="17">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton16" x="208" y="0" />
                 </Anchors>
-            </CheckButton>
-            <CheckButton parentKey="spellButton18" inherits="TBEToySpellButtonTemplate" id="18">
+            </Button>
+            <Button parentKey="spellButton18" inherits="TBEToySpellButtonTemplate" id="18">
                 <Anchors>
                     <Anchor point="TOPLEFT" relativeKey="$parent.spellButton17" x="208" y="0" />
                 </Anchors>
-            </CheckButton>
+            </Button>
         </Frames>
     </Frame>
 
@@ -278,6 +287,16 @@
             <Attribute name="macrotext" value="/click TBERandomFavoredToy"/>
             <Attribute name="_ondragstart" value='return "clear", "macro", "TBE: Random Toy"'/>
         </Attributes>
+
+        <Scripts>
+            <PreClick>
+                self.savedVar = C_CVar.GetCVarBool("ActionButtonUseKeyDown")
+                C_CVar.SetCVar("ActionButtonUseKeyDown", "0")
+            </PreClick>
+            <PostClick>
+                C_CVar.SetCVar("ActionButtonUseKeyDown", self.savedVar and "1" or "0")
+            </PostClick>
+        </Scripts>
 
         <Size x="33" y="33"/>
         <Anchors>
