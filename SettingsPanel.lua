@@ -52,18 +52,9 @@ ADDON.Events:RegisterCallback("OnLogin", function()
     frame.OnCommit = OKHandler
     frame.OnDefault = ADDON.ResetUISettings
 
-    if Settings then
-        local category = Settings.RegisterCanvasLayoutCategory(frame, GetAddOnMetadata(ADDON_NAME, "Title") )
-        Settings.RegisterAddOnCategory(category)
-        categoryID = category.ID
-    else
-        -- TODO: remove after 10.0 launch
-        frame.name = GetAddOnMetadata(ADDON_NAME, "Title")
-        frame.refresh = frame.OnRefresh
-        frame.okay = frame.OnCommit
-        frame.default = frame.OnDefault
-        InterfaceOptions_AddCategory(frame)
-    end
+    local category = Settings.RegisterCanvasLayoutCategory(frame, GetAddOnMetadata(ADDON_NAME, "Title") )
+    Settings.RegisterAddOnCategory(category)
+    categoryID = category.ID
 end, "settings-panel")
 
 function ADDON:OpenSettings()

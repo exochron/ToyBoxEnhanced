@@ -1,10 +1,6 @@
 local _, ADDON = ...
 
-if select(4, GetBuildInfo()) < 100000 then
-    ADDON.DELAY_CHECK = 660 -- TODO: remove after patch 10.0 launch
-else
-    ADDON.DELAY_CHECK = 749 -- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag ( https://wow.tools/dbc/?dbc=toy#page=1&colFilter[3]=0x2 )
-end
+ADDON.DELAY_CHECK = 749 -- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag ( https://wow.tools/dbc/?dbc=toy#page=1&colFilter[3]=0x2 )
 
 ADDON.db = {}
 
@@ -464,9 +460,6 @@ ADDON.db.source = {
         -- Dragonflight
         [200640] = true, -- Obsidian Egg Clutch
         [200878] = true, -- Wheeled Floaty Boaty Controller
-        [202019] = true, -- Golden Dragon Goblet
-        [202022] = true, -- Yennu's Kite
-
     },
 
     ["Drop"] = {
@@ -633,13 +626,9 @@ ADDON.db.source = {
         -- Dragonflight
         [198409] = true, -- Personal Shell
         [200142] = true, -- Generous Goblin Grenade
-        [200148] = true, -- A Collection Of Me
         [200160] = true, -- Notfar's Favorite Food
         [200857] = true, -- Talisman of Sargha
         [200999] = true, -- The Super Shellkhan Gang
-        [201933] = true, -- Black Dragon's Challenge Dummy
-        [202042] = true, -- Aquatic Shades
-
     },
 
     ["Quest"] = {
@@ -730,19 +719,14 @@ ADDON.db.source = {
 
         -- Dragonflight
         [191891] = true, -- Professor Chirpsnide's Im-PECK-able Harpy Disguise
-        [194885] = true, -- Ohuna Perch
         [198039] = true, -- Rock of Appreciation
         [198090] = true, -- Jar of Excess Slime
         [198402] = true, -- Maruuk Cooking Pot
         [198537] = true, -- Taivan's Trumpet
         [198857] = true, -- Lucky Duck
-        [200550] = true, -- Very Comfortable Pelt
-        [200551] = true, -- Comfortable Pile of Pelts
         [200597] = true, -- Lover's Bouquet
         [200628] = true, -- Somewhat-Stabilized Arcana
         [200960] = true, -- Seed of Renewed Souls
-        [201815] = true, -- Cloak of Many Faces
-
     },
 
     ["Vendor"] = {
@@ -971,9 +955,6 @@ ADDON.db.source = {
         [199897] = true, -- Blue-Covered Beanbag
         [199899] = true, -- Iskaara Tug Sled
         [199902] = true, -- Wayfinder's Compass
-        [200550] = true, -- Very Comfortable Pelt
-        [200551] = true, -- Comfortable Pile of Pelts
-
     },
 
     ["Achievement"] = {
@@ -1026,8 +1007,6 @@ ADDON.db.source = {
         [164310] = true, -- Glorious Pennant
         [169297] = true, -- Stormpike Insignia
         [169298] = true, -- Frostwolf Insignia
-
-        [202021] = true, -- Breaker's Flag of Victory
     },
 
     ["Garrison"] = {
@@ -1399,8 +1378,6 @@ ADDON.db.effect = {
             [188699] = true, -- Insulated Dancing Insoles
             [190926] = true, -- Infested Automa Core
             [198857] = true, -- Lucky Duck
-            [202022] = true, -- Yennu's Kite
-            [202042] = true, -- Aquatic Shades
         },
 
         ["Bigger"] = {
@@ -1655,8 +1632,6 @@ ADDON.db.effect = {
             [166784] = true, -- Narassin's Soul Gem
             [187174] = true, -- Shaded Judgement Stone
             [194052] = true, -- Forlorn Funeral Pall
-            [202021] = true, -- Breaker's Flag of Victory
-
         },
 
         ["Roll"] = {
@@ -1730,8 +1705,6 @@ ADDON.db.effect = {
             [129952] = true, -- Hourglass of Eternity
             [187140] = true, -- Ring of Duplicity
             [187159] = true, -- Shadow Slicing Shortsword
-            [200148] = true, -- A Collection Of Me
-
         },
 
         -- Controlled explosives
@@ -1794,8 +1767,6 @@ ADDON.db.effect = {
             [193476] = true, -- Gnoll Tent
             [197719] = true, -- Artisan's Sign
             [198646] = true, -- Ornate Dragon Statue
-            [200550] = true, -- Very Comfortable Pelt
-            [200551] = true, -- Comfortable Pile of Pelts
         },
 
         ["Weather"] = {
@@ -1867,7 +1838,6 @@ ADDON.db.effect = {
             [40768] = true, -- MOLL-E
             [156833] = true, -- Katy's Stampwhistle
             [183876] = true, -- Quill of Correspondence
-            [194885] = true, -- Ohuna Perch
         },
 
         ["NPC"] = {
@@ -1894,8 +1864,6 @@ ADDON.db.effect = {
             [144339] = true, -- Sturdy Love Fool
             [163201] = true, -- Gnoll Targeting Barrel
             [199896] = true, -- Rubbery Fish Head
-            [201933] = true, -- Black Dragon's Challenge Dummy
-
         },
     },
 
@@ -2073,7 +2041,6 @@ ADDON.db.effect = {
             [182729] = true, -- Hearty Dragon Plume
             [184312] = true, -- Borr-Geth's Fiery Brimstone
             [192443] = true, -- Element-Infused Rocket Helmet
-            [197961] = true, -- Whelps on Strings
         },
 
         -- Unlocks flight paths
@@ -2181,7 +2148,6 @@ ADDON.db.effect = {
             [142341] = true, -- Love Boat
             [166461] = true, -- Gnarlwood Waveboard
             [177951] = true, -- Glimmerflies on Strings
-            [197961] = true, -- Whelps on Strings
             [198428] = true, -- Tuskarr Dinghy
         }
     },
