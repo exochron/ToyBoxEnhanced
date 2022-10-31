@@ -1,8 +1,11 @@
 local ADDON_NAME, ADDON = ...
 
 ADDON.TOYS_PER_PAGE = 18
-ADDON.filteredToyList = {}
 ADDON.UI = {}
+ADDON.DataProvider = CreateDataProvider()
+ADDON.DataProvider:SetSortComparator(function(a, b)
+    return ADDON:SortHandler(a, b)
+end)
 
 -- see: https://www.townlong-yak.com/framexml/ptr/CallbackRegistry.lua
 ADDON.Events = CreateFromMixins(CallbackRegistryMixin)
@@ -20,36 +23,9 @@ local function ResetAPIFilters()
     return C_ToyBox.GetNumFilteredToys()
 end
 
-local function FilterToys(calledFromEvent)
-    local filteredToyList = {}
-
-    local searchString = ToyBox.searchString
-    if not searchString then
-        searchString = ""
-    else
-        searchString = searchString:lower()
-    end
-
-    for itemId in pairs(ADDON.db.ingameList) do
-        if ADDON:FilterToy(itemId, searchString) then
-            table.insert(filteredToyList, itemId)
-        end
-    end
-
-    if calledFromEvent and #filteredToyList == #ADDON.filteredToyList then
-        return
-    end
-
-    table.sort(filteredToyList, function(a, b)
-        return ADDON:SortHandler(a, b)
-    end)
-
-    ADDON.filteredToyList = filteredToyList
-end
-
-function ADDON:FilterAndRefresh(calledFromEvent)
+function ADDON:FilterAndRefresh()
     if not InCombatLockdown() then
-        FilterToys(calledFromEvent)
+        ADDON:FilterToys()
         ToyBox_UpdatePages()
         ToyBox_UpdateButtons()
     end

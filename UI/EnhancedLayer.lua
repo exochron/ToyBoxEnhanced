@@ -21,7 +21,7 @@ function TBE_ToySpellButton_UpdateButton(self)
 
     --region overwrite start
     local itemIndex = (ToyBox.EnhancedLayer.PagingFrame:GetCurrentPage() - 1) * ADDON.TOYS_PER_PAGE + self:GetID();
-    self.itemID = ADDON.filteredToyList[itemIndex] or -1;
+    self.itemID = ADDON.DataProvider:Find(itemIndex) or -1;
     self:SetAttribute("toy", self.itemID)
     --endregion
 
@@ -205,19 +205,17 @@ ADDON.Events:RegisterCallback("PreLoadUI", function()
     layer:SetShown(not InCombatLockdown())
 
     hooksecurefunc("ToyBox_UpdatePages", function()
-        local maxPages = 1 + math.floor( math.max((#ADDON.filteredToyList - 1), 0) / ADDON.TOYS_PER_PAGE)
+        local maxPages = 1 + math.floor( math.max((ADDON.DataProvider:GetSize() - 1), 0) / ADDON.TOYS_PER_PAGE)
         ToyBox.EnhancedLayer.PagingFrame:SetMaxPages(maxPages)
     end)
     hooksecurefunc("ToyBox_UpdateButtons", UpdateButttons)
 
     -- hook for click on alert
     hooksecurefunc("ToyBox_FindPageForToyID", function (toyID)
-        for i = 1, #ADDON.filteredToyList do
-            if ADDON.filteredToyList[i] == toyID then
-                local page = math.floor((i - 1) / ADDON.TOYS_PER_PAGE) + 1;
-                ToyBox.EnhancedLayer.PagingFrame:SetCurrentPage(page);
-                break
-            end
+        local i = ADDON.DataProvider:FindIndex(toyID)
+        if i > 0 then
+            local page = math.floor((i - 1) / ADDON.TOYS_PER_PAGE) + 1;
+            ToyBox.EnhancedLayer.PagingFrame:SetCurrentPage(page);
         end
     end)
 end, "EnhancedLayer")

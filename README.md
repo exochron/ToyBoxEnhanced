@@ -1,10 +1,6 @@
 # Toy Box Enhanced
 This addon extends the ingame toy box with some cool stuff.
 
-### TODOs
-- data provider
-- rarity
-
 ### Features
 - Filter toys by Effect, Source, Faction and Expansion
 - Show toys, which are normally hidden by the game

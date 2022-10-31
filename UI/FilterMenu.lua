@@ -42,6 +42,7 @@ local function CreateFilterInfo(text, filterKey, filterSettings, callback)
         end
         info.func = function(_, arg1, arg2, value)
             arg1[filterKey] = arg2 or value
+            ADDON.DataProvider:Sort() -- to be optimized
             ADDON:FilterAndRefresh()
             UIDropDownMenu_RefreshAll(_G[ADDON_NAME .. "FilterMenu"])
             UpdateResetVisibility()

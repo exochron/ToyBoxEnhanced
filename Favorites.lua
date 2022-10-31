@@ -18,7 +18,7 @@ function ADDON:CollectFavoredToys()
     return personalFavored
 end
 
-local function FavorToys(itemIds, finishedCallback)
+local function FavorToys(dataProvider, finishedCallback)
     -- apparently WoW only allows ~5 requests per second
 
     if starButton then
@@ -29,7 +29,7 @@ local function FavorToys(itemIds, finishedCallback)
     for itemId in pairs(ADDON.db.ingameList) do
         if PlayerHasToy(itemId) then
             local isFavorite = C_ToyBox.GetIsFavorite(itemId)
-            local shouldFavor = tContains(itemIds, itemId)
+            local shouldFavor = (dataProvider:FindIndex(itemId) ~= nil)
             if isFavorite and not shouldFavor then
                 C_ToyBox.SetIsFavorite(itemId, false)
                 updateCount = updateCount + 1
@@ -47,7 +47,7 @@ local function FavorToys(itemIds, finishedCallback)
 
     if updateCount > 0 then
         C_Timer.After(1, function()
-            FavorToys(itemIds, finishedCallback)
+            FavorToys(dataProvider, finishedCallback)
         end)
     else
         if starButton then
@@ -62,9 +62,9 @@ end
 
 --region Star Button
 
-local function RunSetFavorites(itemIds)
+local function RunSetFavorites(filteredProvider)
     print(L['TASK_FAVOR_START'])
-    FavorToys(itemIds, function()
+    FavorToys(filteredProvider, function()
         print(L['TASK_END'])
     end)
 end
@@ -76,7 +76,7 @@ local function InitializeDropDown(_, level)
             notCheckable = true,
             text = L['FAVOR_DISPLAYED'],
             func = function()
-                RunSetFavorites(ADDON.filteredToyList)
+                RunSetFavorites(ADDON.DataProvider)
             end,
         }
         UIDropDownMenu_AddButton(info, level)
@@ -86,7 +86,7 @@ local function InitializeDropDown(_, level)
             notCheckable = true,
             text = UNCHECK_ALL,
             func = function()
-                RunSetFavorites({})
+                RunSetFavorites(CreateDataProvider())
             end,
         }
         UIDropDownMenu_AddButton(info, level)
@@ -155,7 +155,7 @@ end
 
 ADDON.Events:RegisterCallback("OnLogin", function()
     if ADDON.settings.favoritePerChar then
-        FavorToys(ADDON.settings.favoredToys, function()
+        FavorToys(CreateDataProvider(ADDON.settings.favoredToys), function()
             hooksecurefunc(C_ToyBox, "SetIsFavorite", HookSetIsFavorite)
         end)
     else
