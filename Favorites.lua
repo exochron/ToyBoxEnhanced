@@ -105,8 +105,7 @@ local function InitializeDropDown(_, level)
 end
 
 local function BuildStarButton()
-    local menu = CreateFrame("Frame", ADDON_NAME .. "FavorMenu", ToyBox, "UIDropDownMenuTemplate")
-    UIDropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
+    local menu
 
     starButton = CreateFrame("Button", nil, ToyBox)
     starButton:SetPoint("RIGHT", ToyBox.searchBox, "LEFT", -4, 0)
@@ -122,6 +121,11 @@ local function BuildStarButton()
         GameTooltip:Hide()
     end);
     starButton:SetScript("OnClick", function()
+        if not menu then
+            menu = CreateFrame("Frame", ADDON_NAME .. "FavorMenu", ToyBox, "UIDropDownMenuTemplate")
+            UIDropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
+        end
+
         ToggleDropDownMenu(1, nil, menu, starButton, 0, 10)
     end)
     starButton:RegisterEvent("PLAYER_REGEN_ENABLED")

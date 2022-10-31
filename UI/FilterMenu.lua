@@ -375,9 +375,7 @@ local function InitializeDropDown(_, level)
 end
 
 ADDON.Events:RegisterCallback("OnLoadUI", function()
-    local menu = CreateFrame("Frame", ADDON_NAME .. "FilterMenu", ToyBox, "UIDropDownMenuTemplate")
-    UIDropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
-
+    local menu
     local toggle = true
     DropDownList1:HookScript("OnHide", function()
         if not MouseIsOver(ToyBoxFilterButton) then
@@ -389,6 +387,11 @@ ADDON.Events:RegisterCallback("OnLoadUI", function()
         if not InCombatLockdown() then
             HideDropDownMenu(1)
             if toggle then
+                if not menu then
+                    menu = CreateFrame("Frame", ADDON_NAME .. "FilterMenu", ToyBox, "UIDropDownMenuTemplate")
+                    UIDropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
+                end
+
                 ToggleDropDownMenu(1, nil, menu, sender, 74, 15)
                 toggle = false
             else

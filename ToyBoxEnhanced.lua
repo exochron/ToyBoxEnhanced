@@ -136,7 +136,6 @@ local loggedIn = false
 local addonLoaded = false
 local playerLoggedIn = false
 local delayLoginUntilFullyLoaded = false
-local loadUIisRunning = false
 
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN") -- might already been triggered
@@ -166,7 +165,14 @@ frame:SetScript("OnEvent", function(_, event, arg1)
         ADDON.Events:UnregisterEvents({"OnInit", "OnLogin"})
     end
 
-    if ToyBox and loggedIn and not ADDON.initialized and ADDON.settings and not loadUIisRunning and not InCombatLockdown() then
+    if ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then
+        ADDON:FilterAndRefresh(true)
+    end
+end)
+
+local loadUIisRunning = false
+EventRegistry:RegisterCallback("CollectionsJournal.TabSet", function(_,_,selectedTab)
+    if selectedTab == COLLECTIONS_JOURNAL_TAB_INDEX_TOYS and ToyBox and loggedIn and not ADDON.initialized and ADDON.settings and not loadUIisRunning and not InCombatLockdown() then
         loadUIisRunning = true
         frame:UnregisterEvent("ADDON_LOADED")
         LoadItemsIntoCache(function()
@@ -177,8 +183,7 @@ frame:SetScript("OnEvent", function(_, event, arg1)
 
             ADDON:FilterAndRefresh(true)
             ADDON.initialized = true
+            EventRegistry:UnregisterCallback("CollectionsJournal.TabSet", ADDON_NAME)
         end)
-    elseif ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then
-        ADDON:FilterAndRefresh(true)
     end
-end)
+end, ADDON_NAME)
