@@ -16,6 +16,7 @@ Database\toys.db.lua
 Database\tradable.db.lua
 
 Filters.lua
+Sort.lua
 ToyBoxEnhanced.lua
 Settings.lua
 SettingsPanel.lua

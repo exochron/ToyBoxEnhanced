@@ -40,38 +40,8 @@ local function FilterToys(calledFromEvent)
         return
     end
 
-    table.sort(filteredToyList, function(itemA, itemB)
-        if itemA == itemB then
-            return false
-        end
-
-        local result = false
-
-        local _, nameA, _, isFavoriteA = C_ToyBox.GetToyInfo(itemA)
-        local _, nameB, _, isFavoriteB = C_ToyBox.GetToyInfo(itemB)
-
-        if ADDON.settings.sort.favoritesFirst and isFavoriteA ~= isFavoriteB then
-            return isFavoriteA and not isFavoriteB
-        end
-        if ADDON.settings.sort.unownedAtLast then
-            local isCollectedA = isFavoriteA or PlayerHasToy(itemA)
-            local isCollectedB = isFavoriteB or PlayerHasToy(itemB)
-            if isCollectedA ~= isCollectedB then
-                return isCollectedA and not isCollectedB
-            end
-        end
-
-        if ADDON.settings.sort.by == 'name' then
-            result = (nameA or '') < (nameB or '') -- warning: names can be nil on uninitialised toys
-        elseif ADDON.settings.sort.by == 'expansion' then
-            result = itemA < itemB
-        end
-
-        if ADDON.settings.sort.descending then
-            result = not result
-        end
-
-        return result
+    table.sort(filteredToyList, function(a, b)
+        return ADDON:SortHandler(a, b)
     end)
 
     ADDON.filteredToyList = filteredToyList
