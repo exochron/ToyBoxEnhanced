@@ -54,7 +54,7 @@ local function FavorToys(dataProvider, finishedCallback)
             starButton:Enable()
         end
         if ADDON.initialized then
-            ADDON:FilterAndRefresh()
+            ADDON:FilterToys()
         end
         finishedCallback()
     end

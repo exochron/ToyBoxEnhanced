@@ -6,6 +6,17 @@ ADDON.DataProvider = CreateDataProvider()
 ADDON.DataProvider:SetSortComparator(function(a, b)
     return ADDON:SortHandler(a, b)
 end)
+ADDON.DataProvider:RegisterCallback("OnSizeChanged", function()
+    if not InCombatLockdown() then
+        ToyBox_UpdatePages()
+        ToyBox_UpdateButtons()
+    end
+end, ADDON_NAME)
+ADDON.DataProvider:RegisterCallback("OnSort", function()
+    if not InCombatLockdown() then
+        ToyBox_UpdateButtons()
+    end
+end, ADDON_NAME)
 
 -- see: https://www.townlong-yak.com/framexml/ptr/CallbackRegistry.lua
 ADDON.Events = CreateFromMixins(CallbackRegistryMixin)
@@ -21,14 +32,6 @@ local function ResetAPIFilters()
     C_ToyBox.SetFilterString("")
 
     return C_ToyBox.GetNumFilteredToys()
-end
-
-function ADDON:FilterAndRefresh()
-    if not InCombatLockdown() then
-        ADDON:FilterToys()
-        ToyBox_UpdatePages()
-        ToyBox_UpdateButtons()
-    end
 end
 
 local function OnLogin()
@@ -112,7 +115,7 @@ frame:SetScript("OnEvent", function(_, event, arg1)
     end
 
     if ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then
-        ADDON:FilterAndRefresh(true)
+        ADDON:FilterToys()
     end
 end)
 
@@ -127,7 +130,7 @@ EventRegistry:RegisterCallback("CollectionsJournal.TabSet", function(_,_,selecte
             ADDON.Events:TriggerEvent("PostLoadUI")
             ADDON.Events:UnregisterEvents({"PreLoadUI", "OnLoadUI", "PostLoadUI"})
 
-            ADDON:FilterAndRefresh(true)
+            ADDON:FilterToys()
             ADDON.initialized = true
             EventRegistry:UnregisterCallback("CollectionsJournal.TabSet", ADDON_NAME)
         end)

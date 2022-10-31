@@ -38,7 +38,7 @@ local function InitMenu(sender, level)
             text = SHOW,
             func = function()
                 ADDON.settings.hiddenToys[itemId] = nil
-                ADDON:FilterAndRefresh()
+                ADDON:FilterToys()
             end
         }
         UIDropDownMenu_AddButton(info, level)
@@ -48,7 +48,7 @@ local function InitMenu(sender, level)
             text = HIDE,
             func = function()
                 ADDON.settings.hiddenToys[itemId] = true
-                ADDON:FilterAndRefresh()
+                ADDON:FilterToys()
             end
         }
         UIDropDownMenu_AddButton(info, level)
