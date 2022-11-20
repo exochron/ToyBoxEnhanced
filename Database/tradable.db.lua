@@ -1,6 +1,7 @@
 local _, ADDON = ...
 
 ADDON.db.Tradable = {
+[1973] = true, -- Orb of Deception
 [18984] = true, -- Dimensional Ripper - Everlook
 [18986] = true, -- Ultrasafe Transporter: Gadgetzan
 [23767] = true, -- Crashin' Thrashin' Robot
@@ -14,6 +15,7 @@ ADDON.db.Tradable = {
 [52201] = true, -- Muradin's Favor
 [52253] = true, -- Sylvanas' Music Box
 [60854] = true, -- Loot-A-Rang
+[63269] = true, -- Loaded Gnomish Dice
 [87215] = true, -- Wormhole Generator: Pandaria
 [101571] = true, -- Moonfang Shroud
 [105898] = true, -- Moonfang's Paw
