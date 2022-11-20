@@ -8,13 +8,13 @@ ADDON.DataProvider:SetSortComparator(function(a, b)
 end)
 ADDON.DataProvider:RegisterCallback("OnSizeChanged", function()
     if not InCombatLockdown() then
-        ToyBox_UpdatePages()
-        ToyBox_UpdateButtons()
+        ADDON.UI:UpdatePages()
+        ADDON.UI:UpdateButtons()
     end
 end, ADDON_NAME)
 ADDON.DataProvider:RegisterCallback("OnSort", function()
     if not InCombatLockdown() then
-        ToyBox_UpdateButtons()
+        ADDON.UI:UpdateButtons()
     end
 end, ADDON_NAME)
 
