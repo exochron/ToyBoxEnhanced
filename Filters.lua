@@ -231,7 +231,7 @@ end
 function ADDON:FilterToys()
     local result = {}
 
-    local searchString = ToyBox.searchString
+    local searchString = ToyBox and ToyBox.searchString or ""
     if searchString ~= "" then
         searchString = searchString:lower()
         for itemId in pairs(ADDON.db.ingameList) do
