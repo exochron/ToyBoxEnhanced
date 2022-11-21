@@ -1,6 +1,8 @@
 local _, ADDON = ...
 
-ADDON.DELAY_CHECK = 740 -- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag ( https://wow.tools/dbc/?dbc=toy#page=1&colFilter[3]=0x2 )
+-- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag
+-- https://wow.tools/dbc/?dbc=toy#page=1&colFilter[3]=0x2
+ADDON.DELAY_CHECK = 750
 
 ADDON.db = {}
 
@@ -167,6 +169,7 @@ ADDON.db.worldEvent = {
         [178530] = true, -- Wreath-A-Rang
         [187422] = true, -- Rockin' Rollin' Racer Customizer 19.9.3
         [188680] = true, -- Winter Veil Chorus Book
+        [191925] = true, -- Falling Star Flinger
         [191937] = true, -- Falling Star Catcher
     },
 }
@@ -459,7 +462,10 @@ ADDON.db.source = {
 
         -- Dragonflight
         [200640] = true, -- Obsidian Egg Clutch
+        [200869] = true, -- Ohn Lite Branded Horn
         [200878] = true, -- Wheeled Floaty Boaty Controller
+        [202019] = true, -- Golden Dragon Goblet
+        [202022] = true, -- Yennu's Kite
     },
 
     ["Drop"] = {
@@ -625,10 +631,16 @@ ADDON.db.source = {
 
         -- Dragonflight
         [198409] = true, -- Personal Shell
+        [200148] = true, -- A Collection Of Me
         [200142] = true, -- Generous Goblin Grenade
         [200160] = true, -- Notfar's Favorite Food
+        [200198] = true, -- Primalist Prison
+        [200249] = true, -- Mage's Chewed Wand
         [200857] = true, -- Talisman of Sargha
+        [200926] = true, -- Compendium of Love
         [200999] = true, -- The Super Shellkhan Gang
+        [201933] = true, -- Black Dragon's Challenge Dummy
+        [202042] = true, -- Aquatic Shades
     },
 
     ["Quest"] = {
@@ -719,6 +731,7 @@ ADDON.db.source = {
 
         -- Dragonflight
         [191891] = true, -- Professor Chirpsnide's Im-PECK-able Harpy Disguise
+        [194885] = true, -- Ohuna Perch
         [198039] = true, -- Rock of Appreciation
         [198090] = true, -- Jar of Excess Slime
         [198402] = true, -- Maruuk Cooking Pot
@@ -727,6 +740,7 @@ ADDON.db.source = {
         [200597] = true, -- Lover's Bouquet
         [200628] = true, -- Somewhat-Stabilized Arcana
         [200960] = true, -- Seed of Renewed Souls
+        [201815] = true, -- Cloak of Many Faces
     },
 
     ["Vendor"] = {
@@ -841,8 +855,10 @@ ADDON.db.source = {
         -- Dragonflight
         [198646] = true, -- Ornate Dragon Statue
         [199337] = true, -- Bag of Furious Winds
+        [200550] = true, -- Very Comfortable Pelt
+        [200551] = true, -- Comfortable Pile of Pelts
         [201435] = true, -- Shuffling Sands
-
+        [202021] = true, -- Breaker's Flag of Victory
     },
 
     ["Instance"] = {
@@ -1305,6 +1321,8 @@ ADDON.db.effect = {
             [191891] = true, -- Professor Chirpsnide's Im-PECK-able Harpy Disguise
             [200178] = true, -- Infected Ichor
             [200198] = true, -- Primalist Prison
+            [200249] = true, -- Mage's Chewed Wand
+            [200636] = true, -- Primal Invocation Quintessence
             [200857] = true, -- Talisman of Sargha
             [200960] = true, -- Seed of Renewed Souls
 
@@ -1378,6 +1396,8 @@ ADDON.db.effect = {
             [188699] = true, -- Insulated Dancing Insoles
             [190926] = true, -- Infested Automa Core
             [198857] = true, -- Lucky Duck
+            [202022] = true, -- Yennu's Kite
+            [202042] = true, -- Aquatic Shades
         },
 
         ["Bigger"] = {
@@ -1447,6 +1467,9 @@ ADDON.db.effect = {
             [130151] = true, -- The "Devilsaur" Lunchbox
             [166703] = true, -- Goldtusk Inn Breakfast Buffet
             [183900] = true, -- Sinvyr Tea Set
+            [198039] = true, -- Rock of Appreciation
+            [199649] = true, -- Dragon Tea Set
+            [199650] = true, -- Whale Bone Tea Set
         },
 
         ["Other"] = {
@@ -1549,6 +1572,7 @@ ADDON.db.effect = {
             [184487] = true, -- Gormling in a Bag
             [183901] = true, -- Bonestorm Top
             [187705] = true, -- Choofa's Call
+            [200640] = true, -- Obsidian Egg Clutch
             [200999] = true, -- The Super Shellkhan Gang
         },
     },
@@ -1617,7 +1641,10 @@ ADDON.db.effect = {
             [187689] = true, -- Dance Dance Darkmoon
             [190853] = true, -- Bushel of Mysterious Fruit
             [190177] = true, -- Sphere of Enlightened Cogitation
+            [194056] = true, -- Duck-Stuffed Duck Lovie
+            [198090] = true, -- Jar of Excess Slime
             [199902] = true, -- Wayfinder's Compass
+            [200142] = true, -- Generous Goblin Grenade
             [200631] = true, -- Happy Tuskarr Palooza
 
         },
@@ -1658,6 +1685,7 @@ ADDON.db.effect = {
             [187416] = true, -- Jailer's Cage
             [187417] = true, -- Adamant Vaults Cell
             [187793] = true, -- Personal Containment Trap
+            [198409] = true, -- Personal Shell
             [200198] = true, -- Primalist Prison
 
         },
@@ -1705,6 +1733,7 @@ ADDON.db.effect = {
             [129952] = true, -- Hourglass of Eternity
             [187140] = true, -- Ring of Duplicity
             [187159] = true, -- Shadow Slicing Shortsword
+            [200148] = true, -- A Collection Of Me
         },
 
         -- Controlled explosives
@@ -1767,6 +1796,8 @@ ADDON.db.effect = {
             [193476] = true, -- Gnoll Tent
             [197719] = true, -- Artisan's Sign
             [198646] = true, -- Ornate Dragon Statue
+            [199649] = true, -- Dragon Tea Set
+            [199650] = true, -- Whale Bone Tea Set
         },
 
         ["Weather"] = {
@@ -1797,8 +1828,13 @@ ADDON.db.effect = {
             [193478] = true, -- Tuskarr Beanbag
             [194057] = true, -- Cushion of Time Travel
             [194058] = true, -- Cold Cushion
+            [198720] = true, -- Soft Purple Pillow
+            [198721] = true, -- Skinny Reliquary Pillow
+            [198722] = true, -- Small Triangular Pillow
             [199554] = true, -- S.E.A.T.
             [199897] = true, -- Blue-Covered Beanbag
+            [200550] = true, -- Very Comfortable Pelt
+            [200551] = true, -- Comfortable Pile of Pelts
         },
 
         -- Can click on these
@@ -1838,6 +1874,7 @@ ADDON.db.effect = {
             [40768] = true, -- MOLL-E
             [156833] = true, -- Katy's Stampwhistle
             [183876] = true, -- Quill of Correspondence
+            [194885] = true, -- Ohuna Perch
         },
 
         ["NPC"] = {
@@ -1854,6 +1891,7 @@ ADDON.db.effect = {
             [184435] = true, -- Mark of Purity
             [187419] = true, -- Steward's First Feather
             [192485] = true, -- Stored Wisdom Device
+            [198537] = true, -- Taivan's Trumpet
         },
 
         -- Can attack these
@@ -1864,6 +1902,7 @@ ADDON.db.effect = {
             [144339] = true, -- Sturdy Love Fool
             [163201] = true, -- Gnoll Targeting Barrel
             [199896] = true, -- Rubbery Fish Head
+            [201933] = true, -- Black Dragon's Challenge Dummy
         },
     },
 
@@ -1908,6 +1947,8 @@ ADDON.db.effect = {
             [178530] = true, -- Wreath-A-Rang
             [181825] = true, -- Phial of Ravenous Slime
             [184292] = true, -- Ancient Elethium Coin
+            [191925] = true, -- Falling Star Flinger
+            [191937] = true, -- Falling Star Catcher
             [199894] = true, -- Fisherman's Folly Rack
             [200597] = true, -- Lover's Bouquet
         }
@@ -1980,6 +2021,7 @@ ADDON.db.effect = {
             [119217] = true, -- Alliance Flag of Victory
             [119218] = true, -- Horde Flag of Victory
             [119219] = true, -- Warlord's Flag of Victory
+            [202021] = true, -- Breaker's Flag of Victory
         },
 
         ["Transform"] = {
@@ -2017,6 +2059,7 @@ ADDON.db.effect = {
             [184490] = true, -- Fae Pipes
             [188680] = true, -- Winter Veil Chorus Book
             [190333] = true, -- Jiro Circle of Song
+            [200926] = true, -- Compendium of Love
         },
 
         ["Voice"] = {

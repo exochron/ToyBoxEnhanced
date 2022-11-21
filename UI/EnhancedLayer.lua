@@ -21,7 +21,7 @@ function TBE_ToySpellButton_UpdateButton(self)
 
     --region overwrite start
     local itemIndex = (ToyBox.EnhancedLayer.PagingFrame:GetCurrentPage() - 1) * ADDON.TOYS_PER_PAGE + self:GetID();
-    self.itemID = ADDON.filteredToyList[itemIndex] or -1;
+    self.itemID = ADDON.DataProvider:Find(itemIndex) or -1;
     self:SetAttribute("toy", self.itemID)
     --endregion
 
@@ -165,11 +165,16 @@ function TBE_ToySpellButton_UpdateButton(self)
     toyString:Show();
 end
 
-local function UpdateButttons()
+function ADDON.UI:UpdateButtons()
+    HelpTip:Hide(ToyBox, TOYBOX_FAVORITE_HELP);
     for i = 1, ADDON.TOYS_PER_PAGE do
         local button = ToyBox.EnhancedLayer["spellButton" .. i];
         TBE_ToySpellButton_UpdateButton(button);
     end
+end
+function ADDON.UI:UpdatePages()
+    local maxPages = 1 + math.floor( math.max((ADDON.DataProvider:GetSize() - 1), 0) / ADDON.TOYS_PER_PAGE)
+    ToyBox.EnhancedLayer.PagingFrame:SetMaxPages(maxPages)
 end
 
 ADDON.Events:RegisterCallback("PreLoadUI", function()
@@ -180,7 +185,7 @@ ADDON.Events:RegisterCallback("PreLoadUI", function()
 
     layer.OnPageChanged = function()
         PlaySound(SOUNDKIT.IG_ABILITY_PAGE_TURN)
-        UpdateButttons()
+        ADDON.UI:UpdateButtons()
     end
 
     layer:RegisterEvent("PLAYER_REGEN_ENABLED")
@@ -204,20 +209,15 @@ ADDON.Events:RegisterCallback("PreLoadUI", function()
 
     layer:SetShown(not InCombatLockdown())
 
-    hooksecurefunc("ToyBox_UpdatePages", function()
-        local maxPages = 1 + math.floor( math.max((#ADDON.filteredToyList - 1), 0) / ADDON.TOYS_PER_PAGE)
-        ToyBox.EnhancedLayer.PagingFrame:SetMaxPages(maxPages)
-    end)
-    hooksecurefunc("ToyBox_UpdateButtons", UpdateButttons)
+    hooksecurefunc("ToyBox_UpdatePages", ADDON.UI.UpdatePages)
+    hooksecurefunc("ToyBox_UpdateButtons", ADDON.UI.UpdateButtons)
 
     -- hook for click on alert
     hooksecurefunc("ToyBox_FindPageForToyID", function (toyID)
-        for i = 1, #ADDON.filteredToyList do
-            if ADDON.filteredToyList[i] == toyID then
-                local page = math.floor((i - 1) / ADDON.TOYS_PER_PAGE) + 1;
-                ToyBox.EnhancedLayer.PagingFrame:SetCurrentPage(page);
-                break
-            end
+        local i = ADDON.DataProvider:FindIndex(toyID)
+        if i > 0 then
+            local page = math.floor((i - 1) / ADDON.TOYS_PER_PAGE) + 1;
+            ToyBox.EnhancedLayer.PagingFrame:SetCurrentPage(page);
         end
     end)
 end, "EnhancedLayer")

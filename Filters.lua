@@ -199,24 +199,66 @@ local function FilterToysByEffect(itemId)
     return false
 end
 
-function ADDON:FilterToy(itemId, searchString)
-    if (searchString ~= "" and FilterBySearch(itemId, searchString))
-            or (searchString == ""
-            and FilterUserHiddenToys(itemId)
-            and FilterSecretToys(itemId)
-            and FilterCollectedToys(itemId)
-            and FilterFavoriteToys(itemId)
-            and FilterTradableToys(itemId)
-            and FilterRecentToys(itemId)
-            and FilterUsableToys(itemId)
-            and FilterToysByFaction(itemId)
-            and FilterToysByExpansion(itemId)
-            and FilterToysByEffect(itemId)
-            and (FilterToysBySource(itemId) or FilterToysByProfession(itemId) or FilterToysByWorldEvent(itemId))
-    )
-    then
-        return true
+local function UpdateDataProvider(result)
+    local dataProvider = ADDON.DataProvider
+    if #result == 0 then
+        dataProvider:Flush()
+    else
+        local flippedResult = CopyValuesAsKeys(result)
+        local skipAdd = {}
+        local toRemove = {}
+        dataProvider:ForEach(function(itemId)
+            local resultPosition = flippedResult[itemId]
+            if resultPosition then
+                -- already in provider
+                skipAdd[itemId] = true
+            else
+                toRemove[#toRemove + 1] = itemId
+            end
+        end)
+        if #toRemove > 0 then
+            dataProvider:Remove(unpack(toRemove))
+        end
+        local toAdd = tFilter(result, function(itemId)
+            return not skipAdd[itemId]
+        end, true)
+        if #toAdd > 0 then
+            dataProvider:InsertTable(toAdd)
+        end
+    end
+end
+
+function ADDON:FilterToys()
+    local result = {}
+
+    local searchString = ToyBox and ToyBox.searchString or ""
+    if searchString ~= "" then
+        searchString = searchString:lower()
+        for itemId in pairs(ADDON.db.ingameList) do
+            if FilterBySearch(itemId, searchString) then
+                result[#result + 1] = itemId
+            end
+        end
+    else
+        for itemId in pairs(ADDON.db.ingameList) do
+            if FilterUserHiddenToys(itemId)
+                and FilterSecretToys(itemId)
+                and FilterCollectedToys(itemId)
+                and FilterFavoriteToys(itemId)
+                and FilterTradableToys(itemId)
+                and FilterRecentToys(itemId)
+                and FilterUsableToys(itemId)
+                and FilterToysByFaction(itemId)
+                and FilterToysByExpansion(itemId)
+                and FilterToysByEffect(itemId)
+                and (FilterToysBySource(itemId) or FilterToysByProfession(itemId) or FilterToysByWorldEvent(itemId))
+            then
+                result[#result + 1] = itemId
+            end
+        end
     end
 
-    return false
+    UpdateDataProvider(result)
+
+    return result
 end

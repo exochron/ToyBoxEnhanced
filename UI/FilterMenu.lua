@@ -42,7 +42,7 @@ local function CreateFilterInfo(text, filterKey, filterSettings, callback)
         end
         info.func = function(_, arg1, arg2, value)
             arg1[filterKey] = arg2 or value
-            ADDON:FilterAndRefresh()
+            ADDON:FilterToys()
             UIDropDownMenu_RefreshAll(_G[ADDON_NAME .. "FilterMenu"])
             UpdateResetVisibility()
 
@@ -57,8 +57,8 @@ local function CreateFilterInfo(text, filterKey, filterSettings, callback)
     return info
 end
 
-local function CreateFilterRadio(text, filterKey, filterSettings, filterValue)
-    local info = CreateFilterInfo(text, filterKey, filterSettings)
+local function CreateFilterRadio(text, filterKey, filterSettings, filterValue, callback)
+    local info = CreateFilterInfo(text, filterKey, filterSettings, callback)
     info.isNotRadio = false
     info.arg2 = filterValue
     info.checked = function(self)
@@ -106,7 +106,7 @@ local function SetAllSubFilters(settings, switch)
     end
 
     UIDropDownMenu_RefreshAll(_G[ADDON_NAME .. "FilterMenu"])
-    ADDON:FilterAndRefresh()
+    ADDON:FilterToys()
     UpdateResetVisibility()
 end
 
@@ -354,12 +354,15 @@ local function InitializeDropDown(_, level)
         end
     elseif UIDROPDOWNMENU_MENU_VALUE == SETTING_SORT then
         local settings = ADDON.settings[SETTING_SORT]
-        UIDropDownMenu_AddButton(CreateFilterRadio(NAME, "by", settings, 'name'), level)
-        UIDropDownMenu_AddButton(CreateFilterRadio(EXPANSION_FILTER_TEXT, "by", settings, 'expansion'), level)
+        local doSort = function()
+            ADDON.DataProvider:Sort()
+        end
+        UIDropDownMenu_AddButton(CreateFilterRadio(NAME, "by", settings, 'name', doSort), level)
+        UIDropDownMenu_AddButton(CreateFilterRadio(EXPANSION_FILTER_TEXT, "by", settings, 'expansion', doSort), level)
         UIDropDownMenu_AddSpace(level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_REVERSE, 'descending', settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_FAVORITES_FIRST, 'favoritesFirst', settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_UNOWNED_AFTER, 'unownedAtLast', settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_REVERSE, 'descending', settings, doSort), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_FAVORITES_FIRST, 'favoritesFirst', settings, doSort), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_UNOWNED_AFTER, 'unownedAtLast', settings, doSort), level)
         UIDropDownMenu_AddSpace(level)
 
         info = CreateFilterInfo(NEWBIE_TOOLTIP_STOPWATCH_RESETBUTTON)
@@ -367,7 +370,7 @@ local function InitializeDropDown(_, level)
         info.justifyH = "CENTER"
         info.func = function()
             ADDON:ResetSortSettings()
-            ADDON:FilterAndRefresh()
+            doSort()
         end
         UIDropDownMenu_AddButton(info, level)
     end
@@ -375,9 +378,7 @@ local function InitializeDropDown(_, level)
 end
 
 ADDON.Events:RegisterCallback("OnLoadUI", function()
-    local menu = CreateFrame("Frame", ADDON_NAME .. "FilterMenu", ToyBox, "UIDropDownMenuTemplate")
-    UIDropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
-
+    local menu
     local toggle = true
     DropDownList1:HookScript("OnHide", function()
         if not MouseIsOver(ToyBoxFilterButton) then
@@ -389,6 +390,11 @@ ADDON.Events:RegisterCallback("OnLoadUI", function()
         if not InCombatLockdown() then
             HideDropDownMenu(1)
             if toggle then
+                if not menu then
+                    menu = CreateFrame("Frame", ADDON_NAME .. "FilterMenu", ToyBox, "UIDropDownMenuTemplate")
+                    UIDropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
+                end
+
                 ToggleDropDownMenu(1, nil, menu, sender, 74, 15)
                 toggle = false
             else
@@ -399,7 +405,7 @@ ADDON.Events:RegisterCallback("OnLoadUI", function()
 
     ToyBoxFilterButton.resetFunction = function()
         ADDON:ResetFilterSettings()
-        ADDON:FilterAndRefresh()
+        ADDON:FilterToys()
         UpdateResetVisibility()
     end
     UpdateResetVisibility()

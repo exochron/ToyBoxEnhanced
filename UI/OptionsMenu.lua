@@ -38,7 +38,7 @@ local function InitMenu(sender, level)
             text = SHOW,
             func = function()
                 ADDON.settings.hiddenToys[itemId] = nil
-                ADDON:FilterAndRefresh()
+                ADDON:FilterToys()
             end
         }
         UIDropDownMenu_AddButton(info, level)
@@ -48,7 +48,7 @@ local function InitMenu(sender, level)
             text = HIDE,
             func = function()
                 ADDON.settings.hiddenToys[itemId] = true
-                ADDON:FilterAndRefresh()
+                ADDON:FilterToys()
             end
         }
         UIDropDownMenu_AddButton(info, level)
@@ -62,12 +62,15 @@ local function InitMenu(sender, level)
 end
 
 ADDON.Events:RegisterCallback("OnLoadUI", function()
-    local menu = CreateFrame("Frame", ADDON_NAME .. "ToyMenu", ToyBox, "UIDropDownMenuTemplate")
-    UIDropDownMenu_Initialize(menu, InitMenu, "MENU")
-
+    local menu
     for i = 1, ADDON.TOYS_PER_PAGE do
         ToyBox.EnhancedLayer["spellButton" .. i]:HookScript("OnClick", function(sender, button)
             if not IsModifiedClick() and not sender.isPassive and button ~= "LeftButton" then
+                if not menu then
+                    menu = CreateFrame("Frame", ADDON_NAME .. "ToyMenu", ToyBox, "UIDropDownMenuTemplate")
+                    UIDropDownMenu_Initialize(menu, InitMenu, "MENU")
+                end
+
                 menu.itemId = sender.itemID
                 ToggleDropDownMenu(1, nil, menu, sender, 0, 0)
                 PlaySound(SOUNDKIT.IG_MAINMENU_OPTION_CHECKBOX_ON)

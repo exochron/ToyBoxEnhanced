@@ -1,8 +1,22 @@
 local ADDON_NAME, ADDON = ...
 
 ADDON.TOYS_PER_PAGE = 18
-ADDON.filteredToyList = {}
 ADDON.UI = {}
+ADDON.DataProvider = CreateDataProvider()
+ADDON.DataProvider:SetSortComparator(function(a, b)
+    return ADDON:SortHandler(a, b)
+end)
+ADDON.DataProvider:RegisterCallback("OnSizeChanged", function()
+    if not InCombatLockdown() then
+        ADDON.UI:UpdatePages()
+        ADDON.UI:UpdateButtons()
+    end
+end, ADDON_NAME)
+ADDON.DataProvider:RegisterCallback("OnSort", function()
+    if not InCombatLockdown() then
+        ADDON.UI:UpdateButtons()
+    end
+end, ADDON_NAME)
 
 -- see: https://www.townlong-yak.com/framexml/ptr/CallbackRegistry.lua
 ADDON.Events = CreateFromMixins(CallbackRegistryMixin)
@@ -18,71 +32,6 @@ local function ResetAPIFilters()
     C_ToyBox.SetFilterString("")
 
     return C_ToyBox.GetNumFilteredToys()
-end
-
-local function FilterToys(calledFromEvent)
-    local filteredToyList = {}
-
-    local searchString = ToyBox.searchString
-    if not searchString then
-        searchString = ""
-    else
-        searchString = searchString:lower()
-    end
-
-    for itemId in pairs(ADDON.db.ingameList) do
-        if ADDON:FilterToy(itemId, searchString) then
-            table.insert(filteredToyList, itemId)
-        end
-    end
-
-    if calledFromEvent and #filteredToyList == #ADDON.filteredToyList then
-        return
-    end
-
-    table.sort(filteredToyList, function(itemA, itemB)
-        if itemA == itemB then
-            return false
-        end
-
-        local result = false
-
-        local _, nameA, _, isFavoriteA = C_ToyBox.GetToyInfo(itemA)
-        local _, nameB, _, isFavoriteB = C_ToyBox.GetToyInfo(itemB)
-
-        if ADDON.settings.sort.favoritesFirst and isFavoriteA ~= isFavoriteB then
-            return isFavoriteA and not isFavoriteB
-        end
-        if ADDON.settings.sort.unownedAtLast then
-            local isCollectedA = isFavoriteA or PlayerHasToy(itemA)
-            local isCollectedB = isFavoriteB or PlayerHasToy(itemB)
-            if isCollectedA ~= isCollectedB then
-                return isCollectedA and not isCollectedB
-            end
-        end
-
-        if ADDON.settings.sort.by == 'name' then
-            result = (nameA or '') < (nameB or '') -- warning: names can be nil on uninitialised toys
-        elseif ADDON.settings.sort.by == 'expansion' then
-            result = itemA < itemB
-        end
-
-        if ADDON.settings.sort.descending then
-            result = not result
-        end
-
-        return result
-    end)
-
-    ADDON.filteredToyList = filteredToyList
-end
-
-function ADDON:FilterAndRefresh(calledFromEvent)
-    if not InCombatLockdown() then
-        FilterToys(calledFromEvent)
-        ToyBox_UpdatePages()
-        ToyBox_UpdateButtons()
-    end
 end
 
 local function OnLogin()
@@ -136,7 +85,6 @@ local loggedIn = false
 local addonLoaded = false
 local playerLoggedIn = false
 local delayLoginUntilFullyLoaded = false
-local loadUIisRunning = false
 
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("PLAYER_LOGIN") -- might already been triggered
@@ -166,7 +114,14 @@ frame:SetScript("OnEvent", function(_, event, arg1)
         ADDON.Events:UnregisterEvents({"OnInit", "OnLogin"})
     end
 
-    if ToyBox and loggedIn and not ADDON.initialized and ADDON.settings and not loadUIisRunning and not InCombatLockdown() then
+    if ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then
+        ADDON:FilterToys()
+    end
+end)
+
+local loadUIisRunning = false
+EventRegistry:RegisterCallback("CollectionsJournal.TabSet", function(_,_,selectedTab)
+    if selectedTab == COLLECTIONS_JOURNAL_TAB_INDEX_TOYS and ToyBox and loggedIn and not ADDON.initialized and ADDON.settings and not loadUIisRunning and not InCombatLockdown() then
         loadUIisRunning = true
         frame:UnregisterEvent("ADDON_LOADED")
         LoadItemsIntoCache(function()
@@ -175,10 +130,9 @@ frame:SetScript("OnEvent", function(_, event, arg1)
             ADDON.Events:TriggerEvent("PostLoadUI")
             ADDON.Events:UnregisterEvents({"PreLoadUI", "OnLoadUI", "PostLoadUI"})
 
-            ADDON:FilterAndRefresh(true)
+            ADDON:FilterToys()
             ADDON.initialized = true
+            EventRegistry:UnregisterCallback("CollectionsJournal.TabSet", ADDON_NAME)
         end)
-    elseif ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then
-        ADDON:FilterAndRefresh(true)
     end
-end)
+end, ADDON_NAME)
