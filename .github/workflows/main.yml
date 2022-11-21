@@ -18,10 +18,6 @@ jobs:
     steps:
       - name: Clone project
         uses: actions/checkout@v3
-        with:
-          # you can specify how much of the commit history you want to fetch,
-          # which is useful for controlling the length of the automated changelog
-          fetch-depth: 50
 
       - name: Package and release
         uses: BigWigsMods/packager@master
