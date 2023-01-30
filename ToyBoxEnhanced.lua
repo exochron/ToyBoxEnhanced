@@ -45,7 +45,7 @@ local function OnLogin()
     -- check if there is an item which is not in the game anymore
     local itemsToRemoveFromList = {}
     for itemId, isIngame in pairs(ADDON.db.ingameList) do
-        if isIngame == false and C_Item.DoesItemExistByID(itemId) == false then
+        if isIngame == false and (C_Item.DoesItemExistByID(itemId) == false or GetItemFamily(itemId) ~= 20) then
             table.insert(itemsToRemoveFromList, itemId)
         end
     end
@@ -111,7 +111,7 @@ frame:SetScript("OnEvent", function(_, event, arg1)
         OnLogin()
         ADDON.Events:TriggerEvent("OnInit")
         ADDON.Events:TriggerEvent("OnLogin")
-        ADDON.Events:UnregisterEvents({"OnInit", "OnLogin"})
+        ADDON.Events:UnregisterEvents({ "OnInit", "OnLogin" })
     end
 
     if ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then
@@ -120,7 +120,7 @@ frame:SetScript("OnEvent", function(_, event, arg1)
 end)
 
 local loadUIisRunning = false
-EventRegistry:RegisterCallback("CollectionsJournal.TabSet", function(_,_,selectedTab)
+EventRegistry:RegisterCallback("CollectionsJournal.TabSet", function(_, _, selectedTab)
     if selectedTab == COLLECTIONS_JOURNAL_TAB_INDEX_TOYS and ToyBox and loggedIn and not ADDON.initialized and ADDON.settings and not loadUIisRunning and not InCombatLockdown() then
         loadUIisRunning = true
         frame:UnregisterEvent("ADDON_LOADED")
@@ -128,7 +128,7 @@ EventRegistry:RegisterCallback("CollectionsJournal.TabSet", function(_,_,selecte
             ADDON.Events:TriggerEvent("PreLoadUI")
             ADDON.Events:TriggerEvent("OnLoadUI")
             ADDON.Events:TriggerEvent("PostLoadUI")
-            ADDON.Events:UnregisterEvents({"PreLoadUI", "OnLoadUI", "PostLoadUI"})
+            ADDON.Events:UnregisterEvents({ "PreLoadUI", "OnLoadUI", "PostLoadUI" })
 
             ADDON:FilterToys()
             ADDON.initialized = true
