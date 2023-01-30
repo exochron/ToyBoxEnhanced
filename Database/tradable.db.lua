@@ -38,12 +38,10 @@ ADDON.db.Tradable = {
 [192443] = true, -- Element-Infused Rocket Helmet
 [192495] = true, -- Malfunctioning Stealthman 54
 [198156] = true, -- Wyrmhole Generator
+[198173] = true, -- Atomic Recalibrator
 [198206] = true, -- Environmental Emulator
 [198227] = true, -- Giggle Goggles
 [198264] = true, -- Centralized Precipitation Emitter
-[198720] = true, -- Soft Purple Pillow
-[198721] = true, -- Skinny Reliquary Pillow
-[198722] = true, -- Small Triangular Pillow
 [199554] = true, -- S.E.A.T.
-[199897] = true, -- Blue-Covered Beanbag
+[202309] = true, -- Defective Doomsday Device
 }

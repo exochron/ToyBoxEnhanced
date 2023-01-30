@@ -194,7 +194,9 @@ func (w wdc3_source) ReadString(id int32, field int) string {
 	} else {
 		string_offset = field_info.read_from(record)
 
-		string_offset -= int32(w.source.Header.record_size) * (int32(w.source.Header.record_count) - int32(entry.total_position))
+		if string_offset > 0 {
+			string_offset -= int32(w.source.Header.record_size) * (int32(w.source.Header.record_count) - int32(entry.total_position))
+		}
 		string_offset += int32(field_info.start_byte)
 
 		for sid, sectionHeader := range w.source.SectionHeaders {

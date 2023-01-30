@@ -214,7 +214,7 @@ ADDON.Events:RegisterCallback("PreLoadUI", function()
 
     -- hook for click on alert
     hooksecurefunc("ToyBox_FindPageForToyID", function (toyID)
-        local i = ADDON.DataProvider:FindIndex(toyID)
+        local i = ADDON.DataProvider:FindIndex(toyID) or 0
         if i > 0 then
             local page = math.floor((i - 1) / ADDON.TOYS_PER_PAGE) + 1;
             ToyBox.EnhancedLayer.PagingFrame:SetCurrentPage(page);

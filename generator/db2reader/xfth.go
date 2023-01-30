@@ -1,5 +1,7 @@
 package db2reader
 
+// see: https://wowdev.wiki/ADB
+
 type XFTH struct {
 	Header xfth_header
 	Blocks []xfth_block
@@ -23,23 +25,26 @@ func (h *xfth_header) Read(br *ByteReader) {
 
 type xfth_block struct {
 	magic       string // xfth
-	unknown1    uint32
-	unknown2    uint32
+	region_id   uint32
+	index       uint32
 	table_hash  uint32
 	record_id   uint32
 	record_size uint32
-	unknown3    uint32
+	unique_id   uint32
 	record      []byte
 }
 
-func (b *xfth_block) Read(br *ByteReader) {
+func (b *xfth_block) ReadV9(br *ByteReader) {
 	b.magic = br.ReadString(4)
-	b.unknown1 = br.ReadUInt32()
-	b.unknown2 = br.ReadUInt32()
+	b.region_id = br.ReadUInt32()
+	b.index = br.ReadUInt32()
+	b.unique_id = br.ReadUInt32()
 	b.table_hash = br.ReadUInt32()
 	b.record_id = br.ReadUInt32()
 	b.record_size = br.ReadUInt32()
-	b.unknown3 = br.ReadUInt32()
+
+	br.ReadUInt32() // some status
+
 	b.record = br.ReadBytes(int(b.record_size))
 }
 
@@ -50,7 +55,10 @@ func openxfth(data []byte) XFTH {
 
 	for int(reader.pointer) < len(data) {
 		block := xfth_block{}
-		block.Read(&reader)
+		if x.Header.version >= 9 {
+			block.ReadV9(&reader)
+		}
+
 		x.Blocks = append(x.Blocks, block)
 	}
 
