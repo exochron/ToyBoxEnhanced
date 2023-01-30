@@ -2,7 +2,7 @@ local _, ADDON = ...
 
 -- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag
 -- https://wow.tools/dbc/?dbc=toy#page=1&colFilter[3]=0x2
-ADDON.DELAY_CHECK = 750
+ADDON.DELAY_CHECK = 759
 
 ADDON.db = {}
 
@@ -186,24 +186,24 @@ ADDON.db.profession = {
     ["Engineering"] = {
         [17716] = true, -- Snowmaster 9000
         [18660] = true, -- World Enlarger
+        [18984] = true, -- Dimensional Ripper - Everlook
+        [18986] = true, -- Ultrasafe Transporter: Gadgetzan
         [23767] = true, -- Crashin' Thrashin' Robot
+        [30542] = true, -- Dimensional Ripper - Area 52
+        [30544] = true, -- Ultrasafe Transporter: Toshley's Station
+        [40727] = true, -- Gnomish Gravity Well
+        [40768] = true, -- MOLL-E
         [40895] = true, -- Gnomish X-Ray Specs
+        [48933] = true, -- Wormhole Generator: Northrend
+        [60854] = true, -- Loot-A-Rang
+        [87214] = true, -- Blingtron 4000
+        [87215] = true, -- Wormhole Generator: Pandaria
         [108745] = true, -- Personal Hologram
+        [109167] = true, -- Findle's Loot-A-Rang
         [109183] = true, -- World Shrinker
         [111821] = true, -- Blingtron 5000
-        [132518] = true, -- Blingtron's Circuit Design Tutorial
-        [40768] = true, -- MOLL-E
-        [87214] = true, -- Blingtron 4000
-        [109167] = true, -- Findle's Loot-A-Rang
-        [87215] = true, -- Wormhole Generator: Pandaria
-        [40727] = true, -- Gnomish Gravity Well
-        [60854] = true, -- Loot-A-Rang
         [112059] = true, -- Wormhole Centrifuge
-        [48933] = true, -- Wormhole Generator: Northrend
-        [30544] = true, -- Ultrasafe Transporter: Toshley's Station
-        [18986] = true, -- Ultrasafe Transporter: Gadgetzan
-        [18984] = true, -- Dimensional Ripper - Everlook
-        [30542] = true, -- Dimensional Ripper - Area 52
+        [132518] = true, -- Blingtron's Circuit Design Tutorial
         [151652] = true, -- Wormhole Generator: Argus
         [168667] = true, -- Blingtron 7000
         [168807] = true, -- Wormhole Generator: Kul Tiras
@@ -461,9 +461,9 @@ ADDON.db.source = {
         [192485] = true, -- Stored Wisdom Device
 
         -- Dragonflight
-        [200640] = true, -- Obsidian Egg Clutch
         [200869] = true, -- Ohn Lite Branded Horn
         [200878] = true, -- Wheeled Floaty Boaty Controller
+        [201927] = true, -- Gleaming Arcanocrystal
         [202019] = true, -- Golden Dragon Goblet
         [202022] = true, -- Yennu's Kite
     },
@@ -632,15 +632,12 @@ ADDON.db.source = {
         -- Dragonflight
         [198409] = true, -- Personal Shell
         [200148] = true, -- A Collection Of Me
-        [200142] = true, -- Generous Goblin Grenade
         [200160] = true, -- Notfar's Favorite Food
         [200198] = true, -- Primalist Prison
         [200249] = true, -- Mage's Chewed Wand
         [200857] = true, -- Talisman of Sargha
-        [200926] = true, -- Compendium of Love
         [200999] = true, -- The Super Shellkhan Gang
         [201933] = true, -- Black Dragon's Challenge Dummy
-        [202042] = true, -- Aquatic Shades
     },
 
     ["Quest"] = {
@@ -731,14 +728,14 @@ ADDON.db.source = {
 
         -- Dragonflight
         [191891] = true, -- Professor Chirpsnide's Im-PECK-able Harpy Disguise
-        [194885] = true, -- Ohuna Perch
         [198039] = true, -- Rock of Appreciation
         [198090] = true, -- Jar of Excess Slime
-        [198402] = true, -- Maruuk Cooking Pot
+        [198474] = true, -- Artist's Easel
         [198537] = true, -- Taivan's Trumpet
         [198857] = true, -- Lucky Duck
         [200597] = true, -- Lover's Bouquet
         [200628] = true, -- Somewhat-Stabilized Arcana
+        [200926] = true, -- Compendium of Love
         [200960] = true, -- Seed of Renewed Souls
         [201815] = true, -- Cloak of Many Faces
     },
@@ -855,10 +852,9 @@ ADDON.db.source = {
         -- Dragonflight
         [198646] = true, -- Ornate Dragon Statue
         [199337] = true, -- Bag of Furious Winds
-        [200550] = true, -- Very Comfortable Pelt
-        [200551] = true, -- Comfortable Pile of Pelts
         [201435] = true, -- Shuffling Sands
         [202021] = true, -- Breaker's Flag of Victory
+        [202042] = true, -- Aquatic Shades
     },
 
     ["Instance"] = {
@@ -951,6 +947,7 @@ ADDON.db.source = {
         [190237] = true, -- Broker Translocation Matrix
 
         -- Dragonflight Renown
+        [194885] = true, -- Ohuna Perch
         [198402] = true, -- Maruuk Cooking Pot
         [198720] = true, -- Soft Purple Pillow
         [198721] = true, -- Skinny Reliquary Pillow
@@ -966,11 +963,14 @@ ADDON.db.source = {
         [199770] = true, -- Bronze Dragon Banner
         [199771] = true, -- Green Dragon Banner
         [199892] = true, -- Tuskarr Traveling Soup Pot
-        [199894] = true, -- Fisherman's Folly Rack
+        [199894] = true, -- Fisherman's Folly
         [199896] = true, -- Rubbery Fish Head
         [199897] = true, -- Blue-Covered Beanbag
         [199899] = true, -- Iskaara Tug Sled
         [199902] = true, -- Wayfinder's Compass
+        [200550] = true, -- Very Comfortable Pelt
+        [200551] = true, -- Comfortable Pile of Pelts
+        [200640] = true, -- Obsidian Egg Clutch
     },
 
     ["Achievement"] = {
