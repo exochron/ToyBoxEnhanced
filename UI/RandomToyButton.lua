@@ -2,7 +2,7 @@ local _, ADDON = ...
 
 local MAX_GLOBAL_MACRO_COUNT = 120
 local CLICK_TARGET_NAME = "TBERandomFavoredToy"
-local MACRO_NAME, MACRO_ICON, MACRO_BODY = 'TBE: Random Toy', 'inv_misc_dice_02', "/click " .. CLICK_TARGET_NAME
+local MACRO_NAME, MACRO_ICON, MACRO_BODY = 'TBE: Random Toy', 'inv_misc_dice_02', "/click " .. CLICK_TARGET_NAME .. " LeftButton true"
 
 local actionButton
 local displayButton
@@ -92,8 +92,13 @@ local function createDisplayButton()
 end
 
 local function checkClickMacro()
-    if not GetMacroInfo(MACRO_NAME) and GetNumMacros() < MAX_GLOBAL_MACRO_COUNT then
-        CreateMacro(MACRO_NAME, MACRO_ICON, MACRO_BODY)
+    local existingName, _, existingBody = GetMacroInfo(MACRO_NAME)
+    if not InCombatLockdown() then
+        if not existingName and GetNumMacros() < MAX_GLOBAL_MACRO_COUNT then
+            CreateMacro(MACRO_NAME, MACRO_ICON, MACRO_BODY)
+        elseif existingName and existingBody ~= MACRO_BODY then
+            EditMacro(existingName, nil, nil, MACRO_BODY)
+        end
     end
 end
 
