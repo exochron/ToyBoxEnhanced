@@ -7,8 +7,8 @@ ADDON.DELAY_CHECK = 759
 ADDON.db = {}
 
 ADDON.db.Recent = {
-    ["minID"] = 191891,
-    ["blacklist"] = { 192099, 192485, },
+    ["minID"] = 202020,
+    ["blacklist"] = { 202021, 202022, 202042, 202207, 202711 },
 }
 
 ADDON.db.worldEvent = {
@@ -212,10 +212,12 @@ ADDON.db.profession = {
         [192443] = true, -- Element-Infused Rocket Helmet
         [192495] = true, -- Malfunctioning Stealthman 54
         [198156] = true, -- Wyrmhole Generator
+        [198173] = true, -- Atomic Recalibrator
         [198206] = true, -- Environmental Emulator
         [198227] = true, -- Giggle Goggles
         [198264] = true, -- Centralized Precipitation Emitter
         [199554] = true, -- S.E.A.T.
+        [202309] = true, -- Defective Doomsday Device
     },
 
     ["Archaeology"] = {
@@ -466,6 +468,7 @@ ADDON.db.source = {
         [201927] = true, -- Gleaming Arcanocrystal
         [202019] = true, -- Golden Dragon Goblet
         [202022] = true, -- Yennu's Kite
+        [202711] = true, -- Lost Compass
     },
 
     ["Drop"] = {
@@ -631,8 +634,10 @@ ADDON.db.source = {
 
         -- Dragonflight
         [198409] = true, -- Personal Shell
+        [200116] = true, -- Everlasting Horn of Lavaswimming
         [200148] = true, -- A Collection Of Me
         [200160] = true, -- Notfar's Favorite Food
+        [200178] = true, -- Infected Ichor
         [200198] = true, -- Primalist Prison
         [200249] = true, -- Mage's Chewed Wand
         [200857] = true, -- Talisman of Sargha
@@ -733,6 +738,7 @@ ADDON.db.source = {
         [198474] = true, -- Artist's Easel
         [198537] = true, -- Taivan's Trumpet
         [198857] = true, -- Lucky Duck
+        [199830] = true, -- Tuskarr Training Dummy
         [200597] = true, -- Lover's Bouquet
         [200628] = true, -- Somewhat-Stabilized Arcana
         [200926] = true, -- Compendium of Love
@@ -852,7 +858,9 @@ ADDON.db.source = {
         -- Dragonflight
         [198646] = true, -- Ornate Dragon Statue
         [199337] = true, -- Bag of Furious Winds
+        [200707] = true, -- Armoire of Endless Cloaks
         [201435] = true, -- Shuffling Sands
+        [202020] = true, -- Chasing Storm
         [202021] = true, -- Breaker's Flag of Victory
         [202042] = true, -- Aquatic Shades
     },
@@ -1011,6 +1019,7 @@ ADDON.db.source = {
         [198428] = true, -- Tuskarr Dinghy
         [200630] = true, -- Ohn'ir Windsage's Hearthstone
         [200631] = true, -- Happy Tuskarr Palooza
+        [202207] = true, -- Reusable Oversized Bobber
 
     },
 
@@ -1124,6 +1133,7 @@ ADDON.db.source = {
         [172179] = true, -- Eternal Traveler's Hearthstone - Shadowlands Epic Edition
         [186501] = true, -- Doomwalker Trophy Stand
         [193588] = true, -- Timewalker's Hearthstone - Dragonflight Epic Edition
+        [203716] = true, -- Thundering Banner of the Aspects
 
         -- MDI
         [187834] = true, -- Tormented Banner of the Opportune
@@ -1325,6 +1335,7 @@ ADDON.db.effect = {
             [200636] = true, -- Primal Invocation Quintessence
             [200857] = true, -- Talisman of Sargha
             [200960] = true, -- Seed of Renewed Souls
+            [201815] = true, -- Cloak of Many Faces
 
         },
 
@@ -1396,6 +1407,7 @@ ADDON.db.effect = {
             [188699] = true, -- Insulated Dancing Insoles
             [190926] = true, -- Infested Automa Core
             [198857] = true, -- Lucky Duck
+            [201927] = true, -- Gleaming Arcanocrystal
             [202022] = true, -- Yennu's Kite
             [202042] = true, -- Aquatic Shades
         },
@@ -1476,6 +1488,7 @@ ADDON.db.effect = {
             [17716] = true, -- Snowmaster 9000
             [21540] = true, -- Elune's Lantern
             [187344] = true, -- Offering Kit Maker
+            [202309] = true, -- Defective Doomsday Device
         }
     },
 
@@ -1641,12 +1654,16 @@ ADDON.db.effect = {
             [187689] = true, -- Dance Dance Darkmoon
             [190853] = true, -- Bushel of Mysterious Fruit
             [190177] = true, -- Sphere of Enlightened Cogitation
+            [192495] = true, -- Malfunctioning Stealthman 54
             [194056] = true, -- Duck-Stuffed Duck Lovie
             [198090] = true, -- Jar of Excess Slime
+            [198474] = true, -- Artist's Easel
             [199902] = true, -- Wayfinder's Compass
-            [200142] = true, -- Generous Goblin Grenade
+            [200160] = true, -- Notfar's Favorite Food
             [200631] = true, -- Happy Tuskarr Palooza
-
+            [201435] = true, -- Shuffling Sands
+            [202019] = true, -- Golden Dragon Goblet
+            [202711] = true, -- Lost Compass
         },
 
         ["Corpse"] = {
@@ -1659,6 +1676,7 @@ ADDON.db.effect = {
             [166784] = true, -- Narassin's Soul Gem
             [187174] = true, -- Shaded Judgement Stone
             [194052] = true, -- Forlorn Funeral Pall
+            [200469] = true, -- Khadgar's Disenchanting Rod
         },
 
         ["Roll"] = {
@@ -1724,6 +1742,7 @@ ADDON.db.effect = {
             [199769] = true, -- Blue Dragon Banner
             [199770] = true, -- Bronze Dragon Banner
             [199771] = true, -- Green Dragon Banner
+            [203716] = true, -- Thundering Banner of the Aspects
         },
 
         -- Summons a clone of the character
@@ -1794,7 +1813,11 @@ ADDON.db.effect = {
             [190754] = true, -- Firim's Specimen Container
             [193033] = true, -- Convergent Prism
             [193476] = true, -- Gnoll Tent
+            [194059] = true, -- Market Tent
+            [194060] = true, -- Dragonscale Expedition's Expedition Tent
             [197719] = true, -- Artisan's Sign
+            [198173] = true, -- Atomic Recalibrator
+            [198474] = true, -- Artist's Easel
             [198646] = true, -- Ornate Dragon Statue
             [199649] = true, -- Dragon Tea Set
             [199650] = true, -- Whale Bone Tea Set
@@ -1868,6 +1891,8 @@ ADDON.db.effect = {
             [186974] = true, -- Experimental Anima Cell
             [190238] = true, -- Xy'rath's Booby-Trapped Cache
             [193032] = true, -- Jeweled Offering
+            [200628] = true, -- Somewhat-Stabilized Arcana
+            [200707] = true, -- Armoire of Endless Cloaks
         },
 
         ["Mail"] = {
@@ -1901,6 +1926,7 @@ ADDON.db.effect = {
             [89614] = true, -- Anatomical Dummy
             [144339] = true, -- Sturdy Love Fool
             [163201] = true, -- Gnoll Targeting Barrel
+            [199830] = true, -- Tuskarr Training Dummy
             [199896] = true, -- Rubbery Fish Head
             [201933] = true, -- Black Dragon's Challenge Dummy
         },
@@ -1950,7 +1976,9 @@ ADDON.db.effect = {
             [191925] = true, -- Falling Star Flinger
             [191937] = true, -- Falling Star Catcher
             [199894] = true, -- Fisherman's Folly Rack
+            [199899] = true, -- Iskaara Tug Sled
             [200597] = true, -- Lover's Bouquet
+            [202020] = true, -- Chasing Storm
         }
     },
 
@@ -1993,6 +2021,7 @@ ADDON.db.effect = {
             [152556] = true, -- Trawler Totem
             [168016] = true, -- Hyper-Compressed Ocean
             [180993] = true, -- Bat Visage Bobber
+            [202207] = true, -- Reusable Oversized Bobber
         },
 
         ["Jewelcrafting"] = {
@@ -2152,6 +2181,7 @@ ADDON.db.effect = {
             [187113] = true, -- Personal Ball and Chain
             [187860] = true, -- Mortis Mover
             [188698] = true, -- Eagger Basket
+            [198827] = true, -- Magical Snow Sled
         },
 
         ["Swimming"] = {

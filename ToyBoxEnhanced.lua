@@ -45,7 +45,7 @@ local function OnLogin()
     -- check if there is an item which is not in the game anymore
     local itemsToRemoveFromList = {}
     for itemId, isIngame in pairs(ADDON.db.ingameList) do
-        if isIngame == false and (C_Item.DoesItemExistByID(itemId) == false or GetItemFamily(itemId) ~= 20) then
+        if isIngame == false and C_Item.DoesItemExistByID(itemId) == false then
             table.insert(itemsToRemoveFromList, itemId)
         end
     end
