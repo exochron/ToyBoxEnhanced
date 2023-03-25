@@ -2,7 +2,7 @@ local _, ADDON = ...
 
 -- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag
 -- https://wow.tools/dbc/?dbc=toy#page=1&colFilter[3]=0x2
-ADDON.DELAY_CHECK = 777
+ADDON.DELAY_CHECK = 775
 
 ADDON.db = {}
 
