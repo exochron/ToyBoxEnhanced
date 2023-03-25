@@ -2,13 +2,13 @@ local _, ADDON = ...
 
 -- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag
 -- https://wow.tools/dbc/?dbc=toy#page=1&colFilter[3]=0x2
-ADDON.DELAY_CHECK = 759
+ADDON.DELAY_CHECK = 777
 
 ADDON.db = {}
 
 ADDON.db.Recent = {
-    ["minID"] = 202020,
-    ["blacklist"] = { 202021, 202022, 202042, 202207, 202711 },
+    ["minID"] = 202253,
+    ["blacklist"] = { 202309 , 202711, 203716},
 }
 
 ADDON.db.worldEvent = {
@@ -83,6 +83,7 @@ ADDON.db.worldEvent = {
         [165802] = true, -- Noble Gardener's Hearthstone
         [188694] = true, -- Spring Florist's Pouch
         [188698] = true, -- Eagger Basket
+        [204675] = true, -- A Drake's Big Basket of Eggs
     },
 
     ["Children's Week"] = {
@@ -217,7 +218,9 @@ ADDON.db.profession = {
         [198227] = true, -- Giggle Goggles
         [198264] = true, -- Centralized Precipitation Emitter
         [199554] = true, -- S.E.A.T.
+        [201930] = true, -- H.E.L.P.
         [202309] = true, -- Defective Doomsday Device
+        [202360] = true, -- Dented Can
     },
 
     ["Archaeology"] = {
@@ -276,6 +279,7 @@ ADDON.db.profession = {
         [128536] = true, -- Leylight Brazier
         [186973] = true, -- Anima-ted Leash
         [200469] = true, -- Khadgar's Disenchanting Rod
+        [200636] = true, -- Primal Invocation Quintessence
     },
 
     ["Inscription"] = {
@@ -374,6 +378,7 @@ ADDON.db.faction = {
         [170154] = true, -- Book of the Unshackled
         [172222] = true, -- Crashin' Thrashin' Juggernaught
         [173727] = true, -- Nomi's Vintage
+        [204170] = true, -- Clan Banner
     },
 }
 
@@ -744,6 +749,9 @@ ADDON.db.source = {
         [200926] = true, -- Compendium of Love
         [200960] = true, -- Seed of Renewed Souls
         [201815] = true, -- Cloak of Many Faces
+        [203725] = true, -- Display of Strength
+        [204170] = true, -- Clan Banner
+        [204220] = true, -- Hraxian's Unbreakable Will
     },
 
     ["Vendor"] = {
@@ -857,6 +865,7 @@ ADDON.db.source = {
 
         -- Dragonflight
         [198646] = true, -- Ornate Dragon Statue
+        [199900] = true, -- Secondhand Survey Tools
         [199337] = true, -- Bag of Furious Winds
         [200707] = true, -- Armoire of Endless Cloaks
         [201435] = true, -- Shuffling Sands
@@ -880,6 +889,12 @@ ADDON.db.source = {
         [142536] = true, -- Memory Cube - Nighthold
         [152982] = true, -- Vixx's Chest of Tricks - Seat of the Triumvirate
         [153004] = true, -- Unstable Portal Emitter - Seat of the Triumvirate
+        [203757] = true, -- Brazier of Madness -- Zul'Gurub
+        [203852] = true, -- Spore-Bound Essence -- Zserka Vaults
+        [204256] = true, -- Holoviewer: The Scarlet Queen -- Zserka Vaults
+        [204257] = true, -- Holoviewer: The Lady of Dreams -- Zserka Vaults
+        [204262] = true, -- Holoviewer: The Timeless One -- Zserka Vaults
+        [204687] = true, -- Obsidian Battle Horn -- Zserka Vaults
     },
 
     ["Reputation"] = {
@@ -979,6 +994,9 @@ ADDON.db.source = {
         [200550] = true, -- Very Comfortable Pelt
         [200551] = true, -- Comfortable Pile of Pelts
         [200640] = true, -- Obsidian Egg Clutch
+        [202253] = true, -- Primal Stave of Claw and Fur
+        [202283] = true, -- Reading Glasses
+        [203734] = true, -- Snow Blanket
     },
 
     ["Achievement"] = {
@@ -1336,7 +1354,8 @@ ADDON.db.effect = {
             [200857] = true, -- Talisman of Sargha
             [200960] = true, -- Seed of Renewed Souls
             [201815] = true, -- Cloak of Many Faces
-
+            [202253] = true, -- Primal Stave of Claw and Fur
+            [203852] = true, -- Spore-Bound Essence
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1410,6 +1429,7 @@ ADDON.db.effect = {
             [201927] = true, -- Gleaming Arcanocrystal
             [202022] = true, -- Yennu's Kite
             [202042] = true, -- Aquatic Shades
+            [202283] = true, -- Reading Glasses
         },
 
         ["Bigger"] = {
@@ -1454,6 +1474,7 @@ ADDON.db.effect = {
             [169275] = true, -- Alliance War Banner
             [169276] = true, -- Horde War Banner
             [150547] = true, -- Jolly Roger
+            [204170] = true, -- Clan Banner
         },
     },
 
@@ -1664,6 +1685,7 @@ ADDON.db.effect = {
             [201435] = true, -- Shuffling Sands
             [202019] = true, -- Golden Dragon Goblet
             [202711] = true, -- Lost Compass
+            [203725] = true, -- Display of Strength
         },
 
         ["Corpse"] = {
@@ -1820,7 +1842,11 @@ ADDON.db.effect = {
             [198474] = true, -- Artist's Easel
             [198646] = true, -- Ornate Dragon Statue
             [199649] = true, -- Dragon Tea Set
+            [199900] = true, -- Secondhand Survey Tools
             [199650] = true, -- Whale Bone Tea Set
+            [204256] = true, -- Holoviewer: The Scarlet Queen
+            [204257] = true, -- Holoviewer: The Lady of Dreams
+            [204262] = true, -- Holoviewer: The Timeless One
         },
 
         ["Weather"] = {
@@ -2002,6 +2028,7 @@ ADDON.db.effect = {
             [188695] = true, -- Summer Cranial Skillet
             [198402] = true, -- Maruuk Cooking Pot
             [199892] = true, -- Tuskarr Traveling Soup Pot
+            [203757] = true, -- Brazier of Madness
         },
 
         ["Fishing"] = {
@@ -2022,6 +2049,7 @@ ADDON.db.effect = {
             [168016] = true, -- Hyper-Compressed Ocean
             [180993] = true, -- Bat Visage Bobber
             [202207] = true, -- Reusable Oversized Bobber
+            [202360] = true, -- Dented Can
         },
 
         ["Jewelcrafting"] = {
@@ -2044,6 +2072,10 @@ ADDON.db.effect = {
             [86584] = true, -- Hardened Shell
         },
 
+        ["Firework"] = {
+            [201930] = true, -- H.E.L.P.
+        },
+
         ["Taunt"] = {
             [38578] = true, -- The Flag of Ownership
             [86575] = true, -- Chalice of Secrets
@@ -2056,7 +2088,7 @@ ADDON.db.effect = {
         ["Transform"] = {
             [102467] = true, -- Censer of Eternal Agony
             [173951] = true, -- N'lyeth, Sliver of N'Zoth
-        }
+        },
     },
 
     ["Sound"] = {
@@ -2073,6 +2105,7 @@ ADDON.db.effect = {
             [163745] = true, -- Witherbark Gong
             [168824] = true, -- Ocean Simulator
             [192099] = true, -- Earpieces of Tranquil Focus
+            [204687] = true, -- Obsidian Battle Horn
         },
 
         ["Music"] = {
