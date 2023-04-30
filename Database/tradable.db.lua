@@ -44,4 +44,5 @@ ADDON.db.Tradable = {
 [198264] = true, -- Centralized Precipitation Emitter
 [199554] = true, -- S.E.A.T.
 [202309] = true, -- Defective Doomsday Device
+[204818] = true, -- Mallard Mortar
 }

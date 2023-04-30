@@ -1,14 +1,19 @@
 local _, ADDON = ...
 
 -- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag
--- https://wow.tools/dbc/?dbc=toy#page=1&colFilter[3]=0x2
-ADDON.DELAY_CHECK = 775
+-- TODO: remove later
+if select(4, GetBuildInfo()) < 100100 then
+    ADDON.DELAY_CHECK = 775
+else
+    ADDON.DELAY_CHECK = 788
+end
 
 ADDON.db = {}
 
 ADDON.db.Recent = {
-    ["minID"] = 202253,
-    ["blacklist"] = { 202309 , 202711, 203716},
+    ["minID"] = 204818,
+    ["blacklist"] = {},
+    ["whitelist"] = { 204220, 204389 },
 }
 
 ADDON.db.worldEvent = {
@@ -100,6 +105,7 @@ ADDON.db.worldEvent = {
         [188695] = true, -- Summer Cranial Skillet
         [188699] = true, -- Insulated Dancing Insoles
         [188701] = true, -- Fire Festival Batons
+        [206038] = true, -- Flamin' Ring of Flashiness
     },
 
     ["Brewfest"] = {
@@ -182,6 +188,7 @@ ADDON.db.profession = {
         [130254] = true, -- Chatterstone
         [193032] = true, -- Jeweled Offering
         [193033] = true, -- Convergent Prism
+        [205045] = true, -- B.B.F, Fist
     },
 
     ["Engineering"] = {
@@ -221,6 +228,7 @@ ADDON.db.profession = {
         [201930] = true, -- H.E.L.P.
         [202309] = true, -- Defective Doomsday Device
         [202360] = true, -- Dented Can
+        [204818] = true, -- Mallard Mortar
     },
 
     ["Archaeology"] = {
@@ -474,6 +482,7 @@ ADDON.db.source = {
         [202019] = true, -- Golden Dragon Goblet
         [202022] = true, -- Yennu's Kite
         [202711] = true, -- Lost Compass
+        [205418] = true, -- Blazing Shadowflame Cinder
     },
 
     ["Drop"] = {
@@ -648,6 +657,9 @@ ADDON.db.source = {
         [200857] = true, -- Talisman of Sargha
         [200999] = true, -- The Super Shellkhan Gang
         [201933] = true, -- Black Dragon's Challenge Dummy
+        [205419] = true, -- Jrumm's Drum
+        [205796] = true, -- Molten Lava Pack
+        [206043] = true, -- Fyrakk's Frenzy
     },
 
     ["Quest"] = {
@@ -752,6 +764,8 @@ ADDON.db.source = {
         [203725] = true, -- Display of Strength
         [204170] = true, -- Clan Banner
         [204220] = true, -- Hraxian's Unbreakable Will
+        [205688] = true, -- Glutinous Glitterscale Glob
+        [206008] = true, -- Nightmare Banner
     },
 
     ["Vendor"] = {
@@ -872,6 +886,8 @@ ADDON.db.source = {
         [202020] = true, -- Chasing Storm
         [202021] = true, -- Breaker's Flag of Victory
         [202042] = true, -- Aquatic Shades
+        [205936] = true, -- New Niffen No-Sniffen' Tonic
+        [205963] = true, -- Sniffin' Salts
     },
 
     ["Instance"] = {
@@ -997,6 +1013,7 @@ ADDON.db.source = {
         [202253] = true, -- Primal Stave of Claw and Fur
         [202283] = true, -- Reading Glasses
         [203734] = true, -- Snow Blanket
+        [205255] = true, -- Niffen Diggin' Mitts
     },
 
     ["Achievement"] = {
@@ -1038,7 +1055,9 @@ ADDON.db.source = {
         [200630] = true, -- Ohn'ir Windsage's Hearthstone
         [200631] = true, -- Happy Tuskarr Palooza
         [202207] = true, -- Reusable Oversized Bobber
-
+        [205904] = true, -- Vibrant Clacking Claw
+        [206267] = true, -- Obsidian Legend's Pennant
+        [206343] = true, -- Crimson Legend's Pennant
     },
 
     ["PvP"] = {
@@ -1050,6 +1069,8 @@ ADDON.db.source = {
         [164310] = true, -- Glorious Pennant
         [169297] = true, -- Stormpike Insignia
         [169298] = true, -- Frostwolf Insignia
+        [206267] = true, -- Obsidian Legend's Pennant
+        [206343] = true, -- Crimson Legend's Pennant
     },
 
     ["Garrison"] = {
@@ -1338,7 +1359,6 @@ ADDON.db.effect = {
             [166790] = true, -- Highborne Memento
             [170154] = true, -- Book of the Unshackled
             [170155] = true, -- Carved Ankoan Charm
-            [172219] = true, -- Wild Holly
             [174873] = true, -- Trans-mogu-rifier
             [183847] = true, -- Acolyte's Guise
             [183903] = true, -- Smelly Jelly
@@ -1356,6 +1376,7 @@ ADDON.db.effect = {
             [201815] = true, -- Cloak of Many Faces
             [202253] = true, -- Primal Stave of Claw and Fur
             [203852] = true, -- Spore-Bound Essence
+            [205904] = true, -- Vibrant Clacking Claw
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1430,6 +1451,7 @@ ADDON.db.effect = {
             [202022] = true, -- Yennu's Kite
             [202042] = true, -- Aquatic Shades
             [202283] = true, -- Reading Glasses
+            [205418] = true, -- Blazing Shadowflame Cinder
         },
 
         ["Bigger"] = {
@@ -1475,6 +1497,8 @@ ADDON.db.effect = {
             [169276] = true, -- Horde War Banner
             [150547] = true, -- Jolly Roger
             [204170] = true, -- Clan Banner
+            [206267] = true, -- Obsidian Legend's Pennant
+            [206343] = true, -- Crimson Legend's Pennant
         },
     },
 
@@ -1765,6 +1789,7 @@ ADDON.db.effect = {
             [199770] = true, -- Bronze Dragon Banner
             [199771] = true, -- Green Dragon Banner
             [203716] = true, -- Thundering Banner of the Aspects
+            [206008] = true, -- Nightmare Banner
         },
 
         -- Summons a clone of the character
@@ -2005,6 +2030,7 @@ ADDON.db.effect = {
             [199899] = true, -- Iskaara Tug Sled
             [200597] = true, -- Lover's Bouquet
             [202020] = true, -- Chasing Storm
+            [205796] = true, -- Molten Lava Pack
         }
     },
 
@@ -2106,6 +2132,7 @@ ADDON.db.effect = {
             [168824] = true, -- Ocean Simulator
             [192099] = true, -- Earpieces of Tranquil Focus
             [204687] = true, -- Obsidian Battle Horn
+            [205936] = true, -- New Niffen No-Sniffen' Tonic
         },
 
         ["Music"] = {
@@ -2188,7 +2215,6 @@ ADDON.db.effect = {
             [190237] = true, -- Broker Translocation Matrix
             [193588] = true, -- Timewalker's Hearthstone
             [200630] = true, -- Ohn'ir Windsage's Hearthstone
-
         },
 
         ["Jump"] = {
@@ -2247,6 +2273,7 @@ ADDON.db.effect = {
             [169298] = true, -- Frostwolf Insignia
             [172924] = true, -- Wormhole Generator: Shadowlands
             [198156] = true, -- Wyrmhole Generator
+            [205255] = true, -- Niffen Diggin' Mitts
         },
 
         ["Water Walking"] = {
@@ -2283,37 +2310,48 @@ ADDON.db.effect = {
         [198227] = true, -- Giggle Goggles
     },
 
-    -- Battle pets; No critters or combat/hunter pets
-    ["Battle Pet"] = {
-        [127707] = true, -- Indestructible Bone
-        [37460] = true, -- Rope Pet Leash
-        [44820] = true, -- Red Ribbon Pet Leash
-        [89139] = true, -- Chain Pet Leash
-        [89222] = true, -- Cloud Ring
-        [92738] = true, -- Safari Hat
-        [127695] = true, -- Spirit Wand
-        [127766] = true, -- The Perfect Blossom
-        [128776] = true, -- Red Wooden Sled
-        [129958] = true, -- Leather Pet Leash
-        [129960] = true, -- Leather Pet Bed
-        [129961] = true, -- Flaming Hoop
-        [140231] = true, -- Narcissa's Mirror
-        [142265] = true, -- Big Red Raygun
-        [142494] = true, -- Purple Blossom
-        [142495] = true, -- Fake Teeth
-        [142496] = true, -- Dirty Spoon
-        [142497] = true, -- Tiny Pack
-        [147832] = true, -- Magical Saucer
-        [163697] = true, -- Laser Pointer
-        [163704] = true, -- Tiny Mechanical Mouse
-        [163705] = true, -- Imaginary Gun
-        [166662] = true, -- Cranky Crab
-        [174871] = true, -- Mayhem Mind Melder
-        [174995] = true, -- Void Tendril Pet Leash
-        [184449] = true, -- Jiggles's Favorite Toy
-        [184508] = true, -- Mawsworn Pet Leash
-        [186973] = true, -- Anima-ted Leash
-        [186985] = true, -- Elisive Pet Treat
-        [187051] = true, -- Forgotten Feather
+    ["Companion"] = {
+        -- Battle pets; No critters or combat/hunter pets
+        ["Battle Pet"] = {
+            [127707] = true, -- Indestructible Bone
+            [37460] = true, -- Rope Pet Leash
+            [44820] = true, -- Red Ribbon Pet Leash
+            [89139] = true, -- Chain Pet Leash
+            [89222] = true, -- Cloud Ring
+            [92738] = true, -- Safari Hat
+            [127695] = true, -- Spirit Wand
+            [127766] = true, -- The Perfect Blossom
+            [128776] = true, -- Red Wooden Sled
+            [129958] = true, -- Leather Pet Leash
+            [129960] = true, -- Leather Pet Bed
+            [129961] = true, -- Flaming Hoop
+            [140231] = true, -- Narcissa's Mirror
+            [142265] = true, -- Big Red Raygun
+            [142494] = true, -- Purple Blossom
+            [142495] = true, -- Fake Teeth
+            [142496] = true, -- Dirty Spoon
+            [142497] = true, -- Tiny Pack
+            [147832] = true, -- Magical Saucer
+            [163697] = true, -- Laser Pointer
+            [163704] = true, -- Tiny Mechanical Mouse
+            [163705] = true, -- Imaginary Gun
+            [166662] = true, -- Cranky Crab
+            [174871] = true, -- Mayhem Mind Melder
+            [174995] = true, -- Void Tendril Pet Leash
+            [184449] = true, -- Jiggles's Favorite Toy
+            [184508] = true, -- Mawsworn Pet Leash
+            [186973] = true, -- Anima-ted Leash
+            [186985] = true, -- Elisive Pet Treat
+            [187051] = true, -- Forgotten Feather
+        },
+
+        -- replaces regular mount model or adds a minor effect
+        ["Mount"] = {
+            [69215] = true, -- War Party Hitching Post
+            [112324] = true, -- Nightmarish Hitching Post
+            [138202] = true, -- Sparklepony XL
+            [172219] = true, -- Wild Holly
+            [204675] = true, -- A Drake's Big Basket of Eggs
+        }
     },
 }
