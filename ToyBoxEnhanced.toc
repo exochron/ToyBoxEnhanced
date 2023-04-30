@@ -1,6 +1,7 @@
 ## Interface: 100100
 ## Title: Toy Box Enhanced
 ## Notes: Extends the ingame Toy Box
+## IconTexture: Interface\Icons\Trade_Archaeology_ChestofTinyGlassAnimals
 ## Author: eXochron
 ## Version: @project-version@
 ## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
