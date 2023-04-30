@@ -16,9 +16,11 @@ local function FilterBySearch(itemId, searchString)
     if ADDON.settings.searchInDescription then
         local _, spellId = GetItemSpell(itemId)
         local spellDescription = GetSpellDescription(spellId)
-        spellDescription = spellDescription:lower()
-        pos = strfind(spellDescription, searchString, 1, true)
-        result = pos ~= nil
+        if spellDescription then
+            spellDescription = spellDescription:lower()
+            pos = strfind(spellDescription, searchString, 1, true)
+            result = pos ~= nil
+        end
     end
 
     return result
@@ -135,7 +137,9 @@ local function FilterTradableToys(itemId)
 end
 
 local function FilterRecentToys(itemId)
-    return not ADDON.settings.filter.onlyRecent or (ADDON.db.Recent.minID <= itemId and not tContains(ADDON.db.Recent.blacklist, itemId))
+    return not ADDON.settings.filter.onlyRecent
+            or (ADDON.db.Recent.minID <= itemId and not tContains(ADDON.db.Recent.blacklist, itemId))
+            or tContains(ADDON.db.Recent.whitelist, itemId)
 end
 
 local function FilterToysByExpansion(itemId)
