@@ -93,25 +93,30 @@ frame:RegisterEvent("TOYS_UPDATED")
 frame:RegisterEvent("PLAYER_REGEN_ENABLED")
 frame:RegisterEvent("PLAYER_REGEN_DISABLED")
 frame:SetScript("OnEvent", function(_, event, arg1)
-
     if false == playerLoggedIn and IsLoggedIn() then
-        if ResetAPIFilters() < ADDON.DELAY_CHECK then
+        if ResetAPIFilters() < 0.9 * C_ToyBox.GetNumTotalDisplayedToys() then
+            -- toys are not yet fully loaded, o we delay a bit until at least 90% are there
+            -- for further explanation see bottom of DebugTest
             delayLoginUntilFullyLoaded = true
         end
         playerLoggedIn = true
     end
     if event == "ADDON_LOADED" and arg1 == ADDON_NAME then
         addonLoaded = true
-    elseif event == "TOYS_UPDATED" and delayLoginUntilFullyLoaded and playerLoggedIn and nil == arg1 and ResetAPIFilters() >= ADDON.DELAY_CHECK then
+    elseif event == "TOYS_UPDATED" and delayLoginUntilFullyLoaded and playerLoggedIn and nil == arg1 and ResetAPIFilters() >= 0.9 * C_ToyBox.GetNumTotalDisplayedToys() then
         delayLoginUntilFullyLoaded = false
     end
 
     if playerLoggedIn and addonLoaded and not delayLoginUntilFullyLoaded and not loggedIn and not InCombatLockdown() then
-        loggedIn = true
-        OnLogin()
-        ADDON.Events:TriggerEvent("OnInit")
-        ADDON.Events:TriggerEvent("OnLogin")
-        ADDON.Events:UnregisterEvents({ "OnInit", "OnLogin" })
+        C_Timer.After(0.2, function() -- give client a bit more time to load remaining 10%
+            if not InCombatLockdown() and not loggedIn then
+                loggedIn = true
+                OnLogin()
+                ADDON.Events:TriggerEvent("OnInit")
+                ADDON.Events:TriggerEvent("OnLogin")
+                ADDON.Events:UnregisterEvents({ "OnInit", "OnLogin" })
+            end
+        end)
     end
 
     if ADDON.initialized and ToyBox:IsVisible() and (event == "TOYS_UPDATED" or event == "PLAYER_REGEN_ENABLED" or event == "PLAYER_REGEN_DISABLED") then

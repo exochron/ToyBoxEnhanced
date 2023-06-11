@@ -1,13 +1,5 @@
 local _, ADDON = ...
 
--- Threshold of at least loaded toy count (see: bottom of DebugTest) = total - count of hidden flag
--- TODO: remove later
-if select(4, GetBuildInfo()) < 100100 then
-    ADDON.DELAY_CHECK = 775
-else
-    ADDON.DELAY_CHECK = 788
-end
-
 ADDON.db = {}
 
 ADDON.db.Recent = {
@@ -764,6 +756,7 @@ ADDON.db.source = {
         [203725] = true, -- Display of Strength
         [204170] = true, -- Clan Banner
         [204220] = true, -- Hraxian's Unbreakable Will
+        [204389] = true, -- Stonebreaker
         [205688] = true, -- Glutinous Glitterscale Glob
         [206008] = true, -- Nightmare Banner
     },

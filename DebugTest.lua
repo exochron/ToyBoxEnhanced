@@ -80,10 +80,17 @@ end, "debug")
 --[[
 local test = CreateFrame("Frame")
 test:RegisterEvent("PLAYER_LOGIN")
-test:SetScript("OnEvent", function(self, event, arg1, arg2)
-    print(event, arg1, arg2, C_ToyBox.GetNumFilteredToys()) --prints 20
+test:SetScript("OnEvent", function(_, event)
+    C_ToyBox.SetAllSourceTypeFilters(true)
+    C_ToyBox.SetAllExpansionTypeFilters(true)
+    C_ToyBox.SetCollectedShown(true)
+    C_ToyBox.SetUncollectedShown(true)
+    C_ToyBox.SetUnusableShown(true)
+    C_ToyBox.SetFilterString("")
+
+    print(event, C_ToyBox.GetNumFilteredToys(), C_ToyBox.GetNumTotalDisplayedToys()) --prints 20
     C_Timer.After(0, function()
-        print('after next frame', C_ToyBox.GetNumFilteredToys()) --prints 638
+        print('after next frame', C_ToyBox.GetNumFilteredToys(), C_ToyBox.GetNumTotalDisplayedToys()) --prints 638
     end)
 end)
 --]]
