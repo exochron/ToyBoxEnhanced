@@ -757,7 +757,9 @@ ADDON.db.source = {
         [204170] = true, -- Clan Banner
         [204220] = true, -- Hraxian's Unbreakable Will
         [204389] = true, -- Stonebreaker
+        [204686] = true, -- Titan's Containment Device
         [205688] = true, -- Glutinous Glitterscale Glob
+        [205908] = true, -- Inherited Wisdom of Senegos
         [206008] = true, -- Nightmare Banner
     },
 
@@ -1445,6 +1447,8 @@ ADDON.db.effect = {
             [202042] = true, -- Aquatic Shades
             [202283] = true, -- Reading Glasses
             [205418] = true, -- Blazing Shadowflame Cinder
+            [205688] = true, -- Glutinous Glitterscale Glob
+            [205963] = true, -- Sniffin' Salts
         },
 
         ["Bigger"] = {
@@ -1584,6 +1588,7 @@ ADDON.db.effect = {
             [184447] = true, -- Kevin's Party Supplies
             [187512] = true, -- Tome of Small Sins
             [199337] = true, -- Bag of Furious Winds
+            [206043] = true, -- Fyrakk's Frenzy
         },
 
         ["Summon"] = {
@@ -1703,6 +1708,8 @@ ADDON.db.effect = {
             [202019] = true, -- Golden Dragon Goblet
             [202711] = true, -- Lost Compass
             [203725] = true, -- Display of Strength
+            [204389] = true, -- Stone Breaker
+            [205045] = true, -- B.B.F. Fist
         },
 
         ["Corpse"] = {
@@ -1744,6 +1751,8 @@ ADDON.db.effect = {
             [187793] = true, -- Personal Containment Trap
             [198409] = true, -- Personal Shell
             [200198] = true, -- Primalist Prison
+            [203734] = true, -- Snow Blanket
+            [204686] = true, -- Titan's Containment Device
 
         },
 
@@ -1808,6 +1817,7 @@ ADDON.db.effect = {
             [166877] = true, -- Azerite Firework Launcher
             [166778] = true, -- Horde's Might Firework
             [166777] = true, -- Lion's Pride Firework
+            [206038] = true, -- Flamin' Ring of Flashiness
         },
 
         -- stuff to litter the ground
@@ -1862,6 +1872,7 @@ ADDON.db.effect = {
             [199649] = true, -- Dragon Tea Set
             [199900] = true, -- Secondhand Survey Tools
             [199650] = true, -- Whale Bone Tea Set
+            [204220] = true, -- Hraxian's Unbreakable Will
             [204256] = true, -- Holoviewer: The Scarlet Queen
             [204257] = true, -- Holoviewer: The Lady of Dreams
             [204262] = true, -- Holoviewer: The Timeless One
@@ -1937,6 +1948,7 @@ ADDON.db.effect = {
             [193032] = true, -- Jeweled Offering
             [200628] = true, -- Somewhat-Stabilized Arcana
             [200707] = true, -- Armoire of Endless Cloaks
+            [205419] = true, -- Dinn's Drum
         },
 
         ["Mail"] = {
@@ -1961,6 +1973,7 @@ ADDON.db.effect = {
             [187419] = true, -- Steward's First Feather
             [192485] = true, -- Stored Wisdom Device
             [198537] = true, -- Taivan's Trumpet
+            [205908] = true, -- Inherited Wisdom of Senegos
         },
 
         -- Can attack these
@@ -2023,6 +2036,7 @@ ADDON.db.effect = {
             [199899] = true, -- Iskaara Tug Sled
             [200597] = true, -- Lover's Bouquet
             [202020] = true, -- Chasing Storm
+            [204818] = true, -- Mallard Mortar
             [205796] = true, -- Molten Lava Pack
         }
     },
@@ -2125,6 +2139,7 @@ ADDON.db.effect = {
             [168824] = true, -- Ocean Simulator
             [192099] = true, -- Earpieces of Tranquil Focus
             [204687] = true, -- Obsidian Battle Horn
+            [205419] = true, -- Dinn's Drum
             [205936] = true, -- New Niffen No-Sniffen' Tonic
         },
 
@@ -2301,6 +2316,7 @@ ADDON.db.effect = {
         [163603] = true, -- Lucille's Handkerchief
         [197986] = true, -- Murglasses
         [198227] = true, -- Giggle Goggles
+        [202283] = true, -- Reading Glasses
     },
 
     ["Companion"] = {
