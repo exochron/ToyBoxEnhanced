@@ -81,13 +81,6 @@ end, "debug")
 local test = CreateFrame("Frame")
 test:RegisterEvent("PLAYER_LOGIN")
 test:SetScript("OnEvent", function(_, event)
-    C_ToyBox.SetAllSourceTypeFilters(true)
-    C_ToyBox.SetAllExpansionTypeFilters(true)
-    C_ToyBox.SetCollectedShown(true)
-    C_ToyBox.SetUncollectedShown(true)
-    C_ToyBox.SetUnusableShown(true)
-    C_ToyBox.SetFilterString("")
-
     print(event, C_ToyBox.GetNumFilteredToys(), C_ToyBox.GetNumTotalDisplayedToys()) --prints 20
     C_Timer.After(0, function()
         print('after next frame', C_ToyBox.GetNumFilteredToys(), C_ToyBox.GetNumTotalDisplayedToys()) --prints 638

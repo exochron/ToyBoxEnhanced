@@ -34,6 +34,14 @@ local function ResetAPIFilters()
     return C_ToyBox.GetNumFilteredToys()
 end
 
+local DoesItemExistInGame = C_Item.DoesItemExistByID
+-- C_Item.DoesItemExistByID() always returns true. got broken sometime during DF. (https://github.com/Stanzilla/WoWUIBugs/issues/449)
+if true == C_Item.DoesItemExistByID(1) then
+    DoesItemExistInGame = function(itemId)
+        return C_Item.GetItemIconByID(itemId) ~= 134400 -- question icon
+    end
+end
+
 local function OnLogin()
     for toyIndex = 1, C_ToyBox.GetNumFilteredToys() do
         local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
@@ -45,7 +53,7 @@ local function OnLogin()
     -- check if there is an item which is not in the game anymore
     local itemsToRemoveFromList = {}
     for itemId, isIngame in pairs(ADDON.db.ingameList) do
-        if isIngame == false and C_Item.DoesItemExistByID(itemId) == false then
+        if isIngame == false and (not DoesItemExistInGame(itemId) or not C_ToyBox.GetToyInfo(itemId)) then
             table.insert(itemsToRemoveFromList, itemId)
         end
     end
@@ -95,7 +103,7 @@ frame:RegisterEvent("PLAYER_REGEN_DISABLED")
 frame:SetScript("OnEvent", function(_, event, arg1)
     if false == playerLoggedIn and IsLoggedIn() then
         if ResetAPIFilters() < 0.9 * C_ToyBox.GetNumTotalDisplayedToys() then
-            -- toys are not yet fully loaded, o we delay a bit until at least 90% are there
+            -- toys are not yet fully loaded, so we delay a bit until at least 90% are there
             -- for further explanation see bottom of DebugTest
             delayLoginUntilFullyLoaded = true
         end
