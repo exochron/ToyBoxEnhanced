@@ -3,9 +3,9 @@ local _, ADDON = ...
 ADDON.db = {}
 
 ADDON.db.Recent = {
-    ["minID"] = 204818,
-    ["blacklist"] = {},
-    ["whitelist"] = { 204220, 204389 },
+    ["minID"] = 206195,
+    ["blacklist"] = { 206267, 206343 },
+    ["whitelist"] = {  },
 }
 
 ADDON.db.worldEvent = {
@@ -669,58 +669,60 @@ ADDON.db.source = {
         -- Pandaria
         [80822] = true, -- The Golden Banana
         [82467] = true, -- Ruthers' Harness
-        [88589] = true, -- Cremating Torch
-        [88417] = true, -- Gokk'lok's Shell
+        [88370] = true, -- Puntable Marmot
+        [88375] = true, -- Turnip Punching Bag
+        [88377] = true, -- Turnip Paint "Gun"
+        [88381] = true, -- Silversage Incense
         [88385] = true, -- Hozen Idol
+        [88387] = true, -- Shushen's Spittoon
+        [88417] = true, -- Gokk'lok's Shell
+        [88531] = true, -- Lao Chin's Last Mug
         [88579] = true, -- Jin Warmkeg's Brew
         [88580] = true, -- Ken-Ken's Mask
-        [88531] = true, -- Lao Chin's Last Mug
-        [88370] = true, -- Puntable Marmot
-        [88377] = true, -- Turnip Paint "Gun"
-        [88387] = true, -- Shushen's Spittoon
-        [88381] = true, -- Silversage Incense
         [88584] = true, -- Totem of Harmony
-        [88375] = true, -- Turnip Punching Bag
+        [88589] = true, -- Cremating Torch
         [95567] = true, -- Kirin Tor Beacon -- Alliance
         [95568] = true, -- Sunreaver Beacon -- Horde
 
         -- Draenor
+        [110560] = true, -- Garrison Hearthstone
+        [115506] = true, -- Treessassin's Guise
+        [118935] = true, -- Ever-Blooming Frond
         [119001] = true, -- Mystery Keg
+        [119093] = true, -- Aviana's Feather
         [119134] = true, -- Sargerei Disguise
         [119144] = true, -- Touch of the Naaru
         [119145] = true, -- Firefury Totem
-        [119093] = true, -- Aviana's Feather
-        [115506] = true, -- Treessassin's Guise
-        [118935] = true, -- Ever-Blooming Frond
 
         -- Legion
         [129093] = true, -- Ravenbear Disguise
-        [138873] = true, -- Mystical Frosh Hat
-        [134021] = true, -- X-52 Rocket Helmet
-        [141879] = true, -- Berglrgl Perrgl Girggrlf
+        [130209] = true, -- Never Ending Toy Chest
         [131933] = true, -- Critter Hand Cannon
         [133997] = true, -- Black Ice
-        [138876] = true, -- Runas' Crystal Grinder
-        [130209] = true, -- Never Ending Toy Chest
-        [138878] = true, -- Copy of Daglop's Contract
         [133998] = true, -- Rainbow Generator
+        [134021] = true, -- X-52 Rocket Helmet
+        [138873] = true, -- Mystical Frosh Hat
+        [138876] = true, -- Runas' Crystal Grinder
+        [138878] = true, -- Copy of Daglop's Contract
+        [140192] = true, -- Dalaran Hearthstone
+        [141879] = true, -- Berglrgl Perrgl Girggrlf
         [142494] = true, -- Purple Blossom
         [142495] = true, -- Fake Teeth
         [142496] = true, -- Dirty Spoon
         [142497] = true, -- Tiny Pack
-        [147838] = true, -- Akazamzarak's Spare Hat -- mage class quest
         [143727] = true, -- Champion's Salute -- class hall quest
+        [147838] = true, -- Akazamzarak's Spare Hat -- mage class quest
 
         -- Battle for Azeroth
         [156871] = true, -- Spitzy
         [160509] = true, -- Echoes of Rezan -- WQ
         [163607] = true, -- Lucille's Sewing Needle
-        [166544] = true, -- Dark Ranger's Spare Cowl
         [165791] = true, -- Worn Cloak
+        [166544] = true, -- Dark Ranger's Spare Cowl
         [166678] = true, -- Brynja's Beacon
         [168123] = true, -- Twitching Eyeball
-        [169796] = true, -- Azeroth Mini Collection: Mechagon
         [169768] = true, -- Heart of a Champion
+        [169796] = true, -- Azeroth Mini Collection: Mechagon
         [170154] = true, -- Book of the Unshackled
         [170155] = true, -- Carved Ankoan Charm
         [173727] = true, -- Nomi's Vintage
@@ -761,6 +763,7 @@ ADDON.db.source = {
         [205688] = true, -- Glutinous Glitterscale Glob
         [205908] = true, -- Inherited Wisdom of Senegos
         [206008] = true, -- Nightmare Banner
+        [208415] = true, -- Stasis Sand
     },
 
     ["Vendor"] = {
@@ -906,6 +909,8 @@ ADDON.db.source = {
         [204257] = true, -- Holoviewer: The Lady of Dreams -- Zserka Vaults
         [204262] = true, -- Holoviewer: The Timeless One -- Zserka Vaults
         [204687] = true, -- Obsidian Battle Horn -- Zserka Vaults
+        [206565] = true, -- Plagued Grain -- Naxxramas
+        [208096] = true, -- Familiar Journal -- Naxxramas
     },
 
     ["Reputation"] = {
@@ -1007,8 +1012,8 @@ ADDON.db.source = {
         [200640] = true, -- Obsidian Egg Clutch
         [202253] = true, -- Primal Stave of Claw and Fur
         [202283] = true, -- Reading Glasses
-        [203734] = true, -- Snow Blanket
         [205255] = true, -- Niffen Diggin' Mitts
+        [208058] = true, -- Minute Glass
     },
 
     ["Achievement"] = {
@@ -1053,6 +1058,8 @@ ADDON.db.source = {
         [205904] = true, -- Vibrant Clacking Claw
         [206267] = true, -- Obsidian Legend's Pennant
         [206343] = true, -- Crimson Legend's Pennant
+        [207099] = true, -- Tiny Box of Tiny Rocks
+        [208186] = true, -- Boffins
     },
 
     ["PvP"] = {
@@ -1150,6 +1157,10 @@ ADDON.db.source = {
         [46780] = true, -- Ogre Pinata
     },
 
+    ["Trading Post"] = {
+        [206268] = true, -- Ethereal Transmogrifier
+    },
+
     ["Shop"] = {
         [112324] = true, -- Nightmarish Hitching Post
         [166777] = true, -- Lion's Pride Firework
@@ -1168,6 +1179,7 @@ ADDON.db.source = {
         [186501] = true, -- Doomwalker Trophy Stand
         [193588] = true, -- Timewalker's Hearthstone - Dragonflight Epic Edition
         [203716] = true, -- Thundering Banner of the Aspects
+        [208057] = true, -- Smoldering Banner of the Aspects
 
         -- MDI
         [187834] = true, -- Tormented Banner of the Opportune
@@ -1630,6 +1642,8 @@ ADDON.db.effect = {
             [187705] = true, -- Choofa's Call
             [200640] = true, -- Obsidian Egg Clutch
             [200999] = true, -- The Super Shellkhan Gang
+            [207099] = true, -- Tiny Box of Tiny Rocks
+            [208186] = true, -- Boffins
         },
     },
 
@@ -1710,6 +1724,7 @@ ADDON.db.effect = {
             [203725] = true, -- Display of Strength
             [204389] = true, -- Stone Breaker
             [205045] = true, -- B.B.F. Fist
+            [208096] = true, -- Familiar Journal
         },
 
         ["Corpse"] = {
@@ -1751,9 +1766,8 @@ ADDON.db.effect = {
             [187793] = true, -- Personal Containment Trap
             [198409] = true, -- Personal Shell
             [200198] = true, -- Primalist Prison
-            [203734] = true, -- Snow Blanket
             [204686] = true, -- Titan's Containment Device
-
+            [208415] = true, -- Stasis Sand
         },
 
     },
@@ -1792,6 +1806,7 @@ ADDON.db.effect = {
             [199771] = true, -- Green Dragon Banner
             [203716] = true, -- Thundering Banner of the Aspects
             [206008] = true, -- Nightmare Banner
+            [208057] = true, -- Smoldering Banner of the Aspects
         },
 
         -- Summons a clone of the character
@@ -1876,6 +1891,7 @@ ADDON.db.effect = {
             [204256] = true, -- Holoviewer: The Scarlet Queen
             [204257] = true, -- Holoviewer: The Lady of Dreams
             [204262] = true, -- Holoviewer: The Timeless One
+            [206565] = true, -- Plagued Grain -- Naxxramas
         },
 
         ["Weather"] = {
@@ -1974,6 +1990,7 @@ ADDON.db.effect = {
             [192485] = true, -- Stored Wisdom Device
             [198537] = true, -- Taivan's Trumpet
             [205908] = true, -- Inherited Wisdom of Senegos
+            [206268] = true, -- Ethereal Transmogrifier
         },
 
         -- Can attack these
@@ -2204,6 +2221,8 @@ ADDON.db.effect = {
             [54452] = true, -- Ethereal Portal
             [64488] = true, -- The Innkeeper's Daughter
             [93672] = true, -- Dark Portal
+            [110560] = true, -- Garrison Hearthstone
+            [140192] = true, -- Dalaran Hearthstone
             [142542] = true, -- Tome of Town Portal
             [162973] = true, -- Greatfather Winter's Hearthstone
             [163045] = true, -- Headless Horseman's Hearthstone
@@ -2223,6 +2242,7 @@ ADDON.db.effect = {
             [190237] = true, -- Broker Translocation Matrix
             [193588] = true, -- Timewalker's Hearthstone
             [200630] = true, -- Ohn'ir Windsage's Hearthstone
+            [206195] = true, -- Path of the Naaru
         },
 
         ["Jump"] = {
