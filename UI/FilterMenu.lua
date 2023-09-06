@@ -221,7 +221,7 @@ local function InitializeDropDown(_, level)
         UIDropDownMenu_AddButton(CreateFilterInfo(L.FILTER_ONLY_TRADABLE, SETTING_ONLY_TRADABLE), level)
 
         if ADDON.settings.filter[SETTING_HIDDEN] or HasUserHiddenToys() then
-            UIDropDownMenu_AddButton(CreateFilterInfo(L["Hidden"], SETTING_HIDDEN), level)
+            UIDropDownMenu_AddButton(CreateFilterInfo(HUD_EDIT_MODE_SETTING_ACTION_BAR_VISIBLE_SETTING_HIDDEN, SETTING_HIDDEN), level)
         end
 
         UIDropDownMenu_AddSpace(level)
@@ -258,7 +258,7 @@ local function InitializeDropDown(_, level)
         UIDropDownMenu_AddButton(CreateFilterInfo(GARRISON_LOCATION_TOOLTIP, "Garrison", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(921), "Pick Pocket", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(select(2, C_Garrison.GetBuildingInfo(111)), "Trading Post", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L["Black Market"], "Black Market", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(BLACK_MARKET_AUCTION_HOUSE, "Black Market", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_10, "Shop", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_8, "Promotion", settings), level)
 

@@ -7,7 +7,6 @@ local L = ADDON.L
 
 L["FAVOR_DISPLAYED"] = "All Displayed"
 L["FAVOR_PER_CHARACTER"] = "Per Character"
-L["Hidden"] = "Hidden"
 L["RANDOM_TOY_DESCRIPTION"] = "The toy will be chosen randomly from the favorites."
 L["RANDOM_TOY_TITLE"] = "Use Random Favorite Toy"
 L["Reset filters"] = "Reset filters"
@@ -31,7 +30,6 @@ L["SETTING_FAVORITE_PER_CHAR"] = "Favorite toys per character"
 L["SETTING_SEARCH_IN_DESCRIPTION"] = "Search also in toy description"
 
 -- Source
-L["Black Market"] = "Black Market"
 L["Order Hall"] = "Order Hall"
 
 -- Effects
@@ -60,7 +58,7 @@ L["Emote"] = EMOTE
 L["Environment"] = ENVIRONMENT_SUBHEADER
 L["Firework"] = GetSpellInfo(25465)
 L["Fishing"] = PROFESSIONS_FISHING
-L["Flight Path"] = "Flight Path"
+L["Flight Path"] = FLIGHT_MAP
 L["Fly/Fall"] = "Fly/Fall"
 L["Food/Water"] = MINIMAP_TRACKING_VENDOR_FOOD
 L["Full"] = LOC_TYPE_FULL
@@ -78,7 +76,7 @@ L["Nearby"] = "Nearby"
 L["Other"] = OTHER
 L["PVP"] = PVP
 L["Pennant"] = "Pennant"
-L["Perception"] = "Perception"
+L["Perception"] = ITEM_MOD_PERCEPTION_SHORT
 L["Profession"] = BATTLE_PET_SOURCE_4
 L["Roll"] = ROLL
 L["Running"] = GetSpellInfo(114907)
