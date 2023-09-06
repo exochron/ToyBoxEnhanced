@@ -178,10 +178,6 @@ ADDON.db.worldEvent = {
         [191925] = true, -- Falling Star Flinger
         [191937] = true, -- Falling Star Catcher
     },
-
-    ["Secrets of Azeroth"] = {
-        [206696] = true, -- Tricked-Out Thinking Cap
-    },
 }
 
 ADDON.db.profession = {
