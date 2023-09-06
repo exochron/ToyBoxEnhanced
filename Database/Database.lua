@@ -3,9 +3,9 @@ local _, ADDON = ...
 ADDON.db = {}
 
 ADDON.db.Recent = {
-    ["minID"] = 206195,
-    ["blacklist"] = { 206267, 206343 },
-    ["whitelist"] = {  },
+    ["minID"] = 208421,
+    ["blacklist"] = { },
+    ["whitelist"] = { },
 }
 
 ADDON.db.worldEvent = {
@@ -100,6 +100,12 @@ ADDON.db.worldEvent = {
         [206038] = true, -- Flamin' Ring of Flashiness
     },
 
+    ["Secrets of Azeroth"] = {
+        [206696] = true, -- Tricked-Out Thinking Cap
+        [207730] = true, -- Idol of Ohn'ahra
+        [208092] = true, -- Torch of Pyrreth
+    },
+
     ["Brewfest"] = {
         [33927] = true, -- Brewfest Pony Keg
         [71137] = true, -- Brewfest Keg Pony
@@ -109,6 +115,7 @@ ADDON.db.worldEvent = {
         [138900] = true, -- Gravil Goldbraid's Famous Sausage Hat
         [166747] = true, -- Brewfest Reveler's Hearthstone
         [169865] = true, -- Brewfest Chowdown Trophy
+        [209052] = true, -- Brew Barrel
     },
 
     ["Hallow's End"] = {
@@ -170,6 +177,10 @@ ADDON.db.worldEvent = {
         [188680] = true, -- Winter Veil Chorus Book
         [191925] = true, -- Falling Star Flinger
         [191937] = true, -- Falling Star Catcher
+    },
+
+    ["Secrets of Azeroth"] = {
+        [206696] = true, -- Tricked-Out Thinking Cap
     },
 }
 
@@ -652,6 +663,7 @@ ADDON.db.source = {
         [205419] = true, -- Jrumm's Drum
         [205796] = true, -- Molten Lava Pack
         [206043] = true, -- Fyrakk's Frenzy
+        [206993] = true, -- Investi-gator's Pocketwatch
     },
 
     ["Quest"] = {
@@ -886,6 +898,8 @@ ADDON.db.source = {
         [202042] = true, -- Aquatic Shades
         [205936] = true, -- New Niffen No-Sniffen' Tonic
         [205963] = true, -- Sniffin' Salts
+        [209858] = true, -- Dreamsurge Remnant
+        [209944] = true, -- Friendsurge Defenders
     },
 
     ["Instance"] = {
@@ -1012,6 +1026,7 @@ ADDON.db.source = {
         [200640] = true, -- Obsidian Egg Clutch
         [202253] = true, -- Primal Stave of Claw and Fur
         [202283] = true, -- Reading Glasses
+        [203734] = true, -- Snow Blanket
         [205255] = true, -- Niffen Diggin' Mitts
         [208058] = true, -- Minute Glass
     },
@@ -1050,6 +1065,7 @@ ADDON.db.source = {
         [188952] = true, -- Dominated Hearthstone
 
         -- Dragonflight
+        [197961] = true, -- Whelps on Strings
         [197986] = true, -- Murglasses
         [198428] = true, -- Tuskarr Dinghy
         [200630] = true, -- Ohn'ir Windsage's Hearthstone
@@ -1060,6 +1076,8 @@ ADDON.db.source = {
         [206343] = true, -- Crimson Legend's Pennant
         [207099] = true, -- Tiny Box of Tiny Rocks
         [208186] = true, -- Boffins
+        [208421] = true, -- Compendium of the New Moon
+        [208433] = true, -- Bronze Racer's Pennant
     },
 
     ["PvP"] = {
@@ -1384,6 +1402,8 @@ ADDON.db.effect = {
             [202253] = true, -- Primal Stave of Claw and Fur
             [203852] = true, -- Spore-Bound Essence
             [205904] = true, -- Vibrant Clacking Claw
+            [208421] = true, -- Compendium of the New Moon
+            [208433] = true, -- Bronze Racer's Pennant
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1461,6 +1481,10 @@ ADDON.db.effect = {
             [205418] = true, -- Blazing Shadowflame Cinder
             [205688] = true, -- Glutinous Glitterscale Glob
             [205963] = true, -- Sniffin' Salts
+            [206696] = true, -- Tricked-Out Thinking Cap
+            [207730] = true, -- Idol of Ohn'ahra
+            [208092] = true, -- Torch of Pyrreth
+            [209944] = true, -- Friendsurge Defenders
         },
 
         ["Bigger"] = {
@@ -1490,6 +1514,7 @@ ADDON.db.effect = {
             [170204] = true, -- Symbol of Gral
             [173984] = true, -- Scroll of Aeons
             [174830] = true, -- Shadowy Disguise
+            [206993] = true, -- Investi-gator's Pocketwatch
         },
 
         -- Banners the character wears on their back
@@ -1766,6 +1791,7 @@ ADDON.db.effect = {
             [187793] = true, -- Personal Containment Trap
             [198409] = true, -- Personal Shell
             [200198] = true, -- Primalist Prison
+            [203734] = true, -- Snow Blanket
             [204686] = true, -- Titan's Containment Device
             [208415] = true, -- Stasis Sand
         },
@@ -1892,6 +1918,7 @@ ADDON.db.effect = {
             [204257] = true, -- Holoviewer: The Lady of Dreams
             [204262] = true, -- Holoviewer: The Timeless One
             [206565] = true, -- Plagued Grain -- Naxxramas
+            [208058] = true, -- Minutenglas
         },
 
         ["Weather"] = {
@@ -1902,6 +1929,7 @@ ADDON.db.effect = {
             [163744] = true, -- Coldrage's Cooler
             [198206] = true, -- Environmental Emulator
             [198264] = true, -- Centralized Precipitation Emitter
+            [209858] = true, -- Dreamsurge Remnant
         }
     },
 
@@ -2013,6 +2041,7 @@ ADDON.db.effect = {
             [132518] = true, -- Blingtron's Circuit Design Tutorial
             [166787] = true, -- Twiddle Twirler: Sentinel's Glaive
             [166788] = true, -- Twiddle Twirler: Shredder Blade
+            [206696] = true, -- Tricked-Out Thinking Cap
         },
 
         ["Co-op"] = {
@@ -2198,6 +2227,8 @@ ADDON.db.effect = {
             [182729] = true, -- Hearty Dragon Plume
             [184312] = true, -- Borr-Geth's Fiery Brimstone
             [192443] = true, -- Element-Infused Rocket Helmet
+            [197961] = true, -- Whelps on Strings
+            [208433] = true, -- Bronze Racer's Pennant
         },
 
         -- Unlocks flight paths
@@ -2269,6 +2300,7 @@ ADDON.db.effect = {
             [187860] = true, -- Mortis Mover
             [188698] = true, -- Eagger Basket
             [198827] = true, -- Magical Snow Sled
+            [209052] = true, -- Brew Barrel
         },
 
         ["Swimming"] = {
@@ -2337,6 +2369,7 @@ ADDON.db.effect = {
         [197986] = true, -- Murglasses
         [198227] = true, -- Giggle Goggles
         [202283] = true, -- Reading Glasses
+        [209858] = true, -- Dreamsurge Remnant
     },
 
     ["Companion"] = {
