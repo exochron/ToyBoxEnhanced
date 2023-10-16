@@ -1,15 +1,14 @@
 ## Interface: 30403
 ## Title: Toy Box Enhanced
 ## Notes: Extends the ingame Toy Box
-## IconTexture: Interface\Icons\Trade_Archaeology_ChestofTinyGlassAnimals
 ## Author: eXochron
 ## Version: @project-version@
 ## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
 ## X-Curse-Project-ID: 87878
 ## X-Wago-ID: pkNMXrGz
 
-# Libs\TaintLess.xml
-# Libs\UIFixes.lua
+Libs\TaintLess.xml
+Libs\UIFixes.lua
 
 Locals.lua
 Database\Database.lua
