@@ -42,6 +42,23 @@ if true == C_Item.DoesItemExistByID(1) then
     end
 end
 
+local function diffTableKeys(tbl, keysToDrop)
+    local result = {}
+
+    for key, val in pairs(tbl) do
+        if type(val) == "table" then
+            local subResult = diffTableKeys(val, keysToDrop)
+            if not TableIsEmpty(subResult) then
+                result[key] = subResult
+            end
+        elseif true ~= keysToDrop[key] then
+            result[key] = val
+        end
+    end
+
+    return result
+end
+
 local function OnLogin()
     for toyIndex = 1, C_ToyBox.GetNumFilteredToys() do
         local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
@@ -54,18 +71,18 @@ local function OnLogin()
     local itemsToRemoveFromList = {}
     for itemId, isIngame in pairs(ADDON.db.ingameList) do
         if isIngame == false and (not DoesItemExistInGame(itemId) or not C_ToyBox.GetToyInfo(itemId)) then
-            table.insert(itemsToRemoveFromList, itemId)
+            itemsToRemoveFromList[itemId] = true
         end
     end
-    if #itemsToRemoveFromList > 0 then
+
+    if not TableIsEmpty(itemsToRemoveFromList) then
         -- now we have to remove those items from the list by recreating the table
-        local newTbl = {}
-        for itemId, isIngame in pairs(ADDON.db.ingameList) do
-            if not tContains(itemsToRemoveFromList, itemId) then
-                newTbl[itemId] = isIngame
-            end
-        end
-        ADDON.db.ingameList = newTbl
+        ADDON.db.ingameList = diffTableKeys(ADDON.db.ingameList, itemsToRemoveFromList)
+        ADDON.db.worldEvent = diffTableKeys(ADDON.db.worldEvent, itemsToRemoveFromList)
+        ADDON.db.profession = diffTableKeys(ADDON.db.profession, itemsToRemoveFromList)
+        ADDON.db.faction = diffTableKeys(ADDON.db.faction, itemsToRemoveFromList)
+        ADDON.db.source = diffTableKeys(ADDON.db.source, itemsToRemoveFromList)
+        ADDON.db.effect = diffTableKeys(ADDON.db.effect, itemsToRemoveFromList)
     end
 end
 
