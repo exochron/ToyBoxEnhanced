@@ -5,7 +5,7 @@ ADDON.db = {}
 ADDON.db.Recent = {
     ["minID"] = 208421,
     ["blacklist"] = { },
-    ["whitelist"] = { },
+    ["whitelist"] = {206195, 206696, 208092, 207730, 201931, 202261, 202851, 202856, 202859, 202862, 202865 }, -- Path of the Naaru; 3x secrets of azeroth; 7x warcraft rumble
 }
 
 ADDON.db.worldEvent = {
@@ -772,6 +772,7 @@ ADDON.db.source = {
         [205908] = true, -- Inherited Wisdom of Senegos
         [206008] = true, -- Nightmare Banner
         [208415] = true, -- Stasis Sand
+        [208658] = true, -- Mirror of Humility
     },
 
     ["Vendor"] = {
@@ -894,6 +895,7 @@ ADDON.db.source = {
         [202042] = true, -- Aquatic Shades
         [205936] = true, -- New Niffen No-Sniffen' Tonic
         [205963] = true, -- Sniffin' Salts
+        [206195] = true, -- Path of the Naaru
         [209858] = true, -- Dreamsurge Remnant
         [209944] = true, -- Friendsurge Defenders
     },
@@ -1224,6 +1226,15 @@ ADDON.db.source = {
         [72161] = true, -- Spurious Sarcophagus
         [79769] = true, -- Demon Hunter's Aspect
         [93672] = true, -- Dark Portal
+
+        -- Warcraft Rumble
+        [201931] = true, -- Warcraft Rumble Toy: Maiev
+        [202261] = true, -- Warcraft Rumble Toy: Sneed
+        [202851] = true, -- Warcraft Rumble Toy: Night Elf Huntress
+        [202856] = true, -- Warcraft Rumble Toy: Stonehoof Tauren
+        [202859] = true, -- Warcraft Rumble Toy: Undead Ghoul
+        [202862] = true, -- Warcraft Rumble Toy: Murloc
+        [202865] = true, -- Warcraft Rumble Toy: Whelp Egg
     },
 }
 
@@ -1400,6 +1411,7 @@ ADDON.db.effect = {
             [205904] = true, -- Vibrant Clacking Claw
             [208421] = true, -- Compendium of the New Moon
             [208433] = true, -- Bronze Racer's Pennant
+            [208658] = true, -- Mirror of Humility
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1909,6 +1921,13 @@ ADDON.db.effect = {
             [199649] = true, -- Dragon Tea Set
             [199900] = true, -- Secondhand Survey Tools
             [199650] = true, -- Whale Bone Tea Set
+            [201931] = true, -- Warcraft Rumble Toy: Maiev
+            [202261] = true, -- Warcraft Rumble Toy: Sneed
+            [202851] = true, -- Warcraft Rumble Toy: Night Elf Huntress
+            [202856] = true, -- Warcraft Rumble Toy: Stonehoof Tauren
+            [202859] = true, -- Warcraft Rumble Toy: Undead Ghoul
+            [202862] = true, -- Warcraft Rumble Toy: Murloc
+            [202865] = true, -- Warcraft Rumble Toy: Whelp Egg
             [204220] = true, -- Hraxian's Unbreakable Will
             [204256] = true, -- Holoviewer: The Scarlet Queen
             [204257] = true, -- Holoviewer: The Lady of Dreams
