@@ -83,9 +83,29 @@ local function LoadItemsIntoCache(onDone)
             onDone()
         end
     end
+
+    local loadItemData
+    if ItemEventListener then -- retail
+        loadItemData = function(itemId)
+            -- AddCallback() also requests the item data
+            ItemEventListener:AddCallback(itemId, delayDone)
+        end
+    else -- classic
+        local frame = CreateFrame("Frame")
+        frame:SetScript("OnEvent", function(_, _, _, success)
+            if success then
+                delayDone()
+            end
+        end)
+        frame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
+
+        loadItemData = function(itemId)
+            C_Item.RequestLoadItemDataByID(itemId)
+        end
+    end
+
     for itemId in pairs(ADDON.db.ingameList) do
-        -- AddCallback() also requests the item data
-        ItemEventListener:AddCallback(itemId, delayDone)
+        loadItemData(itemId)
     end
 end
 

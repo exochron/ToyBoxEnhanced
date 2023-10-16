@@ -182,7 +182,7 @@ local function InitializeDropDown(_, level)
     local info
 
     if level == 1 then
-        UIDropDownMenu_AddButton(CreateFilterCategory(CLUB_FINDER_SORT_BY, SETTING_SORT), level)
+        UIDropDownMenu_AddButton(CreateFilterCategory(RAID_FRAME_SORT_LABEL, SETTING_SORT), level)
         UIDropDownMenu_AddSpace(level)
 
         info = CreateFilterInfo(COLLECTED, SETTING_COLLECTED, nil, function(value)
@@ -257,7 +257,7 @@ local function InitializeDropDown(_, level)
         UIDropDownMenu_AddButton(CreateFilterInfo(L["Order Hall"], "Order Hall", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(GARRISON_LOCATION_TOOLTIP, "Garrison", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(921), "Pick Pocket", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(select(2, C_Garrison.GetBuildingInfo(111)), "Trading Post", settings), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_12, "Trading Post", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(BLACK_MARKET_AUCTION_HOUSE, "Black Market", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_10, "Shop", settings), level)
         UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_8, "Promotion", settings), level)
@@ -304,7 +304,7 @@ local function InitializeDropDown(_, level)
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_EXPANSION) then
         local settings = ADDON.settings.filter[SETTING_EXPANSION]
         AddCheckAllAndNoneInfo({ settings }, level)
-        for i = #ADDON.db.expansion, 0, -1 do
+        for i = GetExpansionLevel(), 0, -1 do
             if _G["EXPANSION_NAME" .. i] then
                 UIDropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], i, settings), level)
             end
@@ -388,7 +388,7 @@ ADDON.Events:RegisterCallback("OnLoadUI", function()
         end
     end)
 
-    ToyBoxFilterButton:HookScript('OnMouseDown', function(sender)
+    local toggleFunc = function(sender)
         if not InCombatLockdown() then
             HideDropDownMenu(1)
             if toggle then
@@ -403,7 +403,12 @@ ADDON.Events:RegisterCallback("OnLoadUI", function()
                 toggle = true
             end
         end
-    end)
+    end
+    if ToyBoxFilterButton.ResetButton then -- newer retail handling
+        ToyBoxFilterButton:HookScript('OnMouseDown', toggleFunc)
+    else -- older classic handling
+        ToyBoxFilterButton:SetScript('OnClick', toggleFunc)
+    end
 
     ToyBoxFilterButton.resetFunction = function()
         ADDON:ResetFilterSettings()

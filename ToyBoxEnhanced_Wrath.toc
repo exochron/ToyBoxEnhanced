@@ -1,0 +1,34 @@
+## Interface: 30403
+## Title: Toy Box Enhanced
+## Notes: Extends the ingame Toy Box
+## IconTexture: Interface\Icons\Trade_Archaeology_ChestofTinyGlassAnimals
+## Author: eXochron
+## Version: @project-version@
+## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
+## X-Curse-Project-ID: 87878
+## X-Wago-ID: pkNMXrGz
+
+# Libs\TaintLess.xml
+# Libs\UIFixes.lua
+
+Locals.lua
+Database\Database.lua
+Database\toys.db.lua
+Database\tradable.db.lua
+
+Filters.lua
+Sort.lua
+ToyBoxEnhanced.lua
+Settings.lua
+SettingsPanel.lua
+DebugTest.lua
+Favorites.lua
+UI\Templates.xml
+UI\Functions.lua
+UI\EnhancedLayer.lua
+UI\FilterMenu.lua
+UI\Hotkeys.lua
+UI\OptionsMenu.lua
+UI\RandomToyButton.lua
+UI\ToyCount.lua
+SlashCommand.lua

@@ -51,10 +51,12 @@ local function DebugTest()
         end
     end
 
-    testExists(ADDON.db.source, "Source")
-    testExists(ADDON.db.profession, "Profession")
-    testExists(ADDON.db.worldEvent, "World Event")
-    testExists(ADDON.db.effect, "Effect")
+    if GetExpansionLevel() >= 10 then
+        testExists(ADDON.db.source, "Source")
+        testExists(ADDON.db.profession, "Profession")
+        testExists(ADDON.db.worldEvent, "World Event")
+        testExists(ADDON.db.effect, "Effect")
+    end
 end
 
 -- Test for https://www.curseforge.com/wow/addons/toy-box-enhanced/issues/16

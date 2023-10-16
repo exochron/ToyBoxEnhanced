@@ -1,12 +1,22 @@
 local _, ADDON = ...
 
+local isWrath = GetExpansionLevel() == 2
+
 ADDON.db = {}
 
-ADDON.db.Recent = {
-    ["minID"] = 208421,
-    ["blacklist"] = { },
-    ["whitelist"] = {206195, 206696, 208092, 207730, 201931, 202261, 202851, 202856, 202859, 202862, 202865 }, -- Path of the Naaru; 3x secrets of azeroth; 7x warcraft rumble
-}
+if isWrath then
+    ADDON.db.Recent = {
+        ["minID"] = 1,
+        ["blacklist"] = { },
+        ["whitelist"] = { },
+    }
+else
+    ADDON.db.Recent = {
+        ["minID"] = 208421,
+        ["blacklist"] = { },
+        ["whitelist"] = {206195, 206696, 208092, 207730, 201931, 202261, 202851, 202856, 202859, 202862, 202865 }, -- Path of the Naaru; 3x secrets of azeroth; 7x warcraft rumble
+    }
+end
 
 ADDON.db.worldEvent = {
 

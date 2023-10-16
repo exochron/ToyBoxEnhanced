@@ -76,6 +76,10 @@ local function createDisplayButton()
     displayButton = CreateFrame("Button", nil, ToyBox, "TBEUseRandomToyButtonTemplate")
     displayButton:RegisterForDrag("LeftButton")
 
+    if ToyBox.progressBar:IsShown() then -- classic
+        displayButton:SetPoint("CENTER", ToyBox, "TOP", "-125", "-42")
+    end
+
     local toys = collectItemIds()
     displayButton.LockIcon:SetShown(#toys == 0)
 
