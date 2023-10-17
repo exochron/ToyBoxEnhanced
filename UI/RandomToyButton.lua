@@ -23,7 +23,7 @@ local function collectItemIds()
 
     for itemId in pairs(ADDON.db.ingameList) do
         if PlayerHasToy(itemId) and C_ToyBox.GetIsFavorite(itemId) and C_ToyBox.IsToyUsable(itemId) then
-            local startTime, duration = GetItemCooldown(itemId)
+            local startTime, duration = C_Container.GetItemCooldown(itemId)
             if startTime == 0 or (startTime + duration) <= now then
                 items[#items + 1] = itemId
             end
