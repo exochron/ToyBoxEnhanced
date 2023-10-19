@@ -498,6 +498,7 @@ ADDON.db.source = {
         [1973] = true, -- Orb of Deception
         [32782] = true, -- Time-Lost Figurine
         [37254] = true, -- Super Simian Sphere
+        [38506] = true, -- Don Carlos' Famous Hat
 
         -- Pandaria
         [86568] = true, -- Mr. Smite's Brass Compass
@@ -1649,6 +1650,7 @@ ADDON.db.effect = {
         ["Summon"] = {
             [23767] = true, -- Crashin' Thrashin' Robot
             [32542] = true, -- Imp in a Ball
+            [38506] = true, -- Don Carlos' Famous Hat
             [64881] = true, -- Pendant of the Scarab Storm
             [69227] = true, -- Fool's Gold
             [82467] = true, -- Ruthers' Harness
