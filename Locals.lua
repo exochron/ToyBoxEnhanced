@@ -7,8 +7,9 @@ local L = ADDON.L
 
 L["FAVOR_DISPLAYED"] = "All Displayed"
 L["FAVOR_PER_CHARACTER"] = "Per Character"
-L["RANDOM_TOY_DESCRIPTION"] = "The toy will be chosen randomly from the favorites."
+L["RANDOM_TOY_DESCRIPTION"] = "The toy will be chosen randomly from your favorites."
 L["RANDOM_TOY_TITLE"] = "Use Random Favorite Toy"
+L["RANDOM_TOY_LOCKED"] = "Please favor at least one collected toy to unlock."
 L["Reset filters"] = "Reset filters"
 L["TASK_END"] = "[TBE] Phew! I'm done."
 L["TASK_FAVOR_START"] = "[TBE] Reapplying stars all over your toys. Please wait a few seconds until I'm finished."
