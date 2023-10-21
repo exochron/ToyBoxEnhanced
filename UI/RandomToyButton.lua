@@ -23,7 +23,7 @@ local function collectItemIds()
 
     for itemId in pairs(ADDON.db.ingameList) do
         if PlayerHasToy(itemId) and C_ToyBox.GetIsFavorite(itemId) and C_ToyBox.IsToyUsable(itemId) then
-            local startTime, duration = GetItemCooldown(itemId)
+            local startTime, duration = C_Container.GetItemCooldown(itemId)
             if startTime == 0 or (startTime + duration) <= now then
                 items[#items + 1] = itemId
             end
@@ -76,6 +76,10 @@ local function createDisplayButton()
     displayButton = CreateFrame("Button", nil, ToyBox, "TBEUseRandomToyButtonTemplate")
     displayButton:RegisterForDrag("LeftButton")
 
+    if ToyBox.progressBar:IsShown() then -- classic
+        displayButton:SetPoint("CENTER", ToyBox, "TOP", "-125", "-42")
+    end
+
     local toys = collectItemIds()
     displayButton.LockIcon:SetShown(#toys == 0)
 
@@ -84,6 +88,9 @@ local function createDisplayButton()
         GameTooltip:SetPoint("BOTTOMLEFT", sender, "TOPRIGHT", 0, 0)
         GameTooltip:SetText(L["RANDOM_TOY_TITLE"], 1, 1, 1)
         GameTooltip:AddLine(L["RANDOM_TOY_DESCRIPTION"])
+        if displayButton.LockIcon:IsShown() then
+            GameTooltip:AddLine(L["RANDOM_TOY_LOCKED"], 1, 0, 0)
+        end
         GameTooltip:Show()
     end);
     displayButton:SetScript("OnLeave", function()

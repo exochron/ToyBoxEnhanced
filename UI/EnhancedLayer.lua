@@ -90,6 +90,7 @@ function TBE_ToySpellButton_UpdateButton(self)
 
             -- use non tainting logic
             if ToyBox.firstCollectedToyID == 0
+                    and HelpTip.IsShowing
                     and not HelpTip:IsShowing(ToyBox, TOYBOX_FAVORITE_HELP)
                     and C_ToyBox.GetNumLearnedDisplayedToys() == 1
                     and not GetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE)

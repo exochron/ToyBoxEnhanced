@@ -117,10 +117,6 @@ local function FilterToysByFaction(itemId)
 end
 
 local function FilterToysBySource(itemId)
-    if CheckAllSettings(ADDON.settings.filter.source) then
-        return true
-    end
-
     return CheckItemInList(ADDON.settings.filter.source, ADDON.db.source, itemId)
 end
 

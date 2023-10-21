@@ -178,11 +178,19 @@ local function HasUserHiddenToys()
     return false
 end
 
+local function AddOrderedFilterButtons(order, database, settings, level)
+    for _, index in ipairs(order) do
+        if database[index] then
+            UIDropDownMenu_AddButton(CreateFilterInfo(L[index], index, settings), level)
+        end
+    end
+end
+
 local function InitializeDropDown(_, level)
     local info
 
     if level == 1 then
-        UIDropDownMenu_AddButton(CreateFilterCategory(CLUB_FINDER_SORT_BY, SETTING_SORT), level)
+        UIDropDownMenu_AddButton(CreateFilterCategory(RAID_FRAME_SORT_LABEL, SETTING_SORT), level)
         UIDropDownMenu_AddSpace(level)
 
         info = CreateFilterInfo(COLLECTED, SETTING_COLLECTED, nil, function(value)
@@ -221,7 +229,7 @@ local function InitializeDropDown(_, level)
         UIDropDownMenu_AddButton(CreateFilterInfo(L.FILTER_ONLY_TRADABLE, SETTING_ONLY_TRADABLE), level)
 
         if ADDON.settings.filter[SETTING_HIDDEN] or HasUserHiddenToys() then
-            UIDropDownMenu_AddButton(CreateFilterInfo(HUD_EDIT_MODE_SETTING_ACTION_BAR_VISIBLE_SETTING_HIDDEN, SETTING_HIDDEN), level)
+            UIDropDownMenu_AddButton(CreateFilterInfo(L["FILTER_HIDDEN_MANUAL"], SETTING_HIDDEN), level)
         end
 
         UIDropDownMenu_AddSpace(level)
@@ -246,54 +254,63 @@ local function InitializeDropDown(_, level)
         UIDropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_SOURCE_4, SETTING_PROFESSION, ADDON.settings.filter[SETTING_PROFESSION]), level)
         UIDropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_SOURCE_7, SETTING_WORLD_EVENT, ADDON.settings.filter[SETTING_WORLD_EVENT]), level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(225652), "Treasure", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_1, "Drop", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_2, "Quest", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_3, "Vendor", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(INSTANCE, "Instance", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(REPUTATION, "Reputation", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_6, "Achievement", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(PVP, "PvP", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L["Order Hall"], "Order Hall", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GARRISON_LOCATION_TOOLTIP, "Garrison", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(921), "Pick Pocket", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(select(2, C_Garrison.GetBuildingInfo(111)), "Trading Post", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(BLACK_MARKET_AUCTION_HOUSE, "Black Market", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_10, "Shop", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(BATTLE_PET_SOURCE_8, "Promotion", settings), level)
+        local sourceOrder = {
+            "Treasure",
+            "Drop",
+            "Quest",
+            "Vendor",
+            "Instance",
+            "Reputation",
+            "Achievement",
+            "PvP",
+            "Order Hall",
+            "Garrison",
+            "Pick Pocket",
+            "Trading Post",
+            "Black Market",
+            "Promotion",
+            "Shop",
+        }
+        AddOrderedFilterButtons(sourceOrder, ADDON.db.source, settings, level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_PROFESSION) then
         local settings = ADDON.settings.filter[SETTING_PROFESSION]
         AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(25229), "Jewelcrafting", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(7411), "Enchanting", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(4036), "Engineering", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(INSCRIPTION, "Inscription", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(2108), "Leatherworking", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetSpellInfo(3908), "Tailoring", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_ARCHAEOLOGY, "Archaeology", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_COOKING, "Cooking", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(PROFESSIONS_FISHING, "Fishing", settings), level)
+        local professionOrder = {
+            "Jewelcrafting",
+            "Enchanting",
+            "Engineering",
+            "Inscription",
+            "Leatherworking",
+            "Tailoring",
+            "Archaeology",
+            "Cooking",
+            "Fishing",
+        }
+        AddOrderedFilterButtons(professionOrder, ADDON.db.profession, settings, level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_WORLD_EVENT) then
         local settings = ADDON.settings.filter[SETTING_WORLD_EVENT]
         AddCheckAllAndNoneInfo({ settings }, level)
 
-        UIDropDownMenu_AddButton(CreateFilterInfo(PLAYER_DIFFICULTY_TIMEWALKER, "Timewalking", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(CALENDAR_FILTER_DARKMOON, "Darkmoon Faire", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(160), "Lunar Festival", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(187), "Love is in the Air", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(159), "Noblegarden", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(163), "Children's Week", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(161), "Midsummer Fire Festival", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L["Secrets of Azeroth"], "Secrets of Azeroth", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(162), "Brewfest", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(158), "Hallow's End", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L["Day of the Dead"], "Day of the Dead", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(14981), "Pilgrim's Bounty", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L["Pirates' Day"], "Pirates' Day", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(GetCategoryInfo(156), "Feast of Winter Veil", settings), level)
+        local eventOrder = {
+            "Timewalking",
+            "Darkmoon Faire",
+            "Lunar Festival",
+            "Love is in the Air",
+            "Noblegarden",
+            "Children's Week",
+            "Midsummer Fire Festival",
+            "Secrets of Azeroth",
+            "Brewfest",
+            "Hallow's End",
+            "Day of the Dead",
+            "Pilgrim's Bounty",
+            "Pirates' Day",
+            "Feast of Winter Veil",
+        }
+        AddOrderedFilterButtons(eventOrder, ADDON.db.worldEvent, settings, level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_FACTION) then
         local settings = ADDON.settings.filter[SETTING_FACTION]
@@ -304,7 +321,7 @@ local function InitializeDropDown(_, level)
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_EXPANSION) then
         local settings = ADDON.settings.filter[SETTING_EXPANSION]
         AddCheckAllAndNoneInfo({ settings }, level)
-        for i = #ADDON.db.expansion, 0, -1 do
+        for i = GetExpansionLevel(), 0, -1 do
             if _G["EXPANSION_NAME" .. i] then
                 UIDropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], i, settings), level)
             end
@@ -388,7 +405,7 @@ ADDON.Events:RegisterCallback("OnLoadUI", function()
         end
     end)
 
-    ToyBoxFilterButton:HookScript('OnMouseDown', function(sender)
+    local toggleFunc = function(sender)
         if not InCombatLockdown() then
             HideDropDownMenu(1)
             if toggle then
@@ -403,7 +420,12 @@ ADDON.Events:RegisterCallback("OnLoadUI", function()
                 toggle = true
             end
         end
-    end)
+    end
+    if ToyBoxFilterButton.ResetButton then -- newer retail handling
+        ToyBoxFilterButton:HookScript('OnMouseDown', toggleFunc)
+    else -- older classic handling
+        ToyBoxFilterButton:SetScript('OnClick', toggleFunc)
+    end
 
     ToyBoxFilterButton.resetFunction = function()
         ADDON:ResetFilterSettings()

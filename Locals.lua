@@ -7,22 +7,21 @@ local L = ADDON.L
 
 L["FAVOR_DISPLAYED"] = "All Displayed"
 L["FAVOR_PER_CHARACTER"] = "Per Character"
-L["RANDOM_TOY_DESCRIPTION"] = "The toy will be chosen randomly from the favorites."
+L["RANDOM_TOY_DESCRIPTION"] = "The toy will be chosen randomly from your favorites."
 L["RANDOM_TOY_TITLE"] = "Use Random Favorite Toy"
+L["RANDOM_TOY_LOCKED"] = "Please favor at least one collected toy to unlock."
 L["Reset filters"] = "Reset filters"
 L["TASK_END"] = "[TBE] Phew! I'm done."
 L["TASK_FAVOR_START"] = "[TBE] Reapplying stars all over your toys. Please wait a few seconds until I'm finished."
 L["Toys"] = "Toys"
 L["Usable"] = "Usable"
-L["Day of the Dead"] = "Day of the Dead"
-L["Pirates' Day"] = "Pirates' Day"
-L["Secrets of Azeroth"] = "Secrets of Azeroth"
+L["FILTER_HIDDEN_MANUAL"] = "Hidden by me"
+L["FILTER_ONLY_LATEST"] = "Only latest additions"
+L["FILTER_ONLY_TRADABLE"] = "Only tradable"
+L["FILTER_SECRET"] = "Hidden in game"
 L["SORT_FAVORITES_FIRST"] = "Favorites First"
 L["SORT_REVERSE"] = "Reverse Sort"
 L["SORT_UNOWNED_AFTER"] = "Unowned at Last"
-L["FILTER_SECRET"] = "Hidden in game"
-L["FILTER_ONLY_TRADABLE"] = "Only tradable"
-L["FILTER_ONLY_LATEST"] = "Only latest additions"
 
 -- Settings
 L["SETTING_CURSOR_KEYS"] = "Enable Left&Right keys to flip pages"
@@ -30,7 +29,48 @@ L["SETTING_FAVORITE_PER_CHAR"] = "Favorite toys per character"
 L["SETTING_SEARCH_IN_DESCRIPTION"] = "Search also in toy description"
 
 -- Source
+L["Treasure"] = GetSpellInfo(225652)
+L["Drop"] = BATTLE_PET_SOURCE_1
+L["Quest"] = BATTLE_PET_SOURCE_2
+L["Vendor"] = BATTLE_PET_SOURCE_3
+L["Instance"] = INSTANCE
+L["Reputation"] = REPUTATION
+L["Achievement"] = BATTLE_PET_SOURCE_6
+L["PvP"] = PVP
 L["Order Hall"] = "Order Hall"
+L["Garrison"] = GARRISON_LOCATION_TOOLTIP
+L["Pick Pocket"] = GetSpellInfo(921)
+L["Trading Post"] = BATTLE_PET_SOURCE_12
+L["Black Market"] = BLACK_MARKET_AUCTION_HOUSE
+L["Promotion"] = BATTLE_PET_SOURCE_10
+L["Shop"] = BATTLE_PET_SOURCE_8
+
+-- Professions
+L["Archaeology"] = PROFESSIONS_ARCHAEOLOGY
+L["Cooking"] = PROFESSIONS_COOKING
+L["Enchanting"] = GetSpellInfo(7411)
+L["Engineering"] = GetSpellInfo(4036)
+L["Fishing"] = PROFESSIONS_FISHING
+L["Inscription"] = INSCRIPTION
+L["Jewelcrafting"] = GetSpellInfo(25229)
+L["Leatherworking"] = GetSpellInfo(2108)
+L["Tailoring"] = GetSpellInfo(3908)
+
+-- World events
+L["Brewfest"] = GetCategoryInfo(162)
+L["Children's Week"] = GetCategoryInfo(163)
+L["Darkmoon Faire"] = CALENDAR_FILTER_DARKMOON
+L["Day of the Dead"] = "Day of the Dead"
+L["Feast of Winter Veil"] = GetCategoryInfo(156)
+L["Hallow's End"] = GetCategoryInfo(158)
+L["Love is in the Air"] = GetCategoryInfo(187)
+L["Lunar Festival"] = GetCategoryInfo(160)
+L["Midsummer Fire Festival"] = GetCategoryInfo(161)
+L["Noblegarden"] = GetCategoryInfo(159)
+L["Pilgrim's Bounty"] = GetCategoryInfo(14981)
+L["Pirates' Day"] = "Pirates' Day"
+L["Secrets of Azeroth"] = "Secrets of Azeroth"
+L["Timewalking"] = PLAYER_DIFFICULTY_TIMEWALKER
 
 -- Effects
 L["Act"] = "Act"
@@ -84,12 +124,12 @@ L["Skinning"] = GetSpellInfo(8613)
 L["Smaller"] = "Smaller"
 L["Solo"] = SOLO
 L["Sound"] = SOUND
-L["Statue"] = GetSpellInfo(88640)
+L["Statue"] = GetSpellInfo(88640) or GetSpellInfo(74890)
 L["Summon"] = SUMMON
 L["Swimming"] = GetSpellInfo(333688)
 L["Target Dummy"] = GetSpellInfo(4071)
 L["Taunt"] = GetSpellInfo(355)
-L["Teleport"] = GetSpellInfo(343127)
+L["Teleport"] = GetSpellInfo(53053)
 L["Tonk"] = "Tonk"
 L["Transform"] = GetSpellInfo(39360)
 L["Transportation"] = "Transportation"
