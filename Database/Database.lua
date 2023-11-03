@@ -12,9 +12,9 @@ if isWrath then
     }
 else
     ADDON.db.Recent = {
-        ["minID"] = 208421,
-        ["blacklist"] = { },
-        ["whitelist"] = {206195, 206696, 208092, 207730, 201931, 202261, 202851, 202856, 202859, 202862, 202865 }, -- Path of the Naaru; 3x secrets of azeroth; 7x warcraft rumble
+        ["minID"] = 208798,
+        ["blacklist"] = {209052, 209858, 209944}, -- Brew Barrel, Dreamsurge Remnant, Friendsurge Defenders
+        ["whitelist"] = {205463, 206347, 207092}, -- Molten Lava Ball,  Mannequin Charm, Portable Party Platter
     }
 end
 
@@ -187,6 +187,9 @@ ADDON.db.worldEvent = {
         [188680] = true, -- Winter Veil Chorus Book
         [191925] = true, -- Falling Star Flinger
         [191937] = true, -- Falling Star Catcher
+        [208825] = true, -- Junior Timekeeper's Racing Belt
+        [209859] = true, -- Festive Trans-Dimensional Bird Whistle
+        [210656] = true, -- Winter Veil Socks
     },
 }
 
@@ -238,6 +241,7 @@ ADDON.db.profession = {
         [202309] = true, -- Defective Doomsday Device
         [202360] = true, -- Dented Can
         [204818] = true, -- Mallard Mortar
+        [207092] = true, -- Portable Party Platter
     },
 
     ["Archaeology"] = {
@@ -492,6 +496,7 @@ ADDON.db.source = {
         [202022] = true, -- Yennu's Kite
         [202711] = true, -- Lost Compass
         [205418] = true, -- Blazing Shadowflame Cinder
+        [210411] = true, -- Fast Growing Seed
     },
 
     ["Drop"] = {
@@ -671,6 +676,8 @@ ADDON.db.source = {
         [205796] = true, -- Molten Lava Pack
         [206043] = true, -- Fyrakk's Frenzy
         [206993] = true, -- Investi-gator's Pocketwatch
+        [205463] = true, -- Molten Lava Ball
+        [210725] = true, -- Owl Post
     },
 
     ["Quest"] = {
@@ -784,6 +791,8 @@ ADDON.db.source = {
         [206008] = true, -- Nightmare Banner
         [208415] = true, -- Stasis Sand
         [208658] = true, -- Mirror of Humility
+        [210864] = true, -- Improvised Leafbed
+        [208798] = true, -- Recorded Memories of Tyr's Guard
     },
 
     ["Vendor"] = {
@@ -934,6 +943,7 @@ ADDON.db.source = {
         [204687] = true, -- Obsidian Battle Horn -- Zserka Vaults
         [206565] = true, -- Plagued Grain -- Naxxramas
         [208096] = true, -- Familiar Journal -- Naxxramas
+        [209035] = true, -- Hearthstone of the Flame -- Amidrassil
     },
 
     ["Reputation"] = {
@@ -1087,6 +1097,7 @@ ADDON.db.source = {
         [208186] = true, -- Boffins
         [208421] = true, -- Compendium of the New Moon
         [208433] = true, -- Bronze Racer's Pennant
+        [210497] = true, -- Verdant Legend's Pennant
     },
 
     ["PvP"] = {
@@ -1100,6 +1111,7 @@ ADDON.db.source = {
         [169298] = true, -- Frostwolf Insignia
         [206267] = true, -- Obsidian Legend's Pennant
         [206343] = true, -- Crimson Legend's Pennant
+        [210497] = true, -- Verdant Legend's Pennant
     },
 
     ["Garrison"] = {
@@ -1186,6 +1198,7 @@ ADDON.db.source = {
 
     ["Trading Post"] = {
         [206268] = true, -- Ethereal Transmogrifier
+        [206347] = true, -- Mannequin Charm
     },
 
     ["Shop"] = {
@@ -1207,6 +1220,7 @@ ADDON.db.source = {
         [193588] = true, -- Timewalker's Hearthstone - Dragonflight Epic Edition
         [203716] = true, -- Thundering Banner of the Aspects
         [208057] = true, -- Smoldering Banner of the Aspects
+        [211424] = true, -- Dreaming Banner of the Aspects
 
         -- MDI
         [187834] = true, -- Tormented Banner of the Opportune
@@ -1552,6 +1566,7 @@ ADDON.db.effect = {
             [204170] = true, -- Clan Banner
             [206267] = true, -- Obsidian Legend's Pennant
             [206343] = true, -- Crimson Legend's Pennant
+            [210497] = true, -- Verdant Legend's Pennant
         },
     },
 
@@ -1689,6 +1704,7 @@ ADDON.db.effect = {
             [200999] = true, -- The Super Shellkhan Gang
             [207099] = true, -- Tiny Box of Tiny Rocks
             [208186] = true, -- Boffins
+            [209859] = true, -- Festive Trans-Dimensional Bird Whistle
         },
     },
 
@@ -1770,6 +1786,7 @@ ADDON.db.effect = {
             [204389] = true, -- Stone Breaker
             [205045] = true, -- B.B.F. Fist
             [208096] = true, -- Familiar Journal
+            [210864] = true, -- Improvised Leafbed
         },
 
         ["Corpse"] = {
@@ -1814,6 +1831,7 @@ ADDON.db.effect = {
             [203734] = true, -- Snow Blanket
             [204686] = true, -- Titan's Containment Device
             [208415] = true, -- Stasis Sand
+            [206347] = true, -- Mannequin Charm
         },
 
     },
@@ -1853,6 +1871,7 @@ ADDON.db.effect = {
             [203716] = true, -- Thundering Banner of the Aspects
             [206008] = true, -- Nightmare Banner
             [208057] = true, -- Smoldering Banner of the Aspects
+            [211424] = true, -- Dreaming Banner of the Aspects
         },
 
         -- Summons a clone of the character
@@ -2020,6 +2039,7 @@ ADDON.db.effect = {
             [200628] = true, -- Somewhat-Stabilized Arcana
             [200707] = true, -- Armoire of Endless Cloaks
             [205419] = true, -- Dinn's Drum
+            [207092] = true, -- Portable Party Platter
         },
 
         ["Mail"] = {
@@ -2111,6 +2131,7 @@ ADDON.db.effect = {
             [202020] = true, -- Chasing Storm
             [204818] = true, -- Mallard Mortar
             [205796] = true, -- Molten Lava Pack
+            [208825] = true, -- Junior Timekeeper's Racing Belt
         }
     },
 
@@ -2301,6 +2322,7 @@ ADDON.db.effect = {
             [193588] = true, -- Timewalker's Hearthstone
             [200630] = true, -- Ohn'ir Windsage's Hearthstone
             [206195] = true, -- Path of the Naaru
+            [209035] = true, -- Hearthstone of the Flame
         },
 
         ["Jump"] = {
