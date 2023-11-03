@@ -251,7 +251,10 @@ function ADDON:FilterToys()
                 and FilterToysByFaction(itemId)
                 and FilterToysByExpansion(itemId)
                 and FilterToysByEffect(itemId)
-                and (FilterToysBySource(itemId) or FilterToysByProfession(itemId) or FilterToysByWorldEvent(itemId))
+                and (
+                    (CheckAllSettings(ADDON.settings.filter.source) and CheckAllSettings(ADDON.settings.filter.profession) and CheckAllSettings(ADDON.settings.filter.worldEvent))
+                    or FilterToysBySource(itemId) or FilterToysByProfession(itemId) or FilterToysByWorldEvent(itemId)
+                    )
             then
                 result[#result + 1] = itemId
             end
