@@ -1220,6 +1220,8 @@ ADDON.db.source = {
         [193588] = true, -- Timewalker's Hearthstone - Dragonflight Epic Edition
         [203716] = true, -- Thundering Banner of the Aspects
         [208057] = true, -- Smoldering Banner of the Aspects
+        [208704] = true, -- Deepdweller's Earthen Hearthstone - War Within Epic Edition
+        [208883] = true, -- Sandbox Storm Gryphon - War Within Epic Edition
         [211424] = true, -- Dreaming Banner of the Aspects
 
         -- MDI
@@ -1325,6 +1327,11 @@ ADDON.db.expansion = {
         ["minID"] = 191891,
         ["maxID"] = 999999,
     },
+
+    --[10] = { -- War Within
+    --    [208704] = true, -- Deepdweller's Earthen Hearthstone - War Within Epic Edition
+    --    [208883] = true, -- Sandbox Storm Gryphon - War Within Epic Edition
+    --}
 }
 
 ADDON.db.effect = {
@@ -2003,6 +2010,7 @@ ADDON.db.effect = {
             [199897] = true, -- Blue-Covered Beanbag
             [200550] = true, -- Very Comfortable Pelt
             [200551] = true, -- Comfortable Pile of Pelts
+            [208883] = true, -- Sandbox Storm Gryphon
         },
 
         -- Can click on these
@@ -2098,6 +2106,7 @@ ADDON.db.effect = {
             [90427] = true, -- Pandaren Brewpack
             [90883] = true, -- The Pigskin
             [90888] = true, -- Special Edition Foot Ball
+            [97994] = true, -- Darkmoon Seesaw
             [98132] = true, -- Shado-Pan Geyser Gun
             [104323] = true, -- The Swineskin
             [104324] = true, -- Foot Ball
@@ -2323,6 +2332,7 @@ ADDON.db.effect = {
             [200630] = true, -- Ohn'ir Windsage's Hearthstone
             [206195] = true, -- Path of the Naaru
             [209035] = true, -- Hearthstone of the Flame
+            [208704] = true, -- Deepdweller's Earthen Hearthstone
         },
 
         ["Jump"] = {
