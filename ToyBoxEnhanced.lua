@@ -34,29 +34,33 @@ local function ResetAPIFilters()
     return C_ToyBox.GetNumFilteredToys()
 end
 
-local DoesItemExistInGame = C_Item.DoesItemExistByID
--- C_Item.DoesItemExistByID() always returns true. got broken sometime during DF. (https://github.com/Stanzilla/WoWUIBugs/issues/449)
-if true == C_Item.DoesItemExistByID(1) then
-    DoesItemExistInGame = function(itemId)
-        return C_Item.GetItemIconByID(itemId) ~= 134400 -- question icon
-    end
-end
+local function cleanupDatabase(itemIdsToRemoveFromList)
+    if not TableIsEmpty(itemIdsToRemoveFromList) then
+        local function diffTableKeys(tbl, keysToDrop)
+            local result = {}
 
-local function diffTableKeys(tbl, keysToDrop)
-    local result = {}
-
-    for key, val in pairs(tbl) do
-        if type(val) == "table" then
-            local subResult = diffTableKeys(val, keysToDrop)
-            if not TableIsEmpty(subResult) then
-                result[key] = subResult
+            for key, val in pairs(tbl) do
+                if type(val) == "table" then
+                    local subResult = diffTableKeys(val, keysToDrop)
+                    if not TableIsEmpty(subResult) then
+                        result[key] = subResult
+                    end
+                elseif true ~= keysToDrop[key] then
+                    result[key] = val
+                end
             end
-        elseif true ~= keysToDrop[key] then
-            result[key] = val
-        end
-    end
 
-    return result
+            return result
+        end
+
+        -- now we have to remove those items from the list by recreating the table
+        ADDON.db.ingameList = diffTableKeys(ADDON.db.ingameList, itemIdsToRemoveFromList)
+        ADDON.db.worldEvent = diffTableKeys(ADDON.db.worldEvent, itemIdsToRemoveFromList)
+        ADDON.db.profession = diffTableKeys(ADDON.db.profession, itemIdsToRemoveFromList)
+        ADDON.db.faction = diffTableKeys(ADDON.db.faction, itemIdsToRemoveFromList)
+        ADDON.db.source = diffTableKeys(ADDON.db.source, itemIdsToRemoveFromList)
+        ADDON.db.effect = diffTableKeys(ADDON.db.effect, itemIdsToRemoveFromList)
+    end
 end
 
 local function OnLogin()
@@ -64,6 +68,14 @@ local function OnLogin()
         local itemId = C_ToyBox.GetToyFromIndex(toyIndex)
         if itemId then
             ADDON.db.ingameList[itemId] = true
+        end
+    end
+
+    local DoesItemExistInGame = C_Item.DoesItemExistByID
+    -- C_Item.DoesItemExistByID() always returns true. got broken sometime during DF. (https://github.com/Stanzilla/WoWUIBugs/issues/449)
+    if true == C_Item.DoesItemExistByID(1) then
+        DoesItemExistInGame = function(itemId)
+            return C_Item.GetItemIconByID(itemId) ~= 134400 -- question icon
         end
     end
 
@@ -75,15 +87,7 @@ local function OnLogin()
         end
     end
 
-    if not TableIsEmpty(itemsToRemoveFromList) then
-        -- now we have to remove those items from the list by recreating the table
-        ADDON.db.ingameList = diffTableKeys(ADDON.db.ingameList, itemsToRemoveFromList)
-        ADDON.db.worldEvent = diffTableKeys(ADDON.db.worldEvent, itemsToRemoveFromList)
-        ADDON.db.profession = diffTableKeys(ADDON.db.profession, itemsToRemoveFromList)
-        ADDON.db.faction = diffTableKeys(ADDON.db.faction, itemsToRemoveFromList)
-        ADDON.db.source = diffTableKeys(ADDON.db.source, itemsToRemoveFromList)
-        ADDON.db.effect = diffTableKeys(ADDON.db.effect, itemsToRemoveFromList)
-    end
+    cleanupDatabase(itemsToRemoveFromList)
 end
 
 -- some items might not be cached. therefore you won't get any name etc.
@@ -94,35 +98,29 @@ local function LoadItemsIntoCache(onDone)
         countOfUnloadedItems = countOfUnloadedItems + 1
     end
 
-    local delayDone = function()
-        countOfUnloadedItems = countOfUnloadedItems - 1
-        if countOfUnloadedItems == 0 then
-            onDone()
-        end
-    end
+    local invalidItems = {}
 
-    local loadItemData
-    if ItemEventListener then -- retail
-        loadItemData = function(itemId)
-            -- AddCallback() also requests the item data
-            ItemEventListener:AddCallback(itemId, delayDone)
-        end
-    else -- classic
-        local frame = CreateFrame("Frame")
-        frame:SetScript("OnEvent", function(_, _, _, success)
-            if success then
-                delayDone()
+    local frame = CreateFrame("Frame")
+    frame:SetScript("OnEvent", function(self, _, itemId, success)
+        if nil ~= ADDON.db.ingameList[itemId] then
+            if not success then
+                -- some item data can already be in game for a future update
+                invalidItems[itemId] = true
             end
-        end)
-        frame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
 
-        loadItemData = function(itemId)
-            C_Item.RequestLoadItemDataByID(itemId)
+            countOfUnloadedItems = countOfUnloadedItems - 1
+            if countOfUnloadedItems == 0 then
+                cleanupDatabase(invalidItems)
+                onDone()
+                self:UnregisterEvent("ITEM_DATA_LOAD_RESULT")
+                self:SetScript("OnEvent", nil)
+            end
         end
-    end
+    end)
+    frame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
 
     for itemId in pairs(ADDON.db.ingameList) do
-        loadItemData(itemId)
+        C_Item.RequestLoadItemDataByID(itemId)
     end
 end
 
