@@ -33,3 +33,4 @@ UI\OptionsMenu.lua
 UI\RandomToyButton.lua
 UI\ToyCount.lua
 SlashCommand.lua
+AddonCompartment.lua
