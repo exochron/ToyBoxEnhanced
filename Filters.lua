@@ -21,6 +21,8 @@ local function FilterBySearch(itemId, searchString)
             pos = strfind(spellDescription, searchString, 1, true)
             result = pos ~= nil
         end
+
+        -- TODO: search also in flavor text (=> C_TooltipInfo.GetItemByID()? )
     end
 
     return result
