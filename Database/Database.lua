@@ -1534,6 +1534,7 @@ ADDON.db.effect = {
             [207730] = true, -- Idol of Ohn'ahra
             [208092] = true, -- Torch of Pyrreth
             [209944] = true, -- Friendsurge Defenders
+            [210656] = true, -- Winter Veil Socks
         },
 
         ["Bigger"] = {
@@ -1806,6 +1807,7 @@ ADDON.db.effect = {
             [203725] = true, -- Display of Strength
             [204389] = true, -- Stone Breaker
             [205045] = true, -- B.B.F. Fist
+            [205463] = true, -- Molten Lava Ball
             [208096] = true, -- Familiar Journal
             [210864] = true, -- Improvised Leafbed
         },
@@ -1985,7 +1987,9 @@ ADDON.db.effect = {
             [204257] = true, -- Holoviewer: The Lady of Dreams
             [204262] = true, -- Holoviewer: The Timeless One
             [206565] = true, -- Plagued Grain -- Naxxramas
-            [208058] = true, -- Minutenglas
+            [208058] = true, -- Minute Glas
+            [210411] = true, -- Fast Growing Seed
+            [210725] = true, -- Owl Post
         },
 
         ["Weather"] = {
