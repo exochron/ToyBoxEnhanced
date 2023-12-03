@@ -1586,6 +1586,11 @@ ADDON.db.effect = {
         },
     },
 
+    ["Cinematics"] = {
+        [142536] = true, -- Memory Cube
+        [208798] = true, -- Recorded Memories of Tyr's Guard
+    },
+
     ["Consumable"] = {
 
         ["Alcohol"] = {
@@ -2426,7 +2431,6 @@ ADDON.db.effect = {
         [123851] = true, -- Photo B.O.M.B.
         [129211] = true, -- Steamy Romance Novel Kit
         [130157] = true, -- Syxsehnz Rod
-        [142536] = true, -- Memory Cube
         [153194] = true, -- Legion Communication Orb
         [153204] = true, -- All-Seer's Eye
         [158149] = true, -- Overtuned Corgi Goggles

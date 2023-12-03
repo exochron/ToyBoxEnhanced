@@ -83,6 +83,7 @@ L["Banner"] = "Banner"
 L["Battle Pet"] = TOOLTIP_BATTLE_PET
 L["Bigger"] = "Bigger"
 L["Chair"] = "Chair"
+L["Cinematics"] = CINEMATICS
 L["Clickable"] = "Clickable"
 L["Clone"] = "Clone"
 L["Co-op"] = "Co-op"
