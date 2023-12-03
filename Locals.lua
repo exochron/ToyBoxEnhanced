@@ -5,6 +5,7 @@ local locale = GetLocale()
 ADDON.L = {}
 local L = ADDON.L
 
+L["COMPARTMENT_TOOLTIP"] = "|cffeda55fLeft-Click|r to toggle showing the Toy Box.\n|cffeda55fRight-Click|r to open addon options."
 L["FAVOR_DISPLAYED"] = "All Displayed"
 L["FAVOR_PER_CHARACTER"] = "Per Character"
 L["RANDOM_TOY_DESCRIPTION"] = "The toy will be chosen randomly from your favorites."
