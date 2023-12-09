@@ -3,3 +3,4 @@
 /.release/
 generator/*.db.lua
 generator/*.exe
+CHANGELOG.md

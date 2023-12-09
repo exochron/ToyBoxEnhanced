@@ -134,6 +134,8 @@ local function BuildStarButton()
         self:SetShown(event == "PLAYER_REGEN_ENABLED")
     end)
     starButton:SetShown(not InCombatLockdown())
+
+    ADDON.UI.FavoriteButton = starButton
 end
 
 ADDON.Events:RegisterCallback("OnLoadUI", BuildStarButton, "favorites")

@@ -1,7 +1,18 @@
+tools-used:
+    - gallery-generator
+
+externals:
+    Libs/TaintLess:
+        url: https://www.townlong-yak.com/addons.git/taintless
+        commit: default
+
 ignore:
-    - generator
     - LICENSE
+    - DevZone
+    - Images
     - README.md
     - CHANGELOG.md
+    - Libs/*/LICENSE
+    - Libs/*.toc
 
 license-output: LICENSE

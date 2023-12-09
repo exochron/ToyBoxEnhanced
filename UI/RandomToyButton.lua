@@ -5,7 +5,6 @@ local CLICK_TARGET_NAME = "TBERandomFavoredToy"
 local MACRO_NAME, MACRO_ICON, MACRO_BODY = 'TBE: Random Toy', 'inv_misc_dice_02', "/click " .. CLICK_TARGET_NAME .. " LeftButton true"
 
 local actionButton
-local displayButton
 
 local function shuffle(tbl)
     local size = #tbl
@@ -50,8 +49,8 @@ local function updateButtonFavorites()
             actionButton:SetAttribute("type", ATTRIBUTE_NOOP)
         end
 
-        if displayButton then
-            displayButton.LockIcon:SetShown(#toys == 0)
+        if ADDON.UI.RandomButton then
+            ADDON.UI.RandomButton.LockIcon:SetShown(#toys == 0)
         end
     end
 end
@@ -73,27 +72,27 @@ end
 
 local function createDisplayButton()
     local L = ADDON.L
-    displayButton = CreateFrame("Button", nil, ToyBox, "TBEUseRandomToyButtonTemplate")
-    displayButton:RegisterForDrag("LeftButton")
+    ADDON.UI.RandomButton = CreateFrame("Button", nil, ToyBox, "TBEUseRandomToyButtonTemplate")
+    ADDON.UI.RandomButton:RegisterForDrag("LeftButton")
 
     if ToyBox.progressBar:IsShown() then -- classic
-        displayButton:SetPoint("CENTER", ToyBox, "TOP", "-125", "-42")
+        ADDON.UI.RandomButton:SetPoint("CENTER", ToyBox, "TOP", "-125", "-42")
     end
 
     local toys = collectItemIds()
-    displayButton.LockIcon:SetShown(#toys == 0)
+    ADDON.UI.RandomButton.LockIcon:SetShown(#toys == 0)
 
-    displayButton:SetScript("OnEnter", function(sender)
+    ADDON.UI.RandomButton:SetScript("OnEnter", function(sender)
         GameTooltip:SetOwner(sender, "ANCHOR_NONE")
         GameTooltip:SetPoint("BOTTOMLEFT", sender, "TOPRIGHT", 0, 0)
         GameTooltip:SetText(L["RANDOM_TOY_TITLE"], 1, 1, 1)
         GameTooltip:AddLine(L["RANDOM_TOY_DESCRIPTION"])
-        if displayButton.LockIcon:IsShown() then
+        if ADDON.UI.RandomButton.LockIcon:IsShown() then
             GameTooltip:AddLine(L["RANDOM_TOY_LOCKED"], 1, 0, 0)
         end
         GameTooltip:Show()
     end);
-    displayButton:SetScript("OnLeave", function()
+    ADDON.UI.RandomButton:SetScript("OnLeave", function()
         GameTooltip:Hide()
     end);
 end

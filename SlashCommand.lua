@@ -12,6 +12,8 @@ function SlashCmdList.TOYBOXENHANCED(msg)
     elseif msg == "debug off" then
         ADDON.settings.debugMode = false
         print("ToyBoxEnhanced: Debug mode deactivated.")
+    elseif ADDON.TakeScreenshots and msg == "screenshot" then
+        ADDON:TakeScreenshots()
     else
         ADDON:OpenSettings()
     end
