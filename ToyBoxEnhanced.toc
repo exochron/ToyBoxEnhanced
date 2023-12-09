@@ -8,7 +8,7 @@
 ## X-Curse-Project-ID: 87878
 ## X-Wago-ID: pkNMXrGz
 
-Libs\TaintLess.xml
+Libs\TaintLess\TaintLess.xml
 Libs\UIFixes.lua
 
 Locals.lua
@@ -21,7 +21,10 @@ Sort.lua
 ToyBoxEnhanced.lua
 Settings.lua
 SettingsPanel.lua
-DebugTest.lua
+#@do-not-package@
+DevZone\Debug.lua
+DevZone\Screenshot.lua
+#@end-do-not-package@
 Favorites.lua
 UI\Templates.xml
 UI\Functions.lua
