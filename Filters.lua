@@ -1,31 +1,42 @@
 local _, ADDON = ...
 
+local function StringContains(haystack, needle)
+    if haystack == nil or haystack == '' then
+        return false
+    end
+
+    local pos = strfind(haystack:lower(), needle, 1, true)
+    return pos ~= nil
+end
+
 local function FilterBySearch(itemId, searchString)
     local _, name = C_ToyBox.GetToyInfo(itemId)
     if name == nil or name == '' then
         return false
     end
 
-    name = name:lower()
-    local pos = strfind(name, searchString, 1, true)
-    local result = pos ~= nil
-    if result then
-        return result
+    if StringContains(name, searchString) then
+        return true
     end
 
     if ADDON.settings.searchInDescription then
         local _, spellId = GetItemSpell(itemId)
         local spellDescription = GetSpellDescription(spellId)
-        if spellDescription then
-            spellDescription = spellDescription:lower()
-            pos = strfind(spellDescription, searchString, 1, true)
-            result = pos ~= nil
+        if StringContains(spellDescription, searchString) then
+            return true
         end
 
-        -- TODO: search also in flavor text (=> C_TooltipInfo.GetItemByID()? )
+        local tooltip = C_TooltipInfo.GetItemByID(itemId)
+        for _, line in ipairs(tooltip.lines) do
+            local text = line.leftText or ""
+            -- search in flavor texts
+            if text and strsub(text, 1, 1) == '"' and strsub(text, -1) == '"' and StringContains(text, searchString) then
+                return true
+            end
+        end
     end
 
-    return result
+    return false
 end
 
 local function FilterUserHiddenToys(itemId)
