@@ -9,6 +9,10 @@ ADDON.Events:RegisterCallback("OnLoadUI", function()
     ToyBox.EnhancedLayer:SetPropagateKeyboardInput(true)
     ToyBox.EnhancedLayer:EnableKeyboard(true)
     ToyBox.EnhancedLayer:HookScript("OnKeyDown", function(self, key)
+        if InCombatLockdown() then
+            return
+        end
+
         if (key == "LEFT" or key == "RIGHT") and ADDON.settings.enableCursorKeys and not IsModifierKeyDown() then
             if key == "LEFT" then
                 ToyBox.EnhancedLayer.PagingFrame:PreviousPage()
