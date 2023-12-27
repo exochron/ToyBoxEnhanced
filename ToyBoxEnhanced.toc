@@ -13,6 +13,7 @@ Libs\UIFixes.lua
 
 Locals.lua
 Database\Database.lua
+Database\preview.db.lua
 Database\toys.db.lua
 Database\tradable.db.lua
 
@@ -33,6 +34,7 @@ UI\AchievementPoints.lua
 UI\FilterMenu.lua
 UI\Hotkeys.lua
 UI\OptionsMenu.lua
+UI\PreviewTooltip.lua
 UI\RandomToyButton.lua
 UI\ToyCount.lua
 SlashCommand.lua
