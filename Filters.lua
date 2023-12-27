@@ -26,12 +26,14 @@ local function FilterBySearch(itemId, searchString)
             return true
         end
 
-        local tooltip = C_TooltipInfo.GetItemByID(itemId)
-        for _, line in ipairs(tooltip.lines) do
-            local text = line.leftText or ""
-            -- search in flavor texts
-            if text and strsub(text, 1, 1) == '"' and strsub(text, -1) == '"' and StringContains(text, searchString) then
-                return true
+        if C_TooltipInfo then
+            local tooltip = C_TooltipInfo.GetItemByID(itemId)
+            for _, line in ipairs(tooltip.lines) do
+                local text = line.leftText or ""
+                -- search in flavor texts
+                if text and strsub(text, 1, 1) == '"' and strsub(text, -1) == '"' and StringContains(text, searchString) then
+                    return true
+                end
             end
         end
     end
