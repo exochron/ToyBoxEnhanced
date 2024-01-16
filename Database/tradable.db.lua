@@ -46,4 +46,5 @@ ADDON.db.Tradable = {
 [202309] = true, -- Defective Doomsday Device
 [204818] = true, -- Mallard Mortar
 [207092] = true, -- Portable Party Platter
+[210975] = true, -- Date Simulation Modulator
 }
