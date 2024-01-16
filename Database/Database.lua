@@ -12,9 +12,9 @@ if isWrath then
     }
 else
     ADDON.db.Recent = {
-        ["minID"] = 208798,
-        ["blacklist"] = {209052, 209858, 209944}, -- Brew Barrel, Dreamsurge Remnant, Friendsurge Defenders
-        ["whitelist"] = {205463, 206347, 207092}, -- Molten Lava Ball,  Mannequin Charm, Portable Party Platter
+        ["minID"] = 210974,
+        ["blacklist"] = {211424}, -- Dreaming Banner of the Aspects
+        ["whitelist"] = {}, --
     }
 end
 
@@ -84,6 +84,9 @@ ADDON.db.worldEvent = {
         [142341] = true, -- Love Boat
         [144339] = true, -- Sturdy Love Fool
         [165670] = true, -- Peddlefeet's Lovely Hearthstone
+        [210974] = true, -- Eyes For You Only
+        [210975] = true, -- Date Simulation Modulator
+        [211864] = true, -- Exquisite Love Boat
     },
 
     ["Noblegarden"] = {
@@ -1098,6 +1101,7 @@ ADDON.db.source = {
         [208421] = true, -- Compendium of the New Moon
         [208433] = true, -- Bronze Racer's Pennant
         [210497] = true, -- Verdant Legend's Pennant
+        [211946] = true, -- Hearthstone Game Table
     },
 
     ["PvP"] = {
@@ -1199,6 +1203,10 @@ ADDON.db.source = {
     ["Trading Post"] = {
         [206268] = true, -- Ethereal Transmogrifier
         [206347] = true, -- Mannequin Charm
+        [212500] = true, -- Delicate Silk Parasol
+        [212523] = true, -- Delicate Jade Parasol
+        [212524] = true, -- Delicate Crimson Parasol
+        [212525] = true, -- Delicate Ebony Parasol
     },
 
     ["Shop"] = {
@@ -1225,7 +1233,9 @@ ADDON.db.source = {
         [208057] = true, -- Smoldering Banner of the Aspects
         [208704] = true, -- Deepdweller's Earthen Hearthstone - War Within Epic Edition
         [208883] = true, -- Sandbox Storm Gryphon - War Within Epic Edition
+        [210042] = true, -- Chilling Celebration Banner
         [211424] = true, -- Dreaming Banner of the Aspects
+        [212337] = true, -- Stone of the Hearth
 
         -- MDI
         [187834] = true, -- Tormented Banner of the Opportune
@@ -1894,6 +1904,7 @@ ADDON.db.effect = {
             [203716] = true, -- Thundering Banner of the Aspects
             [206008] = true, -- Nightmare Banner
             [208057] = true, -- Smoldering Banner of the Aspects
+            [210042] = true, -- Chilling Celebration Banner
             [211424] = true, -- Dreaming Banner of the Aspects
         },
 
@@ -2305,6 +2316,10 @@ ADDON.db.effect = {
             [192443] = true, -- Element-Infused Rocket Helmet
             [197961] = true, -- Whelps on Strings
             [208433] = true, -- Bronze Racer's Pennant
+            [212500] = true, -- Delicate Silk Parasol
+            [212523] = true, -- Delicate Jade Parasol
+            [212524] = true, -- Delicate Crimson Parasol
+            [212525] = true, -- Delicate Ebony Parasol
         },
 
         -- Unlocks flight paths
@@ -2421,6 +2436,7 @@ ADDON.db.effect = {
             [166461] = true, -- Gnarlwood Waveboard
             [177951] = true, -- Glimmerflies on Strings
             [198428] = true, -- Tuskarr Dinghy
+            [211864] = true, -- Exquisite Love Boat
         }
     },
 
@@ -2448,6 +2464,7 @@ ADDON.db.effect = {
         [198227] = true, -- Giggle Goggles
         [202283] = true, -- Reading Glasses
         [209858] = true, -- Dreamsurge Remnant
+        [210974] = true, -- Eyes For You Only
     },
 
     ["Companion"] = {
