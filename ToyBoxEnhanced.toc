@@ -1,4 +1,4 @@
-## Interface: 100200
+## Interface: 100205
 ## Title: Toy Box Enhanced
 ## Notes: Extends the ingame Toy Box
 ## IconTexture: Interface\Icons\Trade_Archaeology_ChestofTinyGlassAnimals
