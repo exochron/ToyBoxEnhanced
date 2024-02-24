@@ -24,7 +24,120 @@ local function UpdateResetVisibility()
     end
 end
 
-local function CreateFilterInfo(text, filterKey, filterSettings, callback)
+local function setAllSettings(settings, switch)
+    for key, value in pairs(settings) do
+        if type(value) == "table" then
+            for subKey, _ in pairs(value) do
+                settings[key][subKey] = switch
+            end
+        else
+            settings[key] = switch
+        end
+    end
+end
+
+local onlyPool
+local function AddOnlyButton(info, settings)
+    if not onlyPool then
+        onlyPool = CreateFramePool("Button")
+    end
+
+    local onlyButton = onlyPool:Acquire()
+    if not onlyButton.initialized then
+        onlyButton:SetNormalFontObject(GameFontHighlightSmallLeft)
+        onlyButton:SetHighlightFontObject(GameFontHighlightSmallLeft)
+        onlyButton:SetText(ADDON.L.FILTER_ONLY)
+
+        onlyButton:SetSize(onlyButton:GetTextWidth(), UIDROPDOWNMENU_BUTTON_HEIGHT)
+
+        onlyButton.CallParent = function(self, script, ...)
+            local parent = self:GetParent()
+            parent:GetScript(script)(parent, ...)
+        end
+
+        onlyButton:HookScript("OnEnter", function(self)
+            self:Show()
+            self:CallParent("OnEnter")
+        end)
+        onlyButton:HookScript("OnLeave", function(self)
+            if not self:GetParent():IsMouseOver() then
+                self:CallParent("OnLeave")
+                if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE  then
+                    self:Hide()
+                end
+            end
+        end)
+
+        onlyButton.initialized = true
+    end
+
+    -- overwrite every time
+    onlyButton:SetScript("OnClick", function(self, ...)
+        setAllSettings(settings, false)
+        self:CallParent("OnClick", ...)
+    end)
+
+    -- classic doesn't has funcOnEnter and funcOnLeave yet. so we simply always show
+    if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE  then
+        info.funcOnEnter = function()
+            onlyButton:Show()
+        end
+        info.funcOnLeave = function()
+            if not onlyButton:IsMouseOver() then
+                onlyButton:Hide()
+            end
+        end
+    end
+    info.customFrame = {
+        only = onlyButton,
+        button = nil,
+        Show = function(self)
+            self.button:Show()
+            if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE  then
+                self.only:Show()
+            end
+        end,
+        Hide = function(self)
+            self.button:Hide()
+            self.only:SetParent()
+            onlyPool:Release(self.only)
+        end,
+        IsShown = function(self)
+            return self.button:IsShown()
+        end,
+        SetOwningButton = function(self, button)
+            self.button = button
+            self.only:SetParent(button)
+            self.only:SetPoint("RIGHT", button, "RIGHT")
+            self.only:SetFrameLevel(button:GetFrameLevel()+2)
+        end,
+        ClearAllPoints = function() end,
+        SetPoint = function() end,
+        GetPreferredEntryWidth = function(self)
+            local button = self.button
+            local width = button:GetTextWidth() + 40
+            -- Add padding if has and expand arrow or color swatch
+            if ( button.hasArrow or button.hasColorSwatch ) then
+                width = width + 10;
+            end
+            if ( button.padding ) then
+                width = width + button.padding;
+            end
+
+            width = width + self.only:GetTextWidth()
+
+            return width
+        end,
+        GetPreferredEntryHeight = function(self)
+            self.button:Show() -- show again after SetShown(false) in default logic
+            return self.button:GetHeight()
+        end
+    }
+
+    return info
+end
+
+local function CreateFilterInfo(text, filterKey, filterSettings, withOnly, callback)
     local info = {
         keepShownOnClick = true,
         isNotRadio = true,
@@ -50,6 +163,10 @@ local function CreateFilterInfo(text, filterKey, filterSettings, callback)
                 callback(value)
             end
         end
+        if withOnly then
+            -- accept other settings table as withOnly-Param
+            info = AddOnlyButton(info, true == withOnly and filterSettings or withOnly)
+        end
     else
         info.notCheckable = true
     end
@@ -58,7 +175,7 @@ local function CreateFilterInfo(text, filterKey, filterSettings, callback)
 end
 
 local function CreateFilterRadio(text, filterKey, filterSettings, filterValue, callback)
-    local info = CreateFilterInfo(text, filterKey, filterSettings, callback)
+    local info = CreateFilterInfo(text, filterKey, filterSettings, false, callback)
     info.isNotRadio = false
     info.arg2 = filterValue
     info.checked = function(self)
@@ -95,15 +212,7 @@ local function CheckSetting(settings)
 end
 
 local function SetAllSubFilters(settings, switch)
-    for key, value in pairs(settings) do
-        if type(value) == "table" then
-            for subKey, _ in pairs(value) do
-                settings[key][subKey] = switch
-            end
-        else
-            settings[key] = switch
-        end
-    end
+    setAllSettings(settings, switch)
 
     UIDropDownMenu_RefreshAll(_G[ADDON_NAME .. "FilterMenu"])
     ADDON:FilterToys()
@@ -178,22 +287,22 @@ local function HasUserHiddenToys()
     return false
 end
 
-local function AddOrderedFilterButtons(order, database, settings, level)
+local function AddOrderedFilterButtons(order, database, settings,  resetSettings, level)
     for _, index in ipairs(order) do
         if database[index] then
-            UIDropDownMenu_AddButton(CreateFilterInfo(L[index], index, settings), level)
+            UIDropDownMenu_AddButton(CreateFilterInfo(L[index], index, settings, resetSettings), level)
         end
     end
 end
 
-local function InitializeDropDown(_, level)
+local function InitializeDropDown(frame, level)
     local info
 
     if level == 1 then
         UIDropDownMenu_AddButton(CreateFilterCategory(RAID_FRAME_SORT_LABEL, SETTING_SORT), level)
         UIDropDownMenu_AddSpace(level)
 
-        info = CreateFilterInfo(COLLECTED, SETTING_COLLECTED, nil, function(value)
+        info = CreateFilterInfo(COLLECTED, SETTING_COLLECTED, nil, nil, function(value)
             if value then
                 UIDropDownMenu_EnableButton(1, 4)
                 UIDropDownMenu_EnableButton(1, 5)
@@ -212,7 +321,7 @@ local function InitializeDropDown(_, level)
         info.disabled = not ADDON.settings.filter.collected
         UIDropDownMenu_AddButton(info, level)
 
-        info = CreateFilterInfo(NOT_COLLECTED, SETTING_NOT_COLLECTED, nil, function (value)
+        info = CreateFilterInfo(NOT_COLLECTED, SETTING_NOT_COLLECTED, nil, nil,function (value)
             if value then
                 UIDropDownMenu_EnableButton(1, 7)
             else
@@ -249,7 +358,8 @@ local function InitializeDropDown(_, level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_SOURCE) then
         local settings = ADDON.settings.filter[SETTING_SOURCE]
-        AddCheckAllAndNoneInfo({ settings, ADDON.settings.filter[SETTING_PROFESSION], ADDON.settings.filter[SETTING_WORLD_EVENT] }, level)
+        local resetSettings = { settings, ADDON.settings.filter[SETTING_PROFESSION], ADDON.settings.filter[SETTING_WORLD_EVENT] }
+        AddCheckAllAndNoneInfo(resetSettings, level)
 
         UIDropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_SOURCE_4, SETTING_PROFESSION, ADDON.settings.filter[SETTING_PROFESSION]), level)
         UIDropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_SOURCE_7, SETTING_WORLD_EVENT, ADDON.settings.filter[SETTING_WORLD_EVENT]), level)
@@ -271,11 +381,12 @@ local function InitializeDropDown(_, level)
             "Promotion",
             "Shop",
         }
-        AddOrderedFilterButtons(sourceOrder, ADDON.db.source, settings, level)
+        AddOrderedFilterButtons(sourceOrder, ADDON.db.source, settings, resetSettings, level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_PROFESSION) then
         local settings = ADDON.settings.filter[SETTING_PROFESSION]
-        AddCheckAllAndNoneInfo({ settings }, level)
+        local resetSettings = { settings, ADDON.settings.filter[SETTING_SOURCE], ADDON.settings.filter[SETTING_WORLD_EVENT] }
+        AddCheckAllAndNoneInfo(resetSettings, level)
 
         local professionOrder = {
             "Jewelcrafting",
@@ -288,11 +399,12 @@ local function InitializeDropDown(_, level)
             "Cooking",
             "Fishing",
         }
-        AddOrderedFilterButtons(professionOrder, ADDON.db.profession, settings, level)
+        AddOrderedFilterButtons(professionOrder, ADDON.db.profession, settings, resetSettings, level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_WORLD_EVENT) then
         local settings = ADDON.settings.filter[SETTING_WORLD_EVENT]
-        AddCheckAllAndNoneInfo({ settings }, level)
+        local resetSettings = { settings, ADDON.settings.filter[SETTING_SOURCE], ADDON.settings.filter[SETTING_PROFESSION] }
+        AddCheckAllAndNoneInfo(resetSettings, level)
 
         local eventOrder = {
             "Timewalking",
@@ -310,7 +422,7 @@ local function InitializeDropDown(_, level)
             "Pirates' Day",
             "Feast of Winter Veil",
         }
-        AddOrderedFilterButtons(eventOrder, ADDON.db.worldEvent, settings, level)
+        AddOrderedFilterButtons(eventOrder, ADDON.db.worldEvent, settings, resetSettings, level)
 
     elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_FACTION) then
         local settings = ADDON.settings.filter[SETTING_FACTION]
@@ -323,7 +435,7 @@ local function InitializeDropDown(_, level)
         AddCheckAllAndNoneInfo({ settings }, level)
         for i = GetExpansionLevel(), 0, -1 do
             if _G["EXPANSION_NAME" .. i] then
-                UIDropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], i, settings), level)
+                UIDropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], i, settings, settings), level)
             end
         end
 
@@ -350,7 +462,7 @@ local function InitializeDropDown(_, level)
             if hasSubCategories[effect] then
                 UIDropDownMenu_AddButton(CreateInfoWithMenu(L[effect] or effect, effect, settings[effect]), level)
             else
-                UIDropDownMenu_AddButton(CreateFilterInfo(L[effect] or effect, effect, settings), level)
+                UIDropDownMenu_AddButton(CreateFilterInfo(L[effect] or effect, effect, settings, settings), level)
             end
         end
 
@@ -369,7 +481,7 @@ local function InitializeDropDown(_, level)
         end
 
         for _, effect in pairs(sortedEffects) do
-            UIDropDownMenu_AddButton(CreateFilterInfo(L[effect] or effect, effect, settings), level)
+            UIDropDownMenu_AddButton(CreateFilterInfo(L[effect] or effect, effect, settings, ADDON.settings.filter[SETTING_EFFECT]), level)
         end
     elseif UIDROPDOWNMENU_MENU_VALUE == SETTING_SORT then
         local settings = ADDON.settings[SETTING_SORT]
@@ -379,9 +491,9 @@ local function InitializeDropDown(_, level)
         UIDropDownMenu_AddButton(CreateFilterRadio(NAME, "by", settings, 'name', doSort), level)
         UIDropDownMenu_AddButton(CreateFilterRadio(EXPANSION_FILTER_TEXT, "by", settings, 'expansion', doSort), level)
         UIDropDownMenu_AddSpace(level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_REVERSE, 'descending', settings, doSort), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_FAVORITES_FIRST, 'favoritesFirst', settings, doSort), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_UNOWNED_AFTER, 'unownedAtLast', settings, doSort), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_REVERSE, 'descending', settings, nil, doSort), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_FAVORITES_FIRST, 'favoritesFirst', settings, nil, doSort), level)
+        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_UNOWNED_AFTER, 'unownedAtLast', settings, nil, doSort), level)
         UIDropDownMenu_AddSpace(level)
 
         info = CreateFilterInfo(NEWBIE_TOOLTIP_STOPWATCH_RESETBUTTON)
@@ -394,6 +506,7 @@ local function InitializeDropDown(_, level)
         UIDropDownMenu_AddButton(info, level)
     end
 
+    UIDropDownMenu_Refresh(frame, nil, level)
 end
 
 ADDON.Events:RegisterCallback("OnLoadUI", function()
