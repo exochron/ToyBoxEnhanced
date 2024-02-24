@@ -486,6 +486,7 @@ ADDON.db.source = {
         [187344] = true, -- Offering Kit Maker
         [187416] = true, -- Jailer's Cage
         [187705] = true, -- Choofa's Call
+        [190196] = true, -- Enlightened Hearthstone
         [190457] = true, -- Protopological Cube
         [190853] = true, -- Bushel of Mysterious Fruit
         [190926] = true, -- Infested Automa Core
@@ -796,6 +797,7 @@ ADDON.db.source = {
         [208658] = true, -- Mirror of Humility
         [210864] = true, -- Improvised Leafbed
         [208798] = true, -- Recorded Memories of Tyr's Guard
+        [211788] = true, -- Tess's Peacebloom
     },
 
     ["Vendor"] = {
@@ -921,6 +923,7 @@ ADDON.db.source = {
         [206195] = true, -- Path of the Naaru
         [209858] = true, -- Dreamsurge Remnant
         [209944] = true, -- Friendsurge Defenders
+        [212518] = true, -- Vial of Endless Draconic Scales
     },
 
     ["Instance"] = {
@@ -1820,6 +1823,7 @@ ADDON.db.effect = {
             [205463] = true, -- Molten Lava Ball
             [208096] = true, -- Familiar Journal
             [210864] = true, -- Improvised Leafbed
+            [212337] = true, -- Stone of the Hearth
         },
 
         ["Corpse"] = {
@@ -2001,6 +2005,7 @@ ADDON.db.effect = {
             [208058] = true, -- Minute Glas
             [210411] = true, -- Fast Growing Seed
             [210725] = true, -- Owl Post
+            [211946] = true, -- Hearthstone Game Table
         },
 
         ["Weather"] = {
@@ -2012,6 +2017,7 @@ ADDON.db.effect = {
             [198206] = true, -- Environmental Emulator
             [198264] = true, -- Centralized Precipitation Emitter
             [209858] = true, -- Dreamsurge Remnant
+            [210975] = true, -- Date Simulation Modulator
         }
     },
 
@@ -2428,6 +2434,7 @@ ADDON.db.effect = {
             [172924] = true, -- Wormhole Generator: Shadowlands
             [198156] = true, -- Wyrmhole Generator
             [205255] = true, -- Niffen Diggin' Mitts
+            [211788] = true, -- Tess's Peacebloom
         },
 
         ["Water Walking"] = {
@@ -2509,6 +2516,7 @@ ADDON.db.effect = {
             [138202] = true, -- Sparklepony XL
             [172219] = true, -- Wild Holly
             [204675] = true, -- A Drake's Big Basket of Eggs
+            [212518] = true, -- Vial of Endless Draconic Scales
         }
     },
 }
