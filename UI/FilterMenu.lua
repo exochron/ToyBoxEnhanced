@@ -259,22 +259,40 @@ local function CreateInfoWithMenu(text, filterKey, settings)
     return info
 end
 
+local hookedWidthButtons = {}
+local function HookResizeButtonWidth(button, calcWidth)
+    local name = button:GetName()
+    button.arg2 = {"TBE_RESIZE", calcWidth}
+    if not hookedWidthButtons[name] then
+        hookedWidthButtons[name] = true
+        hooksecurefunc(button, "SetWidth", function(self, width)
+            if "table" == type(self.arg2) and self.arg2[1] == "TBE_RESIZE" then
+                self:SetSize(self.arg2[2](width), self:GetHeight())
+            end
+        end)
+    end
+end
 local function AddCheckAllAndNoneInfo(settings, level)
-    local info = CreateFilterInfo(CHECK_ALL)
+    local info = CreateFilterInfo(ALL)
+    info.justifyH = "CENTER"
     info.func = function()
         for _, v in pairs(settings) do
             SetAllSubFilters(v, true)
         end
     end
-    UIDropDownMenu_AddButton(info, level)
+    local AllButton = UIDropDownMenu_AddButton(info, level)
+    HookResizeButtonWidth(AllButton, function(w) return w/2 end)
 
-    info = CreateFilterInfo(UNCHECK_ALL)
+    info = CreateFilterInfo(NONE)
+    info.justifyH = "CENTER"
     info.func = function()
         for _, v in pairs(settings) do
             SetAllSubFilters(v, false)
         end
     end
-    UIDropDownMenu_AddButton(info, level)
+    local NoneButton = UIDropDownMenu_AddButton(info, level)
+    NoneButton:SetPoint("TOPLEFT", AllButton, "TOPRIGHT", 0, 0)
+    HookResizeButtonWidth(NoneButton, function(w) return w/2 end)
 end
 
 local function HasUserHiddenToys()
