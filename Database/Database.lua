@@ -1,10 +1,10 @@
 local _, ADDON = ...
 
-local isWrath = GetExpansionLevel() == 2
+local isClassic = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
 
 ADDON.db = {}
 
-if isWrath then
+if isClassic then
     ADDON.db.Recent = {
         ["minID"] = 1,
         ["blacklist"] = { },
@@ -12,9 +12,9 @@ if isWrath then
     }
 else
     ADDON.db.Recent = {
-        ["minID"] = 210974,
-        ["blacklist"] = {211424}, -- Dreaming Banner of the Aspects
-        ["whitelist"] = {}, --
+        ["minID"] = 216881,
+        ["blacklist"] = {},
+        ["whitelist"] = {170197, 211869}, --
     }
 end
 
@@ -94,6 +94,7 @@ ADDON.db.worldEvent = {
         [188694] = true, -- Spring Florist's Pouch
         [188698] = true, -- Eagger Basket
         [204675] = true, -- A Drake's Big Basket of Eggs
+        [216881] = true, -- Duck Disguiser
     },
 
     ["Children's Week"] = {
@@ -1054,6 +1055,9 @@ ADDON.db.source = {
         [203734] = true, -- Snow Blanket
         [205255] = true, -- Niffen Diggin' Mitts
         [208058] = true, -- Minute Glass
+
+        -- PLunderstorm KegLeg Crew
+        [170197] = true, -- Swarthy Warning Sign
     },
 
     ["Achievement"] = {
@@ -1105,6 +1109,7 @@ ADDON.db.source = {
         [208433] = true, -- Bronze Racer's Pennant
         [210497] = true, -- Verdant Legend's Pennant
         [211946] = true, -- Hearthstone Game Table
+        [211869] = true, -- Draconic Legend's Pennant
     },
 
     ["PvP"] = {
@@ -1119,6 +1124,7 @@ ADDON.db.source = {
         [206267] = true, -- Obsidian Legend's Pennant
         [206343] = true, -- Crimson Legend's Pennant
         [210497] = true, -- Verdant Legend's Pennant
+        [211869] = true, -- Draconic Legend's Pennant
     },
 
     ["Garrison"] = {
@@ -1217,6 +1223,7 @@ ADDON.db.source = {
         [166777] = true, -- Lion's Pride Firework
         [166778] = true, -- Horde's Might Firework
         [166779] = true, -- Transmorpher Beacon
+        [210467] = true, -- Magical Murkmorpher
     },
 
     ["Promotion"] = {
@@ -1244,7 +1251,7 @@ ADDON.db.source = {
         [187834] = true, -- Tormented Banner of the Opportune
         [187957] = true, -- Encrypted Banner of the Opportune
         [187958] = true, -- Shrouded Banner of the Opportune
-        [187959] = true, -- PH - Banner of the Opportune
+        [218128] = true, -- Draconic Banner of the Aspects
 
         -- Trading Card Game
         [32542] = true, -- Imp in a Ball
@@ -1465,6 +1472,8 @@ ADDON.db.effect = {
             [208421] = true, -- Compendium of the New Moon
             [208433] = true, -- Bronze Racer's Pennant
             [208658] = true, -- Mirror of Humility
+            [210467] = true, -- Magical Murkmorpher
+            [216881] = true, -- Duck Disguiser
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1597,6 +1606,7 @@ ADDON.db.effect = {
             [206267] = true, -- Obsidian Legend's Pennant
             [206343] = true, -- Crimson Legend's Pennant
             [210497] = true, -- Verdant Legend's Pennant
+            [211869] = true, -- Draconic Legend's Pennant
         },
     },
 
@@ -1897,7 +1907,6 @@ ADDON.db.effect = {
             [187834] = true, -- Tormented Banner of the Opportune
             [187957] = true, -- Encrypted Banner of the Opportune
             [187958] = true, -- Shrouded Banner of the Opportune
-            [187959] = true, -- PH - Banner of the Opportune
             [198728] = true, -- Explorer's League Banner
             [198729] = true, -- Reliquary Banner
             [199767] = true, -- Red Dragon Banner
@@ -1910,6 +1919,7 @@ ADDON.db.effect = {
             [208057] = true, -- Smoldering Banner of the Aspects
             [210042] = true, -- Chilling Celebration Banner
             [211424] = true, -- Dreaming Banner of the Aspects
+            [218128] = true, -- Draconic Banner of the Aspects
         },
 
         -- Summons a clone of the character
@@ -2069,6 +2079,7 @@ ADDON.db.effect = {
             [166808] = true, -- Bewitching Tea Set
             [169796] = true, -- Azeroth Mini Collection: Mechagon
             [170196] = true, -- Shirakess Warning Sign
+            [170197] = true, -- Swarthy Warning Sign
             [170203] = true, -- Flopping Fish
             [170476] = true, -- Underlight Sealamp
             [174920] = true, -- Coifcurl's Close Shave Kit
