@@ -6,15 +6,15 @@ ADDON.db = {}
 
 if isClassic then
     ADDON.db.Recent = {
-        ["minID"] = 1,
-        ["blacklist"] = { },
-        ["whitelist"] = { },
+        ["minID"] = 54654,
+        ["blacklist"] = { 198647, 184871},
+        ["whitelist"] = { 40727, 46709, 53057},
     }
 else
     ADDON.db.Recent = {
         ["minID"] = 216881,
         ["blacklist"] = {},
-        ["whitelist"] = {170197, 211869}, --
+        ["whitelist"] = {170197, 211869},
     }
 end
 
@@ -1362,6 +1362,8 @@ ADDON.db.expansion = {
     --}
 }
 
+ADDON.db.expansion[GetExpansionLevel()]["maxID"] = 9999999
+
 ADDON.db.effect = {
 
     ["Appearance"] = {
@@ -2121,6 +2123,7 @@ ADDON.db.effect = {
             [198647] = true, -- Fishspeaker's Lucky Lure
             [205908] = true, -- Inherited Wisdom of Senegos
             [206268] = true, -- Ethereal Transmogrifier
+            [216893] = true, -- Goblin Town-in-a-Box
         },
 
         -- Can attack these
