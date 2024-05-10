@@ -308,7 +308,13 @@ end
 local function AddOrderedFilterButtons(order, database, settings,  resetSettings, level)
     for _, index in ipairs(order) do
         if database[index] then
-            UIDropDownMenu_AddButton(CreateFilterInfo(L[index], index, settings, resetSettings), level)
+            local button = UIDropDownMenu_AddButton(CreateFilterInfo(L[index], index, settings, resetSettings), level)
+            if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then
+                -- somehow some menu items don't get displayed properly.
+                local a,_,c,d,e = button:GetPoint(1)
+                button:SetParent(_G["DropDownList"..level])
+                button:SetPoint(a, _G["DropDownList"..level], c,d,e)
+            end
         end
     end
 end
