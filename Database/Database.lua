@@ -12,9 +12,9 @@ if isClassic then
     }
 else
     ADDON.db.Recent = {
-        ["minID"] = 216881,
-        ["blacklist"] = {},
-        ["whitelist"] = {170197, 211869},
+        ["minID"] = 217723,
+        ["blacklist"] = {218128},
+        ["whitelist"] = {210455},
     }
 end
 
@@ -798,7 +798,9 @@ ADDON.db.source = {
         [208658] = true, -- Mirror of Humility
         [210864] = true, -- Improvised Leafbed
         [208798] = true, -- Recorded Memories of Tyr's Guard
+        [210455] = true, -- Draenic Hologem
         [211788] = true, -- Tess's Peacebloom
+        [223146] = true, -- Satchel of Stormborn Seeds
     },
 
     ["Vendor"] = {
@@ -1110,6 +1112,11 @@ ADDON.db.source = {
         [210497] = true, -- Verdant Legend's Pennant
         [211946] = true, -- Hearthstone Game Table
         [211869] = true, -- Draconic Legend's Pennant
+        [217723] = true, -- Fury of Xuen
+        [217724] = true, -- Kindness of Chi-ji
+        [217725] = true, -- Essence of Yu'lon
+        [217726] = true, -- Fortitude of Niuzao
+        [220777] = true, -- Cherry Blossom Trail
     },
 
     ["PvP"] = {
@@ -1216,29 +1223,31 @@ ADDON.db.source = {
         [212523] = true, -- Delicate Jade Parasol
         [212524] = true, -- Delicate Crimson Parasol
         [212525] = true, -- Delicate Ebony Parasol
+        [218112] = true, -- Colorful Beach Chair
+        [220692] = true, -- X-treme Water Blaster Display
     },
 
     ["Shop"] = {
+        [38233] = true, -- Path of Illidan - TBC classic Deluxe Edition
         [112324] = true, -- Nightmarish Hitching Post
         [166777] = true, -- Lion's Pride Firework
         [166778] = true, -- Horde's Might Firework
         [166779] = true, -- Transmorpher Beacon
+        [184871] = true, -- Dark Portal - TBC classic Deluxe Edition
+        [198647] = true, -- Fishspeaker's Lucky Lure - WotLK classic Epic Edition
         [210467] = true, -- Magical Murkmorpher
     },
 
     ["Promotion"] = {
         [33079] = true, -- Murloc Costume
-        [38233] = true, -- Path of Illidan - TBC classic Deluxe Edition
         [142542] = true, -- Tome of Town Portal
         [143543] = true, -- Twelve-String Guitar
         [158149] = true, -- Overtuned Corgi Goggles
         [163986] = true, -- Orgrimmar Hero's War Banner --Blizzcon 2018
         [163987] = true, -- Stormwind Champion's War Banner  --Blizzcon 2018
         [172179] = true, -- Eternal Traveler's Hearthstone - Shadowlands Epic Edition
-        [184871] = true, -- Dark Portal - TBC classic Deluxe Edition
         [186501] = true, -- Doomwalker Trophy Stand
         [193588] = true, -- Timewalker's Hearthstone - Dragonflight Epic Edition
-        [198647] = true, -- Fishspeaker's Lucky Lure - WotLK classic Epic Edition
         [203716] = true, -- Thundering Banner of the Aspects
         [208057] = true, -- Smoldering Banner of the Aspects
         [208704] = true, -- Deepdweller's Earthen Hearthstone - War Within Epic Edition
@@ -1559,6 +1568,12 @@ ADDON.db.effect = {
             [208092] = true, -- Torch of Pyrreth
             [209944] = true, -- Friendsurge Defenders
             [210656] = true, -- Winter Veil Socks
+            [217723] = true, -- Fury of Xuen
+            [217724] = true, -- Kindness of Chi-ji
+            [217725] = true, -- Essence of Yu'lon
+            [217726] = true, -- Fortitude of Niuzao
+            [220777] = true, -- Cherry Blossom Trail
+            [223146] = true, -- Satchel of Stormborn Seeds
         },
 
         ["Bigger"] = {
@@ -2018,6 +2033,7 @@ ADDON.db.effect = {
             [210411] = true, -- Fast Growing Seed
             [210725] = true, -- Owl Post
             [211946] = true, -- Hearthstone Game Table
+            [220692] = true, -- X-treme Water Blaster Display
         },
 
         ["Weather"] = {
@@ -2058,6 +2074,7 @@ ADDON.db.effect = {
             [200550] = true, -- Very Comfortable Pelt
             [200551] = true, -- Comfortable Pile of Pelts
             [208883] = true, -- Sandbox Storm Gryphon
+            [218112] = true, -- Colorful Beach Chair
         },
 
         -- Can click on these
@@ -2388,6 +2405,7 @@ ADDON.db.effect = {
             [206195] = true, -- Path of the Naaru
             [209035] = true, -- Hearthstone of the Flame
             [208704] = true, -- Deepdweller's Earthen Hearthstone
+            [210455] = true, -- Draenic Hologem
         },
 
         ["Jump"] = {
