@@ -2,6 +2,7 @@
 This addon extends the ingame toy box with some cool stuff.
 
 ### Features
+- __new:__ Support for ElvUI
 - Filter toys by Effect, Source, Faction and Expansion
 - Show toys, which are normally hidden by the game
 - Search also in toy description (like search for "post" and find [Katy's Stampwhistle] ;)

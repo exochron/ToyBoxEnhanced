@@ -280,7 +280,7 @@
         </Frames>
     </Frame>
 
-    <!-- from PetCollection.SummonRandomFavoritePetButton -->
+            <!-- from PetCollection.SummonRandomFavoritePetButton -->
     <Button name="TBEUseRandomToyButtonTemplate" inherits="SecureHandlerDragTemplate,SecureActionButtonTemplate" virtual="true">
         <Attributes>
             <Attribute name="type1" value="macro"/>

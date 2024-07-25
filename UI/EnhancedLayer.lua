@@ -178,11 +178,51 @@ function ADDON.UI:UpdatePages()
     ToyBox.EnhancedLayer.PagingFrame:SetMaxPages(maxPages)
 end
 
+-- see: ElvUI/ElvUI/Mainline/Modules/Skins/Collectables.lua::SkinToyFrame()
+local function SkinElvUI(layer)
+    if ElvUI then
+        local E = unpack(ElvUI)
+        local S = E:GetModule('Skins')
+
+        layer:StripTextures()
+        layer.BackgroundTile:SetColorTexture(0,0,0,1)
+
+        S:HandleNextPrevButton(layer.PagingFrame.NextPageButton, nil, nil, true)
+        S:HandleNextPrevButton(layer.PagingFrame.PrevPageButton, nil, nil, true)
+
+        local function toyTextColor(text, r, g, b)
+            if r == 0.33 and g == 0.27 and b == 0.2 then
+                text:SetTextColor(0.4, 0.4, 0.4)
+            elseif r == 1 and g == 0.82 and b == 0 then
+                text:SetTextColor(0.9, 0.9, 0.9)
+            end
+        end
+
+        for i = 1, ADDON.TOYS_PER_PAGE do
+            local button = layer["spellButton" .. i]
+            S:HandleItemButton(button, true)
+
+            button.iconTextureUncollected:SetTexCoord(unpack(E.TexCoords))
+            button.iconTextureUncollected:SetInside(button)
+            button.hover:SetAllPoints(button.iconTexture)
+            button.pushed:SetAllPoints(button.iconTexture)
+            button.cooldown:SetAllPoints(button.iconTexture)
+
+            hooksecurefunc(button.name, 'SetTextColor', toyTextColor)
+            hooksecurefunc(button.new, 'SetTextColor', toyTextColor)
+
+            E:RegisterCooldown(button.cooldown)
+        end
+    end
+end
+
 ADDON.Events:RegisterCallback("PreLoadUI", function()
 
     local layer = CreateFrame("Frame", nil, ToyBox, "TBEButtonFrameTemplate")
     layer:SetFrameStrata("DIALOG")
     layer:SetFrameLevel(555)
+
+    SkinElvUI(layer)
 
     layer.OnPageChanged = function()
         PlaySound(SOUNDKIT.IG_ABILITY_PAGE_TURN)
