@@ -1,5 +1,7 @@
 local _, ADDON = ...
 
+-- todo: update with filter (like mje)
+
 local doStrip = false
 
 local function CreateCountFrame(text, counterFunc)

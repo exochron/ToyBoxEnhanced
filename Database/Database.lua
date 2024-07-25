@@ -12,9 +12,9 @@ if isClassic then
     }
 else
     ADDON.db.Recent = {
-        ["minID"] = 217723,
-        ["blacklist"] = {218128},
-        ["whitelist"] = {210455},
+        ["minID"] = 218310,
+        ["blacklist"] = {220692, 220777, 223146},
+        ["whitelist"] = {211931, 212174, 215145, 215147},
     }
 end
 
@@ -194,6 +194,7 @@ ADDON.db.worldEvent = {
         [208825] = true, -- Junior Timekeeper's Racing Belt
         [209859] = true, -- Festive Trans-Dimensional Bird Whistle
         [210656] = true, -- Winter Veil Socks
+        [218310] = true, -- Box of Puntables
     },
 }
 
@@ -205,6 +206,8 @@ ADDON.db.profession = {
         [193032] = true, -- Jeweled Offering
         [193033] = true, -- Convergent Prism
         [205045] = true, -- B.B.F, Fist
+        [215145] = true, -- Remembrance Stone
+        [215147] = true, -- Beautification Iris
     },
 
     ["Engineering"] = {
@@ -246,6 +249,11 @@ ADDON.db.profession = {
         [202360] = true, -- Dented Can
         [204818] = true, -- Mallard Mortar
         [207092] = true, -- Portable Party Platter
+        [219387] = true, -- Barrel of Fireworks
+        [219403] = true, -- Stonebound Lantern
+        [221962] = true, -- Defective Escape Pod
+        [221964] = true, -- Filmless Camera
+        [221966] = true, -- Wormhole Generator: Khaz Algar
     },
 
     ["Archaeology"] = {
@@ -262,9 +270,9 @@ ADDON.db.profession = {
         [69775] = true, -- Vrykul Drinking Horn
         [69776] = true, -- Ancient Amber
         [69777] = true, -- Haunted War Drum
-        [131724] = true, -- Crystalline Eye of Undravius
         [64488] = true, -- The Innkeeper's Daughter
         [89614] = true, -- Anatomical Dummy
+        [131724] = true, -- Crystalline Eye of Undravius
         [160751] = true, -- Dance of the Dead
         [160740] = true, -- Croak Crock
     },
@@ -500,8 +508,20 @@ ADDON.db.source = {
         [202019] = true, -- Golden Dragon Goblet
         [202022] = true, -- Yennu's Kite
         [202711] = true, -- Lost Compass
+        [204405] = true, -- Stuffed Bear
         [205418] = true, -- Blazing Shadowflame Cinder
         [210411] = true, -- Fast Growing Seed
+
+        -- War Within
+        [224552] = true, -- Cave Spelunker's Torch
+        [224554] = true, -- Silver Linin' Scepter
+        [224585] = true, -- Hanna's Locket
+        [224783] = true, -- Sovereign's Finery Chest
+        [225347] = true, -- Web-Vandal's Spinning Wheel
+        [225556] = true, -- Ancient Construct
+        [225641] = true, -- Illusive Kobyss Lure
+        [225659] = true, -- Arathi Book Collection
+
     },
 
     ["Drop"] = {
@@ -683,6 +703,11 @@ ADDON.db.source = {
         [206993] = true, -- Investi-gator's Pocketwatch
         [205463] = true, -- Molten Lava Ball
         [210725] = true, -- Owl Post
+
+        -- War Within
+        [223312] = true, -- Trusty Hat
+        [226810] = true, -- Infiltrator's Shroud
+
     },
 
     ["Quest"] = {
@@ -801,6 +826,10 @@ ADDON.db.source = {
         [210455] = true, -- Draenic Hologem
         [211788] = true, -- Tess's Peacebloom
         [223146] = true, -- Satchel of Stormborn Seeds
+
+        -- War Within
+        [225547] = true, -- Toxic Victory
+
     },
 
     ["Vendor"] = {
@@ -927,6 +956,14 @@ ADDON.db.source = {
         [209858] = true, -- Dreamsurge Remnant
         [209944] = true, -- Friendsurge Defenders
         [212518] = true, -- Vial of Endless Draconic Scales
+
+        -- War Within
+        [211931] = true, -- Abyss Caller Horn
+        [224643] = true, -- Pet-Sized Candle
+        [225910] = true, -- Pileus Delight
+        [226519] = true, -- General's Expertise
+        [228413] = true, -- Lampyridae Caller
+        [226191] = true, -- Web Pet Leash
     },
 
     ["Instance"] = {
@@ -1117,6 +1154,13 @@ ADDON.db.source = {
         [217725] = true, -- Essence of Yu'lon
         [217726] = true, -- Fortitude of Niuzao
         [220777] = true, -- Cherry Blossom Trail
+
+        -- War Within
+        [212174] = true, -- The Warband Map to Everywhere All At Once
+        [224251] = true, -- Memory Chord
+        [225933] = true, -- Forged Legend's Pennant
+        [227538] = true, -- Unbound Legend's Pennant
+        [227539] = true, -- Unbound Strategist's Pennant
     },
 
     ["PvP"] = {
@@ -1132,6 +1176,10 @@ ADDON.db.source = {
         [206343] = true, -- Crimson Legend's Pennant
         [210497] = true, -- Verdant Legend's Pennant
         [211869] = true, -- Draconic Legend's Pennant
+        [225933] = true, -- Forged Legend's Pennant
+        [225969] = true, -- Forged Flag of Victory
+        [227538] = true, -- Unbound Legend's Pennant
+        [227539] = true, -- Unbound Strategist's Pennant
     },
 
     ["Garrison"] = {
@@ -1255,6 +1303,7 @@ ADDON.db.source = {
         [210042] = true, -- Chilling Celebration Banner
         [211424] = true, -- Dreaming Banner of the Aspects
         [212337] = true, -- Stone of the Hearth
+        [216893] = true, -- Goblin Town-in-a-Box -- Cata Classic Epic Edition
 
         -- MDI
         [187834] = true, -- Tormented Banner of the Opportune
@@ -1323,6 +1372,7 @@ ADDON.db.expansion = {
         [40727] = true, -- Gnomish Gravity Well
         [46709] = true, -- MiniZep Controller
         [53057] = true, -- Faded Wizard Hat
+        [216893] = true, -- Goblin Town-in-a-Box
     },
     [4] = { -- Mists of Pandaria
         ["minID"] = 80000,
@@ -1362,16 +1412,25 @@ ADDON.db.expansion = {
 
     [9] = { -- Dragonflight
         ["minID"] = 191891,
-        ["maxID"] = 999999,
+        ["maxID"] = 218300,
+        [220692] = true, -- X-treme Water Blaster Display
+        [220777] = true, -- Cherry Blossom Trail
+        [223146] = true, -- Satchel of Stormborn Seeds
     },
 
-    --[10] = { -- War Within
-    --    [208704] = true, -- Deepdweller's Earthen Hearthstone - War Within Epic Edition
-    --    [208883] = true, -- Sandbox Storm Gryphon - War Within Epic Edition
-    --}
+    [10] = { -- War Within
+        ["minID"] = 218310,
+        ["maxID"] = 999999,
+        [208704] = true, -- Deepdweller's Earthen Hearthstone - War Within Epic Edition
+        [208883] = true, -- Sandbox Storm Gryphon - War Within Epic Edition
+        [211931] = true, -- Abyss Caller Horn
+        [212174] = true, -- The Warband Map to Everywhere All At Once
+        [215145] = true, -- Remembrance Stone
+        [215147] = true, -- Beautification Iris
+    }
 }
 
-ADDON.db.expansion[GetExpansionLevel()]["maxID"] = 9999999
+ADDON.db.expansion[GetClientDisplayExpansionLevel()]["maxID"] = 9999999
 
 ADDON.db.effect = {
 
@@ -1485,6 +1544,9 @@ ADDON.db.effect = {
             [208658] = true, -- Mirror of Humility
             [210467] = true, -- Magical Murkmorpher
             [216881] = true, -- Duck Disguiser
+            [224783] = true, -- Sovereign's Finery Chest
+            [225641] = true, -- Illusive Kobyss Lure
+            [226810] = true, -- Infiltrator's Shroud
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1574,6 +1636,9 @@ ADDON.db.effect = {
             [217726] = true, -- Fortitude of Niuzao
             [220777] = true, -- Cherry Blossom Trail
             [223146] = true, -- Satchel of Stormborn Seeds
+            [221964] = true, -- Filmless Camera
+            [224552] = true, -- Cave Spelunker's Torch
+            [228413] = true, -- Lampyridae Caller
         },
 
         ["Bigger"] = {
@@ -1624,6 +1689,9 @@ ADDON.db.effect = {
             [206343] = true, -- Crimson Legend's Pennant
             [210497] = true, -- Verdant Legend's Pennant
             [211869] = true, -- Draconic Legend's Pennant
+            [225933] = true, -- Forged Legend's Pennant
+            [227538] = true, -- Unbound Legend's Pennant
+            [227539] = true, -- Unbound Strategist's Pennant
         },
     },
 
@@ -1722,6 +1790,7 @@ ADDON.db.effect = {
             [187512] = true, -- Tome of Small Sins
             [199337] = true, -- Bag of Furious Winds
             [206043] = true, -- Fyrakk's Frenzy
+            [215147] = true, -- Beautification Iris
         },
 
         ["Summon"] = {
@@ -1851,6 +1920,10 @@ ADDON.db.effect = {
             [208096] = true, -- Familiar Journal
             [210864] = true, -- Improvised Leafbed
             [212337] = true, -- Stone of the Hearth
+            [221964] = true, -- Filmless Camera
+            [225659] = true, -- Arathi Book Collection
+            [224552] = true, -- Cave Spelunker's Torch
+
         },
 
         ["Corpse"] = {
@@ -1896,6 +1969,8 @@ ADDON.db.effect = {
             [204686] = true, -- Titan's Containment Device
             [208415] = true, -- Stasis Sand
             [206347] = true, -- Mannequin Charm
+            [221962] = true, -- Defective Escape Pod
+            [225659] = true, -- Arathi Book Collection
         },
 
     },
@@ -1963,6 +2038,7 @@ ADDON.db.effect = {
             [166778] = true, -- Horde's Might Firework
             [166777] = true, -- Lion's Pride Firework
             [206038] = true, -- Flamin' Ring of Flashiness
+            [219387] = true, -- Barrel of Fireworks
         },
 
         -- stuff to litter the ground
@@ -2015,8 +2091,8 @@ ADDON.db.effect = {
             [198474] = true, -- Artist's Easel
             [198646] = true, -- Ornate Dragon Statue
             [199649] = true, -- Dragon Tea Set
-            [199900] = true, -- Secondhand Survey Tools
             [199650] = true, -- Whale Bone Tea Set
+            [199900] = true, -- Secondhand Survey Tools
             [201931] = true, -- Warcraft Rumble Toy: Maiev
             [202261] = true, -- Warcraft Rumble Toy: Sneed
             [202851] = true, -- Warcraft Rumble Toy: Night Elf Huntress
@@ -2028,11 +2104,13 @@ ADDON.db.effect = {
             [204256] = true, -- Holoviewer: The Scarlet Queen
             [204257] = true, -- Holoviewer: The Lady of Dreams
             [204262] = true, -- Holoviewer: The Timeless One
+            [204405] = true, -- Stuffed Bear
             [206565] = true, -- Plagued Grain -- Naxxramas
             [208058] = true, -- Minute Glas
             [210411] = true, -- Fast Growing Seed
             [210725] = true, -- Owl Post
             [211946] = true, -- Hearthstone Game Table
+            [219403] = true, -- Stonebound Lantern
             [220692] = true, -- X-treme Water Blaster Display
         },
 
@@ -2153,6 +2231,8 @@ ADDON.db.effect = {
             [199830] = true, -- Tuskarr Training Dummy
             [199896] = true, -- Rubbery Fish Head
             [201933] = true, -- Black Dragon's Challenge Dummy
+            [219387] = true, -- Barrel of Fireworks
+            [225556] = true, -- Ancient Construct
         },
     },
 
@@ -2208,6 +2288,8 @@ ADDON.db.effect = {
             [204818] = true, -- Mallard Mortar
             [205796] = true, -- Molten Lava Pack
             [208825] = true, -- Junior Timekeeper's Racing Belt
+            [219387] = true, -- Barrel of Fireworks
+            [223312] = true, -- Trusty Hat
         }
     },
 
@@ -2232,6 +2314,8 @@ ADDON.db.effect = {
             [198402] = true, -- Maruuk Cooking Pot
             [199892] = true, -- Tuskarr Traveling Soup Pot
             [203757] = true, -- Brazier of Madness
+            [219403] = true, -- Stonebound Lantern
+            [224643] = true, -- Pet-Sized Candle
         },
 
         ["Fishing"] = {
@@ -2286,6 +2370,7 @@ ADDON.db.effect = {
             [119218] = true, -- Horde Flag of Victory
             [119219] = true, -- Warlord's Flag of Victory
             [202021] = true, -- Breaker's Flag of Victory
+            [225969] = true, -- Forged Flag of Victory
         },
 
         ["Transform"] = {
@@ -2433,6 +2518,7 @@ ADDON.db.effect = {
             [188698] = true, -- Eagger Basket
             [198827] = true, -- Magical Snow Sled
             [209052] = true, -- Brew Barrel
+            [224585] = true, -- Hanna's Locket
         },
 
         ["Swimming"] = {
@@ -2467,6 +2553,7 @@ ADDON.db.effect = {
             [198156] = true, -- Wyrmhole Generator
             [205255] = true, -- Niffen Diggin' Mitts
             [211788] = true, -- Tess's Peacebloom
+            [221966] = true, -- Wormhole Generator: Khaz Algar
         },
 
         ["Water Walking"] = {
@@ -2539,6 +2626,8 @@ ADDON.db.effect = {
             [186973] = true, -- Anima-ted Leash
             [186985] = true, -- Elisive Pet Treat
             [187051] = true, -- Forgotten Feather
+            [224643] = true, -- Pet-Sized Candle
+            [226191] = true, -- Web Pet Leash
         },
 
         -- replaces regular mount model or adds a minor effect
