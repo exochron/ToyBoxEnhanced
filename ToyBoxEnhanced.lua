@@ -180,7 +180,10 @@ EventRegistry:RegisterCallback("CollectionsJournal.TabSet", function(_, _, selec
 
             ADDON:FilterToys()
             ADDON.initialized = true
-            EventRegistry:UnregisterCallback("CollectionsJournal.TabSet", ADDON_NAME)
+            C_Timer.After(0, function()
+                -- EventRegistry might crash when removing an callback while looping through all callbacks
+                EventRegistry:UnregisterCallback("CollectionsJournal.TabSet", ADDON_NAME)
+            end)
         end)
     end
 end, ADDON_NAME)
