@@ -68,8 +68,8 @@ local function PrepareDefaults()
     for name, _ in pairs(ADDON.db.worldEvent) do
         defaultSettings.filter.worldEvent[name] = true
     end
-    for name, _ in pairs(ADDON.db.expansion) do
-        defaultSettings.filter.expansion[name] = true
+    for i = 0, GetClientDisplayExpansionLevel() do
+        defaultSettings.filter.expansion[i] = true
     end
     for name, categoriesOrToys in pairs(ADDON.db.effect) do
         defaultSettings.filter.effect[name] = {}

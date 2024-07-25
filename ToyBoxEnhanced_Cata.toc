@@ -28,7 +28,7 @@ Favorites.lua
 UI\Templates.xml
 UI\Functions.lua
 UI\EnhancedLayer.lua
-UI\FilterMenu.lua
+UI\FilterMenu.Legacy.lua
 UI\Hotkeys.lua
 UI\OptionsMenu.lua
 UI\RandomToyButton.lua
