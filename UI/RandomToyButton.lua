@@ -75,6 +75,13 @@ local function createDisplayButton()
     ADDON.UI.RandomButton = CreateFrame("Button", nil, ToyBox, "TBEUseRandomToyButtonTemplate")
     ADDON.UI.RandomButton:RegisterForDrag("LeftButton")
 
+    if ElvUI then
+        local E = unpack(ElvUI)
+        local S = E:GetModule('Skins')
+        ADDON.UI.RandomButton.icon = ADDON.UI.RandomButton.texture
+        S:HandleItemButton(ADDON.UI.RandomButton, true)
+    end
+
     if ToyBox.progressBar:IsShown() then -- classic
         ADDON.UI.RandomButton:SetPoint("CENTER", ToyBox, "TOP", "-125", "-42")
     end
