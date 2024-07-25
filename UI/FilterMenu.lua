@@ -1,4 +1,4 @@
-local ADDON_NAME, ADDON = ...
+local _, ADDON = ...
 
 local SETTING_COLLECTED = "collected"
 local SETTING_ONLY_FAVORITES = "onlyFavorites"
@@ -16,14 +16,6 @@ local SETTING_FACTION = "faction"
 local SETTING_EXPANSION = "expansion"
 local SETTING_EFFECT = "effect"
 
-local L = ADDON.L
-
-local function UpdateResetVisibility()
-    if ToyBoxFilterButton.ResetButton then
-        ToyBoxFilterButton.ResetButton:SetShown(not ADDON:IsUsingDefaultFilters())
-    end
-end
-
 local function setAllSettings(settings, switch)
     for key, value in pairs(settings) do
         if type(value) == "table" then
@@ -34,165 +26,6 @@ local function setAllSettings(settings, switch)
             settings[key] = switch
         end
     end
-end
-
-local onlyPool
-local function AddOnlyButton(info, settings)
-    if not onlyPool then
-        onlyPool = CreateFramePool("Button")
-    end
-
-    local onlyButton = onlyPool:Acquire()
-    if not onlyButton.initialized then
-        onlyButton:SetNormalFontObject(GameFontHighlightSmallLeft)
-        onlyButton:SetHighlightFontObject(GameFontHighlightSmallLeft)
-        onlyButton:SetText(ADDON.L.FILTER_ONLY)
-
-        onlyButton:SetSize(onlyButton:GetTextWidth(), UIDROPDOWNMENU_BUTTON_HEIGHT)
-
-        onlyButton.CallParent = function(self, script, ...)
-            local parent = self:GetParent()
-            parent:GetScript(script)(parent, ...)
-        end
-
-        onlyButton:HookScript("OnEnter", function(self)
-            self:Show()
-            self:CallParent("OnEnter")
-        end)
-        onlyButton:HookScript("OnLeave", function(self)
-            if not self:GetParent():IsMouseOver() then
-                self:CallParent("OnLeave")
-                if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE  then
-                    self:Hide()
-                end
-            end
-        end)
-
-        onlyButton.initialized = true
-    end
-
-    -- overwrite every time
-    onlyButton:SetScript("OnClick", function(self, ...)
-        setAllSettings(settings, false)
-        self:CallParent("OnClick", ...)
-    end)
-
-    -- classic doesn't has funcOnEnter and funcOnLeave yet. so we simply always show
-    if WOW_PROJECT_ID == WOW_PROJECT_MAINLINE  then
-        info.funcOnEnter = function()
-            onlyButton:Show()
-        end
-        info.funcOnLeave = function()
-            if not onlyButton:IsMouseOver() then
-                onlyButton:Hide()
-            end
-        end
-    end
-    info.customFrame = {
-        only = onlyButton,
-        button = nil,
-        Show = function(self)
-            self.button:Show()
-            if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE  then
-                self.only:Show()
-            end
-        end,
-        Hide = function(self)
-            self.button:Hide()
-            self.only:SetParent()
-            onlyPool:Release(self.only)
-        end,
-        IsShown = function(self)
-            return self.button:IsShown()
-        end,
-        SetOwningButton = function(self, button)
-            self.button = button
-            self.only:SetParent(button)
-            self.only:SetPoint("RIGHT", button, "RIGHT")
-            self.only:SetFrameLevel(button:GetFrameLevel()+2)
-        end,
-        ClearAllPoints = function() end,
-        SetPoint = function() end,
-        GetPreferredEntryWidth = function(self)
-            local button = self.button
-            local width = button:GetTextWidth() + 40
-            -- Add padding if has and expand arrow or color swatch
-            if ( button.hasArrow or button.hasColorSwatch ) then
-                width = width + 10;
-            end
-            if ( button.padding ) then
-                width = width + button.padding;
-            end
-
-            width = width + self.only:GetTextWidth()
-
-            return width
-        end,
-        GetPreferredEntryHeight = function(self)
-            self.button:Show() -- show again after SetShown(false) in default logic
-            return self.button:GetHeight()
-        end
-    }
-
-    return info
-end
-
-local function CreateFilterInfo(text, filterKey, filterSettings, withOnly, callback)
-    local info = {
-        keepShownOnClick = true,
-        isNotRadio = true,
-        hasArrow = false,
-        text = text,
-    }
-
-    if filterKey then
-        if not filterSettings then
-            filterSettings = ADDON.settings.filter
-        end
-        info.arg1 = filterSettings
-        info.checked = function(self)
-            return self.arg1[filterKey]
-        end
-        info.func = function(_, arg1, arg2, value)
-            arg1[filterKey] = arg2 or value
-            ADDON:FilterToys()
-            UIDropDownMenu_RefreshAll(_G[ADDON_NAME .. "FilterMenu"])
-            UpdateResetVisibility()
-
-            if callback then
-                callback(value)
-            end
-        end
-        if withOnly then
-            -- accept other settings table as withOnly-Param
-            info = AddOnlyButton(info, true == withOnly and filterSettings or withOnly)
-        end
-    else
-        info.notCheckable = true
-    end
-
-    return info
-end
-
-local function CreateFilterRadio(text, filterKey, filterSettings, filterValue, callback)
-    local info = CreateFilterInfo(text, filterKey, filterSettings, false, callback)
-    info.isNotRadio = false
-    info.arg2 = filterValue
-    info.checked = function(self)
-        return self.arg1[filterKey] == filterValue
-    end
-
-    return info
-end
-
-local function CreateFilterCategory(text, value)
-    return {
-        text = text,
-        value = value,
-        hasArrow = true,
-        keepShownOnClick = true,
-        notCheckable = true,
-    }
 end
 
 local function CheckSetting(settings)
@@ -213,86 +46,7 @@ end
 
 local function SetAllSubFilters(settings, switch)
     setAllSettings(settings, switch)
-
-    UIDropDownMenu_RefreshAll(_G[ADDON_NAME .. "FilterMenu"])
     ADDON:FilterToys()
-    UpdateResetVisibility()
-end
-
-local function RefreshCategoryButton(button, isNotRadio)
-    local buttonName = button:GetName()
-    local buttonCheck = _G[buttonName .. "Check"]
-
-    if isNotRadio then
-        buttonCheck:SetTexCoord(0.0, 0.5, 0.0, 0.5);
-    else
-        buttonCheck:SetTexCoord(0.0, 0.5, 0.5, 1.0);
-    end
-
-    button.isNotRadio = isNotRadio
-end
-
-local function CreateInfoWithMenu(text, filterKey, settings)
-    local info = {
-        text = text,
-        value = filterKey,
-        keepShownOnClick = true,
-        hasArrow = true,
-    }
-
-    local hasTrue, hasFalse = CheckSetting(settings)
-    info.isNotRadio = not hasTrue or not hasFalse
-
-    info.checked = function(button)
-        local isTrue, isFalse = CheckSetting(settings)
-        RefreshCategoryButton(button, not isTrue or not isFalse)
-        return isTrue
-    end
-    info.func = function(button, _, _, value)
-        if button.isNotRadio == value then
-            SetAllSubFilters(settings, true)
-        elseif true == button.isNotRadio and false == value then
-            SetAllSubFilters(settings, false)
-        end
-    end
-
-    return info
-end
-
-local hookedWidthButtons = {}
-local function HookResizeButtonWidth(button, calcWidth)
-    local name = button:GetName()
-    button.arg2 = {"TBE_RESIZE", calcWidth}
-    if not hookedWidthButtons[name] then
-        hookedWidthButtons[name] = true
-        hooksecurefunc(button, "SetWidth", function(self, width)
-            if "table" == type(self.arg2) and self.arg2[1] == "TBE_RESIZE" then
-                self:SetSize(self.arg2[2](width), self:GetHeight())
-            end
-        end)
-    end
-end
-local function AddCheckAllAndNoneInfo(settings, level)
-    local info = CreateFilterInfo(ALL)
-    info.justifyH = "CENTER"
-    info.func = function()
-        for _, v in pairs(settings) do
-            SetAllSubFilters(v, true)
-        end
-    end
-    local AllButton = UIDropDownMenu_AddButton(info, level)
-    HookResizeButtonWidth(AllButton, function(w) return w/2 end)
-
-    info = CreateFilterInfo(NONE)
-    info.justifyH = "CENTER"
-    info.func = function()
-        for _, v in pairs(settings) do
-            SetAllSubFilters(v, false)
-        end
-    end
-    local NoneButton = UIDropDownMenu_AddButton(info, level)
-    NoneButton:SetPoint("TOPLEFT", AllButton, "TOPRIGHT", 0, 0)
-    HookResizeButtonWidth(NoneButton, function(w) return w/2 end)
 end
 
 local function HasUserHiddenToys()
@@ -305,270 +59,389 @@ local function HasUserHiddenToys()
     return false
 end
 
-local function AddOrderedFilterButtons(order, database, settings,  resetSettings, level)
-    for _, index in ipairs(order) do
-        if database[index] then
-            local button = UIDropDownMenu_AddButton(CreateFilterInfo(L[index], index, settings, resetSettings), level)
-            if WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE then
-                -- somehow some menu items don't get displayed properly.
-                local a,_,c,d,e = button:GetPoint(1)
-                button:SetParent(_G["DropDownList"..level])
-                button:SetPoint(a, _G["DropDownList"..level], c,d,e)
+local function CreateFilter(root, text, filterKey, filterSettings, withOnly)
+    if not filterSettings then
+        filterSettings = ADDON.settings.filter
+    end
+
+    local button = root:CreateCheckbox(text, function()
+        return filterSettings[filterKey]
+    end, function(...)
+        filterSettings[filterKey] = not filterSettings[filterKey]
+        ADDON:FilterToys()
+
+        return MenuResponse.Refresh
+    end)
+    if withOnly then
+        local onlySettings = true == withOnly and filterSettings or withOnly
+
+        button:AddInitializer(function(button, elementDescription, menu)
+            local onlyButton = MenuTemplates.AttachAutoHideButton(button, "")
+
+            onlyButton:SetNormalFontObject("GameFontHighlight")
+            onlyButton:SetHighlightFontObject("GameFontHighlight")
+            onlyButton:SetText(ADDON.L.FILTER_ONLY)
+            onlyButton:SetSize(onlyButton:GetTextWidth(), 20)
+            onlyButton:SetPoint("RIGHT")
+
+            onlyButton:SetScript("OnClick", function(self, ...)
+                setAllSettings(onlySettings, false)
+                filterSettings[filterKey] = true
+                ADDON:FilterToys()
+                menu:SendResponse(elementDescription, MenuResponse.Refresh)
+            end)
+
+            -- after click menu gets rerendered. by default the auto button is hidden.
+            -- since the button itself isn't properly rendered yet, the mouse is also not yet over it.
+            -- and so we wait...
+            C_Timer.After(0, function()
+                if button:IsMouseOver() then
+                    onlyButton:Show()
+                end
+            end)
+        end)
+    end
+
+    return button
+end
+
+local function SetLeftPadding(elementData)
+    elementData:AddInitializer(function(button)
+        local pad = button:AttachTexture();
+        pad:SetSize(18, 10);
+        pad:SetPoint("LEFT");
+
+        button.leftTexture1:SetPoint("LEFT", pad, "RIGHT");
+
+        local width = pad:GetWidth() + button.leftTexture1:GetWidth() + button.fontString:GetUnboundedStringWidth()
+        return width, button.fontString:GetHeight()
+    end)
+end
+
+local function CenterDropdownButton(elementData)
+    elementData:AddInitializer(function(button)
+        button.fontString:ClearAllPoints()
+        button.fontString:SetPoint("CENTER")
+    end)
+end
+
+--region ALL and None
+local function AddAllAndNone(root, settings)
+    CenterDropdownButton(root:CreateButton(ALL, function()
+        SetAllSubFilters(settings, true)
+        return MenuResponse.Refresh
+    end))
+    CenterDropdownButton(root:CreateButton(NONE, function()
+        SetAllSubFilters(settings, false)
+        return MenuResponse.Refresh
+    end))
+
+    root:QueueSpacer()
+end
+local function registerVerticalLayoutHook()
+    hooksecurefunc(AnchorUtil, "VerticalLayout", function(frames, initialAnchor, padding)
+        if #frames > 3 and ToyBox and ToyBox:IsShown() then
+            local first = frames[1]
+            local second = frames[2]
+            if first.fontString:GetText() == ALL and second.fontString:GetText() == NONE then
+                first:SetSize(first:GetWidth() / 2, first:GetHeight())
+                second:SetSize(second:GetWidth() / 2, second:GetHeight())
+
+                second:SetPoint("TOPLEFT", first, "TOPRIGHT", padding, 0)
+                frames[3]:SetPoint("TOPLEFT", first, "BOTTOMLEFT", 0, -padding)
             end
+        end
+    end)
+end
+--endregion
+
+local function CreateSortRadio(root, text, sortValue)
+    local sortSettings = ADDON.settings[SETTING_SORT]
+
+    return root:CreateRadio(text, function()
+        return sortSettings.by == sortValue
+    end, function()
+        sortSettings["by"] = sortValue
+        ADDON.DataProvider:Sort()
+
+        return MenuResponse.Refresh
+    end)
+end
+local function CreateSortCheckbox(root, text, sortKey)
+    local sortSettings = ADDON.settings[SETTING_SORT]
+
+    return root:CreateCheckbox(text, function()
+        return sortSettings[sortKey]
+    end, function()
+        sortSettings[sortKey] = not sortSettings[sortKey]
+        ADDON.DataProvider:Sort()
+
+        return MenuResponse.Refresh
+    end)
+end
+local function SetupSortMenu(root)
+    local L = ADDON.L
+
+    CreateSortRadio(root, NAME, 'name')
+    CreateSortRadio(root, EXPANSION_FILTER_TEXT, 'expansion')
+
+    root:CreateSpacer()
+    CreateSortCheckbox(root, L.SORT_REVERSE, 'descending')
+    CreateSortCheckbox(root, L.SORT_FAVORITES_FIRST, 'favoritesFirst')
+    CreateSortCheckbox(root, L.SORT_UNOWNED_AFTER, 'unownedAtLast')
+    root:CreateSpacer()
+
+    CenterDropdownButton(root:CreateButton(NEWBIE_TOOLTIP_STOPWATCH_RESETBUTTON, function()
+        ADDON:ResetSortSettings()
+        ADDON.DataProvider:Sort()
+
+        return MenuResponse.CloseAll
+    end))
+end
+
+local function SetupEffectMenu(root)
+    local L = ADDON.L
+    local settings = ADDON.settings.filter[SETTING_EFFECT]
+
+    AddAllAndNone(root, settings)
+
+    local sortedEffects, hasSubCategories = {}, {}
+    for effect, mainConfig in pairs(ADDON.db.effect) do
+        hasSubCategories[effect] = false
+        for _, subConfig in pairs(mainConfig) do
+            if type(subConfig) == "table" then
+                hasSubCategories[effect] = true
+            end
+            break
+        end
+        table.insert(sortedEffects, effect)
+    end
+    table.sort(sortedEffects, function(a, b)
+        return (L[a] or a) < (L[b] or b)
+    end)
+
+    for _, effect in pairs(sortedEffects) do
+        if hasSubCategories[effect] then
+            local subMenu = root:CreateCheckbox(L[effect] or effect, function()
+                local settingHasTrue, settingHasFalse = CheckSetting(settings[effect])
+
+                return settingHasTrue
+            end, function(...)
+                local _, settingHasFalse = CheckSetting(settings[effect])
+                SetAllSubFilters(settings[effect], settingHasFalse)
+
+                return MenuResponse.Refresh
+            end)
+            subMenu:AddInitializer(function(button)
+                if button.leftTexture2 then
+                    local settingHasTrue, settingHasFalse = CheckSetting(settings[effect])
+                    if settingHasTrue and settingHasFalse then
+                        -- TODO: proper indeterminate icon. like: https://css-tricks.com/indeterminate-checkboxes/
+                        button.leftTexture2:SetAtlas("common-dropdown-icon-radialtick-yellow-classic", TextureKitConstants.UseAtlasSize)
+                        button.leftTexture2:SetAtlas("common-dropdown-icon-radialtick-yellow", TextureKitConstants.UseAtlasSize)
+                    else
+                        button.leftTexture2:SetAtlas("common-dropdown-icon-checkmark-yellow-classic", TextureKitConstants.UseAtlasSize)
+                        button.leftTexture2:SetAtlas("common-dropdown-icon-checkmark-yellow", TextureKitConstants.UseAtlasSize)
+                    end
+                end
+            end)
+            local sortedSubEffects = {}
+            for subeffect, effectIds in pairs(ADDON.db.effect[effect]) do
+                table.insert(sortedSubEffects, subeffect)
+            end
+            table.sort(sortedSubEffects, function(a, b)
+                return (L[a] or a) < (L[b] or b)
+            end)
+            for _, subfamily in pairs(sortedSubEffects) do
+                CreateFilter(subMenu, L[subfamily] or subfamily, subfamily, settings[effect], settings)
+            end
+
+        else
+            CreateFilter(root, L[effect] or effect, effect, settings, true)
         end
     end
 end
 
-local function InitializeDropDown(frame, level)
-    local info
+local function SetupSourceMenu(root)
+    local resetSettings = {ADDON.settings.filter[SETTING_SOURCE], ADDON.settings.filter[SETTING_PROFESSION], ADDON.settings.filter[SETTING_WORLD_EVENT]}
 
-    if level == 1 then
-        UIDropDownMenu_AddButton(CreateFilterCategory(RAID_FRAME_SORT_LABEL, SETTING_SORT), level)
-        UIDropDownMenu_AddSpace(level)
+    AddAllAndNone(root, resetSettings)
 
-        info = CreateFilterInfo(COLLECTED, SETTING_COLLECTED, nil, nil, function(value)
-            if value then
-                UIDropDownMenu_EnableButton(1, 4)
-                UIDropDownMenu_EnableButton(1, 5)
+    local professions = root:CreateCheckbox(BATTLE_PET_SOURCE_4, function()
+        local settingHasTrue, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_PROFESSION])
+        return settingHasTrue
+    end, function()
+        local _, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_PROFESSION])
+        SetAllSubFilters(ADDON.settings.filter[SETTING_PROFESSION], settingHasFalse)
+        return MenuResponse.Refresh
+    end)
+    professions:AddInitializer(function(button)
+        if button.leftTexture2 then
+            local settingHasTrue, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_PROFESSION])
+            if settingHasTrue and settingHasFalse then
+                -- TODO: proper indeterminate icon. like: https://css-tricks.com/indeterminate-checkboxes/
+                button.leftTexture2:SetAtlas("common-dropdown-icon-radialtick-yellow-classic", TextureKitConstants.UseAtlasSize)
+                button.leftTexture2:SetAtlas("common-dropdown-icon-radialtick-yellow", TextureKitConstants.UseAtlasSize)
             else
-                UIDropDownMenu_DisableButton(1, 4)
-                UIDropDownMenu_DisableButton(1, 5)
-            end
-        end)
-        UIDropDownMenu_AddButton(info, level)
-        info = CreateFilterInfo(FAVORITES_FILTER, SETTING_ONLY_FAVORITES)
-        info.leftPadding = 16
-        info.disabled = not ADDON.settings.filter.collected
-        UIDropDownMenu_AddButton(info, level)
-        info = CreateFilterInfo(PET_JOURNAL_FILTER_USABLE_ONLY, SETTING_ONLY_USEABLE)
-        info.leftPadding = 16
-        info.disabled = not ADDON.settings.filter.collected
-        UIDropDownMenu_AddButton(info, level)
-
-        info = CreateFilterInfo(NOT_COLLECTED, SETTING_NOT_COLLECTED, nil, nil,function (value)
-            if value then
-                UIDropDownMenu_EnableButton(1, 7)
-            else
-                UIDropDownMenu_DisableButton(1, 7)
-            end
-        end)
-        UIDropDownMenu_AddButton(info, level)
-        info = CreateFilterInfo(L.FILTER_SECRET, SETTING_SECRET)
-        info.leftPadding = 16
-        info.disabled = not ADDON.settings.filter.notCollected
-        UIDropDownMenu_AddButton(info, level)
-
-        UIDropDownMenu_AddButton(CreateFilterInfo(L.FILTER_ONLY_LATEST, SETTING_ONLY_RECENT), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L.FILTER_ONLY_TRADABLE, SETTING_ONLY_TRADABLE), level)
-
-        if ADDON.settings.filter[SETTING_HIDDEN] or HasUserHiddenToys() then
-            UIDropDownMenu_AddButton(CreateFilterInfo(L["FILTER_HIDDEN_MANUAL"], SETTING_HIDDEN), level)
-        end
-
-        UIDropDownMenu_AddSpace(level)
-        UIDropDownMenu_AddButton(CreateFilterCategory(L["Effect"], SETTING_EFFECT), level)
-        UIDropDownMenu_AddButton(CreateFilterCategory(SOURCES, SETTING_SOURCE), level)
-        UIDropDownMenu_AddButton(CreateFilterCategory(FACTION, SETTING_FACTION), level)
-        UIDropDownMenu_AddButton(CreateFilterCategory(EXPANSION_FILTER_TEXT, SETTING_EXPANSION), level)
-
-        UIDropDownMenu_AddSpace(level)
-        info = CreateFilterInfo(L["Reset filters"])
-        info.keepShownOnClick = false
-        info.justifyH = "CENTER"
-        info.func = function()
-            ToyBoxFilterButton.resetFunction()
-        end
-        UIDropDownMenu_AddButton(info, level)
-
-    elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_SOURCE) then
-        local settings = ADDON.settings.filter[SETTING_SOURCE]
-        local resetSettings = { settings, ADDON.settings.filter[SETTING_PROFESSION], ADDON.settings.filter[SETTING_WORLD_EVENT] }
-        AddCheckAllAndNoneInfo(resetSettings, level)
-
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_SOURCE_4, SETTING_PROFESSION, ADDON.settings.filter[SETTING_PROFESSION]), level)
-        UIDropDownMenu_AddButton(CreateInfoWithMenu(BATTLE_PET_SOURCE_7, SETTING_WORLD_EVENT, ADDON.settings.filter[SETTING_WORLD_EVENT]), level)
-
-        local sourceOrder = {
-            "Treasure",
-            "Drop",
-            "Quest",
-            "Vendor",
-            "Instance",
-            "Reputation",
-            "Achievement",
-            "PvP",
-            "Order Hall",
-            "Garrison",
-            "Pick Pocket",
-            "Trading Post",
-            "Black Market",
-            "Promotion",
-            "Shop",
-        }
-        AddOrderedFilterButtons(sourceOrder, ADDON.db.source, settings, resetSettings, level)
-
-    elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_PROFESSION) then
-        local settings = ADDON.settings.filter[SETTING_PROFESSION]
-        local resetSettings = { settings, ADDON.settings.filter[SETTING_SOURCE], ADDON.settings.filter[SETTING_WORLD_EVENT] }
-        AddCheckAllAndNoneInfo(resetSettings, level)
-
-        local professionOrder = {
-            "Jewelcrafting",
-            "Enchanting",
-            "Engineering",
-            "Inscription",
-            "Leatherworking",
-            "Tailoring",
-            "Archaeology",
-            "Cooking",
-            "Fishing",
-        }
-        AddOrderedFilterButtons(professionOrder, ADDON.db.profession, settings, resetSettings, level)
-
-    elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_WORLD_EVENT) then
-        local settings = ADDON.settings.filter[SETTING_WORLD_EVENT]
-        local resetSettings = { settings, ADDON.settings.filter[SETTING_SOURCE], ADDON.settings.filter[SETTING_PROFESSION] }
-        AddCheckAllAndNoneInfo(resetSettings, level)
-
-        local eventOrder = {
-            "Timewalking",
-            "Darkmoon Faire",
-            "Lunar Festival",
-            "Love is in the Air",
-            "Noblegarden",
-            "Children's Week",
-            "Midsummer Fire Festival",
-            "Secrets of Azeroth",
-            "Brewfest",
-            "Hallow's End",
-            "Day of the Dead",
-            "Pilgrim's Bounty",
-            "Pirates' Day",
-            "Feast of Winter Veil",
-        }
-        AddOrderedFilterButtons(eventOrder, ADDON.db.worldEvent, settings, resetSettings, level)
-
-    elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_FACTION) then
-        local settings = ADDON.settings.filter[SETTING_FACTION]
-        UIDropDownMenu_AddButton(CreateFilterInfo(FACTION_ALLIANCE, "alliance", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(FACTION_HORDE, "horde", settings), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(NPC_NAMES_DROPDOWN_NONE, "noFaction", settings), level)
-
-    elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_EXPANSION) then
-        local settings = ADDON.settings.filter[SETTING_EXPANSION]
-        AddCheckAllAndNoneInfo({ settings }, level)
-        for i = GetExpansionLevel(), 0, -1 do
-            if _G["EXPANSION_NAME" .. i] then
-                UIDropDownMenu_AddButton(CreateFilterInfo(_G["EXPANSION_NAME" .. i], i, settings, settings), level)
+                button.leftTexture2:SetAtlas("common-dropdown-icon-checkmark-yellow-classic", TextureKitConstants.UseAtlasSize)
+                button.leftTexture2:SetAtlas("common-dropdown-icon-checkmark-yellow", TextureKitConstants.UseAtlasSize)
             end
         end
-
-    elseif (UIDROPDOWNMENU_MENU_VALUE == SETTING_EFFECT) then
-        local settings = ADDON.settings.filter[SETTING_EFFECT]
-        AddCheckAllAndNoneInfo({ settings }, level)
-
-        local sortedEffects, hasSubCategories = {}, {}
-        for effect, mainConfig in pairs(ADDON.db.effect) do
-            hasSubCategories[effect] = false
-            for _, subConfig in pairs(mainConfig) do
-                if type(subConfig) == "table" then
-                    hasSubCategories[effect] = true
-                end
-                break
-            end
-            table.insert(sortedEffects, effect)
-        end
-        table.sort(sortedEffects, function(a, b)
-            return (L[a] or a) < (L[b] or b)
-        end)
-
-        for _, effect in pairs(sortedEffects) do
-            if hasSubCategories[effect] then
-                UIDropDownMenu_AddButton(CreateInfoWithMenu(L[effect] or effect, effect, settings[effect]), level)
-            else
-                UIDropDownMenu_AddButton(CreateFilterInfo(L[effect] or effect, effect, settings, settings), level)
-            end
-        end
-
-    elseif (level == 3 and ADDON.db.effect[UIDROPDOWNMENU_MENU_VALUE]) then
-        local settings = ADDON.settings.filter[SETTING_EFFECT][UIDROPDOWNMENU_MENU_VALUE]
-        local sortedEffects = {}
-        for effect, _ in pairs(ADDON.db.effect[UIDROPDOWNMENU_MENU_VALUE]) do
-            table.insert(sortedEffects, effect)
-        end
-        table.sort(sortedEffects, function(a, b)
-            return (L[a] or a) < (L[b] or b)
-        end)
-
-        if #sortedEffects > 3 then
-            AddCheckAllAndNoneInfo({ settings }, level)
-        end
-
-        for _, effect in pairs(sortedEffects) do
-            UIDropDownMenu_AddButton(CreateFilterInfo(L[effect] or effect, effect, settings, ADDON.settings.filter[SETTING_EFFECT]), level)
-        end
-    elseif UIDROPDOWNMENU_MENU_VALUE == SETTING_SORT then
-        local settings = ADDON.settings[SETTING_SORT]
-        local doSort = function()
-            ADDON.DataProvider:Sort()
-        end
-        UIDropDownMenu_AddButton(CreateFilterRadio(NAME, "by", settings, 'name', doSort), level)
-        UIDropDownMenu_AddButton(CreateFilterRadio(EXPANSION_FILTER_TEXT, "by", settings, 'expansion', doSort), level)
-        UIDropDownMenu_AddSpace(level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_REVERSE, 'descending', settings, nil, doSort), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_FAVORITES_FIRST, 'favoritesFirst', settings, nil, doSort), level)
-        UIDropDownMenu_AddButton(CreateFilterInfo(L.SORT_UNOWNED_AFTER, 'unownedAtLast', settings, nil, doSort), level)
-        UIDropDownMenu_AddSpace(level)
-
-        info = CreateFilterInfo(NEWBIE_TOOLTIP_STOPWATCH_RESETBUTTON)
-        info.keepShownOnClick = false
-        info.justifyH = "CENTER"
-        info.func = function()
-            ADDON:ResetSortSettings()
-            doSort()
-        end
-        UIDropDownMenu_AddButton(info, level)
+    end)
+    AddAllAndNone(professions, ADDON.settings.filter[SETTING_PROFESSION])
+    local professionOrder = {
+        "Jewelcrafting",
+        "Enchanting",
+        "Engineering",
+        "Inscription",
+        "Leatherworking",
+        "Tailoring",
+        "Archaeology",
+        "Cooking",
+        "Fishing",
+    }
+    for _, index in ipairs(professionOrder) do
+        CreateFilter(professions, ADDON.L[index], index, ADDON.settings.filter[SETTING_PROFESSION], resetSettings)
     end
 
-    UIDropDownMenu_Refresh(frame, nil, level)
+    local worldEvents = root:CreateCheckbox(BATTLE_PET_SOURCE_7, function()
+        local settingHasTrue, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_WORLD_EVENT])
+        return settingHasTrue
+    end, function()
+        local _, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_WORLD_EVENT])
+        SetAllSubFilters(ADDON.settings.filter[SETTING_WORLD_EVENT], settingHasFalse)
+        return MenuResponse.Refresh
+    end)
+    worldEvents:AddInitializer(function(button)
+        if button.leftTexture2 then
+            local settingHasTrue, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_WORLD_EVENT])
+            if settingHasTrue and settingHasFalse then
+                -- TODO: proper indeterminate icon. like: https://css-tricks.com/indeterminate-checkboxes/
+                button.leftTexture2:SetAtlas("common-dropdown-icon-radialtick-yellow-classic", TextureKitConstants.UseAtlasSize)
+                button.leftTexture2:SetAtlas("common-dropdown-icon-radialtick-yellow", TextureKitConstants.UseAtlasSize)
+            else
+                button.leftTexture2:SetAtlas("common-dropdown-icon-checkmark-yellow-classic", TextureKitConstants.UseAtlasSize)
+                button.leftTexture2:SetAtlas("common-dropdown-icon-checkmark-yellow", TextureKitConstants.UseAtlasSize)
+            end
+        end
+    end)
+    AddAllAndNone(worldEvents, ADDON.settings.filter[SETTING_WORLD_EVENT])
+    local eventOrder = {
+        "Timewalking",
+        "Darkmoon Faire",
+        "Lunar Festival",
+        "Love is in the Air",
+        "Noblegarden",
+        "Children's Week",
+        "Midsummer Fire Festival",
+        "Secrets of Azeroth",
+        "Brewfest",
+        "Hallow's End",
+        "Day of the Dead",
+        "Pilgrim's Bounty",
+        "Pirates' Day",
+        "Feast of Winter Veil",
+    }
+    for _, index in ipairs(eventOrder) do
+        CreateFilter(worldEvents, ADDON.L[index], index, ADDON.settings.filter[SETTING_WORLD_EVENT], resetSettings)
+    end
+
+    local sourceOrder = {
+        "Treasure",
+        "Drop",
+        "Quest",
+        "Vendor",
+        "Instance",
+        "Reputation",
+        "Achievement",
+        "PvP",
+        "Order Hall",
+        "Garrison",
+        "Pick Pocket",
+        "Trading Post",
+        "Black Market",
+        "Promotion",
+        "Shop",
+    }
+    for _, index in ipairs(sourceOrder) do
+        CreateFilter(root, ADDON.L[index], index, ADDON.settings.filter[SETTING_SOURCE], resetSettings)
+    end
+end
+
+local function SetupFilterMenu(dropdown, root)
+    local L = ADDON.L
+
+    root:SetTag("MENU_TOYBOX_FILTER")
+
+    SetupSortMenu(root:CreateButton(RAID_FRAME_SORT_LABEL))
+
+    root:CreateSpacer()
+
+    CreateFilter(root, COLLECTED, SETTING_COLLECTED)
+    local favorites = CreateFilter(root, FAVORITES_FILTER, SETTING_ONLY_FAVORITES)
+    favorites:SetEnabled(function()
+        return ADDON.settings.filter.collected
+    end)
+    SetLeftPadding(favorites)
+    local onlyUsable = CreateFilter(root, PET_JOURNAL_FILTER_USABLE_ONLY, SETTING_ONLY_USEABLE)
+    onlyUsable:SetEnabled(function()
+        return ADDON.settings.filter.collected
+    end)
+    SetLeftPadding(onlyUsable)
+
+    CreateFilter(root, NOT_COLLECTED, SETTING_NOT_COLLECTED)
+    local hiddenIngame = CreateFilter(root, L.FILTER_SECRET, SETTING_SECRET)
+    hiddenIngame:SetEnabled(function()
+        return ADDON.settings.filter.notCollected
+    end)
+    SetLeftPadding(hiddenIngame)
+
+    CreateFilter(root, L.FILTER_ONLY_LATEST, SETTING_ONLY_RECENT)
+    CreateFilter(root, L.FILTER_ONLY_TRADABLE, SETTING_ONLY_TRADABLE)
+    if ADDON.settings.filter[SETTING_HIDDEN] or HasUserHiddenToys() then
+        CreateFilter(root, L["FILTER_HIDDEN_MANUAL"], SETTING_HIDDEN)
+    end
+
+    root:CreateSpacer()
+
+    SetupEffectMenu(root:CreateButton(L["Effect"]))
+    SetupSourceMenu(root:CreateButton(SOURCES))
+
+    local faction = root:CreateButton(FACTION)
+    CreateFilter(faction, FACTION_ALLIANCE, "alliance", ADDON.settings.filter[SETTING_FACTION])
+    CreateFilter(faction, FACTION_HORDE, "horde", ADDON.settings.filter[SETTING_FACTION])
+    CreateFilter(faction, NPC_NAMES_DROPDOWN_NONE, "noFaction", ADDON.settings.filter[SETTING_FACTION])
+
+    local expansions = root:CreateButton(EXPANSION_FILTER_TEXT)
+    AddAllAndNone(expansions, ADDON.settings.filter[SETTING_EXPANSION])
+    --todo: use expansion icons/textures
+    for i = GetClientDisplayExpansionLevel(), 0,-1 do
+        if _G["EXPANSION_NAME" .. i] then
+            CreateFilter(expansions, _G["EXPANSION_NAME" .. i], i, ADDON.settings.filter[SETTING_EXPANSION], true)
+        end
+    end
+
+    root:CreateSpacer()
+
+    CenterDropdownButton(root:CreateButton(L["Reset filters"], function()
+        ADDON:ResetFilterSettings()
+        ADDON:FilterToys()
+
+        return MenuResponse.CloseAll
+    end))
 end
 
 ADDON.Events:RegisterCallback("OnLoadUI", function()
-    local menu
-    local toggle = true
-    DropDownList1:HookScript("OnHide", function()
-        if not MouseIsOver(ToyBoxFilterButton) then
-            toggle = true
-        end
+
+    ToyBox.FilterDropdown:SetIsDefaultCallback(function()
+        return ADDON.IsUsingDefaultFilters()
     end)
-
-    local toggleFunc = function(sender)
-        if not InCombatLockdown() then
-            HideDropDownMenu(1)
-            if toggle then
-                if not menu then
-                    menu = CreateFrame("Frame", ADDON_NAME .. "FilterMenu", ToyBox, "UIDropDownMenuTemplate")
-                    UIDropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
-                end
-
-                ToggleDropDownMenu(1, nil, menu, sender, 74, 15)
-                toggle = false
-            else
-                toggle = true
-            end
-        end
-    end
-    if ToyBoxFilterButton.ResetButton then -- newer retail handling
-        ToyBoxFilterButton:HookScript('OnMouseDown', toggleFunc)
-    else -- older classic handling
-        ToyBoxFilterButton:SetScript('OnClick', toggleFunc)
-    end
-
-    ToyBoxFilterButton.resetFunction = function()
+    ToyBox.FilterDropdown:SetDefaultCallback(function()
         ADDON:ResetFilterSettings()
         ADDON:FilterToys()
-        UpdateResetVisibility()
-    end
-    UpdateResetVisibility()
+    end)
+    ToyBox.FilterDropdown:SetupMenu(SetupFilterMenu)
+
+    registerVerticalLayoutHook()
 
 end, "filter-menu")
