@@ -17,7 +17,7 @@ local function BuildFrame()
 
     local titleFont = frame:CreateFontString(nil, "OVERLAY", "GameFontNormalLarge")
     titleFont:SetPoint("TOPLEFT", 10, -15)
-    titleFont:SetText(GetAddOnMetadata(ADDON_NAME, "Title"))
+    titleFont:SetText(C_AddOns.GetAddOnMetadata(ADDON_NAME, "Title"))
     titleFont:SetJustifyH("LEFT")
     titleFont:SetJustifyV("TOP")
 
@@ -52,7 +52,7 @@ ADDON.Events:RegisterCallback("OnLogin", function()
     frame.OnCommit = OKHandler
     frame.OnDefault = ADDON.ResetUISettings
 
-    local category = Settings.RegisterCanvasLayoutCategory(frame, GetAddOnMetadata(ADDON_NAME, "Title") )
+    local category = Settings.RegisterCanvasLayoutCategory(frame, C_AddOns.GetAddOnMetadata(ADDON_NAME, "Title") )
     Settings.RegisterAddOnCategory(category)
     categoryID = category.ID
 end, "settings-panel")
@@ -61,7 +61,7 @@ function ADDON:OpenSettings()
     if Settings then
         Settings.OpenToCategory(categoryID)
     else
-        local title = GetAddOnMetadata(ADDON_NAME, "Title")
+        local title = C_AddOns.GetAddOnMetadata(ADDON_NAME, "Title")
         InterfaceOptionsFrame_OpenToCategory(title)
         InterfaceOptionsFrame_OpenToCategory(title)
     end
