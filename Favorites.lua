@@ -1,5 +1,7 @@
 local ADDON_NAME, ADDON = ...
 
+-- TODO: autoFavor new toys
+
 local L = ADDON.L
 local starButton
 
@@ -103,31 +105,53 @@ local function InitializeDropDown(_, level)
         UIDropDownMenu_AddButton(info, level)
     end
 end
+local function CreateFavoritesMenu(owner, root)
+    root:CreateTitle(FAVORITES)
+
+    root:CreateButton(L.FAVOR_DISPLAYED, function()
+        RunSetFavorites(ADDON.DataProvider)
+    end)
+    root:CreateButton(UNCHECK_ALL, function()
+        RunSetFavorites(CreateDataProvider())
+    end)
+
+    root:CreateCheckbox(L.FAVOR_PER_CHARACTER, function()
+        return ADDON.settings.favoritePerChar
+    end, function()
+        ADDON.settings.favoritePerChar = not ADDON.settings.favoritePerChar
+        ADDON:CollectFavoredToys()
+        return MenuResponse.Refresh
+    end)
+end
 
 local function BuildStarButton()
     local menu
 
-    starButton = CreateFrame("Button", nil, ToyBox)
+    starButton = CreateFrame(MenuUtil and "DropdownButton" or "Button", nil, ToyBox)
     starButton:SetPoint("RIGHT", ToyBox.searchBox, "LEFT", -4, 0)
     starButton:SetSize(25, 25)
     starButton:SetNormalAtlas("PetJournal-FavoritesIcon", true)
-    starButton:SetScript("OnEnter", function(sender)
-        GameTooltip:SetOwner(sender, "ANCHOR_NONE")
-        GameTooltip:SetPoint("BOTTOM", sender, "TOP", 0, -4)
-        GameTooltip:SetText(FAVORITES)
-        GameTooltip:Show()
-    end);
-    starButton:SetScript("OnLeave", function()
-        GameTooltip:Hide()
-    end);
-    starButton:SetScript("OnClick", function()
-        if not menu then
-            menu = CreateFrame("Frame", ADDON_NAME .. "FavorMenu", ToyBox, "UIDropDownMenuTemplate")
-            UIDropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
-        end
+    if starButton.SetupMenu then
+        starButton:SetupMenu(CreateFavoritesMenu)
+    else
+        starButton:SetScript("OnClick", function()
+            if not menu then
+                menu = CreateFrame("Frame", ADDON_NAME .. "FavorMenu", ToyBox, "UIDropDownMenuTemplate")
+                UIDropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
+            end
 
-        ToggleDropDownMenu(1, nil, menu, starButton, 0, 10)
-    end)
+            ToggleDropDownMenu(1, nil, menu, starButton, 0, 10)
+        end)
+        starButton:SetScript("OnEnter", function(sender)
+            GameTooltip:SetOwner(sender, "ANCHOR_NONE")
+            GameTooltip:SetPoint("BOTTOM", sender, "TOP", 0, -4)
+            GameTooltip:SetText(FAVORITES)
+            GameTooltip:Show()
+        end);
+        starButton:SetScript("OnLeave", function()
+            GameTooltip:Hide()
+        end);
+    end
     starButton:RegisterEvent("PLAYER_REGEN_ENABLED")
     starButton:RegisterEvent("PLAYER_REGEN_DISABLED")
     starButton:SetScript("OnEvent", function(self, event)
