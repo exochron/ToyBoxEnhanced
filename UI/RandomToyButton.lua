@@ -75,7 +75,7 @@ local function createDisplayButton()
     ADDON.UI.RandomButton = CreateFrame("Button", nil, ToyBox, "TBEUseRandomToyButtonTemplate")
     ADDON.UI.RandomButton:RegisterForDrag("LeftButton")
 
-    if ElvUI then
+    if ElvUI and ToyBox.PagingFrame.NextPageButton.IsSkinned then
         local E = unpack(ElvUI)
         local S = E:GetModule('Skins')
         ADDON.UI.RandomButton.icon = ADDON.UI.RandomButton.texture

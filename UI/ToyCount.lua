@@ -2,15 +2,13 @@ local _, ADDON = ...
 
 -- todo: update with filter (like mje)
 
-local doStrip = false
-
 local function CreateCountFrame(text, counterFunc)
     local frame = CreateFrame("Frame", nil, ToyBox, "InsetFrameTemplate3")
 
     frame:ClearAllPoints()
     frame:SetPoint("TOPLEFT", ToyBox, 70, -22)
     frame:SetSize(130, 19)
-    if (doStrip) then
+    if frame.StripTextures and ToyBox.PagingFrame.NextPageButton.IsSkinned then
         frame:StripTextures()
     end
 
@@ -47,10 +45,4 @@ ADDON.Events:RegisterCallback("OnLoadUI", function ()
     local L = ADDON.L
     CreateCountFrame(L["Toys"], C_ToyBox.GetNumLearnedDisplayedToys)
     CreateCountFrame(L["Usable"], GetUsableToysCount):SetPoint("TOPLEFT", ToyBox, 70, -41)
-end, "count")
-
-ADDON.Events:RegisterCallback("OnStripUI", function(_, self)
-    if self == ToyBox.iconsFrame then
-        doStrip = true
-    end
 end, "count")

@@ -178,9 +178,9 @@ function ADDON.UI:UpdatePages()
     ToyBox.EnhancedLayer.PagingFrame:SetMaxPages(maxPages)
 end
 
--- see: ElvUI/ElvUI/Mainline/Modules/Skins/Collectables.lua::SkinToyFrame()
+-- see: https://github.com/tukui-org/ElvUI/blob/main/ElvUI/Mainline/Modules/Skins/Collectables.lua ::SkinToyFrame()
 local function SkinElvUI(layer)
-    if ElvUI then
+    if ElvUI and ToyBox.PagingFrame.NextPageButton.IsSkinned then
         local E = unpack(ElvUI)
         local S = E:GetModule('Skins')
 
