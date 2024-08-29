@@ -8,7 +8,7 @@ local function CreateAchievementPoints()
     local frame = CreateFrame("Button", nil, ToyBox)
 
     frame:ClearAllPoints()
-    frame:SetPoint("TOP", MountJournal, -50, -21)
+    frame:SetPoint("TOP", ToyBox, -50, -21)
     frame:SetSize(60, 40)
 
     frame.bgLeft = frame:CreateTexture(nil, "BACKGROUND")
@@ -33,6 +33,10 @@ local function CreateAchievementPoints()
     frame.highlight:SetSize(210, 40)
     frame.highlight:SetPoint("CENTER", 0, 0)
     frame.highlight:SetShown(false)
+
+    if ElvUI and ToyBox.PagingFrame.NextPageButton.IsSkinned then
+        frame:DisableDrawLayer('BACKGROUND')
+    end
 
     frame.icon = frame:CreateTexture(nil, "OVERLAY")
     frame.icon:SetTexture("Interface\\AchievementFrame\\UI-Achievement-Shields-NoPoints")
