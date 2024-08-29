@@ -4,6 +4,7 @@ local locale = GetLocale()
 
 ADDON.L = {}
 local L = ADDON.L
+local GetSpellName = C_Spell.GetSpellName or GetSpellInfo
 
 L["COMPARTMENT_TOOLTIP"] = "|cffeda55fLeft-Click|r to toggle showing the Toy Box.\n|cffeda55fRight-Click|r to open addon options."
 L["FAVOR_DISPLAYED"] = "All Displayed"
@@ -31,7 +32,7 @@ L["SETTING_FAVORITE_PER_CHAR"] = "Favorite toys per character"
 L["SETTING_SEARCH_IN_DESCRIPTION"] = "Search also in toy description"
 
 -- Source
-L["Treasure"] = GetSpellInfo(225652)
+L["Treasure"] = GetSpellName(225652)
 L["Drop"] = BATTLE_PET_SOURCE_1
 L["Quest"] = BATTLE_PET_SOURCE_2
 L["Vendor"] = BATTLE_PET_SOURCE_3
@@ -41,7 +42,7 @@ L["Achievement"] = BATTLE_PET_SOURCE_6
 L["PvP"] = PVP
 L["Order Hall"] = "Order Hall"
 L["Garrison"] = GARRISON_LOCATION_TOOLTIP
-L["Pick Pocket"] = GetSpellInfo(921)
+L["Pick Pocket"] = GetSpellName(921)
 L["Trading Post"] = BATTLE_PET_SOURCE_12
 L["Black Market"] = BLACK_MARKET_AUCTION_HOUSE
 L["Promotion"] = BATTLE_PET_SOURCE_10
@@ -50,13 +51,13 @@ L["Shop"] = BATTLE_PET_SOURCE_8
 -- Professions
 L["Archaeology"] = PROFESSIONS_ARCHAEOLOGY
 L["Cooking"] = PROFESSIONS_COOKING
-L["Enchanting"] = GetSpellInfo(7411)
-L["Engineering"] = GetSpellInfo(4036)
+L["Enchanting"] = GetSpellName(7411)
+L["Engineering"] = GetSpellName(4036)
 L["Fishing"] = PROFESSIONS_FISHING
 L["Inscription"] = INSCRIPTION
-L["Jewelcrafting"] = GetSpellInfo(25229)
-L["Leatherworking"] = GetSpellInfo(2108)
-L["Tailoring"] = GetSpellInfo(3908)
+L["Jewelcrafting"] = GetSpellName(25229)
+L["Leatherworking"] = GetSpellName(2108)
+L["Tailoring"] = GetSpellName(3908)
 
 -- World events
 L["Brewfest"] = GetCategoryInfo(162)
@@ -99,7 +100,7 @@ L["Dismount"] = BINDING_NAME_DISMOUNT
 L["Effect"] = "Effect"
 L["Emote"] = EMOTE
 L["Environment"] = ENVIRONMENT_SUBHEADER
-L["Firework"] = GetSpellInfo(25465)
+L["Firework"] = GetSpellName(25465)
 L["Fishing"] = PROFESSIONS_FISHING
 L["Flight Path"] = FLIGHT_MAP
 L["Fly/Fall"] = "Fly/Fall"
@@ -108,7 +109,7 @@ L["Full"] = LOC_TYPE_FULL
 L["Game"] = GAME
 L["Ground"] = "Ground"
 L["Jump"] = NPE_JUMP
-L["Hearthstone"] = GetSpellInfo(8690)
+L["Hearthstone"] = GetSpellName(8690)
 L["Interactable"] = "Interactable"
 L["Mail"] = MAIL_LABEL
 L["Minor"] = "Minor"
@@ -122,23 +123,23 @@ L["Pennant"] = "Pennant"
 L["Perception"] = ITEM_MOD_PERCEPTION_SHORT
 L["Profession"] = BATTLE_PET_SOURCE_4
 L["Roll"] = ROLL
-L["Running"] = GetSpellInfo(114907)
-L["Skinning"] = GetSpellInfo(8613)
+L["Running"] = GetSpellName(114907)
+L["Skinning"] = GetSpellName(8613)
 L["Smaller"] = "Smaller"
 L["Solo"] = SOLO
 L["Sound"] = SOUND
-L["Statue"] = GetSpellInfo(88640) or GetSpellInfo(74890)
+L["Statue"] = GetSpellName(88640) or GetSpellName(74890)
 L["Summon"] = SUMMON
-L["Swimming"] = GetSpellInfo(333688)
-L["Target Dummy"] = GetSpellInfo(4071)
-L["Taunt"] = GetSpellInfo(355)
-L["Teleport"] = GetSpellInfo(53053)
+L["Swimming"] = GetSpellName(333688)
+L["Target Dummy"] = GetSpellName(4071)
+L["Taunt"] = GetSpellName(355)
+L["Teleport"] = GetSpellName(53053)
 L["Tonk"] = "Tonk"
-L["Transform"] = GetSpellInfo(39360)
+L["Transform"] = GetSpellName(39360)
 L["Transportation"] = "Transportation"
 L["Vision"] = "Vision"
 L["Voice"] = "Voice"
-L["Water Walking"] = GetSpellInfo(546)
+L["Water Walking"] = GetSpellName(546)
 L["Weather"] = PET_BATTLE_WEATHER_LABEL
 
 if locale == "deDE" then
