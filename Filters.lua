@@ -20,8 +20,10 @@ local function FilterBySearch(itemId, searchString)
     end
 
     if ADDON.settings.searchInDescription then
+        local GetSpellDescription = C_Spell.GetSpellDescription or GetSpellDescription
+
         local _, spellId = GetItemSpell(itemId)
-        local spellDescription = C_Spell.GetSpellDescription(spellId)
+        local spellDescription = GetSpellDescription(spellId)
         if StringContains(spellDescription, searchString) then
             return true
         end
