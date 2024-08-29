@@ -971,5 +971,10 @@ ADDON.db.ingameList = {
 [226810] = false, -- Infiltrator's Shroud
 [227538] = false, -- Unbound Legend's Pennant
 [227539] = false, -- Unbound Strategist's Pennant
-[228413] = false, -- Lampyridae Caller
+[228413] = false, -- Lampyridae Lure
+[228698] = false, -- Candleflexer's Dumbbell
+[228705] = false, -- Arachnoserum
+[228706] = false, -- Rockslidomancer's Stone
+[228707] = false, -- Trial of Burning Light
+[228914] = false, -- Arachnophile Spectacles
 }

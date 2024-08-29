@@ -208,6 +208,7 @@ ADDON.db.profession = {
         [205045] = true, -- B.B.F, Fist
         [215145] = true, -- Remembrance Stone
         [215147] = true, -- Beautification Iris
+        [215145] = true, -- Remembrance Stone
     },
 
     ["Engineering"] = {
@@ -964,6 +965,11 @@ ADDON.db.source = {
         [226519] = true, -- General's Expertise
         [228413] = true, -- Lampyridae Caller
         [226191] = true, -- Web Pet Leash
+        [228698] = true, -- Candleflexer's Dumbbell
+        [228705] = true, -- Arachnoserum
+        [228706] = true, -- Rockslidomancer's Stone
+        [228707] = true, -- Trial of Burning Light
+        [228914] = true, -- Arachnophile Spectacles
     },
 
     ["Instance"] = {
@@ -1097,6 +1103,10 @@ ADDON.db.source = {
 
         -- PLunderstorm KegLeg Crew
         [170197] = true, -- Swarthy Warning Sign
+
+        -- War within Renown
+        [228698] = true, -- Candleflexer's Dumbbell
+        [228707] = true, -- Trial of Burning Light
     },
 
     ["Achievement"] = {
@@ -1546,7 +1556,9 @@ ADDON.db.effect = {
             [216881] = true, -- Duck Disguiser
             [224783] = true, -- Sovereign's Finery Chest
             [225641] = true, -- Illusive Kobyss Lure
+            [225910] = true, -- Pileus Delight
             [226810] = true, -- Infiltrator's Shroud
+            [228705] = true, -- Arachnoserum
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1923,7 +1935,7 @@ ADDON.db.effect = {
             [221964] = true, -- Filmless Camera
             [225659] = true, -- Arathi Book Collection
             [224552] = true, -- Cave Spelunker's Torch
-
+            [225347] = true, -- Web-Vandal's Spinning Wheel
         },
 
         ["Corpse"] = {
@@ -1937,6 +1949,7 @@ ADDON.db.effect = {
             [187174] = true, -- Shaded Judgement Stone
             [194052] = true, -- Forlorn Funeral Pall
             [200469] = true, -- Khadgar's Disenchanting Rod
+            [215145] = true, -- Remembrance Stone
         },
 
         ["Roll"] = {
@@ -2442,6 +2455,7 @@ ADDON.db.effect = {
             [212523] = true, -- Delicate Jade Parasol
             [212524] = true, -- Delicate Crimson Parasol
             [212525] = true, -- Delicate Ebony Parasol
+            [224554] = true, -- Silver Linin' Scepter
         },
 
         -- Unlocks flight paths
@@ -2563,6 +2577,7 @@ ADDON.db.effect = {
             [177951] = true, -- Glimmerflies on Strings
             [198428] = true, -- Tuskarr Dinghy
             [211864] = true, -- Exquisite Love Boat
+            [224554] = true, -- Silver Linin' Scepter
         }
     },
 
@@ -2591,6 +2606,8 @@ ADDON.db.effect = {
         [202283] = true, -- Reading Glasses
         [209858] = true, -- Dreamsurge Remnant
         [210974] = true, -- Eyes For You Only
+        [226519] = true, -- General's Expertise
+        [228914] = true, -- Arachnophile Spectacles
     },
 
     ["Companion"] = {
