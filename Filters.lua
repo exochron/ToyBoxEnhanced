@@ -280,5 +280,7 @@ function ADDON:FilterToys()
 
     UpdateDataProvider(result)
 
+    ADDON.Events:TriggerEvent("OnFiltered")
+
     return result
 end
