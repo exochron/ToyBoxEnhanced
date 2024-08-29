@@ -26,7 +26,6 @@ DevZone\Screenshot.lua
 #@end-do-not-package@
 Favorites.lua
 UI\Templates.xml
-UI\Functions.lua
 UI\EnhancedLayer.lua
 UI\FilterMenu.Legacy.lua
 UI\Hotkeys.lua

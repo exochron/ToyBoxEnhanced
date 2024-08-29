@@ -27,7 +27,6 @@ DevZone\Screenshot.lua
 #@end-do-not-package@
 Favorites.lua
 UI\Templates.xml
-UI\Functions.lua
 UI\EnhancedLayer.lua
 UI\AchievementPoints.lua
 UI\FilterMenu.lua
