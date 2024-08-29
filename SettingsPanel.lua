@@ -1,5 +1,7 @@
 local ADDON_NAME, ADDON = ...
 
+-- TODO: use modern Settings Api
+
 -- WARNING: Also look into ResetUISettings() on new elements
 
 local function BuildCheckBox(parentFrame, text, relativeTo, yOffset)
