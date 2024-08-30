@@ -1408,7 +1408,6 @@ ADDON.db.expansion = {
         ["minID"] = 156649,
         ["maxID"] = 175140,
     },
-
     [8] = { -- Shadowlands
         ["minID"] = 175141,
         ["maxID"] = 190926,
@@ -1419,7 +1418,6 @@ ADDON.db.expansion = {
         [192099] = true, -- Earpieces of Tranquil Focus
         [192485] = true, -- Stored Wisdom Device
     },
-
     [9] = { -- Dragonflight
         ["minID"] = 191891,
         ["maxID"] = 218300,
@@ -1427,7 +1425,6 @@ ADDON.db.expansion = {
         [220777] = true, -- Cherry Blossom Trail
         [223146] = true, -- Satchel of Stormborn Seeds
     },
-
     [10] = { -- War Within
         ["minID"] = 218310,
         ["maxID"] = 999999,
@@ -1440,7 +1437,10 @@ ADDON.db.expansion = {
     }
 }
 
-ADDON.db.expansion[GetClientDisplayExpansionLevel()]["maxID"] = 9999999
+-- prevent not yet updated addons from accessing a future expansion
+if ADDON.db.expansion[GetClientDisplayExpansionLevel()] then
+    ADDON.db.expansion[GetClientDisplayExpansionLevel()]["maxID"] = 9999999
+end
 
 ADDON.db.effect = {
 
