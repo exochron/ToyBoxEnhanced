@@ -47,6 +47,7 @@ L["Trading Post"] = BATTLE_PET_SOURCE_12
 L["Black Market"] = BLACK_MARKET_AUCTION_HOUSE
 L["Promotion"] = BATTLE_PET_SOURCE_10
 L["Shop"] = BATTLE_PET_SOURCE_8
+L["Unavailable"] = "No more available"
 
 -- Professions
 L["Archaeology"] = PROFESSIONS_ARCHAEOLOGY

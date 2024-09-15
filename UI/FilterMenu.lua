@@ -362,6 +362,7 @@ local function SetupSourceMenu(root)
         "Black Market",
         "Promotion",
         "Shop",
+        "Unavailable",
     }
     for _, index in ipairs(sourceOrder) do
         CreateFilter(root, ADDON.L[index], index, ADDON.settings.filter[SETTING_SOURCE], resetSettings)
