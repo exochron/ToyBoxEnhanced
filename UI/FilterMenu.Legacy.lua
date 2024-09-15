@@ -404,6 +404,7 @@ local function InitializeDropDown(frame, level)
             "Black Market",
             "Promotion",
             "Shop",
+            "Unavailable",
         }
         AddOrderedFilterButtons(sourceOrder, ADDON.db.source, settings, resetSettings, level)
 

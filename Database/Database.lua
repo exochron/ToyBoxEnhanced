@@ -719,10 +719,6 @@ ADDON.db.source = {
         -- Molten Front
         [71259] = true, -- Leyara's Locket
 
-        -- Cataclysm
-        [54651] = true, -- Gnomeregan Pride
-        [54653] = true, -- Darkspear Pride
-
         -- Pandaria
         [80822] = true, -- The Golden Banana
         [82467] = true, -- Ruthers' Harness
@@ -819,7 +815,6 @@ ADDON.db.source = {
         [204686] = true, -- Titan's Containment Device
         [205688] = true, -- Glutinous Glitterscale Glob
         [205908] = true, -- Inherited Wisdom of Senegos
-        [206008] = true, -- Nightmare Banner
         [208415] = true, -- Stasis Sand
         [208658] = true, -- Mirror of Humility
         [210864] = true, -- Improvised Leafbed
@@ -1115,7 +1110,6 @@ ADDON.db.source = {
         [43824] = true, -- The Schools of Arcane Magic - Mastery
         [44430] = true, -- Titanium Seal of Dalaran
         [87528] = true, -- Honorary Brewmaster Keg
-        [89205] = true, -- Mini Mana Bomb -- no longer available
         [92738] = true, -- Safari Hat
         [116115] = true, -- Blazing Wings
         [119215] = true, -- Robo-Gnomebulator
@@ -1152,15 +1146,11 @@ ADDON.db.source = {
         [200631] = true, -- Happy Tuskarr Palooza
         [202207] = true, -- Reusable Oversized Bobber
         [205904] = true, -- Vibrant Clacking Claw
-        [206267] = true, -- Obsidian Legend's Pennant
-        [206343] = true, -- Crimson Legend's Pennant
         [207099] = true, -- Tiny Box of Tiny Rocks
         [208186] = true, -- Boffins
         [208421] = true, -- Compendium of the New Moon
         [208433] = true, -- Bronze Racer's Pennant
-        [210497] = true, -- Verdant Legend's Pennant
         [211946] = true, -- Hearthstone Game Table
-        [211869] = true, -- Draconic Legend's Pennant
         [217723] = true, -- Fury of Xuen
         [217724] = true, -- Kindness of Chi-ji
         [217725] = true, -- Essence of Yu'lon
@@ -1184,10 +1174,6 @@ ADDON.db.source = {
         [164310] = true, -- Glorious Pennant
         [169297] = true, -- Stormpike Insignia
         [169298] = true, -- Frostwolf Insignia
-        [206267] = true, -- Obsidian Legend's Pennant
-        [206343] = true, -- Crimson Legend's Pennant
-        [210497] = true, -- Verdant Legend's Pennant
-        [211869] = true, -- Draconic Legend's Pennant
         [225933] = true, -- Forged Legend's Pennant
         [225969] = true, -- Forged Flag of Victory
         [227538] = true, -- Unbound Legend's Pennant
@@ -1300,28 +1286,16 @@ ADDON.db.source = {
 
     ["Promotion"] = {
         [33079] = true, -- Murloc Costume
-        [142542] = true, -- Tome of Town Portal
-        [143543] = true, -- Twelve-String Guitar
         [158149] = true, -- Overtuned Corgi Goggles
         [163986] = true, -- Orgrimmar Hero's War Banner --Blizzcon 2018
         [163987] = true, -- Stormwind Champion's War Banner  --Blizzcon 2018
         [172179] = true, -- Eternal Traveler's Hearthstone - Shadowlands Epic Edition
         [186501] = true, -- Doomwalker Trophy Stand
         [193588] = true, -- Timewalker's Hearthstone - Dragonflight Epic Edition
-        [203716] = true, -- Thundering Banner of the Aspects
-        [208057] = true, -- Smoldering Banner of the Aspects
         [208704] = true, -- Deepdweller's Earthen Hearthstone - War Within Epic Edition
         [208883] = true, -- Sandbox Storm Gryphon - War Within Epic Edition
         [210042] = true, -- Chilling Celebration Banner
-        [211424] = true, -- Dreaming Banner of the Aspects
-        [212337] = true, -- Stone of the Hearth
         [216893] = true, -- Goblin Town-in-a-Box -- Cata Classic Epic Edition
-
-        -- MDI
-        [187834] = true, -- Tormented Banner of the Opportune
-        [187957] = true, -- Encrypted Banner of the Opportune
-        [187958] = true, -- Shrouded Banner of the Opportune
-        [218128] = true, -- Draconic Banner of the Aspects
 
         -- Trading Card Game
         [32542] = true, -- Imp in a Ball
@@ -1355,6 +1329,29 @@ ADDON.db.source = {
         [202859] = true, -- Warcraft Rumble Toy: Undead Ghoul
         [202862] = true, -- Warcraft Rumble Toy: Murloc
         [202865] = true, -- Warcraft Rumble Toy: Whelp Egg
+    },
+
+    ["Unavailable"] = {
+        -- from: https://warcraft-secrets.com/guides/hidden-toys#Legacy_Toys
+
+        [54651] = true, -- Gnomeregan Pride
+        [54653] = true, -- Darkspear Pride
+        [89205] = true, -- Mini Mana Bomb
+        [142542] = true, -- Tome of Town Portal
+        [143543] = true, -- Twelve-String Guitar
+        [187834] = true, -- Tormented Banner of the Opportune
+        [187957] = true, -- Encrypted Banner of the Opportune
+        [187958] = true, -- Shrouded Banner of the Opportune
+        [203716] = true, -- Thundering Banner of the Aspects
+        [206008] = true, -- Nightmare Banner
+        [206267] = true, -- Obsidian Legend's Pennant
+        [206343] = true, -- Crimson Legend's Pennant
+        [208057] = true, -- Smoldering Banner of the Aspects
+        [210497] = true, -- Verdant Legend's Pennant
+        [211424] = true, -- Dreaming Banner of the Aspects
+        [211869] = true, -- Draconic Legend's Pennant
+        [212337] = true, -- Stone of the Hearth
+        [218128] = true, -- Draconic Banner of the Aspects
     },
 }
 
