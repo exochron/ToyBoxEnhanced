@@ -1,5 +1,9 @@
 local _, ADDON = ...
 
+if not MenuUtil then
+    return
+end
+
 local SETTING_COLLECTED = "collected"
 local SETTING_ONLY_FAVORITES = "onlyFavorites"
 local SETTING_NOT_COLLECTED = "notCollected"
@@ -80,7 +84,7 @@ local function CreateFilter(root, text, filterKey, filterSettings, withOnly)
 
             onlyButton:SetNormalFontObject("GameFontHighlight")
             onlyButton:SetHighlightFontObject("GameFontHighlight")
-            onlyButton:SetText(ADDON.L.FILTER_ONLY)
+            onlyButton:SetText(" "..ADDON.L.FILTER_ONLY)
             onlyButton:SetSize(onlyButton:GetTextWidth(), 20)
             onlyButton:SetPoint("RIGHT")
 
@@ -301,7 +305,9 @@ local function SetupSourceMenu(root)
         "Fishing",
     }
     for _, index in ipairs(professionOrder) do
-        CreateFilter(professions, ADDON.L[index], index, ADDON.settings.filter[SETTING_PROFESSION], resetSettings)
+        if ADDON.db.profession[index] then
+            CreateFilter(professions, ADDON.L[index], index, ADDON.settings.filter[SETTING_PROFESSION], resetSettings)
+        end
     end
 
     local worldEvents = root:CreateCheckbox(BATTLE_PET_SOURCE_7, function()
@@ -343,7 +349,9 @@ local function SetupSourceMenu(root)
         "Feast of Winter Veil",
     }
     for _, index in ipairs(eventOrder) do
-        CreateFilter(worldEvents, ADDON.L[index], index, ADDON.settings.filter[SETTING_WORLD_EVENT], resetSettings)
+        if ADDON.db.worldEvent[index] then
+            CreateFilter(worldEvents, ADDON.L[index], index, ADDON.settings.filter[SETTING_WORLD_EVENT], resetSettings)
+        end
     end
 
     local sourceOrder = {
@@ -365,7 +373,9 @@ local function SetupSourceMenu(root)
         "Unavailable",
     }
     for _, index in ipairs(sourceOrder) do
-        CreateFilter(root, ADDON.L[index], index, ADDON.settings.filter[SETTING_SOURCE], resetSettings)
+        if ADDON.db.source[index] then
+            CreateFilter(root, ADDON.L[index], index, ADDON.settings.filter[SETTING_SOURCE], resetSettings)
+        end
     end
 end
 
