@@ -80,7 +80,7 @@ ADDON.Events:RegisterCallback("OnLoadUI", function ()
     end
     local toysFrame = CreateCountFrame(L["Toys"], updateToysFrame)
     ADDON.Events:RegisterCallback("OnFiltered", function ()
-        updateToysFrame(toysFrame)
+        toysFrame.counter:SetText(generateText(updateToysFrame(toysFrame)))
     end, "filtered-count")
 
     CreateCountFrame(L["Usable"], count):SetPoint("TOPLEFT", ToyBox, 70, -41)
