@@ -1,6 +1,6 @@
 local ADDON_NAME, ADDON = ...
 
--- TODO: use modern Settings Api
+-- LATER: use vertical Settings layout, when apis are same in classic and retail (e.g. Settings.RegisterAddOnSetting; Settings.CreateCheckBox != Settings.CreateCheckbox)
 
 -- WARNING: Also look into ResetUISettings() on new elements
 

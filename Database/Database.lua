@@ -970,6 +970,7 @@ ADDON.db.source = {
         [228706] = true, -- Rockslidomancer's Stone
         [228707] = true, -- Trial of Burning Light
         [228914] = true, -- Arachnophile Spectacles
+        [228940] = true, -- Notorious Thread's Hearthstone
     },
 
     ["Instance"] = {
@@ -1107,6 +1108,7 @@ ADDON.db.source = {
         -- War within Renown
         [228698] = true, -- Candleflexer's Dumbbell
         [228707] = true, -- Trial of Burning Light
+        [228940] = true, -- Notorious Thread's Hearthstone
     },
 
     ["Achievement"] = {
@@ -1650,6 +1652,7 @@ ADDON.db.effect = {
             [223146] = true, -- Satchel of Stormborn Seeds
             [221964] = true, -- Filmless Camera
             [224552] = true, -- Cave Spelunker's Torch
+            [225547] = true, -- Toxic Victory
             [228413] = true, -- Lampyridae Caller
         },
 
@@ -1984,6 +1987,7 @@ ADDON.db.effect = {
             [206347] = true, -- Mannequin Charm
             [221962] = true, -- Defective Escape Pod
             [225659] = true, -- Arathi Book Collection
+            [228706] = true, -- Rockslidomancer's Stone
         },
 
     },
@@ -2035,6 +2039,7 @@ ADDON.db.effect = {
             [187140] = true, -- Ring of Duplicity
             [187159] = true, -- Shadow Slicing Shortsword
             [200148] = true, -- A Collection Of Me
+            [224251] = true, -- Memory Chord
         },
 
         -- Controlled explosives
@@ -2122,9 +2127,11 @@ ADDON.db.effect = {
             [208058] = true, -- Minute Glas
             [210411] = true, -- Fast Growing Seed
             [210725] = true, -- Owl Post
+            [211931] = true, -- Abyss Caller Horn
             [211946] = true, -- Hearthstone Game Table
             [219403] = true, -- Stonebound Lantern
             [220692] = true, -- X-treme Water Blaster Display
+            [228707] = true, -- Trial of Burning Light
         },
 
         ["Weather"] = {
@@ -2303,6 +2310,7 @@ ADDON.db.effect = {
             [208825] = true, -- Junior Timekeeper's Racing Belt
             [219387] = true, -- Barrel of Fireworks
             [223312] = true, -- Trusty Hat
+            [228707] = true, -- Trial of Burning Light
         }
     },
 
@@ -2459,7 +2467,7 @@ ADDON.db.effect = {
         },
 
         -- Unlocks flight paths
-        ["Flight Path"] = {
+        ["Maps"] = {
             [150743] = true, -- Scouting Map: Surviving Kalimdor
             [150744] = true, -- Scouting Map: Walking Kalimdor with the Earthmother
             [150745] = true, -- Scouting Map: The Azeroth Campaign
@@ -2472,6 +2480,7 @@ ADDON.db.effect = {
             [187898] = true, -- Scouting Map: True Cost of the Northrend Campaign
             [187899] = true, -- Scouting Map: The Many Curiosities of Outland
             [187900] = true, -- Scouting Map: The Wonders of Kul Tiras and Zandalar
+            [212174] = true, -- The Warband Map to Everywhere All At Once
         },
 
         -- https://wow.tools/dbc/?dbc=spellcategories#page=1&colFilter[2]=1176
@@ -2505,6 +2514,7 @@ ADDON.db.effect = {
             [209035] = true, -- Hearthstone of the Flame
             [208704] = true, -- Deepdweller's Earthen Hearthstone
             [210455] = true, -- Draenic Hologem
+            [228940] = true, -- Notorious Thread's Hearthstone
         },
 
         ["Jump"] = {
