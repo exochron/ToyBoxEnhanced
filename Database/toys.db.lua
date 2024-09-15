@@ -977,4 +977,5 @@ ADDON.db.ingameList = {
 [228706] = false, -- Rockslidomancer's Stone
 [228707] = false, -- Trial of Burning Light
 [228914] = false, -- Arachnophile Spectacles
+[228940] = false, -- Notorious Thread's Hearthstone
 }
