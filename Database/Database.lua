@@ -5,11 +5,20 @@ local isClassic = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
 ADDON.db = {}
 
 if isClassic then
-    ADDON.db.Recent = {
-        ["minID"] = 54654,
-        ["blacklist"] = { 198647, 184871},
-        ["whitelist"] = { 40727, 46709, 53057},
-    }
+    -- todo: remove after firelands are live
+    if select(4, GetBuildInfo()) <= 40400 then
+        ADDON.db.Recent = {
+            ["minID"] = 54654,
+            ["blacklist"] = { 198647, 184871},
+            ["whitelist"] = { 40727, 46709, 53057},
+        }
+    else
+        ADDON.db.Recent = {
+            ["minID"] = 70159,
+            ["blacklist"] = { 198647, 184871, 216893},
+            ["whitelist"] = { },
+        }
+    end
 else
     ADDON.db.Recent = {
         ["minID"] = 218310,
