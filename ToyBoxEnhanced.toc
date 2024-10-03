@@ -34,5 +34,6 @@ UI\Hotkeys.lua
 UI\OptionsMenu.lua
 UI\RandomToyButton.lua
 UI\ToyCount.lua
+UI\LDB-Favorites.lua
 SlashCommand.lua
 AddonCompartment.lua
