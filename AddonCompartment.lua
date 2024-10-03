@@ -8,7 +8,7 @@ AddonCompartmentFrame:RegisterAddon({
     func = function(_, inputData)
         if inputData.buttonName == "RightButton" then
             ADDON:OpenSettings()
-        else
+        elseif not InCombatLockdown() then
             ToggleCollectionsJournal(COLLECTIONS_JOURNAL_TAB_INDEX_TOYS)
         end
     end,
