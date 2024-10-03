@@ -2,7 +2,7 @@
 This addon extends the ingame toy box with some cool stuff.
 
 ### Features
-- __new:__ Support for ElvUI
+- __new:__ Integrated Data broker plugin to access your favorite toys more quickly 
 - Filter toys by Effect, Source, Faction and Expansion
 - Show toys, which are normally hidden by the game
 - Search also in toy description (like search for "post" and find [Katy's Stampwhistle] ;)
@@ -15,6 +15,7 @@ This addon extends the ingame toy box with some cool stuff.
 - Use a random favored toy
 - Favor all filtered toys at once or unset them all
 - Save favorites per character
+- Supports ElvUI
 
 ### Known Limitations
 For technical reasons it's not possible to use some enhanced features during combat.
