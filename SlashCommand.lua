@@ -22,6 +22,8 @@ end
 if not SLASH_TOYS1 then
     SLASH_TOYS1 = '/toys'
     function SlashCmdList.TOYS()
-        ToggleCollectionsJournal(3);
+        if not InCombatLockdown() then
+            ToggleCollectionsJournal(COLLECTIONS_JOURNAL_TAB_INDEX_TOYS)
+        end
     end
 end
