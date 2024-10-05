@@ -166,12 +166,24 @@ function TBE_ToySpellButton_UpdateButton(self)
     toyString:Show();
 end
 
+local function toggleLayer(show)
+    ToyBox.EnhancedLayer:SetShown(show)
+
+    if not InCombatLockdown() then
+        ToyBox.PagingFrame:SetShown(not show)
+        for i = 1, 18 do
+            ToyBox.iconsFrame["spellButton"..i]:SetShown(not show)
+        end
+    end
+end
+
 function ADDON.UI:UpdateButtons()
     HelpTip:Hide(ToyBox, TOYBOX_FAVORITE_HELP);
     for i = 1, ADDON.TOYS_PER_PAGE do
         local button = ToyBox.EnhancedLayer["spellButton" .. i];
         TBE_ToySpellButton_UpdateButton(button);
     end
+    toggleLayer(ToyBox.EnhancedLayer:IsShown())
 end
 function ADDON.UI:UpdatePages()
     local maxPages = 1 + math.floor( math.max((ADDON.DataProvider:GetSize() - 1), 0) / ADDON.TOYS_PER_PAGE)
@@ -185,7 +197,6 @@ local function SkinElvUI(layer)
         local S = E:GetModule('Skins')
 
         layer:StripTextures()
-        layer.BackgroundTile:SetColorTexture(0,0,0,1)
 
         S:HandleNextPrevButton(layer.PagingFrame.NextPageButton, nil, nil, true)
         S:HandleNextPrevButton(layer.PagingFrame.PrevPageButton, nil, nil, true)
@@ -221,6 +232,8 @@ ADDON.Events:RegisterCallback("PreLoadUI", function()
     local layer = CreateFrame("Frame", nil, ToyBox, "TBEButtonFrameTemplate")
     layer:SetFrameStrata("DIALOG")
     layer:SetFrameLevel(555)
+    layer:SetPoint("TOPLEFT", 4, -60)
+    layer:SetPoint("BOTTOMRIGHT", -6, 5)
 
     SkinElvUI(layer)
 
@@ -231,8 +244,8 @@ ADDON.Events:RegisterCallback("PreLoadUI", function()
 
     layer:RegisterEvent("PLAYER_REGEN_ENABLED")
     layer:RegisterEvent("PLAYER_REGEN_DISABLED")
-    layer:SetScript("OnEvent", function(self)
-        self:SetShown(not InCombatLockdown())
+    layer:SetScript("OnEvent", function(_, event)
+        toggleLayer(event == "PLAYER_REGEN_ENABLED")
     end)
 
     ToyBox:HookScript("OnMouseWheel", function(_, value)
@@ -248,7 +261,7 @@ ADDON.Events:RegisterCallback("PreLoadUI", function()
         end)
     end
 
-    layer:SetShown(not InCombatLockdown())
+    toggleLayer(not InCombatLockdown())
 
     hooksecurefunc("ToyBox_UpdatePages", ADDON.UI.UpdatePages)
     hooksecurefunc("ToyBox_UpdateButtons", ADDON.UI.UpdateButtons)
