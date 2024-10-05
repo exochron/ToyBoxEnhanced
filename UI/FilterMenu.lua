@@ -63,6 +63,26 @@ local function HasUserHiddenToys()
     return false
 end
 
+local function AddIcon(menuButton, texture, width, height, left, right, top, bottom)
+    menuButton:AddInitializer(function(button)
+        width = width or 20
+        height = height or width or 20
+
+        if button.leftTexture1 and button.fontString then
+            local icon = button:AttachTexture()
+            icon:SetTexture(texture)
+            icon:SetTexCoord(left or 0, right or 1, top or 0, bottom or 1)
+            icon:SetSize(width, height)
+
+            icon:ClearAllPoints()
+            icon:SetPoint("LEFT", button.leftTexture1, "RIGHT", 3, 0)
+
+            button.fontString:ClearAllPoints()
+            button.fontString:SetPoint("LEFT", icon, "RIGHT", 3, -1)
+        end
+    end)
+end
+
 local function CreateFilter(root, text, filterKey, filterSettings, withOnly)
     if not filterSettings then
         filterSettings = ADDON.settings.filter
@@ -379,6 +399,32 @@ local function SetupSourceMenu(root)
     end
 end
 
+local function setupExpansionMenu(root)
+    local settings = ADDON.settings.filter[SETTING_EXPANSION]
+    AddAllAndNone(root, settings)
+
+    -- icons from: https://warcraft.wiki.gg/wiki/Expansion
+    local icons = {
+        [0] = "Interface\\Addons\\ToyBoxEnhanced\\UI\\icons\\expansion\\00_wow.png",
+        [1] = "Interface\\Addons\\ToyBoxEnhanced\\UI\\icons\\expansion\\01_bc.png",
+        [2] = "Interface\\Addons\\ToyBoxEnhanced\\UI\\icons\\expansion\\02_wrath.png",
+        [3] = "Interface\\Addons\\ToyBoxEnhanced\\UI\\icons\\expansion\\03_cata.png",
+        [4] = "Interface\\Addons\\ToyBoxEnhanced\\UI\\icons\\expansion\\04_mists.png",
+        [5] = "Interface\\Addons\\ToyBoxEnhanced\\UI\\icons\\expansion\\05_wod.png",
+        [6] = "Interface\\Addons\\ToyBoxEnhanced\\UI\\icons\\expansion\\06_legion.png",
+        [7] = "Interface\\Addons\\ToyBoxEnhanced\\UI\\icons\\expansion\\07_bfa.png",
+        [8] = "Interface\\Addons\\ToyBoxEnhanced\\UI\\icons\\expansion\\08_sl.png",
+        [9] = "Interface\\Addons\\ToyBoxEnhanced\\UI\\icons\\expansion\\09_df.png",
+        [10] = "Interface\\Addons\\ToyBoxEnhanced\\UI\\icons\\expansion\\10_tww.png",
+    }
+    for i = GetClientDisplayExpansionLevel(), 0,-1 do
+        if _G["EXPANSION_NAME" .. i] then
+            local button = CreateFilter(root, _G["EXPANSION_NAME" .. i], i, settings, true)
+            AddIcon(button, icons[i] or 0, 50, 16, 0.109375, 0.890625, 0, 1)
+        end
+    end
+end
+
 local function SetupFilterMenu(dropdown, root)
     local L = ADDON.L
 
@@ -423,14 +469,7 @@ local function SetupFilterMenu(dropdown, root)
     CreateFilter(faction, FACTION_HORDE, "horde", ADDON.settings.filter[SETTING_FACTION])
     CreateFilter(faction, NPC_NAMES_DROPDOWN_NONE, "noFaction", ADDON.settings.filter[SETTING_FACTION])
 
-    local expansions = root:CreateButton(EXPANSION_FILTER_TEXT)
-    AddAllAndNone(expansions, ADDON.settings.filter[SETTING_EXPANSION])
-    --todo: use expansion icons/textures
-    for i = GetClientDisplayExpansionLevel(), 0,-1 do
-        if _G["EXPANSION_NAME" .. i] then
-            CreateFilter(expansions, _G["EXPANSION_NAME" .. i], i, ADDON.settings.filter[SETTING_EXPANSION], true)
-        end
-    end
+    setupExpansionMenu(root:CreateButton(EXPANSION_FILTER_TEXT))
 
     root:CreateSpacer()
 
