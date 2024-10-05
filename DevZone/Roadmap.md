@@ -1,12 +1,14 @@
 ### TODOs:
  - [x] LDB: Favorites
- - [ ] maybe toggle enhanced layer and original buttons with entering/exiting combat. so layer doesn't need a background. (beware of taint!)
+ - [x] maybe toggle enhanced layer and original buttons with entering/exiting combat. so layer doesn't need a background. (beware of taint!)
  - [x] update toy count while filtering
  - [ ] add autofavor
  - [ ] write unit tests
  - [ ] proper indeterminate icon for filter submenus
- - [ ] expansion icons for filter menu
+ - [x] expansion icons for filter menu
  - [ ] no more available filter
+ - [ ] icons in filter menu
+ - [ ] favorite profiles
  - after 4.4.1:
     - [ ] remove UIFixes
     - [ ] remove old dropdown menus
