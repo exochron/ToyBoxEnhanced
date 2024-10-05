@@ -169,16 +169,7 @@
     </CheckButton>
 
     <!-- from Toybox.iconsFrame -->
-    <Frame name="TBEButtonFrameTemplate" parentKey="EnhancedLayer" inherits="CollectionsBackgroundTemplate" virtual="true" enablemouse="true">
-        <Layers>
-            <Layer level="BORDER" textureSubLevel="1">
-                <Texture parentKey="watermark" atlas="collections-watermark-toy" useAtlasSize="true">
-                    <Anchors>
-                        <Anchor point="BOTTOMRIGHT" relativePoint="BOTTOMRIGHT" x="-25" y="17"/>
-                    </Anchors>
-                </Texture>
-            </Layer>
-        </Layers>
+    <Frame name="TBEButtonFrameTemplate" parentKey="EnhancedLayer" virtual="true" enablemouse="true">
         <!-- Toy Buttons -->
         <Frames>
             <Frame parentKey="PagingFrame" inherits="CollectionsPagingFrameTemplate">

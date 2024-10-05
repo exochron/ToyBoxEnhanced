@@ -88,7 +88,7 @@ local function CreateFilter(root, text, filterKey, filterSettings, withOnly)
             onlyButton:SetSize(onlyButton:GetTextWidth(), 20)
             onlyButton:SetPoint("RIGHT")
 
-            onlyButton:SetScript("OnClick", function(self, ...)
+            onlyButton:SetScript("OnClick", function()
                 setAllSettings(onlySettings, false)
                 filterSettings[filterKey] = true
                 ADDON:FilterToys()
@@ -272,7 +272,7 @@ local function SetupSourceMenu(root)
     AddAllAndNone(root, resetSettings)
 
     local professions = root:CreateCheckbox(BATTLE_PET_SOURCE_4, function()
-        local settingHasTrue, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_PROFESSION])
+        local settingHasTrue, _ = CheckSetting(ADDON.settings.filter[SETTING_PROFESSION])
         return settingHasTrue
     end, function()
         local _, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_PROFESSION])
@@ -311,7 +311,7 @@ local function SetupSourceMenu(root)
     end
 
     local worldEvents = root:CreateCheckbox(BATTLE_PET_SOURCE_7, function()
-        local settingHasTrue, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_WORLD_EVENT])
+        local settingHasTrue, _ = CheckSetting(ADDON.settings.filter[SETTING_WORLD_EVENT])
         return settingHasTrue
     end, function()
         local _, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_WORLD_EVENT])
@@ -442,16 +442,55 @@ local function SetupFilterMenu(dropdown, root)
     end))
 end
 
+local function skinElvUI(filterDropdown)
+    if ElvUI and ToyBox.PagingFrame.NextPageButton.IsSkinned then
+        local E = unpack(ElvUI)
+        local S = E:GetModule('Skins')
+
+        S:HandleButton(filterDropdown, nil, nil, nil, nil, nil, nil, nil, nil, nil, nil, true, 'right')
+        filterDropdown:Point('LEFT', ToyBox.searchBox, 'RIGHT', 2, 0)
+        S:HandleCloseButton(filterDropdown.ResetButton)
+        filterDropdown.ResetButton:ClearAllPoints()
+        filterDropdown.ResetButton:Point('CENTER', filterDropdown, 'TOPRIGHT', 0, 0)
+    end
+end
+
 ADDON.Events:RegisterCallback("OnLoadUI", function()
 
-    ToyBox.FilterDropdown:SetIsDefaultCallback(function()
+    local filterDropdown = CreateFrame("DropdownButton", nil, ToyBox, "WowStyle1FilterDropdownTemplate")
+    filterDropdown.resizeToText = false
+
+    filterDropdown:SetAllPoints(ToyBox.FilterDropdown)
+    filterDropdown:Raise()
+
+    filterDropdown:RegisterEvent("PLAYER_REGEN_ENABLED")
+    filterDropdown:RegisterEvent("PLAYER_REGEN_DISABLED")
+    filterDropdown:HookScript("OnEvent", function(self, event)
+        if event == "PLAYER_REGEN_ENABLED" then
+            self:Show()
+            ToyBox.FilterDropdown:Hide()
+        elseif event == "PLAYER_REGEN_DISABLED" then
+            self:Hide()
+            ToyBox.FilterDropdown:Show()
+        end
+    end)
+    filterDropdown:SetShown(not InCombatLockdown())
+    ToyBox.FilterDropdown:SetShown(InCombatLockdown())
+
+    filterDropdown:SetIsDefaultCallback(function()
         return ADDON.IsUsingDefaultFilters()
     end)
-    ToyBox.FilterDropdown:SetDefaultCallback(function()
+    filterDropdown:SetDefaultCallback(function()
         ADDON:ResetFilterSettings()
         ADDON:FilterToys()
     end)
-    ToyBox.FilterDropdown:SetupMenu(SetupFilterMenu)
+    filterDropdown:SetupMenu(SetupFilterMenu)
+    filterDropdown:SetUpdateCallback(function()
+        ADDON.UI:UpdatePages()
+        ADDON.UI:UpdateButtons()
+    end)
+
+    skinElvUI(filterDropdown)
 
     registerVerticalLayoutHook()
 
