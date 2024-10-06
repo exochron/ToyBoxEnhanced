@@ -4,11 +4,12 @@
  - [x] update toy count while filtering
  - [ ] add autofavor
  - [ ] write unit tests
- - [ ] proper indeterminate icon for filter submenus
+ - [x] proper indeterminate icon for filter submenus
  - [x] expansion icons for filter menu
- - [ ] no more available filter
- - [ ] icons in filter menu
+ - [x] no more available filter
+ - [x] icons in filter menu
  - [ ] favorite profiles
+ - [ ] about/attributions page
  - after 4.4.1:
     - [ ] remove UIFixes
     - [ ] remove old dropdown menus
