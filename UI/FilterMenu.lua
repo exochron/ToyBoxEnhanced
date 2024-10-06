@@ -105,8 +105,9 @@ local function CreateFilter(root, text, filterKey, filterSettings, withOnly)
             onlyButton:SetNormalFontObject("GameFontHighlight")
             onlyButton:SetHighlightFontObject("GameFontHighlight")
             onlyButton:SetText(" "..ADDON.L.FILTER_ONLY)
-            onlyButton:SetSize(onlyButton:GetTextWidth(), 20)
+            onlyButton:SetSize(onlyButton:GetTextWidth(), button.fontString:GetHeight())
             onlyButton:SetPoint("RIGHT")
+            onlyButton:SetPoint("BOTTOM", button.fontString)
 
             onlyButton:SetScript("OnClick", function()
                 setAllSettings(onlySettings, false)
@@ -269,6 +270,9 @@ local function SetupEffectMenu(root)
                     end
                 end
             end)
+            local minItem = TableUtil.FindMin(GetKeysArray(select(2, next(ADDON.db.effect[effect]))), function(v) return v end)
+            AddIcon(subMenu, C_Item.GetItemIconByID(minItem))
+
             local sortedSubEffects = {}
             for subeffect, effectIds in pairs(ADDON.db.effect[effect]) do
                 table.insert(sortedSubEffects, subeffect)
@@ -276,22 +280,27 @@ local function SetupEffectMenu(root)
             table.sort(sortedSubEffects, function(a, b)
                 return (L[a] or a) < (L[b] or b)
             end)
-            for _, subfamily in pairs(sortedSubEffects) do
-                CreateFilter(subMenu, L[subfamily] or subfamily, subfamily, settings[effect], settings)
+            for _, subEffect in pairs(sortedSubEffects) do
+                minItem = TableUtil.FindMin(GetKeysArray(ADDON.db.effect[effect][subEffect]), function(v) return v end)
+                AddIcon(CreateFilter(subMenu, L[subEffect] or subEffect, subEffect, settings[effect], settings), C_Item.GetItemIconByID(minItem))
             end
 
         else
-            CreateFilter(root, L[effect] or effect, effect, settings, true)
+            local minItem = TableUtil.FindMin(GetKeysArray(ADDON.db.effect[effect]), function(v) return v end)
+            AddIcon(CreateFilter(root, L[effect] or effect, effect, settings, true), C_Item.GetItemIconByID(minItem))
         end
     end
 end
 
 local function SetupSourceMenu(root)
+    local L = ADDON.L
+    local isClassic = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
+
     local resetSettings = {ADDON.settings.filter[SETTING_SOURCE], ADDON.settings.filter[SETTING_PROFESSION], ADDON.settings.filter[SETTING_WORLD_EVENT]}
 
     AddAllAndNone(root, resetSettings)
 
-    local professions = root:CreateCheckbox(BATTLE_PET_SOURCE_4, function()
+    local professionRoot = root:CreateCheckbox(BATTLE_PET_SOURCE_4, function()
         local settingHasTrue, _ = CheckSetting(ADDON.settings.filter[SETTING_PROFESSION])
         return settingHasTrue
     end, function()
@@ -299,7 +308,8 @@ local function SetupSourceMenu(root)
         SetAllSubFilters(ADDON.settings.filter[SETTING_PROFESSION], settingHasFalse)
         return MenuResponse.Refresh
     end)
-    professions:AddInitializer(function(button)
+    AddIcon(professionRoot, 136241)
+    professionRoot:AddInitializer(function(button)
         if button.leftTexture2 then
             local settingHasTrue, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_PROFESSION])
             if settingHasTrue and settingHasFalse then
@@ -312,25 +322,33 @@ local function SetupSourceMenu(root)
             end
         end
     end)
-    AddAllAndNone(professions, ADDON.settings.filter[SETTING_PROFESSION])
-    local professionOrder = {
-        "Jewelcrafting",
-        "Enchanting",
-        "Engineering",
-        "Inscription",
-        "Leatherworking",
-        "Tailoring",
-        "Archaeology",
-        "Cooking",
-        "Fishing",
+    AddAllAndNone(professionRoot, ADDON.settings.filter[SETTING_PROFESSION])
+    local professionIcons = {
+        ["Jewelcrafting"] = 4620677,
+        ["Enchanting"] = 4620672,
+        ["Engineering"] = 4620673,
+        ["Inscription"] = 4620676,
+        ["Leatherworking"] = 4620678,
+        ["Tailoring"] = 4620681,
+        ["Archaeology"] = 441139,
+        ["Cooking"] = 4620671,
+        ["Fishing"] = 4620674,
     }
-    for _, index in ipairs(professionOrder) do
+    if isClassic then
+        professionIcons["Engineering"] = 136243
+        professionIcons["Fishing"] = 136245
+    end
+    local professions = GetKeysArray(professionIcons)
+    table.sort(professions, function(a, b)
+        return (L[a] or a) < (L[b] or b)
+    end)
+    for _, index in ipairs(professions) do
         if ADDON.db.profession[index] then
-            CreateFilter(professions, ADDON.L[index], index, ADDON.settings.filter[SETTING_PROFESSION], resetSettings)
+            AddIcon(CreateFilter(professionRoot, L[index] or index, index, ADDON.settings.filter[SETTING_PROFESSION], resetSettings), professionIcons[index])
         end
     end
 
-    local worldEvents = root:CreateCheckbox(BATTLE_PET_SOURCE_7, function()
+    local worldEventsRoot = root:CreateCheckbox(BATTLE_PET_SOURCE_7, function()
         local settingHasTrue, _ = CheckSetting(ADDON.settings.filter[SETTING_WORLD_EVENT])
         return settingHasTrue
     end, function()
@@ -338,7 +356,7 @@ local function SetupSourceMenu(root)
         SetAllSubFilters(ADDON.settings.filter[SETTING_WORLD_EVENT], settingHasFalse)
         return MenuResponse.Refresh
     end)
-    worldEvents:AddInitializer(function(button)
+    worldEventsRoot:AddInitializer(function(button)
         if button.leftTexture2 then
             local settingHasTrue, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_WORLD_EVENT])
             if settingHasTrue and settingHasFalse then
@@ -351,8 +369,25 @@ local function SetupSourceMenu(root)
             end
         end
     end)
-    AddAllAndNone(worldEvents, ADDON.settings.filter[SETTING_WORLD_EVENT])
-    local eventOrder = {
+    AddIcon(worldEventsRoot, 236552)
+    AddAllAndNone(worldEventsRoot, ADDON.settings.filter[SETTING_WORLD_EVENT])
+    local worldEventIcons = {
+        ["Timewalking"] = 5228749,
+        ["Darkmoon Faire"] = 134481,
+        ["Lunar Festival"] = 236704,
+        ["Love is in the Air"] = 368564,
+        ["Noblegarden"] = 254858,
+        ["Children's Week"] = 236702,
+        ["Midsummer Fire Festival"] = 134469,
+        ["Secrets of Azeroth"] = 237387,
+        ["Brewfest"] = 133201,
+        ["Hallow's End"] = 236552,
+        ["Day of the Dead"] = 237569,
+        ["Pilgrim's Bounty"] = 250626,
+        ["Pirates' Day"] = 2055035,
+        ["Feast of Winter Veil"] = 133202,
+    }
+    local worldEventOrder = {
         "Timewalking",
         "Darkmoon Faire",
         "Lunar Festival",
@@ -368,9 +403,9 @@ local function SetupSourceMenu(root)
         "Pirates' Day",
         "Feast of Winter Veil",
     }
-    for _, index in ipairs(eventOrder) do
+    for _, index in ipairs(worldEventOrder) do
         if ADDON.db.worldEvent[index] then
-            CreateFilter(worldEvents, ADDON.L[index], index, ADDON.settings.filter[SETTING_WORLD_EVENT], resetSettings)
+            AddIcon(CreateFilter(worldEventsRoot, L[index] or index, index, ADDON.settings.filter[SETTING_WORLD_EVENT], resetSettings), worldEventIcons[index])
         end
     end
 
@@ -386,15 +421,33 @@ local function SetupSourceMenu(root)
         "Order Hall",
         "Garrison",
         "Pick Pocket",
-        "Trading Post",
         "Black Market",
-        "Promotion",
+        "Trading Post",
         "Shop",
+        "Promotion",
         "Unavailable",
+    }
+    local sourceIcons = {
+        ["Treasure"] = 1064187,
+        ["Drop"] = 133639,
+        ["Quest"] = 236669,
+        ["Vendor"] = 133784,
+        ["Instance"] = 254650,
+        ["Reputation"] = 236681,
+        ["Achievement"] = 255347,
+        ["PvP"] = 132487,
+        ["Order Hall"] = 1397630,
+        ["Garrison"] = 1005027,
+        ["Pick Pocket"] = 133644,
+        ["Black Market"] = 626190,
+        ["Trading Post"] = 4696085,
+        ["Shop"] = 1120721,
+        ["Promotion"] = 1418621,
+        ["Unavailable"] = 132293,
     }
     for _, index in ipairs(sourceOrder) do
         if ADDON.db.source[index] then
-            CreateFilter(root, ADDON.L[index], index, ADDON.settings.filter[SETTING_SOURCE], resetSettings)
+            AddIcon(CreateFilter(root, L[index] or index, index, ADDON.settings.filter[SETTING_SOURCE], resetSettings), sourceIcons[index])
         end
     end
 end
@@ -465,9 +518,9 @@ local function SetupFilterMenu(dropdown, root)
     SetupSourceMenu(root:CreateButton(SOURCES))
 
     local faction = root:CreateButton(FACTION)
-    CreateFilter(faction, FACTION_ALLIANCE, "alliance", ADDON.settings.filter[SETTING_FACTION])
-    CreateFilter(faction, FACTION_HORDE, "horde", ADDON.settings.filter[SETTING_FACTION])
-    CreateFilter(faction, NPC_NAMES_DROPDOWN_NONE, "noFaction", ADDON.settings.filter[SETTING_FACTION])
+    AddIcon(CreateFilter(faction, FACTION_ALLIANCE, "alliance", ADDON.settings.filter[SETTING_FACTION]), WOW_PROJECT_ID == WOW_PROJECT_MAINLINE and 2173919 or 463450)
+    AddIcon(CreateFilter(faction, FACTION_HORDE, "horde", ADDON.settings.filter[SETTING_FACTION]), WOW_PROJECT_ID == WOW_PROJECT_MAINLINE and 2173920 or 463451)
+    AddIcon(CreateFilter(faction, NPC_NAMES_DROPDOWN_NONE, "noFaction", ADDON.settings.filter[SETTING_FACTION]), 0)
 
     setupExpansionMenu(root:CreateButton(EXPANSION_FILTER_TEXT))
 
