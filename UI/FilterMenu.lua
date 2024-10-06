@@ -83,6 +83,29 @@ local function AddIcon(menuButton, texture, width, height, left, right, top, bot
     end)
 end
 
+local function setupWithSubmenu(subMenu, settings)
+    subMenu:AddInitializer(function(button)
+        local settingHasTrue, settingHasFalse = CheckSetting(settings)
+        if settingHasTrue and settingHasFalse then
+            local dash
+            if button.leftTexture2 then
+                -- mainline style
+                dash = button.leftTexture2
+                dash:SetPoint("CENTER", button.leftTexture1, "CENTER", 0, 1)
+            else
+                -- classic style
+                dash = button:AttachTexture()
+                dash:SetPoint("CENTER", button.leftTexture1)
+                button.leftTexture1:SetAtlas("common-dropdown-ticksquare-classic", true)
+            end
+
+            dash:SetAtlas("voicechat-icon-loudnessbar-2", true)
+            dash:SetTexCoord(1, 0, 0, 0, 1, 1, 0, 1)
+            dash:SetSize(16, 16)
+        end
+    end)
+end
+
 local function CreateFilter(root, text, filterKey, filterSettings, withOnly)
     if not filterSettings then
         filterSettings = ADDON.settings.filter
@@ -257,19 +280,7 @@ local function SetupEffectMenu(root)
 
                 return MenuResponse.Refresh
             end)
-            subMenu:AddInitializer(function(button)
-                if button.leftTexture2 then
-                    local settingHasTrue, settingHasFalse = CheckSetting(settings[effect])
-                    if settingHasTrue and settingHasFalse then
-                        -- TODO: proper indeterminate icon. like: https://css-tricks.com/indeterminate-checkboxes/
-                        button.leftTexture2:SetAtlas("common-dropdown-icon-radialtick-yellow-classic", TextureKitConstants.UseAtlasSize)
-                        button.leftTexture2:SetAtlas("common-dropdown-icon-radialtick-yellow", TextureKitConstants.UseAtlasSize)
-                    else
-                        button.leftTexture2:SetAtlas("common-dropdown-icon-checkmark-yellow-classic", TextureKitConstants.UseAtlasSize)
-                        button.leftTexture2:SetAtlas("common-dropdown-icon-checkmark-yellow", TextureKitConstants.UseAtlasSize)
-                    end
-                end
-            end)
+            setupWithSubmenu(subMenu, settings[effect])
             local minItem = TableUtil.FindMin(GetKeysArray(select(2, next(ADDON.db.effect[effect]))), function(v) return v end)
             AddIcon(subMenu, C_Item.GetItemIconByID(minItem))
 
@@ -309,19 +320,7 @@ local function SetupSourceMenu(root)
         return MenuResponse.Refresh
     end)
     AddIcon(professionRoot, 136241)
-    professionRoot:AddInitializer(function(button)
-        if button.leftTexture2 then
-            local settingHasTrue, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_PROFESSION])
-            if settingHasTrue and settingHasFalse then
-                -- TODO: proper indeterminate icon. like: https://css-tricks.com/indeterminate-checkboxes/
-                button.leftTexture2:SetAtlas("common-dropdown-icon-radialtick-yellow-classic", TextureKitConstants.UseAtlasSize)
-                button.leftTexture2:SetAtlas("common-dropdown-icon-radialtick-yellow", TextureKitConstants.UseAtlasSize)
-            else
-                button.leftTexture2:SetAtlas("common-dropdown-icon-checkmark-yellow-classic", TextureKitConstants.UseAtlasSize)
-                button.leftTexture2:SetAtlas("common-dropdown-icon-checkmark-yellow", TextureKitConstants.UseAtlasSize)
-            end
-        end
-    end)
+    setupWithSubmenu(professionRoot, ADDON.settings.filter[SETTING_PROFESSION])
     AddAllAndNone(professionRoot, ADDON.settings.filter[SETTING_PROFESSION])
     local professionIcons = {
         ["Jewelcrafting"] = 4620677,
@@ -356,19 +355,7 @@ local function SetupSourceMenu(root)
         SetAllSubFilters(ADDON.settings.filter[SETTING_WORLD_EVENT], settingHasFalse)
         return MenuResponse.Refresh
     end)
-    worldEventsRoot:AddInitializer(function(button)
-        if button.leftTexture2 then
-            local settingHasTrue, settingHasFalse = CheckSetting(ADDON.settings.filter[SETTING_WORLD_EVENT])
-            if settingHasTrue and settingHasFalse then
-                -- TODO: proper indeterminate icon. like: https://css-tricks.com/indeterminate-checkboxes/
-                button.leftTexture2:SetAtlas("common-dropdown-icon-radialtick-yellow-classic", TextureKitConstants.UseAtlasSize)
-                button.leftTexture2:SetAtlas("common-dropdown-icon-radialtick-yellow", TextureKitConstants.UseAtlasSize)
-            else
-                button.leftTexture2:SetAtlas("common-dropdown-icon-checkmark-yellow-classic", TextureKitConstants.UseAtlasSize)
-                button.leftTexture2:SetAtlas("common-dropdown-icon-checkmark-yellow", TextureKitConstants.UseAtlasSize)
-            end
-        end
-    end)
+    setupWithSubmenu(worldEventsRoot, ADDON.settings.filter[SETTING_WORLD_EVENT])
     AddIcon(worldEventsRoot, 236552)
     AddAllAndNone(worldEventsRoot, ADDON.settings.filter[SETTING_WORLD_EVENT])
     local worldEventIcons = {
