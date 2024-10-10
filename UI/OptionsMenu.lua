@@ -6,14 +6,14 @@ local function InitDDMenu(sender, level)
     local info
 
     if itemId and PlayerHasToy(itemId) then
-        local isFavorite = C_ToyBox.GetIsFavorite(itemId)
+        local isFavorite = ADDON.Api:GetIsFavorite(itemId)
 
         if isFavorite then
             info = {
                 notCheckable = true,
                 text = BATTLE_PET_UNFAVORITE,
                 func = function()
-                    C_ToyBox.SetIsFavorite(itemId, false)
+                    ADDON.Api:SetIsFavorite(itemId, false)
                 end
             }
             UIDropDownMenu_AddButton(info, level)
@@ -22,7 +22,7 @@ local function InitDDMenu(sender, level)
                 notCheckable = true,
                 text = BATTLE_PET_FAVORITE,
                 func = function()
-                    C_ToyBox.SetIsFavorite(itemId, true)
+                    ADDON.Api:SetIsFavorite(itemId, true)
                     SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE, true)
                     HelpTip:Hide(ToyBox, TOYBOX_FAVORITE_HELP)
                 end
@@ -63,15 +63,15 @@ end
 
 local function CreateContextMenu(owner, root, itemId)
     if itemId and PlayerHasToy(itemId) then
-        local isFavorite = C_ToyBox.GetIsFavorite(itemId)
+        local isFavorite = ADDON.Api:GetIsFavorite(itemId)
 
         if isFavorite then
             root:CreateButton(BATTLE_PET_UNFAVORITE, function()
-                C_ToyBox.SetIsFavorite(itemId, false)
+                ADDON.Api:SetIsFavorite(itemId, false)
             end)
         else
             root:CreateButton(BATTLE_PET_FAVORITE, function()
-                C_ToyBox.SetIsFavorite(itemId, true)
+                ADDON.Api:SetIsFavorite(itemId, true)
                 SetCVarBitfield("closedInfoFrames", LE_FRAME_TUTORIAL_TOYBOX_FAVORITE, true)
                 HelpTip:Hide(ToyBox, TOYBOX_FAVORITE_HELP)
             end)

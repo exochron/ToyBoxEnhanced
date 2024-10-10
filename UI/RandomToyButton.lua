@@ -20,8 +20,9 @@ local function collectItemIds()
 
     local now = GetTime() + 60
 
-    for itemId in pairs(ADDON.db.ingameList) do
-        if PlayerHasToy(itemId) and C_ToyBox.GetIsFavorite(itemId) and C_ToyBox.IsToyUsable(itemId) then
+    local _,_, favoredToys = ADDON.Api:GetFavoriteProfile()
+    for _, itemId in ipairs(favoredToys) do
+        if C_ToyBox.IsToyUsable(itemId) then
             local startTime, duration = C_Container.GetItemCooldown(itemId)
             if startTime == 0 or (startTime + duration) <= now then
                 items[#items + 1] = itemId
@@ -67,7 +68,7 @@ local function initActionButton()
     actionButton:RegisterEvent("PLAYER_REGEN_ENABLED")
     actionButton:SetScript("OnEvent", updateButtonFavorites)
     actionButton:HookScript("OnClick", updateButtonFavorites)
-    hooksecurefunc(C_ToyBox, "SetIsFavorite", updateButtonFavorites)
+    ADDON.Events:RegisterCallback("OnFavoritesChanged", updateButtonFavorites, "random-favorites")
 end
 
 local function createDisplayButton()

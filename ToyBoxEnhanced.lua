@@ -1,6 +1,7 @@
 local ADDON_NAME, ADDON = ...
 
 ADDON.TOYS_PER_PAGE = 18
+ADDON.Api = {}
 ADDON.UI = {}
 ADDON.DataProvider = CreateDataProvider()
 ADDON.DataProvider:SetSortComparator(function(a, b)

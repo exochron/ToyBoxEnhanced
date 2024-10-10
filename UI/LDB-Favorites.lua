@@ -19,15 +19,20 @@ local function generateMenu(_, root)
     root:SetTag(ADDON_NAME.."-LDB")
     root:SetScrollMode(GetScreenHeight() - 100)
 
-    for index = 1, C_ToyBox.GetNumTotalDisplayedToys() do
-        local itemId = C_ToyBox.GetToyFromIndex(index)
-        local _, name, icon, isFavorite = C_ToyBox.GetToyInfo(itemId)
-        if isFavorite and name and icon then
+    local _, _, favoredToys = ADDON.Api:GetFavoriteProfile()
+    local sortedToys = CopyTable(favoredToys)
+    table.sort(sortedToys, function(a, b)
+        return (C_Item.GetItemNameByID(a) or "") < (C_Item.GetItemNameByID(b) or "")
+    end)
+
+    for _, itemId in ipairs(sortedToys) do
+        local _, name, icon = C_ToyBox.GetToyInfo(itemId)
+        if name and icon then
             local element = root:CreateButton("|T" .. icon .. ":0|t "..name)
             element:SetOnEnter(function(frame)
                 actionButton:SetAttribute("toy", itemId)
-                actionButton:SetParent(button)
-                actionButton:SetAllPoints(button)
+                actionButton:SetParent(frame)
+                actionButton:SetAllPoints(frame)
                 actionButton:SetFrameStrata("FULLSCREEN_DIALOG")
                 actionButton:SetFrameLevel(600)
                 actionButton:Show()
@@ -42,11 +47,8 @@ local function generateMenu(_, root)
                 GameTooltip:Hide()
                 actionButton:Hide()
             end)
-        else
-            break
         end
     end
-
 end
 
 ADDON.Events:RegisterCallback("OnLogin", function()
@@ -57,24 +59,14 @@ ADDON.Events:RegisterCallback("OnLogin", function()
 
     actionButton = buildActionButton()
 
-    local function count()
-        local owned = 0
-
-        for itemId, valid in pairs(ADDON.db.ingameList) do
-            if valid and PlayerHasToy(itemId) then
-                owned = owned + 1
-            end
-        end
-
-        return owned
-    end
-
     local menu
+
+    local _, profileName = ADDON.Api:GetFavoriteProfile()
 
     local ldbDataObject = ldb:NewDataObject( ADDON_NAME.." Favorites", {
         type = "data source",
-        text = count(),
-        label = COLLECTED,
+        text = profileName,
+        label = ADDON.L.FAVORITE_PROFILE,
         icon = "Interface\\Icons\\Trade_Archaeology_ChestofTinyGlassAnimals",
 
         OnClick = function(_, button)
@@ -87,7 +79,7 @@ ADDON.Events:RegisterCallback("OnLogin", function()
 
         OnEnter = function(frame)
             menu = nil
-            if C_ToyBox.HasFavorites() and MenuUtil and not InCombatLockdown() then
+            if ADDON.Api:HasFavorites() and MenuUtil and not InCombatLockdown() then
                 local elementDescription = MenuUtil.CreateRootMenuDescription(MenuVariants.GetDefaultContextMenuMixin())
 
                 Menu.PopulateDescription(generateMenu, frame, elementDescription)
@@ -100,6 +92,8 @@ ADDON.Events:RegisterCallback("OnLogin", function()
                         end
                     end) -- OnLeave gets reset every time
                 end
+            else
+                -- todo show tooltip to setup favorites
             end
         end,
 
@@ -110,9 +104,9 @@ ADDON.Events:RegisterCallback("OnLogin", function()
         end
     } )
 
-    actionButton:RegisterEvent("TOYS_UPDATED")
-    actionButton:SetScript("OnEvent", function()
-        ldbDataObject.text = count()
-    end)
+    ADDON.Events:RegisterCallback("OnFavoriteProfileChanged", function()
+        local _, profileName = ADDON.Api:GetFavoriteProfile()
+        ldbDataObject.text = profileName
+    end, "ldb-favorites")
 
 end, "ldb-plugin")

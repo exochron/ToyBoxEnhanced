@@ -116,7 +116,7 @@ function TBE_ToySpellButton_UpdateButton(self)
             slotFrameUncollectedInnerGlow:Show();
         end
 
-        if (C_ToyBox.GetIsFavorite(itemID)) then
+        if (ADDON.Api:GetIsFavorite(itemID)) then -- overwrite
             iconFavoriteTexture:Show();
         else
             iconFavoriteTexture:Hide();

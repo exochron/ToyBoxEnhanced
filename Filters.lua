@@ -56,7 +56,7 @@ local function FilterCollectedToys(itemId)
 end
 
 local function FilterFavoriteToys(itemId)
-    return not ADDON.settings.filter.onlyFavorites or not ADDON.settings.filter.collected or C_ToyBox.GetIsFavorite(itemId)
+    return not ADDON.settings.filter.onlyFavorites or not ADDON.settings.filter.collected or ADDON.Api:GetIsFavorite(itemId)
 end
 
 local function FilterUsableToys(itemId)
