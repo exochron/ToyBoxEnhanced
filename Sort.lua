@@ -15,7 +15,8 @@ local function CacheToy(itemId)
         setTimer = true
     end
 
-    local _, name, _, isFavorite = C_ToyBox.GetToyInfo(itemId)
+    local _, name = C_ToyBox.GetToyInfo(itemId)
+    local isFavorite = ADDON.Api:GetIsFavorite(itemId)
 
     cache[itemId] = { name, isFavorite}
 

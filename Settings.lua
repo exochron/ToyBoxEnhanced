@@ -1,6 +1,7 @@
 local _, ADDON = ...
 
 ToyBoxEnhancedSettings = ToyBoxEnhancedSettings or {}
+ToyBoxEnhancedGlobalSettings = ToyBoxEnhancedGlobalSettings or {}
 local defaultFilterStates, defaultSortStates
 
 function ADDON:IsUsingDefaultFilters()
@@ -17,18 +18,17 @@ function ADDON:ResetSortSettings()
 end
 
 function ADDON:ResetUISettings()
-    ADDON.settings.enableCursorKeys = true
-    ADDON.settings.searchInDescription = true
-    ADDON.settings.favoritePerChar = false
+    ADDON.settings.ui.enableCursorKeys = true
+    ADDON.settings.ui.searchInDescription = true
 end
 
-local function PrepareDefaults()
+local function PreparePersonalDefaults()
     local defaultSettings = {
-        debugMode = false,
-        enableCursorKeys = true,
-        searchInDescription = true,
-        favoritePerChar = false,
-        favoredToys = {},
+        ui = {
+            debugMode = false,
+            enableCursorKeys = true,
+            searchInDescription = true,
+        },
         hiddenToys = {},
         filter = {
             collected = true,
@@ -87,11 +87,25 @@ local function PrepareDefaults()
     return defaultSettings
 end
 
+local function PrepareGlobalSettings()
+    return {
+        ["favorites"] = {
+            ["assignments"] = {},
+            ["profiles"] = {
+                {
+                    ["name"] = "Global",
+                    ["toys"] = {},
+                }
+            },
+        }
+    }
+end
+
 local function CombineSettings(settings, defaultSettings)
     for key, value in pairs(defaultSettings) do
-        if (settings[key] == nil) then
+        if settings[key] == nil then
             settings[key] = value;
-        elseif (type(value) == "table") and next(value) ~= nil then
+        elseif type(value) == "table" and next(value) ~= nil then
             if type(settings[key]) ~= "table" then
                 settings[key] = {}
             end
@@ -99,19 +113,72 @@ local function CombineSettings(settings, defaultSettings)
         end
     end
 
-    -- cleanup old still existing settings
-    for key, _ in pairs(settings) do
-        if (defaultSettings[key] == nil) then
-            settings[key] = nil;
+    if type(next(settings)) ~= "number" then
+        -- cleanup old still existing settings
+        for key, _ in pairs(settings) do
+            if defaultSettings[key] == nil then
+                settings[key] = nil;
+            end
         end
     end
 end
 
+--region Migrations
+-- Later: remove after 2025-10
+local function MigrateToUIStructure(settings, defaults)
+    if not settings["ui"] then
+        local ui = {}
+        for k, _ in pairs(defaults.ui) do
+            if nil ~= settings[k] then
+                ui[k] = settings[k]
+            end
+        end
+        settings["ui"] = ui
+    end
+end
+-- Later: remove after 2025-10
+local function MigrateToFavoriteProfiles(settings, globalSettings)
+    if false == settings.favoritePerChar and 0 == #globalSettings["favorites"]["profiles"][1] then
+        for itemId in pairs(ADDON.db.ingameList) do
+            if PlayerHasToy(itemId) and C_ToyBox.GetIsFavorite(itemId) then
+                table.insert(globalSettings["favorites"]["profiles"][1], itemId)
+            end
+        end
+
+    elseif settings.favoritePerChar and settings.favoredToys then
+        local playerGuid = UnitGUID("player")
+        if nil == globalSettings["favorites"]["assignments"][playerGuid] then
+            local player, realm = UnitFullName("player")
+            local profile = {
+                ["name"] = player.."-"..realm,
+                ["toys"] = settings.favoredToys,
+            }
+            table.insert(globalSettings["favorites"]["profiles"], profile)
+            local profileId = #globalSettings["favorites"]["profiles"]
+            globalSettings["favorites"]["assignments"][playerGuid] = profileId
+        end
+    end
+end
+--endregion
+
 -- Settings have to be loaded during PLAYER_LOGIN
 ADDON.Events:RegisterCallback("OnInit", function()
-    local defaultSettings = PrepareDefaults()
-    defaultFilterStates = CopyTable(defaultSettings.filter)
-    defaultSortStates = CopyTable(defaultSettings.sort)
-    CombineSettings(ToyBoxEnhancedSettings, defaultSettings)
-    ADDON.settings = ToyBoxEnhancedSettings
+    local defaultPersonalSettings = PreparePersonalDefaults()
+    defaultFilterStates = CopyTable(defaultPersonalSettings.filter)
+    defaultSortStates = CopyTable(defaultPersonalSettings.sort)
+
+    CombineSettings(ToyBoxEnhancedGlobalSettings, PrepareGlobalSettings())
+
+    MigrateToUIStructure(ToyBoxEnhancedSettings, defaultPersonalSettings)
+    MigrateToFavoriteProfiles(ToyBoxEnhancedSettings, ToyBoxEnhancedGlobalSettings)
+
+    CombineSettings(ToyBoxEnhancedSettings, defaultPersonalSettings)
+
+    ADDON.settings = {}
+    for k, v in pairs(ToyBoxEnhancedSettings) do
+        ADDON.settings[k] = v
+    end
+    for k, v in pairs(ToyBoxEnhancedGlobalSettings) do
+        ADDON.settings[k] = v
+    end
 end, "settings")

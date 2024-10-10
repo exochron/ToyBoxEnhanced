@@ -8,13 +8,10 @@ local GetSpellName = C_Spell.GetSpellName or GetSpellInfo
 
 L["COMPARTMENT_TOOLTIP"] = "|cffeda55fLeft-Click|r to toggle showing the Toy Box.\n|cffeda55fRight-Click|r to open addon options."
 L["FAVOR_DISPLAYED"] = "All Displayed"
-L["FAVOR_PER_CHARACTER"] = "Per Character"
 L["RANDOM_TOY_DESCRIPTION"] = "The toy will be chosen randomly from your favorites."
 L["RANDOM_TOY_TITLE"] = "Use Random Favorite Toy"
 L["RANDOM_TOY_LOCKED"] = "Please favor at least one collected toy to unlock."
 L["Reset filters"] = "Reset filters"
-L["TASK_END"] = "[TBE] Phew! I'm done."
-L["TASK_FAVOR_START"] = "[TBE] Reapplying stars all over your toys. Please wait a few seconds until I'm finished."
 L["Toys"] = "Toys"
 L["Usable"] = "Usable"
 L["FILTER_HIDDEN_MANUAL"] = "Hidden by me"
@@ -25,10 +22,13 @@ L["FILTER_ONLY"] = "only"
 L["SORT_FAVORITES_FIRST"] = "Favorites First"
 L["SORT_REVERSE"] = "Reverse Sort"
 L["SORT_UNOWNED_AFTER"] = "Unowned at Last"
+L["FAVORITE_PROFILE"] = "Profile"
+L["FAVORITE_ACCOUNT_PROFILE"] = "Account"
+L["ASK_FAVORITE_PROFILE_NAME"] = "Enter Profile Name:"
+L["CONFIRM_FAVORITE_PROFILE_DELETION"] = "Are you sure you want to delete the Profile \"%s\"?"
 
 -- Settings
 L["SETTING_CURSOR_KEYS"] = "Enable Left&Right keys to flip pages"
-L["SETTING_FAVORITE_PER_CHAR"] = "Favorite toys per character"
 L["SETTING_SEARCH_IN_DESCRIPTION"] = "Search also in toy description"
 
 -- Source
