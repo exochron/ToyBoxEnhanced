@@ -4,6 +4,7 @@
 ## IconTexture: Interface\Icons\Trade_Archaeology_ChestofTinyGlassAnimals
 ## Author: eXochron
 ## Version: @project-version@
+## SavedVariables: ToyBoxEnhancedGlobalSettings
 ## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
 ## X-Curse-Project-ID: 87878
 ## X-Wago-ID: pkNMXrGz

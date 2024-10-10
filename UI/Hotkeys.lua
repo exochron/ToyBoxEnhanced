@@ -13,7 +13,7 @@ ADDON.Events:RegisterCallback("OnLoadUI", function()
             return
         end
 
-        if (key == "LEFT" or key == "RIGHT") and ADDON.settings.enableCursorKeys and not IsModifierKeyDown() then
+        if (key == "LEFT" or key == "RIGHT") and ADDON.settings.ui.enableCursorKeys and not IsModifierKeyDown() then
             if key == "LEFT" then
                 ToyBox.EnhancedLayer.PagingFrame:PreviousPage()
             elseif key == "RIGHT" then

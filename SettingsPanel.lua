@@ -24,22 +24,15 @@ local function BuildFrame()
     titleFont:SetJustifyV("TOP")
 
     frame.enableCursorKeysCheck = BuildCheckBox(frame, L.SETTING_CURSOR_KEYS, titleFont, 10)
-    frame.favoritesPerCharCheck = BuildCheckBox(frame, L.SETTING_FAVORITE_PER_CHAR, frame.enableCursorKeysCheck)
-    frame.searchInSpellCheck = BuildCheckBox(frame, L.SETTING_SEARCH_IN_DESCRIPTION, frame.favoritesPerCharCheck)
+    frame.searchInSpellCheck = BuildCheckBox(frame, L.SETTING_SEARCH_IN_DESCRIPTION, frame.enableCursorKeysCheck)
 
     return frame
 end
 
 local function OKHandler(frame)
-    ADDON.settings.enableCursorKeys = frame.enableCursorKeysCheck:GetChecked()
-    ADDON.settings.searchInDescription = frame.searchInSpellCheck:GetChecked()
+    ADDON.settings.ui.enableCursorKeys = frame.enableCursorKeysCheck:GetChecked()
+    ADDON.settings.ui.searchInDescription = frame.searchInSpellCheck:GetChecked()
 
-    if ADDON.settings.favoritePerChar ~= frame.favoritesPerCharCheck:GetChecked() then
-        ADDON.settings.favoritePerChar = frame.favoritesPerCharCheck:GetChecked()
-        if ADDON.settings.favoritePerChar then
-            ADDON:CollectFavoredToys()
-        end
-    end
 end
 
 local categoryID
@@ -47,9 +40,8 @@ local categoryID
 ADDON.Events:RegisterCallback("OnLogin", function()
     local frame = BuildFrame()
     frame.OnRefresh = function()
-        frame.enableCursorKeysCheck:SetChecked(ADDON.settings.enableCursorKeys)
-        frame.favoritesPerCharCheck:SetChecked(ADDON.settings.favoritePerChar)
-        frame.searchInSpellCheck:SetChecked(ADDON.settings.searchInDescription)
+        frame.enableCursorKeysCheck:SetChecked(ADDON.settings.ui.enableCursorKeys)
+        frame.searchInSpellCheck:SetChecked(ADDON.settings.ui.searchInDescription)
     end
     frame.OnCommit = OKHandler
     frame.OnDefault = ADDON.ResetUISettings

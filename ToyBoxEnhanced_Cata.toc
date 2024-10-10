@@ -3,6 +3,7 @@
 ## Notes: Extends the ingame Toy Box
 ## Author: eXochron
 ## Version: @project-version@
+## SavedVariables: ToyBoxEnhancedGlobalSettings
 ## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
 ## X-Curse-Project-ID: 87878
 ## X-Wago-ID: pkNMXrGz
