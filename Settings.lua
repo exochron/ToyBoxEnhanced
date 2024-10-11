@@ -93,7 +93,8 @@ local function PrepareGlobalSettings()
             ["assignments"] = {},
             ["profiles"] = {
                 {
-                    ["name"] = "Global",
+                    ["name"] = "",
+                    ["autoFavor"] = false,
                     ["toys"] = {},
                 }
             },

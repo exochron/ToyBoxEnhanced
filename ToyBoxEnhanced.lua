@@ -19,10 +19,13 @@ ADDON.DataProvider:RegisterCallback("OnSort", function()
     end
 end, ADDON_NAME)
 
--- see: https://www.townlong-yak.com/framexml/ptr/CallbackRegistry.lua
-ADDON.Events = CreateFromMixins(CallbackRegistryMixin)
+-- see: https://www.townlong-yak.com/framexml/live/Blizzard_SharedXML/CallbackRegistry.lua
+ADDON.Events = CreateFromMixins(EventRegistry)
 ADDON.Events:OnLoad()
 ADDON.Events:SetUndefinedEventsAllowed(true)
+ADDON.Events:RegisterFrameEventAndCallback("NEW_TOY_ADDED", function(_, ...)
+    ADDON.DataProvider:Sort()
+end, 'new toy')
 
 local function ResetAPIFilters()
     C_ToyBox.SetAllSourceTypeFilters(true)
