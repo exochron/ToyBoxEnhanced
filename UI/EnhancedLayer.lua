@@ -178,16 +178,20 @@ local function toggleLayer(show)
 end
 
 function ADDON.UI:UpdateButtons()
-    HelpTip:Hide(ToyBox, TOYBOX_FAVORITE_HELP);
-    for i = 1, ADDON.TOYS_PER_PAGE do
-        local button = ToyBox.EnhancedLayer["spellButton" .. i];
-        TBE_ToySpellButton_UpdateButton(button);
+    if ToyBox.EnhancedLayer then
+        HelpTip:Hide(ToyBox, TOYBOX_FAVORITE_HELP);
+        for i = 1, ADDON.TOYS_PER_PAGE do
+            local button = ToyBox.EnhancedLayer["spellButton" .. i];
+            TBE_ToySpellButton_UpdateButton(button);
+        end
+        toggleLayer(ToyBox.EnhancedLayer:IsShown())
     end
-    toggleLayer(ToyBox.EnhancedLayer:IsShown())
 end
 function ADDON.UI:UpdatePages()
-    local maxPages = 1 + math.floor( math.max((ADDON.DataProvider:GetSize() - 1), 0) / ADDON.TOYS_PER_PAGE)
-    ToyBox.EnhancedLayer.PagingFrame:SetMaxPages(maxPages)
+    if ToyBox.EnhancedLayer then
+        local maxPages = 1 + math.floor( math.max((ADDON.DataProvider:GetSize() - 1), 0) / ADDON.TOYS_PER_PAGE)
+        ToyBox.EnhancedLayer.PagingFrame:SetMaxPages(maxPages)
+    end
 end
 
 -- see: https://github.com/tukui-org/ElvUI/blob/main/ElvUI/Mainline/Modules/Skins/Collectables.lua ::SkinToyFrame()
