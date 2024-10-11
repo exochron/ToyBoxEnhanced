@@ -27,6 +27,10 @@ L["FAVORITE_ACCOUNT_PROFILE"] = "Account"
 L["ASK_FAVORITE_PROFILE_NAME"] = "Enter Profile Name:"
 L["CONFIRM_FAVORITE_PROFILE_DELETION"] = "Are you sure you want to delete the profile \"%s\"?\nAll current character assignments will be reset to the default profile \"%s\"."
 L["FAVOR_AUTO"] = "Add new toys automatically"
+L["LDB_TIP_NO_FAVORITES_TITLE"] = "You have not selected any toy as favorite yet."
+L["LDB_TIP_NO_FAVORITES_INSTRUCTION"] = "Please favor at least one collected toy."
+L["LDB_TIP_NO_FAVORITES_LEFT_CLICK"] = "|cffeda55fLeft click|r to open Toy Box."
+L["LDB_TIP_NO_FAVORITES_RIGHT_CLICK"] = "|cffeda55fRight click|r to select different Favorite Profile."
 
 -- Settings
 L["SETTING_CURSOR_KEYS"] = "Enable Left&Right keys to flip pages"

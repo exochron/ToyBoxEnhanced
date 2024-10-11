@@ -3,7 +3,7 @@ local ADDON_NAME, ADDON = ...
 local actionButton
 
 local function buildActionButton()
-    local button = CreateFrame("Button", "TBEActionButton", nil, "InsecureActionButtonTemplate")
+    local button = CreateFrame("Button", nil, nil, "InsecureActionButtonTemplate")
     button:SetAttribute("pressAndHoldAction", 1)
     button:SetAttribute("type", "toy")
     button:SetAttribute("typerelease", "toy")
@@ -15,8 +15,8 @@ local function buildActionButton()
     return button
 end
 
-local function generateMenu(_, root)
-    root:SetTag(ADDON_NAME.."-LDB")
+local function generateFavoritesMenu(_, root)
+    root:SetTag(ADDON_NAME.."-LDB-Favorites")
     root:SetScrollMode(GetScreenHeight() - 100)
 
     local _, _, favoredToys = ADDON.Api:GetFavoriteProfile()
@@ -47,8 +47,42 @@ local function generateMenu(_, root)
                 GameTooltip:Hide()
                 actionButton:Hide()
             end)
+            local cooldownTimer = C_Container.GetItemCooldown(itemId)
+            if cooldownTimer > 0 then
+                element:AddInitializer(function(button)
+                    button.fontString:SetAlpha(0.5)
+                end)
+            end
         end
     end
+end
+local function generateProfileMenu(_, root)
+    root:SetTag(ADDON_NAME.."-LDB-FavoriteProfiles")
+    root:SetScrollMode(GetScreenHeight() - 100)
+
+    root:CreateTitle(ADDON.L.FAVORITE_PROFILE)
+    ADDON.UI:BuildFavoriteProfileMenu(root)
+end
+
+local function OpenMenu(frame, anchorSource, generator)
+    if not MenuUtil then
+        return nil
+    end
+
+    local elementDescription = MenuUtil.CreateRootMenuDescription(MenuVariants.GetDefaultContextMenuMixin())
+
+    Menu.PopulateDescription(generator, frame, elementDescription)
+    local anchor = CreateAnchor(anchorSource:GetPoint(1))
+    local menu = Menu.GetManager():OpenMenu(frame, elementDescription, anchor)
+    if menu then
+        menu:HookScript("OnLeave", function()
+            if not menu:IsMouseOver() then
+                menu:Close()
+            end
+        end) -- OnLeave gets reset every time
+    end
+
+    return menu
 end
 
 ADDON.Events:RegisterCallback("OnLogin", function()
@@ -60,48 +94,47 @@ ADDON.Events:RegisterCallback("OnLogin", function()
     actionButton = buildActionButton()
 
     local menu
+    local tooltipProxy = CreateFrame("Frame")
+    tooltipProxy:Hide()
+
+    tooltipProxy:HookScript("OnShow", function()
+        menu = nil
+        if not ADDON.Api:HasFavorites() then
+            local L = ADDON.L
+            GameTooltip:SetOwner(tooltipProxy, "ANCHOR_NONE")
+            GameTooltip:SetPoint(tooltipProxy:GetPoint(1))
+            GameTooltip:ClearLines()
+            GameTooltip_SetTitle(GameTooltip, L.LDB_TIP_NO_FAVORITES_TITLE)
+            GameTooltip_AddInstructionLine(GameTooltip, L.LDB_TIP_NO_FAVORITES_INSTRUCTION, true)
+            GameTooltip:AddLine(L.LDB_TIP_NO_FAVORITES_LEFT_CLICK)
+            GameTooltip:AddLine(L.LDB_TIP_NO_FAVORITES_RIGHT_CLICK)
+            GameTooltip:Show()
+        elseif not InCombatLockdown() then
+            menu = OpenMenu(tooltipProxy, tooltipProxy, generateFavoritesMenu)
+        end
+    end)
+    tooltipProxy:HookScript("OnHide", function()
+        if menu and not menu:IsMouseOver() then
+            menu:Close()
+        end
+    end)
 
     local _, profileName = ADDON.Api:GetFavoriteProfile()
-
     local ldbDataObject = ldb:NewDataObject( ADDON_NAME.." Favorites", {
         type = "data source",
         text = profileName,
         label = ADDON.L.FAVORITE_PROFILE,
         icon = "Interface\\Icons\\Trade_Archaeology_ChestofTinyGlassAnimals",
+        tooltip = tooltipProxy,
 
-        OnClick = function(_, button)
+        OnClick = function(frame, button)
             if button == "RightButton" then
-                ADDON:OpenSettings()
+                GameTooltip:Hide()
+                menu = OpenMenu(frame, tooltipProxy, generateProfileMenu)
             elseif not InCombatLockdown() then
                 ToggleCollectionsJournal(COLLECTIONS_JOURNAL_TAB_INDEX_TOYS)
             end
         end,
-
-        OnEnter = function(frame)
-            menu = nil
-            if ADDON.Api:HasFavorites() and MenuUtil and not InCombatLockdown() then
-                local elementDescription = MenuUtil.CreateRootMenuDescription(MenuVariants.GetDefaultContextMenuMixin())
-
-                Menu.PopulateDescription(generateMenu, frame, elementDescription)
-                local anchor = CreateAnchor("TOP", frame, "BOTTOM", 0, 0)
-                menu = Menu.GetManager():OpenMenu(frame, elementDescription, anchor)
-                if menu then
-                    menu:HookScript("OnLeave", function()
-                        if not menu:IsMouseOver() then
-                            menu:Close()
-                        end
-                    end) -- OnLeave gets reset every time
-                end
-            else
-                -- todo show tooltip to setup favorites
-            end
-        end,
-
-        OnLeave = function()
-            if menu and not menu:IsMouseOver() then
-                menu:Close()
-            end
-        end
     } )
 
     ADDON.Events:RegisterCallback("OnFavoriteProfileChanged", function()

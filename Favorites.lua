@@ -51,14 +51,15 @@ function ADDON.Api:SetBulkIsFavorites(filteredProvider)
     local itemsToAdd = CopyValuesAsKeys(filteredProvider)
     local hasChange = false
 
-    for index = 1, #profileToys do
+    local index = 1
+    while index <= #profileToys do
         local itemId = profileToys[index]
 
         if itemsToAdd[itemId] then
             itemsToAdd[itemId] = nil
+            index = index + 1
         else
             tUnorderedRemove(profileToys, index)
-            index = index -1
             hasChange = true
         end
     end
@@ -111,6 +112,7 @@ StaticPopupDialogs["TBE_EDIT_FAVORITE_PROFILE"] = {
         local text = self.editBox:GetText()
         if profileIndex > 1 then
             ADDON.settings.favorites.profiles[profileIndex].name = text
+            ADDON.Events:TriggerEvent("OnFavoriteProfileChanged")
         elseif profileIndex == nil then
             table.insert(ADDON.settings.favorites.profiles, {
                 ["name"] = text,
@@ -164,33 +166,31 @@ local function InitializeDropDown(_, level)
         UIDropDownMenu_AddButton(info, level)
     end
 end
-local function CreateFavoritesMenu(owner, root)
-    root:CreateTitle(FAVORITES)
 
-    root:CreateButton(L.FAVOR_DISPLAYED, function()
-        ADDON.Api:SetBulkIsFavorites(ADDON.DataProvider:GetCollection())
-    end)
-    root:CreateButton(UNCHECK_ALL, function()
-        ADDON.Api:SetBulkIsFavorites({})
-    end)
+function ADDON.UI:BuildFavoriteProfileMenu(root, withEditOptions)
+    local sortedIndex = {}
 
-    local profileIndex, profileName = ADDON.Api:GetFavoriteProfile()
-    local profileRoot = root:CreateButton(ADDON.L.FAVORITE_PROFILE..": "..profileName)
-
-    profileRoot:CreateButton(ADD, function()
-        StaticPopup_Show("TBE_EDIT_FAVORITE_PROFILE")
-    end)
-    profileRoot:QueueSpacer()
-
-    -- all profiles
-    for index, profileData in ipairs(ADDON.settings.favorites.profiles) do
+    local profiles = ADDON.settings.favorites.profiles
+    for index, profileData in ipairs(profiles) do
         if profileData then
-            local singleProfileRoot = profileRoot:CreateRadio(profileData.name.." ("..(#profileData.toys)..")", function()
-                return index == ADDON.Api:GetFavoriteProfile()
-            end, function()
-                ADDON.Api:SwitchFavoriteProfile(index)
-                return MenuResponse.Refresh
-            end)
+            table.insert(sortedIndex, index)
+        end
+    end
+    table.sort(sortedIndex, function(a, b)
+        return profiles[a].name < profiles[b].name
+    end)
+
+    for _, index in ipairs(sortedIndex) do
+        local profileData = profiles[index]
+        local name = index == 1 and ADDON.L.FAVORITE_ACCOUNT_PROFILE or profileData.name
+        local singleProfileRoot = root:CreateRadio(name.." ("..(#profileData.toys)..")", function()
+            return index == ADDON.Api:GetFavoriteProfile()
+        end, function()
+            ADDON.Api:SwitchFavoriteProfile(index)
+            return MenuResponse.Refresh
+        end)
+
+        if withEditOptions then
             singleProfileRoot:CreateCheckbox(ADDON.L.FAVOR_AUTO, function()
                 return profileData.autoFavor
             end, function()
@@ -207,7 +207,28 @@ local function CreateFavoritesMenu(owner, root)
             end
         end
     end
+end
 
+local function CreateFavoritesMenu(_, root)
+    root:CreateTitle(FAVORITES)
+    root:SetScrollMode(GetScreenHeight() - 100)
+
+    root:CreateButton(L.FAVOR_DISPLAYED, function()
+        ADDON.Api:SetBulkIsFavorites(ADDON.DataProvider:GetCollection())
+    end)
+    root:CreateButton(UNCHECK_ALL, function()
+        ADDON.Api:SetBulkIsFavorites({})
+    end)
+
+    local profileIndex, profileName = ADDON.Api:GetFavoriteProfile()
+    local profileRoot = root:CreateButton(ADDON.L.FAVORITE_PROFILE..": "..profileName)
+
+    profileRoot:CreateButton(ADD, function()
+        StaticPopup_Show("TBE_EDIT_FAVORITE_PROFILE")
+    end)
+    profileRoot:QueueSpacer()
+
+    ADDON.UI:BuildFavoriteProfileMenu(profileRoot, true)
 end
 
 local function BuildStarButton()
