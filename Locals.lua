@@ -25,7 +25,8 @@ L["SORT_UNOWNED_AFTER"] = "Unowned at Last"
 L["FAVORITE_PROFILE"] = "Profile"
 L["FAVORITE_ACCOUNT_PROFILE"] = "Account"
 L["ASK_FAVORITE_PROFILE_NAME"] = "Enter Profile Name:"
-L["CONFIRM_FAVORITE_PROFILE_DELETION"] = "Are you sure you want to delete the Profile \"%s\"?"
+L["CONFIRM_FAVORITE_PROFILE_DELETION"] = "Are you sure you want to delete the profile \"%s\"?\nAll current character assignments will be reset to the default profile \"%s\"."
+L["FAVOR_AUTO"] = "Add new toys automatically"
 
 -- Settings
 L["SETTING_CURSOR_KEYS"] = "Enable Left&Right keys to flip pages"

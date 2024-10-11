@@ -1,7 +1,5 @@
 local ADDON_NAME, ADDON = ...
 
--- TODO: autoFavor new toys on all configured profiles
-
 local L = ADDON.L
 local starButton
 
@@ -20,13 +18,13 @@ function ADDON.Api:GetFavoriteProfile()
 
     return profileIndex, name, ADDON.settings.favorites.profiles[profileIndex].toys
 end
-function ADDON.Api:GetIsFavorite(itemId)
-    local _, _, favorites = ADDON.Api:GetFavoriteProfile()
-    return tContains(favorites, itemId)
-end
 function ADDON.Api:HasFavorites()
     local _, _, favorites = ADDON.Api:GetFavoriteProfile()
     return #favorites > 0
+end
+function ADDON.Api:GetIsFavorite(itemId)
+    local _, _, favorites = ADDON.Api:GetFavoriteProfile()
+    return tContains(favorites, itemId)
 end
 function ADDON.Api:SetIsFavorite(itemId, value)
     local _, _, favorites = ADDON.Api:GetFavoriteProfile()
@@ -93,12 +91,15 @@ function ADDON.Api:RemoveFavoriteProfile(index)
         end
 
         ADDON.settings.favorites.profiles[index] = nil
-        -- todo cleanup all assignments
+        -- cleanup all assignments
+        for guid, profileIndex in pairs(ADDON.settings.favorites.assignments) do
+            if profileIndex == index then
+                ADDON.settings.favorites.assignments[guid] = 1
+            end
+        end
     end
 end
-
 --endregion
-
 
 StaticPopupDialogs["TBE_EDIT_FAVORITE_PROFILE"] = {
     text = ADDON.L.ASK_FAVORITE_PROFILE_NAME,
@@ -113,6 +114,7 @@ StaticPopupDialogs["TBE_EDIT_FAVORITE_PROFILE"] = {
         elseif profileIndex == nil then
             table.insert(ADDON.settings.favorites.profiles, {
                 ["name"] = text,
+                ["autoFavor"] = false,
                 ["toys"] = {}
             })
         end
@@ -138,9 +140,7 @@ StaticPopupDialogs["TBE_CONFIRM_DELETE_FAVORITE_PROFILE"] = {
     whileDead = 1,
 }
 
-
 --region Star Button
-
 local function InitializeDropDown(_, level)
     if level == 1 then
         local info = {
@@ -184,19 +184,27 @@ local function CreateFavoritesMenu(owner, root)
 
     -- all profiles
     for index, profileData in ipairs(ADDON.settings.favorites.profiles) do
-        local singleProfileRoot = profileRoot:CreateRadio(profileData.name.." ("..(#profileData.toys)..")", function()
-            return index == ADDON.Api:GetFavoriteProfile()
-        end, function()
-            ADDON.Api:SwitchFavoriteProfile(index)
-            return MenuResponse.Refresh
-        end)
-        if index > 1 then
-            singleProfileRoot:CreateButton(PET_RENAME, function()
-                StaticPopup_Show("TBE_EDIT_FAVORITE_PROFILE", nil, nil, index)
+        if profileData then
+            local singleProfileRoot = profileRoot:CreateRadio(profileData.name.." ("..(#profileData.toys)..")", function()
+                return index == ADDON.Api:GetFavoriteProfile()
+            end, function()
+                ADDON.Api:SwitchFavoriteProfile(index)
+                return MenuResponse.Refresh
             end)
-            singleProfileRoot:CreateButton(REMOVE, function()
-                StaticPopup_Show("TBE_CONFIRM_DELETE_FAVORITE_PROFILE", profileData.name, nil, index)
+            singleProfileRoot:CreateCheckbox(ADDON.L.FAVOR_AUTO, function()
+                return profileData.autoFavor
+            end, function()
+                profileData.autoFavor = not profileData.autoFavor
+                return MenuResponse.Refresh
             end)
+            if index > 1 then
+                singleProfileRoot:CreateButton(PET_RENAME, function()
+                    StaticPopup_Show("TBE_EDIT_FAVORITE_PROFILE", nil, nil, index)
+                end)
+                singleProfileRoot:CreateButton(REMOVE, function()
+                    StaticPopup_Show("TBE_CONFIRM_DELETE_FAVORITE_PROFILE", profileData.name, ADDON.L.FAVORITE_ACCOUNT_PROFILE, index)
+                end)
+            end
         end
     end
 
@@ -261,3 +269,18 @@ ADDON.Events:RegisterCallback("OnLoadUI", BuildStarButton, "favorites")
 ADDON.Events:RegisterCallback("OnFavoritesChanged", function()
     ADDON.DataProvider:Sort()
 end, "sort dataprovider")
+
+-- auto favor
+ADDON.Events:RegisterFrameEventAndCallback("NEW_TOY_ADDED", function(_, itemId)
+    local currentProfile = ADDON.Api:GetFavoriteProfile()
+
+    for index, profileData in ipairs(ADDON.settings.favorites.profiles) do
+        if profileData and profileData.autoFavor then
+            if index == currentProfile then
+                ADDON.Api:SetIsFavorite(itemId, true)
+            else
+                table.insert(profileData.toys, itemId)
+            end
+        end
+    end
+end, 'auto favor new toy')
