@@ -5,26 +5,25 @@ local isClassic = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
 ADDON.db = {}
 
 if isClassic then
-    -- todo: remove after firelands are live
-    if select(4, GetBuildInfo()) <= 40400 then
+    ADDON.db.Recent = {
+        ["minID"] = 70159,
+        ["blacklist"] = { 198647, 184871, 216893},
+        ["whitelist"] = { },
+    }
+else
+    if select(4, GetBuildInfo()) < 110005 then
         ADDON.db.Recent = {
-            ["minID"] = 54654,
-            ["blacklist"] = { 198647, 184871},
-            ["whitelist"] = { 40727, 46709, 53057},
+            ["minID"] = 218310,
+            ["blacklist"] = {220692, 220777, 223146},
+            ["whitelist"] = {211931, 212174, 215145, 215147},
         }
     else
         ADDON.db.Recent = {
-            ["minID"] = 70159,
-            ["blacklist"] = { 198647, 184871, 216893},
-            ["whitelist"] = { },
+            ["minID"] = 229828,
+            ["blacklist"] = {},
+            ["whitelist"] = {224192, 228789},
         }
     end
-else
-    ADDON.db.Recent = {
-        ["minID"] = 218310,
-        ["blacklist"] = {220692, 220777, 223146},
-        ["whitelist"] = {211931, 212174, 215145, 215147},
-    }
 end
 
 ADDON.db.worldEvent = {
@@ -45,6 +44,9 @@ ADDON.db.worldEvent = {
         [168014] = true, -- Banner of the Burning Blade
         [170380] = true, -- Jar of Sunwarmed Sand
         [187591] = true, -- Nightborne Guard's Vigilance
+        [224192] = true, -- Practice Ravager
+        [228789] = true, -- Coldflame Ring
+        [229828] = true, -- 20th Anniversary Balloon Chest
     },
 
     ["Darkmoon Faire"] = {
@@ -1001,6 +1003,7 @@ ADDON.db.source = {
         [206565] = true, -- Plagued Grain -- Naxxramas
         [208096] = true, -- Familiar Journal -- Naxxramas
         [209035] = true, -- Hearthstone of the Flame -- Amidrassil
+        [232301] = true, -- Tempered Banner of the Algari -- MDI - War Within Season 1
     },
 
     ["Reputation"] = {
@@ -1106,9 +1109,6 @@ ADDON.db.source = {
         [205255] = true, -- Niffen Diggin' Mitts
         [208058] = true, -- Minute Glass
 
-        -- PLunderstorm KegLeg Crew
-        [170197] = true, -- Swarthy Warning Sign
-
         -- War within Renown
         [228698] = true, -- Candleflexer's Dumbbell
         [228707] = true, -- Trial of Burning Light
@@ -1160,11 +1160,6 @@ ADDON.db.source = {
         [208421] = true, -- Compendium of the New Moon
         [208433] = true, -- Bronze Racer's Pennant
         [211946] = true, -- Hearthstone Game Table
-        [217723] = true, -- Fury of Xuen
-        [217724] = true, -- Kindness of Chi-ji
-        [217725] = true, -- Essence of Yu'lon
-        [217726] = true, -- Fortitude of Niuzao
-        [220777] = true, -- Cherry Blossom Trail
 
         -- War Within
         [212174] = true, -- The Warband Map to Everywhere All At Once
@@ -1187,6 +1182,7 @@ ADDON.db.source = {
         [225969] = true, -- Forged Flag of Victory
         [227538] = true, -- Unbound Legend's Pennant
         [227539] = true, -- Unbound Strategist's Pennant
+        [232305] = true, -- Forged Champion's Prestigious Banner
     },
 
     ["Garrison"] = {
@@ -1260,7 +1256,6 @@ ADDON.db.source = {
     },
 
     ["Black Market"] = {
-        [32542] = true, -- Imp in a Ball
         [32566] = true, -- Picnic Basket
         [33219] = true, -- Goblin Gumbo Kettle
         [33223] = true, -- Fishing Chair
@@ -1272,6 +1267,7 @@ ADDON.db.source = {
     },
 
     ["Trading Post"] = {
+        [32542] = true, -- Imp in a Ball
         [206268] = true, -- Ethereal Transmogrifier
         [206347] = true, -- Mannequin Charm
         [212500] = true, -- Delicate Silk Parasol
@@ -1294,16 +1290,12 @@ ADDON.db.source = {
     },
 
     ["Promotion"] = {
-        [33079] = true, -- Murloc Costume
         [158149] = true, -- Overtuned Corgi Goggles
-        [163986] = true, -- Orgrimmar Hero's War Banner --Blizzcon 2018
-        [163987] = true, -- Stormwind Champion's War Banner  --Blizzcon 2018
         [172179] = true, -- Eternal Traveler's Hearthstone - Shadowlands Epic Edition
         [186501] = true, -- Doomwalker Trophy Stand
         [193588] = true, -- Timewalker's Hearthstone - Dragonflight Epic Edition
         [208704] = true, -- Deepdweller's Earthen Hearthstone - War Within Epic Edition
         [208883] = true, -- Sandbox Storm Gryphon - War Within Epic Edition
-        [210042] = true, -- Chilling Celebration Banner
         [216893] = true, -- Goblin Town-in-a-Box -- Cata Classic Epic Edition
 
         -- Trading Card Game
@@ -1342,12 +1334,17 @@ ADDON.db.source = {
 
     ["Unavailable"] = {
         -- from: https://warcraft-secrets.com/guides/hidden-toys#Legacy_Toys
+        -- and: https://www.dataforazeroth.com/collections/toys (Advanced->Unobtainable)
 
+        [33079] = true, -- Murloc Costume -- BlizzCon 2007
         [54651] = true, -- Gnomeregan Pride
         [54653] = true, -- Darkspear Pride
         [89205] = true, -- Mini Mana Bomb
         [142542] = true, -- Tome of Town Portal
         [143543] = true, -- Twelve-String Guitar
+        [163986] = true, -- Orgrimmar Hero's War Banner --Blizzcon 2018
+        [163987] = true, -- Stormwind Champion's War Banner  --Blizzcon 2018
+        [170197] = true, -- Swarthy Warning Sign
         [187834] = true, -- Tormented Banner of the Opportune
         [187957] = true, -- Encrypted Banner of the Opportune
         [187958] = true, -- Shrouded Banner of the Opportune
@@ -1356,6 +1353,12 @@ ADDON.db.source = {
         [206267] = true, -- Obsidian Legend's Pennant
         [206343] = true, -- Crimson Legend's Pennant
         [208057] = true, -- Smoldering Banner of the Aspects
+        [210042] = true, -- Chilling Celebration Banner
+        [217723] = true, -- Fury of Xuen
+        [217724] = true, -- Kindness of Chi-ji
+        [217725] = true, -- Essence of Yu'lon
+        [217726] = true, -- Fortitude of Niuzao
+        [220777] = true, -- Cherry Blossom Trail
         [210497] = true, -- Verdant Legend's Pennant
         [211424] = true, -- Dreaming Banner of the Aspects
         [211869] = true, -- Draconic Legend's Pennant
@@ -1363,6 +1366,11 @@ ADDON.db.source = {
         [218128] = true, -- Draconic Banner of the Aspects
     },
 }
+
+if isClassic then
+    ADDON.db.source["Black Market"] = {}
+    ADDON.db.source["Trading Post"] = {}
+end
 
 ADDON.db.expansion = {
     [0] = { -- Classic
@@ -1660,6 +1668,8 @@ ADDON.db.effect = {
             [224552] = true, -- Cave Spelunker's Torch
             [225547] = true, -- Toxic Victory
             [228413] = true, -- Lampyridae Caller
+            [228789] = true, -- Coldflame Ring
+            [229828] = true, -- 20th Anniversary Balloon Chest
         },
 
         ["Bigger"] = {
@@ -1791,6 +1801,10 @@ ADDON.db.effect = {
         ["Vision"] = {
             [122121] = true, -- Darkmoon Gazer
             [153253] = true, -- S.F.E. Interceptor
+        },
+
+        ["Other"] = {
+            [228698] = true, -- Candleflexer's Dumbbell
         }
     },
 
@@ -1945,6 +1959,7 @@ ADDON.db.effect = {
             [225659] = true, -- Arathi Book Collection
             [224552] = true, -- Cave Spelunker's Torch
             [225347] = true, -- Web-Vandal's Spinning Wheel
+            [224192] = true, -- Practice Ravager
         },
 
         ["Corpse"] = {
@@ -2035,6 +2050,8 @@ ADDON.db.effect = {
             [210042] = true, -- Chilling Celebration Banner
             [211424] = true, -- Dreaming Banner of the Aspects
             [218128] = true, -- Draconic Banner of the Aspects
+            [232301] = true, -- Tempered Banner of the Algari
+            [232305] = true, -- Forged Champion's Prestigious Banner
         },
 
         -- Summons a clone of the character

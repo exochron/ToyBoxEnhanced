@@ -61,18 +61,18 @@ end
 
 -- Test for https://www.curseforge.com/wow/addons/toy-box-enhanced/issues/16
 local function UnusableTest()
-    if (UnitLevel("player") < 50 and C_ToyBox.IsToyUsable(95589)) or C_ToyBox.IsToyUsable(85500) then
+    if (UnitLevel("player") < 50 and C_ToyBox.IsToyUsable(95589)) then
         print("TBE: C_ToyBox.IsToyUsable() has been fixed!?")
     end
 end
 
 ADDON.Events:RegisterCallback("OnLogin", function()
-    if ADDON.settings.debugMode then
+    if ADDON.settings.ui.debugMode then
         UnusableTest()
     end
 end, "debug")
 ADDON.Events:RegisterCallback("PostLoadUI", function()
-    if ADDON.settings.debugMode then
+    if ADDON.settings.ui.debugMode then
         DebugTest()
     end
 end, "debug")
