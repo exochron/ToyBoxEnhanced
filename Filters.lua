@@ -146,7 +146,7 @@ local function FilterToysByWorldEvent(itemId)
 end
 
 local function FilterTradableToys(itemId)
-    return not ADDON.settings.filter.onlyTradable or ADDON.db.Tradable[itemId]
+    return not ADDON.settings.filter.onlyTradable or select(14, C_Item.GetItemInfo(itemId)) == Enum.ItemBind.OnUse
 end
 
 local function FilterRecentToys(itemId)
