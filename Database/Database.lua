@@ -1954,7 +1954,6 @@ ADDON.db.effect = {
             [205463] = true, -- Molten Lava Ball
             [208096] = true, -- Familiar Journal
             [210864] = true, -- Improvised Leafbed
-            [212337] = true, -- Stone of the Hearth
             [221964] = true, -- Filmless Camera
             [225659] = true, -- Arathi Book Collection
             [224552] = true, -- Cave Spelunker's Torch
@@ -2537,6 +2536,7 @@ ADDON.db.effect = {
             [209035] = true, -- Hearthstone of the Flame
             [208704] = true, -- Deepdweller's Earthen Hearthstone
             [210455] = true, -- Draenic Hologem
+            [212337] = true, -- Stone of the Hearth
             [228940] = true, -- Notorious Thread's Hearthstone
         },
 
