@@ -571,6 +571,8 @@ ADDON.Events:RegisterCallback("OnLoadUI", function()
 
     skinElvUI(filterDropdown)
 
+    ADDON.UI.FilterDropdown = filterDropdown
+
     registerVerticalLayoutHook()
 
 end, "filter-menu")

@@ -19,7 +19,10 @@ function ADDON:TakeScreenshots()
     ToggleCollectionsJournal(COLLECTIONS_JOURNAL_TAB_INDEX_TOYS)
 
     local function OpenFilterMenu()
-        ToyBox.FilterDropdown:SetMenuOpen(true)
+        ADDON.UI.FilterDropdown:OpenMenu()
+        --for k, v in pairs(Menu.GetManager():GetOpenMenu()) do
+        --    print(k,v)
+        --end
 
         return { Menu.GetManager():GetOpenMenu():GetChildren() }
     end
@@ -37,7 +40,7 @@ function ADDON:TakeScreenshots()
                 function(api)
                     api:BackScreen()
                     api:Point(ADDON.UI.FavoriteButton)
-                    ADDON.UI.FavoriteButton:SetMenuOpen(true)
+                    ADDON.UI.FavoriteButton:OpenMenu()
                 end,
                 function(api)
                     api:BackScreen()

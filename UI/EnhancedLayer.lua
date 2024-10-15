@@ -167,6 +167,8 @@ function TBE_ToySpellButton_UpdateButton(self)
 end
 
 local function toggleLayer(show)
+    show = show and not InCombatLockdown()
+
     ToyBox.EnhancedLayer:SetShown(show)
 
     if not InCombatLockdown() then
@@ -265,7 +267,7 @@ ADDON.Events:RegisterCallback("PreLoadUI", function()
         end)
     end
 
-    toggleLayer(not InCombatLockdown())
+    toggleLayer(true)
 
     hooksecurefunc("ToyBox_UpdatePages", ADDON.UI.UpdatePages)
     hooksecurefunc("ToyBox_UpdateButtons", ADDON.UI.UpdateButtons)
