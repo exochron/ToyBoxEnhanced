@@ -2505,7 +2505,7 @@ ADDON.db.effect = {
             [212174] = true, -- The Warband Map to Everywhere All At Once
         },
 
-        -- https://wow.tools/dbc/?dbc=spellcategories#page=1&colFilter[2]=1176
+        -- https://wago.tools/db2/SpellCategories?filter[Category]=1176&page=1
         ["Hearthstone"] = {
             [54452] = true, -- Ethereal Portal
             [64488] = true, -- The Innkeeper's Daughter
