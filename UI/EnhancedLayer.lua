@@ -180,7 +180,7 @@ local function toggleLayer(show)
 end
 
 function ADDON.UI:UpdateButtons()
-    if ToyBox.EnhancedLayer then
+    if ToyBox and ToyBox.EnhancedLayer then
         HelpTip:Hide(ToyBox, TOYBOX_FAVORITE_HELP);
         for i = 1, ADDON.TOYS_PER_PAGE do
             local button = ToyBox.EnhancedLayer["spellButton" .. i];
@@ -190,7 +190,7 @@ function ADDON.UI:UpdateButtons()
     end
 end
 function ADDON.UI:UpdatePages()
-    if ToyBox.EnhancedLayer then
+    if ToyBox and ToyBox.EnhancedLayer then
         local maxPages = 1 + math.floor( math.max((ADDON.DataProvider:GetSize() - 1), 0) / ADDON.TOYS_PER_PAGE)
         ToyBox.EnhancedLayer.PagingFrame:SetMaxPages(maxPages)
     end
