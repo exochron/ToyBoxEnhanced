@@ -9,7 +9,6 @@
 ## X-Wago-ID: pkNMXrGz
 
 Libs\TaintLess\TaintLess.xml
-Libs\UIFixes.lua
 
 Locals.lua
 Database\Database.lua
@@ -28,7 +27,6 @@ Favorites.lua
 UI\Templates.xml
 UI\EnhancedLayer.lua
 UI\FilterMenu.lua
-UI\FilterMenu.Legacy.lua
 UI\Hotkeys.lua
 UI\OptionsMenu.lua
 UI\RandomToyButton.lua

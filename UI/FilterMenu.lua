@@ -1,9 +1,5 @@
 local _, ADDON = ...
 
-if not MenuUtil then
-    return
-end
-
 local SETTING_COLLECTED = "collected"
 local SETTING_ONLY_FAVORITES = "onlyFavorites"
 local SETTING_NOT_COLLECTED = "notCollected"
