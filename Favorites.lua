@@ -246,6 +246,28 @@ ADDON.Events:RegisterCallback("OnFavoritesChanged", function()
     ADDON.DataProvider:Sort()
 end, "sort dataprovider")
 
+-- initial scan of account profile
+ADDON.Events:RegisterCallback("OnLogin", function()
+    local profileIndex, _ , favorites = ADDON.Api:GetFavoriteProfile()
+    if 1 == profileIndex and not ADDON.settings.favorites.profiles[1].initialScan then
+        ADDON.settings.favorites.profiles[1].initialScan = true
+
+        if 0 == #favorites then
+            local favoredToys = {}
+            for itemId, validToy in pairs(ADDON.db.ingameList) do
+                if validToy then
+                    local _, _, _, isFavorite = C_ToyBox.GetToyInfo(itemId)
+                    if isFavorite then
+                        favoredToys[#favoredToys +1] = itemId
+                    end
+                end
+            end
+
+            ADDON.Api:SetBulkIsFavorites(favoredToys)
+        end
+    end
+end, "favorite account scan")
+
 -- auto favor
 ADDON.Events:RegisterFrameEventAndCallback("NEW_TOY_ADDED", function(_, itemId)
     local currentProfile = ADDON.Api:GetFavoriteProfile()
