@@ -17,11 +17,6 @@ function ADDON:ResetSortSettings()
     ToyBoxEnhancedSettings.sort = ADDON.settings.sort
 end
 
-function ADDON:ResetUISettings()
-    ADDON.settings.ui.enableCursorKeys = true
-    ADDON.settings.ui.searchInDescription = true
-end
-
 local function PreparePersonalDefaults()
     local defaultSettings = {
         ui = {
