@@ -19,7 +19,7 @@ local function FilterBySearch(itemId, searchString)
         return true
     end
 
-    if ADDON.settings.searchInDescription then
+    if ADDON.settings.ui.searchInDescription then
         local GetSpellDescription = C_Spell.GetSpellDescription or GetSpellDescription
 
         local _, spellId = GetItemSpell(itemId)
