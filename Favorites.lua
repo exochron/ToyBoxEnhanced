@@ -299,7 +299,7 @@ ADDON.Events:RegisterFrameEventAndCallback("NEW_TOY_ADDED", function(_, itemId)
         if profileData and profileData.autoFavor then
             if index == currentProfile then
                 ADDON.Api:SetIsFavorite(itemId, true)
-            else
+            elseif not tContains(profileData.toys, itemId) then
                 table.insert(profileData.toys, itemId)
             end
         end

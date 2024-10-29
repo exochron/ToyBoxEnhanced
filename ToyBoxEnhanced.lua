@@ -94,32 +94,32 @@ local function OnLogin()
     cleanupDatabase(itemsToRemoveFromList)
 end
 
--- some items might not be cached. therefore you won't get any name etc.
--- we have to load them initially, so we can work with that data.
-local function LoadItemsIntoCache(onDone)
-    local countOfUnloadedItems = CountTable(ADDON.db.ingameList)
-    local invalidItems = {}
+function ADDON:LoadItemsIntoCache(itemIds, onDone)
+    local countOfUnloadedItems = #itemIds
+    if 0 == countOfUnloadedItems then
+        onDone({})
+        return
+    end
 
-    local frame = CreateFrame("Frame")
-    frame:SetScript("OnEvent", function(self, _, itemId, success)
-        if nil ~= ADDON.db.ingameList[itemId] then
+    local invalidItems = {}
+    local itemIndex = tInvert(itemIds)
+
+    ADDON.Events:RegisterFrameEventAndCallback("ITEM_DATA_LOAD_RESULT", function(_, itemId, success)
+        if itemIndex[itemId] then
             if not success then
                 -- some item data can already be in game for a future update
                 invalidItems[itemId] = true
             end
-
             countOfUnloadedItems = countOfUnloadedItems - 1
+
             if countOfUnloadedItems == 0 then
-                cleanupDatabase(invalidItems)
-                onDone()
-                self:UnregisterEvent("ITEM_DATA_LOAD_RESULT")
-                self:SetScript("OnEvent", nil)
+                onDone(invalidItems)
+                ADDON.Events:UnregisterFrameEventAndCallback("ITEM_DATA_LOAD_RESULT", 'async item loader')
             end
         end
-    end)
-    frame:RegisterEvent("ITEM_DATA_LOAD_RESULT")
+    end, 'async item loader')
 
-    for itemId in pairs(ADDON.db.ingameList) do
+    for _, itemId in ipairs(itemIds) do
         C_Item.RequestLoadItemDataByID(itemId)
     end
 end
@@ -172,7 +172,12 @@ EventRegistry:RegisterCallback("CollectionsJournal.TabSet", function(_, _, selec
     if selectedTab == COLLECTIONS_JOURNAL_TAB_INDEX_TOYS and ToyBox and loggedIn and not ADDON.initialized and ADDON.settings and not loadUIisRunning and not InCombatLockdown() then
         loadUIisRunning = true
         frame:UnregisterEvent("ADDON_LOADED")
-        LoadItemsIntoCache(function()
+
+        -- some items might not be cached. therefore you won't get any name etc.
+        -- we have to load them initially, so we can work with that data.
+        ADDON:LoadItemsIntoCache(GetKeysArray(ADDON.db.ingameList), function(invalidItems)
+            cleanupDatabase(invalidItems)
+
             ADDON.Events:TriggerEvent("PreLoadUI")
             ADDON.Events:TriggerEvent("OnLoadUI")
             ADDON.Events:TriggerEvent("PostLoadUI")
