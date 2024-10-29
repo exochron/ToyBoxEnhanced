@@ -1,4 +1,4 @@
-## Interface: 110002,110005
+## Interface: 110005
 ## Title: Toy Box Enhanced
 ## Notes: Extends the ingame Toy Box
 ## IconTexture: Interface\Icons\Trade_Archaeology_ChestofTinyGlassAnimals
@@ -10,7 +10,6 @@
 ## X-Wago-ID: pkNMXrGz
 
 Libs\TaintLess\TaintLess.xml
-Libs\UIFixes.lua
 
 Locals.lua
 Database\Database.lua

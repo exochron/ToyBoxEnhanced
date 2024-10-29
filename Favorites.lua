@@ -1,4 +1,4 @@
-local ADDON_NAME, ADDON = ...
+local _, ADDON = ...
 
 local L = ADDON.L
 local starButton
@@ -143,30 +143,6 @@ StaticPopupDialogs["TBE_CONFIRM_DELETE_FAVORITE_PROFILE"] = {
 }
 
 --region Star Button
-local function InitializeDropDown(_, level)
-    if level == 1 then
-        local info = {
-            isNotRadio = true,
-            notCheckable = true,
-            text = L['FAVOR_DISPLAYED'],
-            func = function()
-                ADDON.Api:SetBulkIsFavorites(ADDON.DataProvider:GetCollection())
-            end,
-        }
-        UIDropDownMenu_AddButton(info, level)
-
-        info = {
-            isNotRadio = true,
-            notCheckable = true,
-            text = UNCHECK_ALL,
-            func = function()
-                ADDON.Api:SetBulkIsFavorites(CreateDataProvider())
-            end,
-        }
-        UIDropDownMenu_AddButton(info, level)
-    end
-end
-
 function ADDON.UI:BuildFavoriteProfileMenu(root, withEditOptions)
     local sortedIndex = {}
 
@@ -232,9 +208,7 @@ local function CreateFavoritesMenu(_, root)
 end
 
 local function BuildStarButton()
-    local menu
-
-    starButton = CreateFrame(MenuUtil and "DropdownButton" or "Button", nil, ToyBox)
+    starButton = CreateFrame("DropdownButton", nil, ToyBox)
     starButton:SetPoint("RIGHT", ToyBox.searchBox.Left, "LEFT", WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE and -5 or -10, 0)
     starButton:SetSize(16, 16)
 
@@ -254,27 +228,8 @@ local function BuildStarButton()
         icon:AdjustPointsOffset(-1, 1)
     end)
 
-    if starButton.SetupMenu then
-        starButton:SetupMenu(CreateFavoritesMenu)
-    else
-        starButton:SetScript("OnClick", function()
-            if not menu then
-                menu = CreateFrame("Frame", ADDON_NAME .. "FavorMenu", ToyBox, "UIDropDownMenuTemplate")
-                UIDropDownMenu_Initialize(menu, InitializeDropDown, "MENU")
-            end
+    starButton:SetupMenu(CreateFavoritesMenu)
 
-            ToggleDropDownMenu(1, nil, menu, starButton, 0, 1)
-        end)
-        starButton:SetScript("OnEnter", function(sender)
-            GameTooltip:SetOwner(sender, "ANCHOR_NONE")
-            GameTooltip:SetPoint("BOTTOM", sender, "TOP", 0, -4)
-            GameTooltip:SetText(FAVORITES)
-            GameTooltip:Show()
-        end);
-        starButton:SetScript("OnLeave", function()
-            GameTooltip:Hide()
-        end);
-    end
     starButton:RegisterEvent("PLAYER_REGEN_ENABLED")
     starButton:RegisterEvent("PLAYER_REGEN_DISABLED")
     starButton:SetScript("OnEvent", function(self, event)
