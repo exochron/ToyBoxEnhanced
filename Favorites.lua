@@ -110,15 +110,15 @@ StaticPopupDialogs["TBE_EDIT_FAVORITE_PROFILE"] = {
     hasEditBox = true,
     OnAccept = function (self, profileIndex)
         local text = self.editBox:GetText()
-        if profileIndex > 1 then
-            ADDON.settings.favorites.profiles[profileIndex].name = text
-            ADDON.Events:TriggerEvent("OnFavoriteProfileChanged")
-        elseif profileIndex == nil then
+        if profileIndex == nil then
             table.insert(ADDON.settings.favorites.profiles, {
                 ["name"] = text,
                 ["autoFavor"] = false,
                 ["toys"] = {}
             })
+        elseif profileIndex > 1 then
+            ADDON.settings.favorites.profiles[profileIndex].name = text
+            ADDON.Events:TriggerEvent("OnFavoriteProfileChanged")
         end
     end,
     OnShow = function (self, profileIndex)
@@ -134,7 +134,7 @@ StaticPopupDialogs["TBE_CONFIRM_DELETE_FAVORITE_PROFILE"] = {
     text = ADDON.L.CONFIRM_FAVORITE_PROFILE_DELETION,
     button1 = YES,
     button2 = NO,
-    OnAccept = function (self, index)
+    OnAccept = function (_, index)
         ADDON.Api:RemoveFavoriteProfile(index)
     end,
     hideOnEscape = 1,
@@ -171,7 +171,7 @@ function ADDON.UI:BuildFavoriteProfileMenu(root, withEditOptions)
     local sortedIndex = {}
 
     local profiles = ADDON.settings.favorites.profiles
-    for index, profileData in ipairs(profiles) do
+    for index, profileData in pairs(profiles) do
         if profileData then
             table.insert(sortedIndex, index)
         end
@@ -220,7 +220,7 @@ local function CreateFavoritesMenu(_, root)
         ADDON.Api:SetBulkIsFavorites({})
     end)
 
-    local profileIndex, profileName = ADDON.Api:GetFavoriteProfile()
+    local _, profileName = ADDON.Api:GetFavoriteProfile()
     local profileRoot = root:CreateButton(ADDON.L.FAVORITE_PROFILE..": "..profileName)
 
     profileRoot:CreateButton(ADD, function()
@@ -295,7 +295,7 @@ end, "sort dataprovider")
 ADDON.Events:RegisterFrameEventAndCallback("NEW_TOY_ADDED", function(_, itemId)
     local currentProfile = ADDON.Api:GetFavoriteProfile()
 
-    for index, profileData in ipairs(ADDON.settings.favorites.profiles) do
+    for index, profileData in pairs(ADDON.settings.favorites.profiles) do
         if profileData and profileData.autoFavor then
             if index == currentProfile then
                 ADDON.Api:SetIsFavorite(itemId, true)

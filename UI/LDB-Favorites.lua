@@ -84,6 +84,19 @@ local function OpenMenu(anchorSource, generator)
     return menu
 end
 
+local function count()
+    local c = 0
+    for itemId, valid in pairs(ADDON.db.ingameList) do
+        if valid then
+            if PlayerHasToy(itemId) then
+                c = c + 1
+            end
+        end
+    end
+
+    return c
+end
+
 ADDON.Events:RegisterCallback("OnLogin", function()
     local ldb = LibStub:GetLibrary("LibDataBroker-1.1")
     if not ldb then
@@ -125,12 +138,11 @@ ADDON.Events:RegisterCallback("OnLogin", function()
         end
     end)
 
-    -- todo: toy count as value
-
     local _, profileName = ADDON.Api:GetFavoriteProfile()
     local ldbDataObject = ldb:NewDataObject( ADDON_NAME.." Favorites", {
         type = "data source",
         text = profileName,
+        value = count(),
         label = ADDON.L.FAVORITE_PROFILE,
         icon = "Interface\\Icons\\Trade_Archaeology_ChestofTinyGlassAnimals",
         tooltip = tooltipProxy,
@@ -149,5 +161,8 @@ ADDON.Events:RegisterCallback("OnLogin", function()
         local _, profileName = ADDON.Api:GetFavoriteProfile()
         ldbDataObject.text = profileName
     end, "ldb-favorites")
+    ADDON.Events:RegisterFrameEventAndCallback("NEW_TOY_ADDED", function(_, ...)
+        ldbDataObject.value = count()
+    end, 'new toy')
 
 end, "ldb-plugin")
