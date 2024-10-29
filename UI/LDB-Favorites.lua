@@ -64,16 +64,15 @@ local function generateProfileMenu(_, root)
     ADDON.UI:BuildFavoriteProfileMenu(root)
 end
 
-local function OpenMenu(frame, anchorSource, generator)
-    if not MenuUtil then
-        return nil
-    end
+local function OpenMenu(anchorSource, generator)
+    local menuDescription = MenuUtil.CreateRootMenuDescription(MenuVariants.GetDefaultContextMenuMixin())
 
-    local elementDescription = MenuUtil.CreateRootMenuDescription(MenuVariants.GetDefaultContextMenuMixin())
+    local point, relativeTo, relativePoint, offsetX, offsetY = anchorSource:GetPoint(1)
 
-    Menu.PopulateDescription(generator, frame, elementDescription)
-    local anchor = CreateAnchor(anchorSource:GetPoint(1))
-    local menu = Menu.GetManager():OpenMenu(frame, elementDescription, anchor)
+    Menu.PopulateDescription(generator, relativeTo, menuDescription)
+
+    local anchor = CreateAnchor(point, relativeTo, relativePoint, offsetX, offsetY)
+    local menu = Menu.GetManager():OpenMenu(relativeTo, menuDescription, anchor)
     if menu then
         menu:HookScript("OnLeave", function()
             if not menu:IsMouseOver() then
@@ -110,7 +109,14 @@ ADDON.Events:RegisterCallback("OnLogin", function()
             GameTooltip:AddLine(L.LDB_TIP_NO_FAVORITES_RIGHT_CLICK)
             GameTooltip:Show()
         elseif not InCombatLockdown() then
-            menu = OpenMenu(tooltipProxy, tooltipProxy, generateFavoritesMenu)
+            if ADDON.initialized then
+                menu = OpenMenu(tooltipProxy, generateFavoritesMenu)
+            else
+                local _, _, favoredToys = ADDON.Api:GetFavoriteProfile()
+                ADDON:LoadItemsIntoCache(favoredToys, function()
+                    menu = OpenMenu(tooltipProxy, generateFavoritesMenu)
+                end)
+            end
         end
     end)
     tooltipProxy:HookScript("OnHide", function()
@@ -118,6 +124,8 @@ ADDON.Events:RegisterCallback("OnLogin", function()
             menu:Close()
         end
     end)
+
+    -- todo: toy count as value
 
     local _, profileName = ADDON.Api:GetFavoriteProfile()
     local ldbDataObject = ldb:NewDataObject( ADDON_NAME.." Favorites", {
@@ -127,10 +135,10 @@ ADDON.Events:RegisterCallback("OnLogin", function()
         icon = "Interface\\Icons\\Trade_Archaeology_ChestofTinyGlassAnimals",
         tooltip = tooltipProxy,
 
-        OnClick = function(frame, button)
+        OnClick = function(_, button)
             if button == "RightButton" then
                 GameTooltip:Hide()
-                menu = OpenMenu(frame, tooltipProxy, generateProfileMenu)
+                menu = OpenMenu(tooltipProxy, generateProfileMenu)
             elseif not InCombatLockdown() then
                 ToggleCollectionsJournal(COLLECTIONS_JOURNAL_TAB_INDEX_TOYS)
             end
