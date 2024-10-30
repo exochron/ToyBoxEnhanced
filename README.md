@@ -5,12 +5,14 @@ This addon extends the ingame toy box with some cool stuff.
 - Filter also by Effects, more Sources and Faction
 - Show toys, which are normally hidden by the game
 - Search also in toy description (like search for "post" and find [Katy's Stampwhistle] ;))
-- Sort toys by name or expansion (or in reverse)
+- Filter for newest toy additions
 - Manually hide unusable or unwanted toys
+- Sort toys by name or expansion (or in reverse)
 
 ## ⭐ Enhanced Favorites
 - __new:__ Use multiple Profiles and quickly switch between them
 - __new:__ Integrated Data broker plugin to access your favorite toys more quickly
+- __new:__ Favor new toys automatically
 - Favor all filtered toys at once or unset them all
 - Use a random favored toy
 
