@@ -11,17 +11,17 @@ if isClassic then
         ["whitelist"] = { },
     }
 else
-    if select(4, GetBuildInfo()) < 110005 then
-        ADDON.db.Recent = {
-            ["minID"] = 218310,
-            ["blacklist"] = {220692, 220777, 223146},
-            ["whitelist"] = {211931, 212174, 215145, 215147},
-        }
-    else
+    if select(4, GetBuildInfo()) < 110007 then
         ADDON.db.Recent = {
             ["minID"] = 229828,
             ["blacklist"] = {},
             ["whitelist"] = {224192, 228789},
+        }
+    else
+        ADDON.db.Recent = {
+            ["minID"] = 233486,
+            ["blacklist"] = {},
+            ["whitelist"] = {218308, 218310},
         }
     end
 end
@@ -205,6 +205,7 @@ ADDON.db.worldEvent = {
         [208825] = true, -- Junior Timekeeper's Racing Belt
         [209859] = true, -- Festive Trans-Dimensional Bird Whistle
         [210656] = true, -- Winter Veil Socks
+        [218308] = true, -- Winter Veil Cracker
         [218310] = true, -- Box of Puntables
     },
 }
@@ -719,6 +720,7 @@ ADDON.db.source = {
         -- War Within
         [223312] = true, -- Trusty Hat
         [226810] = true, -- Infiltrator's Shroud
+        [235017] = true, -- Glittering Vaulöt Shard
 
     },
 
@@ -836,6 +838,7 @@ ADDON.db.source = {
 
         -- War Within
         [225547] = true, -- Toxic Victory
+        [235041] = true, -- Cyrce's Circlet
 
     },
 
@@ -977,6 +980,10 @@ ADDON.db.source = {
         [228707] = true, -- Trial of Burning Light
         [228914] = true, -- Arachnophile Spectacles
         [228940] = true, -- Notorious Thread's Hearthstone
+        [233486] = true, -- Hallowfall Supply Cache
+        [234473] = true, -- Soweezi's Comfy Lawn Chair
+        [235015] = true, -- Awakened Supply Crate
+        [235016] = true, -- Redeployment Module
     },
 
     ["Instance"] = {
@@ -1162,7 +1169,6 @@ ADDON.db.source = {
         [211946] = true, -- Hearthstone Game Table
 
         -- War Within
-        [212174] = true, -- The Warband Map to Everywhere All At Once
         [224251] = true, -- Memory Chord
         [225933] = true, -- Forged Legend's Pennant
         [227538] = true, -- Unbound Legend's Pennant
@@ -1447,7 +1453,6 @@ ADDON.db.expansion = {
         [208704] = true, -- Deepdweller's Earthen Hearthstone - War Within Epic Edition
         [208883] = true, -- Sandbox Storm Gryphon - War Within Epic Edition
         [211931] = true, -- Abyss Caller Horn
-        [212174] = true, -- The Warband Map to Everywhere All At Once
         [215145] = true, -- Remembrance Stone
         [215147] = true, -- Beautification Iris
     }
@@ -1670,6 +1675,7 @@ ADDON.db.effect = {
             [228413] = true, -- Lampyridae Caller
             [228789] = true, -- Coldflame Ring
             [229828] = true, -- 20th Anniversary Balloon Chest
+            [235041] = true, -- Cyrce's Circlet
         },
 
         ["Bigger"] = {
@@ -2151,6 +2157,7 @@ ADDON.db.effect = {
             [210725] = true, -- Owl Post
             [211931] = true, -- Abyss Caller Horn
             [211946] = true, -- Hearthstone Game Table
+            [218310] = true, -- Box of Puntables
             [219403] = true, -- Stonebound Lantern
             [220692] = true, -- X-treme Water Blaster Display
             [228707] = true, -- Trial of Burning Light
@@ -2195,6 +2202,7 @@ ADDON.db.effect = {
             [200551] = true, -- Comfortable Pile of Pelts
             [208883] = true, -- Sandbox Storm Gryphon
             [218112] = true, -- Colorful Beach Chair
+            [234473] = true, -- Soweezi's Comfy Lawn Chair
         },
 
         -- Can click on these
@@ -2333,6 +2341,7 @@ ADDON.db.effect = {
             [219387] = true, -- Barrel of Fireworks
             [223312] = true, -- Trusty Hat
             [228707] = true, -- Trial of Burning Light
+            [218308] = true, -- Winter Veil Cracker
         }
     },
 
@@ -2502,7 +2511,6 @@ ADDON.db.effect = {
             [187898] = true, -- Scouting Map: True Cost of the Northrend Campaign
             [187899] = true, -- Scouting Map: The Many Curiosities of Outland
             [187900] = true, -- Scouting Map: The Wonders of Kul Tiras and Zandalar
-            [212174] = true, -- The Warband Map to Everywhere All At Once
         },
 
         -- https://wago.tools/db2/SpellCategories?filter[Category]=1176&page=1
@@ -2538,6 +2546,7 @@ ADDON.db.effect = {
             [210455] = true, -- Draenic Hologem
             [212337] = true, -- Stone of the Hearth
             [228940] = true, -- Notorious Thread's Hearthstone
+            [235016] = true, -- Redeployment Module
         },
 
         ["Jump"] = {
