@@ -106,12 +106,12 @@ local function createDisplayButton()
 end
 
 local function checkClickMacro()
-    local existingName, _, existingBody = GetMacroInfo(MACRO_NAME)
+    local existingName, existingIcon, existingBody = GetMacroInfo(MACRO_NAME)
     if not InCombatLockdown() then
         if not existingName and GetNumMacros() < MAX_GLOBAL_MACRO_COUNT then
             CreateMacro(MACRO_NAME, MACRO_ICON, MACRO_BODY)
-        elseif existingName and existingBody ~= MACRO_BODY then
-            EditMacro(existingName, nil, nil, MACRO_BODY)
+        elseif existingName and (existingIcon ~= MACRO_ICON or nil == string.find(existingBody, MACRO_BODY)) then
+            EditMacro(existingName, nil, MACRO_ICON, MACRO_BODY)
         end
     end
 end
