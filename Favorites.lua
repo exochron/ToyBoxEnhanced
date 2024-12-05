@@ -45,7 +45,7 @@ function ADDON.Api:SetIsFavorite(itemId, value)
         ADDON.Events:TriggerEvent("OnFavoritesChanged")
     end
 end
-function ADDON.Api:SetBulkIsFavorites(filteredProvider)
+function ADDON.Api:SetBulkIsFavorites(filteredProvider, inclusive)
     local _, _, profileToys = ADDON.Api:GetFavoriteProfile()
 
     local itemsToAdd = CopyValuesAsKeys(filteredProvider)
@@ -58,15 +58,19 @@ function ADDON.Api:SetBulkIsFavorites(filteredProvider)
         if itemsToAdd[itemId] then
             itemsToAdd[itemId] = nil
             index = index + 1
+        elseif inclusive then
+            -- skip remove
+            index = index + 1
         else
             tUnorderedRemove(profileToys, index)
             hasChange = true
         end
     end
 
+    local tInsert = table.insert
     for itemId, shouldAdd in pairs(itemsToAdd) do
-        if shouldAdd then
-            table.insert(profileToys, itemId)
+        if shouldAdd and PlayerHasToy(itemId) then
+            tInsert(profileToys, itemId)
             hasChange = true
         end
     end
@@ -190,7 +194,7 @@ local function CreateFavoritesMenu(_, root)
     root:SetScrollMode(GetScreenHeight() - 100)
 
     root:CreateButton(L.FAVOR_DISPLAYED, function()
-        ADDON.Api:SetBulkIsFavorites(ADDON.DataProvider:GetCollection())
+        ADDON.Api:SetBulkIsFavorites(ADDON.DataProvider:GetCollection(), true)
     end)
     root:CreateButton(UNCHECK_ALL, function()
         ADDON.Api:SetBulkIsFavorites({})
