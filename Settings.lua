@@ -10,6 +10,7 @@ end
 
 function ADDON:ResetFilterSettings()
     ADDON.settings.filter = CopyTable(defaultFilterStates)
+    ToyBoxEnhancedSettings.filter = ADDON.settings.filter
 end
 
 function ADDON:ResetSortSettings()
