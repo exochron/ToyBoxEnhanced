@@ -7,10 +7,10 @@ function SlashCmdList.TOYBOXENHANCED(msg)
     -- If you're reading this, then please don't use the debug command. It only helps me to find missing database entries and some bugs.
     -- You will also experience a significant performance drop with that.
     if msg == "debug on" then
-        ADDON.settings.debugMode = true
+        ADDON.settings.ui.debugMode = true
         print("ToyBoxEnhanced: Debug mode activated.")
     elseif msg == "debug off" then
-        ADDON.settings.debugMode = false
+        ADDON.settings.ui.debugMode = false
         print("ToyBoxEnhanced: Debug mode deactivated.")
     elseif ADDON.TakeScreenshots and msg == "screenshot" then
         ADDON:TakeScreenshots()
