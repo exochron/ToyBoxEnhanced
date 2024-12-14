@@ -14,6 +14,7 @@ Libs\TaintLess\TaintLess.xml
 Locals.lua
 Database\Database.lua
 Database\toys.db.lua
+Database\faction.db.lua
 
 Filters.lua
 Sort.lua
