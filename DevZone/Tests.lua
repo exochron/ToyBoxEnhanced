@@ -38,7 +38,7 @@ local function testExists(list, byName)
     end
 end
 
-local function DebugTest()
+local function DatabaseTest()
     for itemId in pairs(ADDON.db.ingameList) do
         if not ContainsItem(ADDON.db.source, itemId)
                 and not ContainsItem(ADDON.db.profession, itemId)
@@ -61,20 +61,16 @@ end
 
 -- Test for https://www.curseforge.com/wow/addons/toy-box-enhanced/issues/16
 local function UnusableTest()
-    if (UnitLevel("player") < 50 and C_ToyBox.IsToyUsable(95589)) then
+    if (UnitLevel("player") < 80 and C_ToyBox.IsToyUsable(95589)) then
         print("TBE: C_ToyBox.IsToyUsable() has been fixed!?")
     end
 end
 
 ADDON.Events:RegisterCallback("OnLogin", function()
-    if ADDON.settings.ui.debugMode then
-        UnusableTest()
-    end
+    UnusableTest()
 end, "debug")
 ADDON.Events:RegisterCallback("PostLoadUI", function()
-    if ADDON.settings.ui.debugMode then
-        DebugTest()
-    end
+    DatabaseTest()
 end, "debug")
 
 -- After starting the client fresh the first character doesn't have a fully loaded C_ToyBox on PLAYER_LOGIN

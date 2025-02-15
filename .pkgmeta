@@ -1,6 +1,9 @@
 tools-used:
     - gallery-generator
 
+optional-dependencies:
+  - libdatabroker-1-1
+
 externals:
     Libs/TaintLess:
         url: https://www.townlong-yak.com/addons.git/taintless

@@ -98,7 +98,7 @@ local function count()
 end
 
 ADDON.Events:RegisterCallback("OnLogin", function()
-    local ldb = LibStub("LibDataBroker-1.1", true)
+    local ldb = LibStub and LibStub("LibDataBroker-1.1", true)
     if not ldb then
         return
     end
@@ -161,7 +161,7 @@ ADDON.Events:RegisterCallback("OnLogin", function()
         local _, profileName = ADDON.Api:GetFavoriteProfile()
         ldbDataObject.text = profileName
     end, "ldb-favorites")
-    ADDON.Events:RegisterFrameEventAndCallback("NEW_TOY_ADDED", function(_, ...)
+    ADDON.Events:RegisterFrameEventAndCallback("NEW_TOY_ADDED", function()
         ldbDataObject.value = count()
     end, 'new toy')
 

@@ -21,7 +21,7 @@ ToyBoxEnhanced.lua
 Settings.lua
 SettingsPanel.lua
 #@do-not-package@
-DevZone\Debug.lua
+DevZone\Tests.lua
 DevZone\Screenshot.lua
 #@end-do-not-package@
 Favorites.lua

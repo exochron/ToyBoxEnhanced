@@ -1,4 +1,4 @@
-## Interface: 110005,110007
+## Interface: 110007
 ## Title: Toy Box Enhanced
 ## Notes: Extends the ingame Toy Box
 ## IconTexture: Interface\Icons\Trade_Archaeology_ChestofTinyGlassAnimals
@@ -22,7 +22,7 @@ ToyBoxEnhanced.lua
 Settings.lua
 SettingsPanel.lua
 #@do-not-package@
-DevZone\Debug.lua
+DevZone\Tests.lua
 DevZone\Screenshot.lua
 #@end-do-not-package@
 Favorites.lua
