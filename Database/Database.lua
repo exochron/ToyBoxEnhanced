@@ -752,6 +752,7 @@ ADDON.db.source = {
 
         -- War Within
         [225547] = true, -- Toxic Victory
+        [228966] = true, -- Starry-Eyed Goggles
         [235041] = true, -- Cyrce's Circlet
 
     },
@@ -1494,6 +1495,7 @@ ADDON.db.effect = {
             [225910] = true, -- Pileus Delight
             [226810] = true, -- Infiltrator's Shroud
             [228705] = true, -- Arachnoserum
+            [235017] = true, -- Glittering Vault Shard
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1589,6 +1591,8 @@ ADDON.db.effect = {
             [228413] = true, -- Lampyridae Caller
             [228789] = true, -- Coldflame Ring
             [229828] = true, -- 20th Anniversary Balloon Chest
+            [233486] = true, -- Hallowfall Supply Cache
+            [235015] = true, -- Awakened Supply Crate
             [235041] = true, -- Cyrce's Circlet
         },
 
@@ -2117,6 +2121,8 @@ ADDON.db.effect = {
             [208883] = true, -- Sandbox Storm Gryphon
             [218112] = true, -- Colorful Beach Chair
             [234473] = true, -- Soweezi's Comfy Lawn Chair
+            [233486] = true, -- Hallowfall Supply Cache
+            [235015] = true, -- Awakened Supply Crate
         },
 
         -- Can click on these
@@ -2564,6 +2570,7 @@ ADDON.db.effect = {
         [210974] = true, -- Eyes For You Only
         [226519] = true, -- General's Expertise
         [228914] = true, -- Arachnophile Spectacles
+        [228966] = true, -- Starry-Eyed Goggles
     },
 
     ["Companion"] = {
