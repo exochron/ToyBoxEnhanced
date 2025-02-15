@@ -1,6 +1,4 @@
 .idea/
 .vscode/
 /.release/
-generator/*.db.lua
-generator/*.exe
 CHANGELOG.md
