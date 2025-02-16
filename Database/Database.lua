@@ -2114,7 +2114,6 @@ ADDON.db.effect = {
             [211931] = true, -- Abyss Caller Horn
             [211946] = true, -- Hearthstone Game Table
             [218310] = true, -- Box of Puntables
-            [219403] = true, -- Stonebound Lantern
             [220692] = true, -- X-treme Water Blaster Display
             [228707] = true, -- Trial of Burning Light
             [235807] = true, -- Storefront-in-a-Box

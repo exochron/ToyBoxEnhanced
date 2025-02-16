@@ -461,7 +461,7 @@ local function setupExpansionMenu(root)
     end
 end
 
-local function SetupFilterMenu(dropdown, root)
+local function SetupFilterMenu(_, root)
     local L = ADDON.L
 
     root:SetTag("MENU_TOYBOX_FILTER")
@@ -559,10 +559,6 @@ ADDON.Events:RegisterCallback("OnLoadUI", function()
         ADDON:FilterToys()
     end)
     filterDropdown:SetupMenu(SetupFilterMenu)
-    filterDropdown:SetUpdateCallback(function()
-        ADDON.UI:UpdatePages()
-        ADDON.UI:UpdateButtons()
-    end)
 
     skinElvUI(filterDropdown)
 

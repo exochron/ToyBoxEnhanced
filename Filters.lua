@@ -187,30 +187,15 @@ local function FilterToysByEffect(itemId)
     end
 
     for name, categoriesOrToys in pairs(ADDON.db.effect) do
-        local hasCategories = false
-        for _, value in pairs(categoriesOrToys) do
-            if type(value) == "table" then
-                hasCategories = true
-            end
-            break
-        end
-
-        if hasCategories then
-            local settingResult = CheckItemInList(settings[name], categoriesOrToys, itemId)
-            if settingResult ~= nil then
-                return settingResult
-            end
+        local _ , subCategoryOrItem = next(categoriesOrToys)
+        if type(subCategoryOrItem) == "table" and CheckItemInList(settings[name], categoriesOrToys, itemId) then
+            return true
         end
     end
 
     local settingResult = CheckItemInList(settings, ADDON.db.effect, itemId)
     if settingResult ~= nil then
         return settingResult
-    end
-
-    -- Todo: Remove later
-    if allSettingsResult == false then
-        return true -- uncategorized toys should be shown when all filters are disabled
     end
 
     return false
