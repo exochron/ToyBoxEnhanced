@@ -75,12 +75,8 @@ local function OnLogin()
         end
     end
 
-    local DoesItemExistInGame = C_Item.DoesItemExistByID
-    -- C_Item.DoesItemExistByID() always returns true. got broken sometime during DF. (https://github.com/Stanzilla/WoWUIBugs/issues/449)
-    if true == C_Item.DoesItemExistByID(1) then
-        DoesItemExistInGame = function(itemId)
-            return C_Item.GetItemIconByID(itemId) ~= 134400 -- question icon
-        end
+    local DoesItemExistInGame = function(itemId)
+        return C_Item.GetItemIconByID(itemId) ~= 134400 -- question icon
     end
 
     -- check if there is an item which is not in the game anymore
