@@ -11,17 +11,17 @@ if isClassic then
         ["whitelist"] = { },
     }
 else
-    if select(4, GetBuildInfo()) < 110007 then
-        ADDON.db.Recent = {
-            ["minID"] = 229828,
-            ["blacklist"] = {},
-            ["whitelist"] = {224192, 228789},
-        }
-    else
+    if select(4, GetBuildInfo()) < 110100 then
         ADDON.db.Recent = {
             ["minID"] = 233486,
             ["blacklist"] = {},
             ["whitelist"] = {218308, 218310},
+        }
+    else
+        ADDON.db.Recent = {
+            ["minID"] = 235050,
+            ["blacklist"] = {},
+            ["whitelist"] = {226373, 230727, 230850, 230924, 231064, 233202, 234950, 234951},
         }
     end
 end
@@ -448,7 +448,7 @@ ADDON.db.source = {
         [225556] = true, -- Ancient Construct
         [225641] = true, -- Illusive Kobyss Lure
         [225659] = true, -- Arathi Book Collection
-
+        [234951] = true, -- Uncracked Cold Ones
     },
 
     ["Drop"] = {
@@ -632,10 +632,9 @@ ADDON.db.source = {
         [210725] = true, -- Owl Post
 
         -- War Within
-        [223312] = true, -- Trusty Hat
         [226810] = true, -- Infiltrator's Shroud
+        [230727] = true, -- Explosive Victory
         [235017] = true, -- Glittering Vaulöt Shard
-
     },
 
     ["Quest"] = {
@@ -753,6 +752,7 @@ ADDON.db.source = {
         -- War Within
         [225547] = true, -- Toxic Victory
         [228966] = true, -- Starry-Eyed Goggles
+        [233202] = true, -- G.O.L.E.M, Jr.
         [235041] = true, -- Cyrce's Circlet
 
     },
@@ -884,21 +884,29 @@ ADDON.db.source = {
 
         -- War Within
         [211931] = true, -- Abyss Caller Horn
+        [223312] = true, -- Trusty Hat
         [224643] = true, -- Pet-Sized Candle
         [225910] = true, -- Pileus Delight
+        [226191] = true, -- Web Pet Leash
         [226519] = true, -- General's Expertise
         [228413] = true, -- Lampyridae Caller
-        [226191] = true, -- Web Pet Leash
         [228698] = true, -- Candleflexer's Dumbbell
         [228705] = true, -- Arachnoserum
         [228706] = true, -- Rockslidomancer's Stone
         [228707] = true, -- Trial of Burning Light
         [228914] = true, -- Arachnophile Spectacles
         [228940] = true, -- Notorious Thread's Hearthstone
+        [230850] = true, -- Delve-O-Bot 7001
+        [230924] = true, -- Spotlight Materializer 1000
+        [231064] = true, -- Throwaway Gangster Disguise
         [233486] = true, -- Hallowfall Supply Cache
         [234473] = true, -- Soweezi's Comfy Lawn Chair
         [235015] = true, -- Awakened Supply Crate
         [235016] = true, -- Redeployment Module
+        [237345] = true, -- Limited Edition Rocket Bobber
+        [237346] = true, -- Artisan Beverage Goblet Bobber
+        [237347] = true, -- Organically-Sourced Wellington Bobber
+        [237382] = true, -- Undermine Supply Crate
     },
 
     ["Instance"] = {
@@ -926,6 +934,7 @@ ADDON.db.source = {
         [208096] = true, -- Familiar Journal -- Naxxramas
         [209035] = true, -- Hearthstone of the Flame -- Amidrassil
         [232301] = true, -- Tempered Banner of the Algari -- MDI - War Within Season 1
+        [236687] = true, -- Explosive Hearthstone -- Liberation of Undermine
     },
 
     ["Reputation"] = {
@@ -1032,9 +1041,18 @@ ADDON.db.source = {
         [208058] = true, -- Minute Glass
 
         -- War within Renown
+        [226373] = true, -- Everlasting Noggenfogger Elixir
         [228698] = true, -- Candleflexer's Dumbbell
         [228707] = true, -- Trial of Burning Light
         [228940] = true, -- Notorious Thread's Hearthstone
+        [234950] = true, -- Atomic Regoblinator
+        [235669] = true, -- Steamwheedle Cartel Banner
+        [235670] = true, -- Bilgewater Cartel Banner
+        [235671] = true, -- Blackwater Cartel Banner
+        [235672] = true, -- Venture Co. Banner
+        [235799] = true, -- Throwin' Sawblade
+        [235801] = true, -- Personal Fishing Barge
+        [235807] = true, -- Storefront-in-a-Box
     },
 
     ["Achievement"] = {
@@ -1088,6 +1106,11 @@ ADDON.db.source = {
         [225933] = true, -- Forged Legend's Pennant
         [227538] = true, -- Unbound Legend's Pennant
         [227539] = true, -- Unbound Strategist's Pennant
+        [235050] = true, -- Desk-in-a-Box
+        [235220] = true, -- Fireworks Hat
+        [235519] = true, -- Prized Legend's Pennant
+        [236769] = true, -- Gallagio Pipeline Rerouter
+
     },
 
     ["PvP"] = {
@@ -1104,6 +1127,7 @@ ADDON.db.source = {
         [227538] = true, -- Unbound Legend's Pennant
         [227539] = true, -- Unbound Strategist's Pennant
         [232305] = true, -- Forged Champion's Prestigious Banner
+        [235519] = true, -- Prized Legend's Pennant
     },
 
     ["Garrison"] = {
@@ -1493,8 +1517,10 @@ ADDON.db.effect = {
             [224783] = true, -- Sovereign's Finery Chest
             [225641] = true, -- Illusive Kobyss Lure
             [225910] = true, -- Pileus Delight
+            [226373] = true, -- Everlasting Noggenfogger Elixir
             [226810] = true, -- Infiltrator's Shroud
             [228705] = true, -- Arachnoserum
+            [234950] = true, -- Atomic Regoblinator
             [235017] = true, -- Glittering Vault Shard
         },
 
@@ -1591,9 +1617,11 @@ ADDON.db.effect = {
             [228413] = true, -- Lampyridae Caller
             [228789] = true, -- Coldflame Ring
             [229828] = true, -- 20th Anniversary Balloon Chest
+            [230727] = true, -- Explosive Victory
             [233486] = true, -- Hallowfall Supply Cache
             [235015] = true, -- Awakened Supply Crate
             [235041] = true, -- Cyrce's Circlet
+            [237382] = true, -- Undermine Supply Crate
         },
 
         ["Bigger"] = {
@@ -1604,6 +1632,7 @@ ADDON.db.effect = {
         ["Smaller"] = {
             [18660] = true, -- World Enlarger
             [97919] = true, -- Whole-Body Shrinka'
+            [226373] = true, -- Everlasting Noggenfogger Elixir
         },
 
         -- Change only the color/transparency of the model
@@ -1647,6 +1676,7 @@ ADDON.db.effect = {
             [225933] = true, -- Forged Legend's Pennant
             [227538] = true, -- Unbound Legend's Pennant
             [227539] = true, -- Unbound Strategist's Pennant
+            [235519] = true, -- Prized Legend's Pennant
         },
     },
 
@@ -1680,6 +1710,7 @@ ADDON.db.effect = {
             [198039] = true, -- Rock of Appreciation
             [199649] = true, -- Dragon Tea Set
             [199650] = true, -- Whale Bone Tea Set
+            [234951] = true, -- Uncracked Cold Ones
         },
 
         ["Other"] = {
@@ -1729,6 +1760,7 @@ ADDON.db.effect = {
 
         ["Other"] = {
             [228698] = true, -- Candleflexer's Dumbbell
+            [233202] = true, -- G.O.L.E.M, Jr.
         }
     },
 
@@ -1975,6 +2007,11 @@ ADDON.db.effect = {
             [218128] = true, -- Draconic Banner of the Aspects
             [232301] = true, -- Tempered Banner of the Algari
             [232305] = true, -- Forged Champion's Prestigious Banner
+            [232305] = true, -- Forged Champion's Prestigious Banner
+            [235669] = true, -- Steamwheedle Cartel Banner
+            [235670] = true, -- Bilgewater Cartel Banner
+            [235671] = true, -- Blackwater Cartel Banner
+            [235672] = true, -- Venture Co. Banner
         },
 
         -- Summons a clone of the character
@@ -2003,6 +2040,7 @@ ADDON.db.effect = {
             [166777] = true, -- Lion's Pride Firework
             [206038] = true, -- Flamin' Ring of Flashiness
             [219387] = true, -- Barrel of Fireworks
+            [235220] = true, -- Fireworks Hat
         },
 
         -- stuff to litter the ground
@@ -2079,6 +2117,7 @@ ADDON.db.effect = {
             [219403] = true, -- Stonebound Lantern
             [220692] = true, -- X-treme Water Blaster Display
             [228707] = true, -- Trial of Burning Light
+            [235807] = true, -- Storefront-in-a-Box
         },
 
         ["Weather"] = {
@@ -2123,6 +2162,7 @@ ADDON.db.effect = {
             [234473] = true, -- Soweezi's Comfy Lawn Chair
             [233486] = true, -- Hallowfall Supply Cache
             [235015] = true, -- Awakened Supply Crate
+            [237382] = true, -- Undermine Supply Crate
         },
 
         -- Can click on these
@@ -2262,6 +2302,7 @@ ADDON.db.effect = {
             [223312] = true, -- Trusty Hat
             [228707] = true, -- Trial of Burning Light
             [218308] = true, -- Winter Veil Cracker
+            [235799] = true, -- Throwin' Sawblade
         }
     },
 
@@ -2309,6 +2350,9 @@ ADDON.db.effect = {
             [180993] = true, -- Bat Visage Bobber
             [202207] = true, -- Reusable Oversized Bobber
             [202360] = true, -- Dented Can
+            [237345] = true, -- Limited Edition Rocket Bobber
+            [237346] = true, -- Artisan Beverage Goblet Bobber
+            [237347] = true, -- Organically-Sourced Wellington Bobber
         },
 
         ["Jewelcrafting"] = {
@@ -2415,6 +2459,7 @@ ADDON.db.effect = {
             [212524] = true, -- Delicate Crimson Parasol
             [212525] = true, -- Delicate Ebony Parasol
             [224554] = true, -- Silver Linin' Scepter
+            [226373] = true, -- Everlasting Noggenfogger Elixir
         },
 
         -- Unlocks flight paths
@@ -2466,6 +2511,7 @@ ADDON.db.effect = {
             [210455] = true, -- Draenic Hologem
             [212337] = true, -- Stone of the Hearth
             [228940] = true, -- Notorious Thread's Hearthstone
+            [236687] = true, -- Explosive Hearthstone
             [235016] = true, -- Redeployment Module
         },
 
@@ -2530,6 +2576,7 @@ ADDON.db.effect = {
             [205255] = true, -- Niffen Diggin' Mitts
             [211788] = true, -- Tess's Peacebloom
             [221966] = true, -- Wormhole Generator: Khaz Algar
+            [230850] = true, -- Delve-O-Bot 7001
         },
 
         ["Water Walking"] = {
@@ -2540,6 +2587,7 @@ ADDON.db.effect = {
             [198428] = true, -- Tuskarr Dinghy
             [211864] = true, -- Exquisite Love Boat
             [224554] = true, -- Silver Linin' Scepter
+            [235801] = true, -- Personal Fishing Barge
         }
     },
 
