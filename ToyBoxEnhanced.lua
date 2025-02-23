@@ -7,17 +7,6 @@ ADDON.DataProvider = CreateDataProvider()
 ADDON.DataProvider:SetSortComparator(function(a, b)
     return ADDON:SortHandler(a, b)
 end)
-ADDON.DataProvider:RegisterCallback("OnSizeChanged", function()
-    if not InCombatLockdown() then
-        ADDON.UI:UpdatePages()
-        ADDON.UI:UpdateButtons()
-    end
-end, ADDON_NAME)
-ADDON.DataProvider:RegisterCallback("OnSort", function()
-    if not InCombatLockdown() then
-        ADDON.UI:UpdateButtons()
-    end
-end, ADDON_NAME)
 
 -- see: https://www.townlong-yak.com/framexml/live/Blizzard_SharedXML/CallbackRegistry.lua
 ADDON.Events = CreateFromMixins(EventRegistry)
