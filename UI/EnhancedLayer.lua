@@ -1,4 +1,4 @@
-local _, ADDON = ...
+local ADDON_NAME, ADDON = ...
 
 local hideNew = {}
 
@@ -179,21 +179,17 @@ local function toggleLayer(show)
     end
 end
 
-function ADDON.UI:UpdateButtons()
-    if ToyBox and ToyBox.EnhancedLayer then
-        HelpTip:Hide(ToyBox, TOYBOX_FAVORITE_HELP);
-        for i = 1, ADDON.TOYS_PER_PAGE do
-            local button = ToyBox.EnhancedLayer["spellButton" .. i];
-            TBE_ToySpellButton_UpdateButton(button);
-        end
-        toggleLayer(ToyBox.EnhancedLayer:IsShown())
+local function updateButtons()
+    HelpTip:Hide(ToyBox, TOYBOX_FAVORITE_HELP);
+    for i = 1, ADDON.TOYS_PER_PAGE do
+        local button = ToyBox.EnhancedLayer["spellButton" .. i];
+        TBE_ToySpellButton_UpdateButton(button);
     end
+    toggleLayer(ToyBox.EnhancedLayer:IsShown())
 end
-function ADDON.UI:UpdatePages()
-    if ToyBox and ToyBox.EnhancedLayer then
-        local maxPages = 1 + math.floor( math.max((ADDON.DataProvider:GetSize() - 1), 0) / ADDON.TOYS_PER_PAGE)
-        ToyBox.EnhancedLayer.PagingFrame:SetMaxPages(maxPages)
-    end
+local function updatePages()
+    local maxPages = 1 + math.floor( math.max((ADDON.DataProvider:GetSize() - 1), 0) / ADDON.TOYS_PER_PAGE)
+    ToyBox.EnhancedLayer.PagingFrame:SetMaxPages(maxPages)
 end
 
 -- see: https://github.com/tukui-org/ElvUI/blob/main/ElvUI/Mainline/Modules/Skins/Collectables.lua ::SkinToyFrame()
@@ -245,7 +241,7 @@ ADDON.Events:RegisterCallback("PreLoadUI", function()
 
     layer.OnPageChanged = function()
         PlaySound(SOUNDKIT.IG_ABILITY_PAGE_TURN)
-        ADDON.UI:UpdateButtons()
+        updateButtons()
     end
 
     layer:RegisterEvent("PLAYER_REGEN_ENABLED")
@@ -269,8 +265,20 @@ ADDON.Events:RegisterCallback("PreLoadUI", function()
 
     toggleLayer(true)
 
-    hooksecurefunc("ToyBox_UpdatePages", ADDON.UI.UpdatePages)
-    hooksecurefunc("ToyBox_UpdateButtons", ADDON.UI.UpdateButtons)
+    hooksecurefunc("ToyBox_UpdatePages", updatePages)
+    hooksecurefunc("ToyBox_UpdateButtons", updateButtons)
+
+    ADDON.DataProvider:RegisterCallback("OnSizeChanged", function()
+        if not InCombatLockdown() then
+            updatePages()
+            updateButtons()
+        end
+    end, ADDON_NAME)
+    ADDON.DataProvider:RegisterCallback("OnSort", function()
+        if not InCombatLockdown() then
+            updateButtons()
+        end
+    end, ADDON_NAME)
 
     -- hook for click on alert
     hooksecurefunc("ToyBox_FindPageForToyID", function (toyID)
