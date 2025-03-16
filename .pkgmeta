@@ -4,11 +4,6 @@ tools-used:
 optional-dependencies:
   - libdatabroker-1-1
 
-externals:
-    Libs/TaintLess:
-        url: https://www.townlong-yak.com/addons.git/taintless
-        commit: default
-
 ignore:
     - LICENSE
     - DevZone
