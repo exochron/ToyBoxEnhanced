@@ -106,6 +106,8 @@ ADDON.Events:RegisterCallback("OnLogin", function()
     actionButton = buildActionButton()
 
     local menu
+
+    -- Use a proxy frame to get a proper tooltip position from the broker addon
     local tooltipProxy = CreateFrame("Frame")
     tooltipProxy:Hide()
 
@@ -133,10 +135,37 @@ ADDON.Events:RegisterCallback("OnLogin", function()
         end
     end)
     tooltipProxy:HookScript("OnHide", function()
-        if menu and not menu:IsMouseOver() then
+        if ADDON.Api:HasFavorites() and menu and not menu:IsMouseOver(10, -10, -10, 10) then
             menu:Close()
+        else
+            GameTooltip:Hide()
         end
     end)
+    -- polyfill to use a regular frame as an tooltip
+    -- https://warcraft.wiki.gg/wiki/API_GameTooltip_SetOwner
+    tooltipProxy.SetOwner = function(self, owner, anchor, ofsX, ofsY)
+        ofsX = ofsX or 0
+        ofsY = ofsY or 0
+        self:ClearAllPoints()
+        self:SetParent(owner)
+        if anchor == "ANCHOR_TOP" then
+            self:SetPoint("BOTTOM", owner, "TOP", ofsX, ofsY)
+        elseif anchor == "ANCHOR_RIGHT" then
+            self:SetPoint("BOTTOMLEFT", owner, "TOPRIGHT", ofsX, ofsY)
+        elseif anchor == "ANCHOR_BOTTOM" then
+            self:SetPoint("TOP", owner, "BOTTOM", ofsX, ofsY)
+        elseif anchor == "ANCHOR_LEFT" then
+            self:SetPoint("BOTTOMRIGHT", owner, "TOPLEFT", ofsX, ofsY)
+        elseif anchor == "ANCHOR_TOPRIGHT" then
+            self:SetPoint("BOTTOMRIGHT", owner, "TOPRIGHT", ofsX, ofsY)
+        elseif anchor == "ANCHOR_BOTTOMRIGHT" then
+            self:SetPoint("TOPLEFT", owner, "BOTTOMRIGHT", ofsX, ofsY)
+        elseif anchor == "ANCHOR_TOPLEFT" then
+            self:SetPoint("BOTTOMLEFT", owner, "TOPLEFT", ofsX, ofsY)
+        elseif anchor == "ANCHOR_BOTTOMLEFT" then
+            self:SetPoint("TOPRIGHT", owner, "BOTTOMLEFT", ofsX, ofsY)
+        end
+    end
 
     local _, profileName = ADDON.Api:GetFavoriteProfile()
     local ldbDataObject = ldb:NewDataObject( ADDON_NAME.." Favorites", {
@@ -164,5 +193,13 @@ ADDON.Events:RegisterCallback("OnLogin", function()
     ADDON.Events:RegisterFrameEventAndCallback("NEW_TOY_ADDED", function()
         ldbDataObject.value = count()
     end, 'new toy')
+
+    -- force initial update for ElvUI
+    -- since ElvUI is loaded before TBE and it doesn't update its panels during registration. :(
+    if ElvUI then
+        local E  = unpack(ElvUI)
+        local DT = E:GetModule('DataTexts')
+        DT:LoadDataTexts()
+    end
 
 end, "ldb-plugin")
