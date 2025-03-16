@@ -118,15 +118,16 @@ local function CreateFilter(root, text, filterKey, filterSettings, withOnly)
     if withOnly then
         local onlySettings = true == withOnly and filterSettings or withOnly
 
-        button:AddInitializer(function(button, elementDescription, menu)
-            local onlyButton = MenuTemplates.AttachAutoHideButton(button, "")
+        local onlyButton
+        button:AddInitializer(function(parentButton, elementDescription, menu)
+            onlyButton = MenuTemplates.AttachAutoHideButton(parentButton, "")
 
             onlyButton:SetNormalFontObject("GameFontHighlight")
             onlyButton:SetHighlightFontObject("GameFontHighlight")
             onlyButton:SetText(" "..ADDON.L.FILTER_ONLY)
-            onlyButton:SetSize(onlyButton:GetTextWidth(), button.fontString:GetHeight())
+            onlyButton:SetSize(onlyButton:GetTextWidth(), parentButton.fontString:GetHeight())
             onlyButton:SetPoint("RIGHT")
-            onlyButton:SetPoint("BOTTOM", button.fontString)
+            onlyButton:SetPoint("BOTTOM", parentButton.fontString)
 
             onlyButton:SetScript("OnClick", function()
                 setAllSettings(onlySettings, false)
@@ -139,10 +140,16 @@ local function CreateFilter(root, text, filterKey, filterSettings, withOnly)
             -- since the button itself isn't properly rendered yet, the mouse is also not yet over it.
             -- and so we wait...
             C_Timer.After(0, function()
-                if button:IsMouseOver() then
+                if parentButton:IsMouseOver() then
                     onlyButton:Show()
                 end
             end)
+        end)
+        button:AddResetter(function()
+            onlyButton:SetText()
+            onlyButton:SetSize(0,0)
+            onlyButton:ClearAllPoints()
+            onlyButton:SetScript("OnClick", nil)
         end)
     end
 
