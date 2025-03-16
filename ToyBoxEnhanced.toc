@@ -20,8 +20,6 @@
 ## Category-zhCN: 战团藏品
 ## Category-zhTW: 戰隊收藏
 
-Libs\TaintLess\TaintLess.xml
-
 Locals.lua
 Database\Database.lua
 Database\toys.db.lua
