@@ -1053,6 +1053,8 @@ ADDON.db.source = {
         [235799] = true, -- Throwin' Sawblade
         [235801] = true, -- Personal Fishing Barge
         [235807] = true, -- Storefront-in-a-Box
+        [236749] = true, -- Take-Home Torq
+        [236751] = true, -- Take-Home Flarendo
     },
 
     ["Achievement"] = {
@@ -1520,6 +1522,7 @@ ADDON.db.effect = {
             [226373] = true, -- Everlasting Noggenfogger Elixir
             [226810] = true, -- Infiltrator's Shroud
             [228705] = true, -- Arachnoserum
+            [233202] = true, -- G.O.L.E.M, Jr.
             [234950] = true, -- Atomic Regoblinator
             [235017] = true, -- Glittering Vault Shard
         },
@@ -1618,6 +1621,7 @@ ADDON.db.effect = {
             [228789] = true, -- Coldflame Ring
             [229828] = true, -- 20th Anniversary Balloon Chest
             [230727] = true, -- Explosive Victory
+            [231064] = true, -- Throwaway Gangster Disguise
             [233486] = true, -- Hallowfall Supply Cache
             [235015] = true, -- Awakened Supply Crate
             [235041] = true, -- Cyrce's Circlet
@@ -1760,7 +1764,6 @@ ADDON.db.effect = {
 
         ["Other"] = {
             [228698] = true, -- Candleflexer's Dumbbell
-            [233202] = true, -- G.O.L.E.M, Jr.
         }
     },
 
@@ -1915,6 +1918,7 @@ ADDON.db.effect = {
             [224552] = true, -- Cave Spelunker's Torch
             [225347] = true, -- Web-Vandal's Spinning Wheel
             [224192] = true, -- Practice Ravager
+            [235050] = true, -- Desk-in-a-Box
         },
 
         ["Corpse"] = {
@@ -2301,6 +2305,7 @@ ADDON.db.effect = {
             [223312] = true, -- Trusty Hat
             [228707] = true, -- Trial of Burning Light
             [218308] = true, -- Winter Veil Cracker
+            [230924] = true, -- Spotlight Materializer 1000
             [235799] = true, -- Throwin' Sawblade
         }
     },
@@ -2618,6 +2623,8 @@ ADDON.db.effect = {
         [226519] = true, -- General's Expertise
         [228914] = true, -- Arachnophile Spectacles
         [228966] = true, -- Starry-Eyed Goggles
+        [236749] = true, -- Take-Home Torq
+        [236751] = true, -- Take-Home Flarendo
     },
 
     ["Companion"] = {
