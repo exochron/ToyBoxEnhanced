@@ -76,11 +76,6 @@ end, "debug")
 ADDON.Events:RegisterCallback("PostLoadUI", function()
     DatabaseTest()
 end, "debug")
-ADDON.Events:RegisterFrameEventAndCallback("PLAYER_ENTERING_WORLD", function(_, isLogin, isReload)
-    if isLogin and not isReload then
-        print("Thank you for participating in the development of "..ADDON_NAME.."! Your help is really appreciated!")
-    end
-end, 'hello dev')
 
 -- After starting the client fresh the first character doesn't have a fully loaded C_ToyBox on PLAYER_LOGIN
 -- (since at least 8.3)
