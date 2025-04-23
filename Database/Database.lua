@@ -11,19 +11,11 @@ if isClassic then
         ["whitelist"] = { },
     }
 else
-    if select(4, GetBuildInfo()) < 110100 then
-        ADDON.db.Recent = {
-            ["minID"] = 233486,
-            ["blacklist"] = {},
-            ["whitelist"] = {218308, 218310},
-        }
-    else
-        ADDON.db.Recent = {
-            ["minID"] = 235050,
-            ["blacklist"] = {},
-            ["whitelist"] = {226373, 230727, 230850, 230924, 231064, 233202, 234950, 234951},
-        }
-    end
+    ADDON.db.Recent = {
+        ["minID"] = 238850,
+        ["blacklist"] = {},
+        ["whitelist"] = {232302, 232306},
+    }
 end
 
 ADDON.db.worldEvent = {
@@ -754,7 +746,8 @@ ADDON.db.source = {
         [228966] = true, -- Starry-Eyed Goggles
         [233202] = true, -- G.O.L.E.M, Jr.
         [235041] = true, -- Cyrce's Circlet
-
+        [239007] = true, -- Dastardly Banner
+        [239018] = true, -- Winner's Podium
     },
 
     ["Vendor"] = {
@@ -935,6 +928,7 @@ ADDON.db.source = {
         [209035] = true, -- Hearthstone of the Flame -- Amidrassil
         [232301] = true, -- Tempered Banner of the Algari -- MDI - War Within Season 1
         [236687] = true, -- Explosive Hearthstone -- Liberation of Undermine
+        [232302] = true, -- Prized Banner of the Algari -- MDI War Within S2
     },
 
     ["Reputation"] = {
@@ -1055,6 +1049,9 @@ ADDON.db.source = {
         [235807] = true, -- Storefront-in-a-Box
         [236749] = true, -- Take-Home Torq
         [236751] = true, -- Take-Home Flarendo
+        [238850] = true, -- Arathi Entertainer's Flame
+        [238852] = true, -- Flame's Radiance Banner
+        [239693] = true, -- Radiant Lynx Whistle
     },
 
     ["Achievement"] = {
@@ -1074,6 +1071,7 @@ ADDON.db.source = {
         -- Battle for Azeroth
         [163697] = true, -- Laser Pointer
         [166247] = true, -- Citizens Brigade Whistle
+        [167698] = true, -- Secret Fish Goggles
         [168016] = true, -- Hyper-Compressed Ocean
         [174830] = true, -- Shadowy Disguise
         [174871] = true, -- Mayhem Mind Melder
@@ -1128,8 +1126,9 @@ ADDON.db.source = {
         [225969] = true, -- Forged Flag of Victory
         [227538] = true, -- Unbound Legend's Pennant
         [227539] = true, -- Unbound Strategist's Pennant
-        [232305] = true, -- Forged Champion's Prestigious Banner
+        [232305] = true, -- Forged Champion's Prestigious Banner -- AWC War Within S1
         [235519] = true, -- Prized Legend's Pennant
+        [232306] = true, -- Prized Champion's Prestigious Banner -- AWC War Within S2
     },
 
     ["Garrison"] = {
@@ -1244,6 +1243,8 @@ ADDON.db.source = {
         [208704] = true, -- Deepdweller's Earthen Hearthstone - War Within Epic Edition
         [208883] = true, -- Sandbox Storm Gryphon - War Within Epic Edition
         [216893] = true, -- Goblin Town-in-a-Box -- Cata Classic Epic Edition
+        [235288] = true, -- Sha-Warped Tea Set -- MoP Classic Heroic Pack
+        [235464] = true, -- Sha-Touched Tea Set -- MoP Classic Heroic Pack (classic)
 
         -- Trading Card Game
         [32542] = true, -- Imp in a Ball
@@ -1710,11 +1711,14 @@ ADDON.db.effect = {
             [128223] = true, -- Bottomless Stygana Mushroom Brew
             [130151] = true, -- The "Devilsaur" Lunchbox
             [166703] = true, -- Goldtusk Inn Breakfast Buffet
+            [166808] = true, -- Bewitching Tea Set
             [183900] = true, -- Sinvyr Tea Set
             [198039] = true, -- Rock of Appreciation
             [199649] = true, -- Dragon Tea Set
             [199650] = true, -- Whale Bone Tea Set
             [234951] = true, -- Uncracked Cold Ones
+            [235288] = true, -- Sha-Warped Tea Set
+            [235464] = true, -- Sha-Touched Tea Set
         },
 
         ["Other"] = {
@@ -2010,12 +2014,15 @@ ADDON.db.effect = {
             [211424] = true, -- Dreaming Banner of the Aspects
             [218128] = true, -- Draconic Banner of the Aspects
             [232301] = true, -- Tempered Banner of the Algari
+            [232302] = true, -- Prized Banner of the Algari
             [232305] = true, -- Forged Champion's Prestigious Banner
-            [232305] = true, -- Forged Champion's Prestigious Banner
+            [232306] = true, -- Prized Champion's Prestigious Banner
             [235669] = true, -- Steamwheedle Cartel Banner
             [235670] = true, -- Bilgewater Cartel Banner
             [235671] = true, -- Blackwater Cartel Banner
             [235672] = true, -- Venture Co. Banner
+            [238852] = true, -- Flame's Radiance Banner
+            [239007] = true, -- Dastardly Banner
         },
 
         -- Summons a clone of the character
@@ -2074,7 +2081,6 @@ ADDON.db.effect = {
             [141297] = true, -- Arcano-Shower
             [160751] = true, -- Dance of the Dead
             [169347] = true, -- Judgment of Mechagon
-            [183900] = true, -- Sinvyr Tea Set
             [184075] = true, -- Stonewrought Sentry
             [184318] = true, -- Battlecry of Krexus
             [184415] = true, -- Soothing Vesper
@@ -2096,8 +2102,6 @@ ADDON.db.effect = {
             [198173] = true, -- Atomic Recalibrator
             [198474] = true, -- Artist's Easel
             [198646] = true, -- Ornate Dragon Statue
-            [199649] = true, -- Dragon Tea Set
-            [199650] = true, -- Whale Bone Tea Set
             [199900] = true, -- Secondhand Survey Tools
             [201931] = true, -- Warcraft Rumble Toy: Maiev
             [202261] = true, -- Warcraft Rumble Toy: Sneed
@@ -2121,6 +2125,7 @@ ADDON.db.effect = {
             [220692] = true, -- X-treme Water Blaster Display
             [228707] = true, -- Trial of Burning Light
             [235807] = true, -- Storefront-in-a-Box
+            [239018] = true, -- Winner's Podium
         },
 
         ["Weather"] = {
@@ -2186,7 +2191,6 @@ ADDON.db.effect = {
             [141299] = true, -- Kaldorei Light Globe
             [156649] = true, -- Zandalari Effigy Amulet
             [166704] = true, -- Bowl of Glowing Pufferfish
-            [166808] = true, -- Bewitching Tea Set
             [169796] = true, -- Azeroth Mini Collection: Mechagon
             [170196] = true, -- Shirakess Warning Sign
             [170197] = true, -- Swarthy Warning Sign
@@ -2211,6 +2215,7 @@ ADDON.db.effect = {
             [156833] = true, -- Katy's Stampwhistle
             [183876] = true, -- Quill of Correspondence
             [194885] = true, -- Ohuna Perch
+            [239693] = true, -- Radiant Lynx Whistle
         },
 
         ["NPC"] = {
@@ -2257,6 +2262,7 @@ ADDON.db.effect = {
             [166787] = true, -- Twiddle Twirler: Sentinel's Glaive
             [166788] = true, -- Twiddle Twirler: Shredder Blade
             [206696] = true, -- Tricked-Out Thinking Cap
+            [238852] = true, -- Flame's Radiance Banner
         },
 
         ["Co-op"] = {
@@ -2350,6 +2356,7 @@ ADDON.db.effect = {
             [147311] = true, -- Crate of Bobbers: Replica Gondola
             [147312] = true, -- Crate of Bobbers: Demon Noggin
             [152556] = true, -- Trawler Totem
+            [167698] = true, -- Secret Fish Goggles
             [168016] = true, -- Hyper-Compressed Ocean
             [180993] = true, -- Bat Visage Bobber
             [202207] = true, -- Reusable Oversized Bobber
