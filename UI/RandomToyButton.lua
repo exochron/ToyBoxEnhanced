@@ -22,7 +22,7 @@ local function collectItemIds()
 
     local _,_, favoredToys = ADDON.Api:GetFavoriteProfile()
     for _, itemId in ipairs(favoredToys) do
-        if C_ToyBox.IsToyUsable(itemId) then
+        if PlayerHasToy(itemId) and C_ToyBox.IsToyUsable(itemId) then
             local startTime, duration = C_Container.GetItemCooldown(itemId)
             if startTime == 0 or (startTime + duration) <= now then
                 items[#items + 1] = itemId

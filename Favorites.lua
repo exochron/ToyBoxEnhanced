@@ -1,5 +1,7 @@
 local _, ADDON = ...
 
+--TODO: sync Account profile with ingame favorites
+
 local L = ADDON.L
 local starButton
 
@@ -69,7 +71,7 @@ function ADDON.Api:SetBulkIsFavorites(filteredProvider, inclusive)
 
     local tInsert = table.insert
     for itemId, shouldAdd in pairs(itemsToAdd) do
-        if shouldAdd and PlayerHasToy(itemId) then
+        if shouldAdd then
             tInsert(profileToys, itemId)
             hasChange = true
         end

@@ -37,8 +37,8 @@ function ADDON:SortHandler(itemA, itemB)
         return isFavoriteA and not isFavoriteB
     end
     if ADDON.settings.sort.unownedAtLast then
-        local isCollectedA = isFavoriteA or PlayerHasToy(itemA)
-        local isCollectedB = isFavoriteB or PlayerHasToy(itemB)
+        local isCollectedA = PlayerHasToy(itemA)
+        local isCollectedB = PlayerHasToy(itemB)
         if isCollectedA ~= isCollectedB then
             return isCollectedA and not isCollectedB
         end
