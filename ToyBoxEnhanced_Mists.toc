@@ -1,0 +1,46 @@
+## Interface: 50500
+## Title: Toy Box Enhanced
+## Notes: Extends the ingame Toy Box
+## IconTexture: Interface\Icons\Trade_Archaeology_ChestofTinyGlassAnimals
+## Author: eXochron
+## Version: @project-version@
+## SavedVariables: ToyBoxEnhancedGlobalSettings
+## SavedVariablesPerCharacter: ToyBoxEnhancedSettings
+## X-Curse-Project-ID: 87878
+## X-Wago-ID: pkNMXrGz
+## Category-enUS: Collections
+## Category-deDE: Kriegsmeutesammlungen
+## Category-esES: Colecciones de banda guerrera
+## Category-esMX: Colecciones de tropa
+## Category-frFR: Collections du bataillon
+## Category-itIT: Collezioni della Brigata
+## Category-koKR: 전투부대 수집품
+## Category-ptBR: Coleções do Bando de Guerra
+## Category-ruRU: Коллекции отряда
+## Category-zhCN: 战团藏品
+## Category-zhTW: 戰隊收藏
+
+Locals.lua
+Database\Database.lua
+Database\toys.db.lua
+Database\faction.db.lua
+
+Filters.lua
+Sort.lua
+ToyBoxEnhanced.lua
+Settings.lua
+SettingsPanel.lua
+#@do-not-package@
+DevZone\Tests.lua
+DevZone\Screenshot.lua
+#@end-do-not-package@
+Favorites.lua
+UI\Templates.xml
+UI\EnhancedLayer.lua
+UI\FilterMenu.lua
+UI\Hotkeys.lua
+UI\OptionsMenu.lua
+UI\RandomToyButton.lua
+UI\ToyCount.lua
+UI\LDB-Favorites.lua
+SlashCommand.lua

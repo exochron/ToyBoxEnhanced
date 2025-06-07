@@ -216,7 +216,7 @@ end
 
 local function BuildStarButton()
     starButton = CreateFrame("DropdownButton", nil, ToyBox)
-    starButton:SetPoint("RIGHT", ToyBox.searchBox.Left, "LEFT", WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE and -5 or -10, 0)
+    starButton:SetPoint("RIGHT", ToyBox.searchBox.Left, "LEFT", ADDON.isClassic and -5 or -10, 0)
     starButton:SetSize(16, 16)
 
     local icon = starButton:CreateTexture(nil, "ARTWORK")

@@ -308,7 +308,6 @@ end
 
 local function SetupSourceMenu(root)
     local L = ADDON.L
-    local isClassic = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
 
     local resetSettings = {ADDON.settings.filter[SETTING_SOURCE], ADDON.settings.filter[SETTING_PROFESSION], ADDON.settings.filter[SETTING_WORLD_EVENT]}
 
@@ -336,7 +335,7 @@ local function SetupSourceMenu(root)
         ["Cooking"] = 4620671,
         ["Fishing"] = 4620674,
     }
-    if isClassic then
+    if ADDON.isClassic then
         professionIcons["Engineering"] = 136243
         professionIcons["Fishing"] = 136245
     end
@@ -507,8 +506,8 @@ local function SetupFilterMenu(_, root)
     SetupSourceMenu(root:CreateButton(SOURCES))
 
     local faction = root:CreateButton(FACTION)
-    AddIcon(CreateFilter(faction, FACTION_ALLIANCE, "alliance", ADDON.settings.filter[SETTING_FACTION]), WOW_PROJECT_ID == WOW_PROJECT_MAINLINE and 2173919 or 463450)
-    AddIcon(CreateFilter(faction, FACTION_HORDE, "horde", ADDON.settings.filter[SETTING_FACTION]), WOW_PROJECT_ID == WOW_PROJECT_MAINLINE and 2173920 or 463451)
+    AddIcon(CreateFilter(faction, FACTION_ALLIANCE, "alliance", ADDON.settings.filter[SETTING_FACTION]), ADDON.isRetail and 2173919 or 463450)
+    AddIcon(CreateFilter(faction, FACTION_HORDE, "horde", ADDON.settings.filter[SETTING_FACTION]), ADDON.isRetail and 2173920 or 463451)
     AddIcon(CreateFilter(faction, NPC_NAMES_DROPDOWN_NONE, "noFaction", ADDON.settings.filter[SETTING_FACTION]), 0)
 
     setupExpansionMenu(root:CreateButton(EXPANSION_FILTER_TEXT))
