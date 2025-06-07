@@ -4,10 +4,16 @@ local isClassic = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
 
 ADDON.db = {}
 
-if isClassic then
+if WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then
     ADDON.db.Recent = {
         ["minID"] = 70159,
         ["blacklist"] = { 198647, 184871, 216893},
+        ["whitelist"] = { },
+    }
+elseif isClassic then
+    ADDON.db.Recent = {
+        ["minID"] = 80000,
+        ["blacklist"] = { 198647, 184871, 216893}, -- Fishspeaker's Lucky Lure, Dark Portal, Goblin Town-in-a-Box
         ["whitelist"] = { },
     }
 else
