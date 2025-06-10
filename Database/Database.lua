@@ -4,7 +4,7 @@ local isClassic = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
 
 ADDON.db = {}
 
-if WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then
+if WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then -- todo: remove after 5.0
     ADDON.db.Recent = {
         ["minID"] = 70159,
         ["blacklist"] = { 198647, 184871, 216893},
@@ -16,11 +16,17 @@ elseif isClassic then
         ["blacklist"] = { 198647, 184871, 216893}, -- Fishspeaker's Lucky Lure, Dark Portal, Goblin Town-in-a-Box
         ["whitelist"] = { },
     }
-else
+elseif select(4, GetBuildInfo()) < 110107 then -- todo: remove after 11.1.7
     ADDON.db.Recent = {
         ["minID"] = 238850,
         ["blacklist"] = {},
         ["whitelist"] = {232302, 232306},
+    }
+else
+    ADDON.db.Recent = {
+        ["minID"] = 244888,
+        ["blacklist"] = {},
+        ["whitelist"] = {},
     }
 end
 
@@ -45,6 +51,8 @@ ADDON.db.worldEvent = {
         [224192] = true, -- Practice Ravager
         [228789] = true, -- Coldflame Ring
         [229828] = true, -- 20th Anniversary Balloon Chest
+        [245942] = true, -- Sea-Blessed Shrine
+        [246227] = true, -- Lightning-Blessed Spire
     },
 
     ["Darkmoon Faire"] = {
@@ -754,6 +762,9 @@ ADDON.db.source = {
         [235041] = true, -- Cyrce's Circlet
         [239007] = true, -- Dastardly Banner
         [239018] = true, -- Winner's Podium
+        [244888] = true, -- Echo of the Xal'atath, Blade of the Black Empire
+        [245631] = true, -- Royal Visage
+        [245567] = true, -- K'aresh Memory Crystal
     },
 
     ["Vendor"] = {
@@ -935,6 +946,8 @@ ADDON.db.source = {
         [232301] = true, -- Tempered Banner of the Algari -- MDI - War Within Season 1
         [236687] = true, -- Explosive Hearthstone -- Liberation of Undermine
         [232302] = true, -- Prized Banner of the Algari -- MDI War Within S2
+        [236749] = true, -- Take-Home Torq
+        [236751] = true, -- Take-Home Flarendo
     },
 
     ["Reputation"] = {
@@ -1053,8 +1066,6 @@ ADDON.db.source = {
         [235799] = true, -- Throwin' Sawblade
         [235801] = true, -- Personal Fishing Barge
         [235807] = true, -- Storefront-in-a-Box
-        [236749] = true, -- Take-Home Torq
-        [236751] = true, -- Take-Home Flarendo
         [238850] = true, -- Arathi Entertainer's Flame
         [238852] = true, -- Flame's Radiance Banner
         [239693] = true, -- Radiant Lynx Whistle
@@ -1532,6 +1543,10 @@ ADDON.db.effect = {
             [233202] = true, -- G.O.L.E.M, Jr.
             [234950] = true, -- Atomic Regoblinator
             [235017] = true, -- Glittering Vault Shard
+            [245567] = true, -- K'aresh Memory Crystal
+            [245631] = true, -- Royal Visage
+            [245942] = true, -- Sea-Blessed Shrine
+            [246227] = true, -- Lightning-Blessed Spire
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1929,6 +1944,8 @@ ADDON.db.effect = {
             [225347] = true, -- Web-Vandal's Spinning Wheel
             [224192] = true, -- Practice Ravager
             [235050] = true, -- Desk-in-a-Box
+            [236749] = true, -- Take-Home Torq
+            [236751] = true, -- Take-Home Flarendo
         },
 
         ["Corpse"] = {
@@ -2131,7 +2148,10 @@ ADDON.db.effect = {
             [220692] = true, -- X-treme Water Blaster Display
             [228707] = true, -- Trial of Burning Light
             [235807] = true, -- Storefront-in-a-Box
+            [236769] = true, -- Gallagio Pipeline Rerouter
             [239018] = true, -- Winner's Podium
+            [245942] = true, -- Sea-Blessed Shrine
+            [246227] = true, -- Lightning-Blessed Spire
         },
 
         ["Weather"] = {
@@ -2268,7 +2288,7 @@ ADDON.db.effect = {
             [166787] = true, -- Twiddle Twirler: Sentinel's Glaive
             [166788] = true, -- Twiddle Twirler: Shredder Blade
             [206696] = true, -- Tricked-Out Thinking Cap
-            [238852] = true, -- Flame's Radiance Banner
+            [238850] = true, -- Arathi Entertainer's Flame
         },
 
         ["Co-op"] = {
@@ -2450,6 +2470,7 @@ ADDON.db.effect = {
         ["Voice"] = {
             [119211] = true, -- Golden Hearthstone Card: Lord Jaraxxus
             [170469] = true, -- Memento of the Deeps
+            [244888] = true, -- Echo of the Xal'atath, Blade of the Black Empire
         }
     },
 
@@ -2636,8 +2657,6 @@ ADDON.db.effect = {
         [226519] = true, -- General's Expertise
         [228914] = true, -- Arachnophile Spectacles
         [228966] = true, -- Starry-Eyed Goggles
-        [236749] = true, -- Take-Home Torq
-        [236751] = true, -- Take-Home Flarendo
     },
 
     ["Companion"] = {

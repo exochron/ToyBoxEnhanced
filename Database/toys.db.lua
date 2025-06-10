@@ -1026,4 +1026,9 @@ ADDON.db.ingameList = {
 [239007] = false, -- Dastardly Banner
 [239018] = false, -- Winner's Podium
 [239693] = false, -- Radiant Lynx Whistle
+[244888] = false, -- Echo of the Xal'atath, Blade of the Black Empire
+[245567] = false, -- K'aresh Memory Crystal
+[245631] = false, -- Royal Visage
+[245942] = false, -- Sea-Blessed Shrine
+[246227] = false, -- Lightning-Blessed Spire
 }
