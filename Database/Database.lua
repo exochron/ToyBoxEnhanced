@@ -4,28 +4,22 @@ local isClassic = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
 
 ADDON.db = {}
 
-if WOW_PROJECT_ID == WOW_PROJECT_CATACLYSM_CLASSIC then -- todo: remove after 5.0
-    ADDON.db.Recent = {
-        ["minID"] = 70159,
-        ["blacklist"] = { 198647, 184871, 216893},
-        ["whitelist"] = { },
-    }
-elseif isClassic then
+if isClassic then
     ADDON.db.Recent = {
         ["minID"] = 80000,
         ["blacklist"] = { 198647, 184871, 216893}, -- Fishspeaker's Lucky Lure, Dark Portal, Goblin Town-in-a-Box
         ["whitelist"] = { },
     }
-elseif select(4, GetBuildInfo()) < 110107 then -- todo: remove after 11.1.7
-    ADDON.db.Recent = {
-        ["minID"] = 238850,
-        ["blacklist"] = {},
-        ["whitelist"] = {232302, 232306},
-    }
-else
+elseif select(4, GetBuildInfo()) <= 110107 then -- later: remove after 11.2 release
     ADDON.db.Recent = {
         ["minID"] = 244888,
         ["blacklist"] = {},
+        ["whitelist"] = {},
+    }
+else
+    ADDON.db.Recent = {
+        ["minID"] = 242323,
+        ["blacklist"] = {244888,245567,245631,245942,246227},
         ["whitelist"] = {},
     }
 end
@@ -147,6 +141,7 @@ ADDON.db.worldEvent = {
         [166747] = true, -- Brewfest Reveler's Hearthstone
         [169865] = true, -- Brewfest Chowdown Trophy
         [209052] = true, -- Brew Barrel
+        [245946] = true, -- Brewer's Balloon
     },
 
     ["Hallow's End"] = {
@@ -455,6 +450,7 @@ ADDON.db.source = {
         [225641] = true, -- Illusive Kobyss Lure
         [225659] = true, -- Arathi Book Collection
         [234951] = true, -- Uncracked Cold Ones
+        [245970] = true, -- P.O.S.T. Master's Express Hearthstone
     },
 
     ["Drop"] = {
@@ -641,6 +637,7 @@ ADDON.db.source = {
         [226810] = true, -- Infiltrator's Shroud
         [230727] = true, -- Explosive Victory
         [235017] = true, -- Glittering Vaulöt Shard
+        [242323] = true, -- Chowdar's Favorite Ribbon
     },
 
     ["Quest"] = {
@@ -765,6 +762,8 @@ ADDON.db.source = {
         [244888] = true, -- Echo of the Xal'atath, Blade of the Black Empire
         [245631] = true, -- Royal Visage
         [245567] = true, -- K'aresh Memory Crystal
+        [244470] = true, -- Etheric Victory
+        [249713] = true, -- Cartel Transmorpher
     },
 
     ["Vendor"] = {
@@ -917,6 +916,13 @@ ADDON.db.source = {
         [237346] = true, -- Artisan Beverage Goblet Bobber
         [237347] = true, -- Organically-Sourced Wellington Bobber
         [237382] = true, -- Undermine Supply Crate
+        [243056] = true, -- Delver's Mana-Bound Ethergate
+        [244792] = true, -- Etheric Brannmorpher
+        [246903] = true, -- Guise of the Phase Diver
+        [246905] = true, -- Overtuned K'areshi Goggles
+        [246907] = true, -- Broker Supply Crate
+        [246908] = true, -- K'areshi Supply Crate
+        [250722] = true, -- Ethereal Stall
     },
 
     ["Instance"] = {
@@ -946,8 +952,7 @@ ADDON.db.source = {
         [232301] = true, -- Tempered Banner of the Algari -- MDI - War Within Season 1
         [236687] = true, -- Explosive Hearthstone -- Liberation of Undermine
         [232302] = true, -- Prized Banner of the Algari -- MDI War Within S2
-        [236749] = true, -- Take-Home Torq
-        [236751] = true, -- Take-Home Flarendo
+        [246565] = true, -- Cosmic Hearthstone
     },
 
     ["Reputation"] = {
@@ -1066,6 +1071,8 @@ ADDON.db.source = {
         [235799] = true, -- Throwin' Sawblade
         [235801] = true, -- Personal Fishing Barge
         [235807] = true, -- Storefront-in-a-Box
+        [236749] = true, -- Take-Home Torq
+        [236751] = true, -- Take-Home Flarendo
         [238850] = true, -- Arathi Entertainer's Flame
         [238852] = true, -- Flame's Radiance Banner
         [239693] = true, -- Radiant Lynx Whistle
@@ -1547,6 +1554,8 @@ ADDON.db.effect = {
             [245631] = true, -- Royal Visage
             [245942] = true, -- Sea-Blessed Shrine
             [246227] = true, -- Lightning-Blessed Spire
+            [244792] = true, -- Etheric Brannmorpher
+            [249713] = true, -- Cartel Transmorpher
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1648,6 +1657,12 @@ ADDON.db.effect = {
             [235015] = true, -- Awakened Supply Crate
             [235041] = true, -- Cyrce's Circlet
             [237382] = true, -- Undermine Supply Crate
+            [242323] = true, -- Chowdar's Favorite Ribbon
+            [244470] = true, -- Etheric Victory
+            [245946] = true, -- Brewer's Balloon
+            [246903] = true, -- Guise of the Phase Diver
+            [246907] = true, -- Broker Supply Crate
+            [246908] = true, -- K'areshi Supply Crate
         },
 
         ["Bigger"] = {
@@ -2152,6 +2167,7 @@ ADDON.db.effect = {
             [239018] = true, -- Winner's Podium
             [245942] = true, -- Sea-Blessed Shrine
             [246227] = true, -- Lightning-Blessed Spire
+            [250722] = true, -- Ethereal Stall
         },
 
         ["Weather"] = {
@@ -2197,6 +2213,8 @@ ADDON.db.effect = {
             [233486] = true, -- Hallowfall Supply Cache
             [235015] = true, -- Awakened Supply Crate
             [237382] = true, -- Undermine Supply Crate
+            [246907] = true, -- Broker Supply Crate
+            [246908] = true, -- K'areshi Supply Crate
         },
 
         -- Can click on these
@@ -2551,6 +2569,8 @@ ADDON.db.effect = {
             [228940] = true, -- Notorious Thread's Hearthstone
             [236687] = true, -- Explosive Hearthstone
             [235016] = true, -- Redeployment Module
+            [245970] = true, -- P.O.S.T. Master's Express Hearthstone
+            [246565] = true, -- Cosmic Hearthstone
         },
 
         ["Jump"] = {
@@ -2615,6 +2635,7 @@ ADDON.db.effect = {
             [211788] = true, -- Tess's Peacebloom
             [221966] = true, -- Wormhole Generator: Khaz Algar
             [230850] = true, -- Delve-O-Bot 7001
+            [243056] = true, -- Delver's Mana-Bound Ethergate
         },
 
         ["Water Walking"] = {
@@ -2657,6 +2678,7 @@ ADDON.db.effect = {
         [226519] = true, -- General's Expertise
         [228914] = true, -- Arachnophile Spectacles
         [228966] = true, -- Starry-Eyed Goggles
+        [246905] = true, -- Overtuned K'areshi Goggles
     },
 
     ["Companion"] = {
