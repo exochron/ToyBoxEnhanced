@@ -10,9 +10,9 @@ This addon extends the ingame toy box with some cool stuff.
 - Sort toys by name or expansion (or in reverse)
 
 ## ⭐ Enhanced Favorites
-- __new:__ Use multiple Profiles and quickly switch between them
-- __new:__ Integrated Data broker plugin to access your favorite toys more quickly
-- __new:__ Favor new toys automatically
+- Use multiple Profiles and quickly switch between them
+- Integrated Data broker plugin to access your favorite toys more quickly
+- Favor new toys automatically
 - Favor all filtered toys at once or unset them all
 - Use a random favored toy
 
