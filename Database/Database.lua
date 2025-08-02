@@ -1370,11 +1370,13 @@ ADDON.db.expansion = {
         [40727] = true, -- Gnomish Gravity Well
         [46709] = true, -- MiniZep Controller
         [53057] = true, -- Faded Wizard Hat
-        [216893] = true, -- Goblin Town-in-a-Box
+        [216893] = true, -- Goblin Town-in-a-Box (Cata Classic)
     },
     [4] = { -- Mists of Pandaria
         ["minID"] = 80000,
         ["maxID"] = 107999,
+        [235288] = true, -- Sha-Warped Tea Set
+        [235464] = true, -- Sha-Touched Tea Set (MoP Classic)
     },
     [5] = { -- Warlords of Draenor
         ["minID"] = 108000,
