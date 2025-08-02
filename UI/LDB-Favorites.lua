@@ -173,12 +173,13 @@ ADDON.Events:RegisterCallback("OnLogin", function()
         end
     end
 
+    local ldbName = ADDON_NAME.." Favorites"
     local _, profileName = ADDON.Api:GetFavoriteProfile()
-    local ldbDataObject = ldb:NewDataObject( ADDON_NAME.." Favorites", {
+    local ldbDataObject = ldb:NewDataObject( ldbName, {
         type = "data source",
         text = profileName,
         value = count(),
-        label = ADDON.L.FAVORITE_PROFILE,
+        label = ldbName, -- Titan Panel uses label as entry name in its plugin list.
         icon = "Interface\\Icons\\Trade_Archaeology_ChestofTinyGlassAnimals",
         tooltip = tooltipProxy,
 
@@ -191,6 +192,9 @@ ADDON.Events:RegisterCallback("OnLogin", function()
             end
         end,
     } )
+    C_Timer.After(0, function()
+        ldbDataObject.label = ADDON.L.FAVORITE_PROFILE
+    end)
 
     ADDON.Events:RegisterCallback("OnFavoriteProfileChanged", function()
         local _, profileName = ADDON.Api:GetFavoriteProfile()
