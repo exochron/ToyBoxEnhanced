@@ -20,12 +20,12 @@ local function FilterBySearch(itemId, searchString)
     end
 
     if ADDON.settings.ui.searchInDescription then
-        local GetSpellDescription = C_Spell.GetSpellDescription or GetSpellDescription
-
-        local _, spellId = GetItemSpell(itemId)
-        local spellDescription = GetSpellDescription(spellId)
-        if StringContains(spellDescription, searchString) then
-            return true
+        local _, spellId = C_Item.GetItemSpell(itemId)
+        if spellID then
+            local spellDescription = C_Spell.GetSpellDescription(spellId)
+            if StringContains(spellDescription, searchString) then
+                return true
+            end
         end
 
         if C_TooltipInfo then
