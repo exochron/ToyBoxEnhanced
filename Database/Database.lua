@@ -10,17 +10,17 @@ if isClassic then
         ["blacklist"] = { 198647, 184871, 216893}, -- Fishspeaker's Lucky Lure, Dark Portal, Goblin Town-in-a-Box
         ["whitelist"] = { },
     }
-elseif select(4, GetBuildInfo()) <= 110107 then -- later: remove after 11.2 release
-    ADDON.db.Recent = {
-        ["minID"] = 244888,
-        ["blacklist"] = {},
-        ["whitelist"] = {},
-    }
-else
+elseif select(4, GetBuildInfo()) <= 110200 then -- later: remove after 11.2.5 release
     ADDON.db.Recent = {
         ["minID"] = 242323,
         ["blacklist"] = {244888,245567,245631,245942,246227},
         ["whitelist"] = {},
+    }
+else
+    ADDON.db.Recent = {
+        ["minID"] = 250723,
+        ["blacklist"] = {},
+        ["whitelist"] = {131717,138111,141605},
     }
 end
 
@@ -221,7 +221,6 @@ ADDON.db.profession = {
         [205045] = true, -- B.B.F, Fist
         [215145] = true, -- Remembrance Stone
         [215147] = true, -- Beautification Iris
-        [215145] = true, -- Remembrance Stone
     },
 
     ["Engineering"] = {
@@ -679,7 +678,9 @@ ADDON.db.source = {
         -- Legion
         [129093] = true, -- Ravenbear Disguise
         [130209] = true, -- Never Ending Toy Chest
+        [131717] = true, -- Starlight Beacon
         [131933] = true, -- Critter Hand Cannon
+        [138111] = true, -- Stormforged Grapple Launcher
         [133997] = true, -- Black Ice
         [133998] = true, -- Rainbow Generator
         [134021] = true, -- X-52 Rocket Helmet
@@ -687,6 +688,7 @@ ADDON.db.source = {
         [138876] = true, -- Runas' Crystal Grinder
         [138878] = true, -- Copy of Daglop's Contract
         [140192] = true, -- Dalaran Hearthstone
+        [141605] = true, -- Flight Master's Whistle
         [141879] = true, -- Berglrgl Perrgl Girggrlf
         [142494] = true, -- Purple Blossom
         [142495] = true, -- Fake Teeth
@@ -952,6 +954,7 @@ ADDON.db.source = {
         [232301] = true, -- Tempered Banner of the Algari -- MDI - War Within Season 1
         [236687] = true, -- Explosive Hearthstone -- Liberation of Undermine
         [232302] = true, -- Prized Banner of the Algari -- MDI War Within S2
+        [232303] = true, -- Unbound Banner of the Algari -- MDI War Within S3
         [246565] = true, -- Cosmic Hearthstone
     },
 
@@ -1153,6 +1156,7 @@ ADDON.db.source = {
         [232305] = true, -- Forged Champion's Prestigious Banner -- AWC War Within S1
         [235519] = true, -- Prized Legend's Pennant
         [232306] = true, -- Prized Champion's Prestigious Banner -- AWC War Within S2
+        [232307] = true, -- Astral Champion's Prestigious Banner -- AWC War Within S3
     },
 
     ["Garrison"] = {
@@ -2055,8 +2059,10 @@ ADDON.db.effect = {
             [218128] = true, -- Draconic Banner of the Aspects
             [232301] = true, -- Tempered Banner of the Algari
             [232302] = true, -- Prized Banner of the Algari
+            [232303] = true, -- Unbound Banner of the Algari
             [232305] = true, -- Forged Champion's Prestigious Banner
             [232306] = true, -- Prized Champion's Prestigious Banner
+            [232307] = true, -- Astral Champion's Prestigious Banner
             [235669] = true, -- Steamwheedle Cartel Banner
             [235670] = true, -- Bilgewater Cartel Banner
             [235671] = true, -- Blackwater Cartel Banner
@@ -2501,6 +2507,7 @@ ADDON.db.effect = {
             [40727] = true, -- Gnomish Gravity Well
             [113542] = true, -- Whispers of Rai'Vosh
             [119093] = true, -- Aviana's Feather
+            [131717] = true, -- Starlight Beacon
             [131811] = true, -- Rocfeather Skyhorn Kite
             [134021] = true, -- X-52 Rocket Helmet
             [173727] = true, -- Nomi's Vintage
@@ -2579,6 +2586,7 @@ ADDON.db.effect = {
             [86590] = true, -- Essence of the Breeze
             [116113] = true, -- Breath of Talador
             [119178] = true, -- Black Whirlwind
+            [138111] = true, -- Stormforged Grapple Launcher
             [134023] = true, -- Bottled Tornado
             [139773] = true, -- Emerald Winds
             [140336] = true, -- Brulfist Idol
@@ -2624,6 +2632,7 @@ ADDON.db.effect = {
             [129929] = true, -- Ever-Shifting Mirror
             [136849] = true, -- Nature's Beacon
             [140324] = true, -- Mobile Telemancy Beacon
+            [141605] = true, -- Flight Master's Whistle
             [151016] = true, -- Fractured Necrolyte Skull
             [151652] = true, -- Wormhole Generator: Argus
             [153004] = true, -- Unstable Portal Emitter
