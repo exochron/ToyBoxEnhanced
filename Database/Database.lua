@@ -10,17 +10,11 @@ if isClassic then
         ["blacklist"] = { 198647, 184871, 216893}, -- Fishspeaker's Lucky Lure, Dark Portal, Goblin Town-in-a-Box
         ["whitelist"] = { },
     }
-elseif select(4, GetBuildInfo()) <= 110200 then -- later: remove after 11.2.5 release
-    ADDON.db.Recent = {
-        ["minID"] = 242323,
-        ["blacklist"] = {244888,245567,245631,245942,246227},
-        ["whitelist"] = {},
-    }
 else
     ADDON.db.Recent = {
-        ["minID"] = 250723,
+        ["minID"] = 256881,
         ["blacklist"] = {},
-        ["whitelist"] = {131717,138111,141605},
+        ["whitelist"] = {242520,243304,245580},
     }
 end
 
@@ -47,6 +41,8 @@ ADDON.db.worldEvent = {
         [229828] = true, -- 20th Anniversary Balloon Chest
         [245942] = true, -- Sea-Blessed Shrine
         [246227] = true, -- Lightning-Blessed Spire
+        [256881] = true, -- Steward's Bauble
+        [256893] = true, -- Wretched Dredger's Brand
     },
 
     ["Darkmoon Faire"] = {
@@ -208,6 +204,8 @@ ADDON.db.worldEvent = {
         [210656] = true, -- Winter Veil Socks
         [218308] = true, -- Winter Veil Cracker
         [218310] = true, -- Box of Puntables
+        [243304] = true, -- Jubilant Snowman Costume
+        [245580] = true, -- Rolling Snowball
     },
 }
 
@@ -766,6 +764,7 @@ ADDON.db.source = {
         [245567] = true, -- K'aresh Memory Crystal
         [244470] = true, -- Etheric Victory
         [249713] = true, -- Cartel Transmorpher
+        [242520] = true, -- Festival Hot Air Balloon
     },
 
     ["Vendor"] = {
@@ -1157,6 +1156,7 @@ ADDON.db.source = {
         [235519] = true, -- Prized Legend's Pennant
         [232306] = true, -- Prized Champion's Prestigious Banner -- AWC War Within S2
         [232307] = true, -- Astral Champion's Prestigious Banner -- AWC War Within S3
+        [242636] = true, -- Astral Legend's Pennant
     },
 
     ["Garrison"] = {
@@ -1273,6 +1273,10 @@ ADDON.db.source = {
         [216893] = true, -- Goblin Town-in-a-Box -- Cata Classic Epic Edition
         [235288] = true, -- Sha-Warped Tea Set -- MoP Classic Heroic Pack
         [235464] = true, -- Sha-Touched Tea Set -- MoP Classic Heroic Pack (classic)
+        [254666] = true, -- Exodar Replica -- TBC Classic
+        [260221] = true, -- Naaru's Embrace -- TBC Classic
+        [260622] = true, -- Exodar Replica -- TBC Classic
+        [263489] = true, -- Naaru's Enfold -- TBC Classic
 
         -- Trading Card Game
         [32542] = true, -- Imp in a Ball
@@ -1562,6 +1566,10 @@ ADDON.db.effect = {
             [246227] = true, -- Lightning-Blessed Spire
             [244792] = true, -- Etheric Brannmorpher
             [249713] = true, -- Cartel Transmorpher
+            [243304] = true, -- Jubilant Snowman Costume
+            [247893] = true, -- Fandral's Eternal Seed -- chinese mop classic (?)
+            [256881] = true, -- Steward's Bauble
+            [256893] = true, -- Wretched Dredger's Brand
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1724,6 +1732,7 @@ ADDON.db.effect = {
             [227538] = true, -- Unbound Legend's Pennant
             [227539] = true, -- Unbound Strategist's Pennant
             [235519] = true, -- Prized Legend's Pennant
+            [242636] = true, -- Astral Legend's Pennant
         },
     },
 
@@ -1876,6 +1885,8 @@ ADDON.db.effect = {
             [207099] = true, -- Tiny Box of Tiny Rocks
             [208186] = true, -- Boffins
             [209859] = true, -- Festive Trans-Dimensional Bird Whistle
+            [254666] = true, -- Exodar Replica
+            [260622] = true, -- Exodar Replica (MoP classic)
         },
     },
 
@@ -2525,6 +2536,7 @@ ADDON.db.effect = {
             [212525] = true, -- Delicate Ebony Parasol
             [224554] = true, -- Silver Linin' Scepter
             [226373] = true, -- Everlasting Noggenfogger Elixir
+            [242520] = true, -- Festival Hot Air Balloon
         },
 
         -- Unlocks flight paths
@@ -2580,6 +2592,8 @@ ADDON.db.effect = {
             [235016] = true, -- Redeployment Module
             [245970] = true, -- P.O.S.T. Master's Express Hearthstone
             [246565] = true, -- Cosmic Hearthstone
+            [260221] = true, -- Naaru's Embrace
+            [263489] = true, -- Naaru's Enfold
         },
 
         ["Jump"] = {
@@ -2609,6 +2623,7 @@ ADDON.db.effect = {
             [198827] = true, -- Magical Snow Sled
             [209052] = true, -- Brew Barrel
             [224585] = true, -- Hanna's Locket
+            [245580] = true, -- Rolling Snowball
         },
 
         ["Swimming"] = {
@@ -2658,6 +2673,8 @@ ADDON.db.effect = {
             [211864] = true, -- Exquisite Love Boat
             [224554] = true, -- Silver Linin' Scepter
             [235801] = true, -- Personal Fishing Barge
+            [242534] = true, -- Azure Sea Skiff
+            [248263] = true, -- Azure Sea Boat -- mop classic (?)
         }
     },
 
