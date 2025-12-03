@@ -1,19 +1,13 @@
 local ADDON_NAME, ADDON = ...
 
-local actionButton
-
-local function buildActionButton()
-    local button = CreateFrame("Button", nil, nil, "InsecureActionButtonTemplate")
-    button:SetAttribute("pressAndHoldAction", 1)
-    button:SetAttribute("type", "toy")
-    button:SetAttribute("typerelease", "toy")
-    button:RegisterForClicks("LeftButtonUp")
-    button:SetPropagateMouseClicks(true)
-    button:SetPropagateMouseMotion(true)
-    button:Hide()
-
-    return button
-end
+local actionButton = CreateFrame("Button", nil, nil, "InsecureActionButtonTemplate")
+actionButton:SetAttribute("pressAndHoldAction", 1)
+actionButton:SetAttribute("type", "toy")
+actionButton:SetAttribute("typerelease", "toy")
+actionButton:RegisterForClicks("LeftButtonUp")
+actionButton:SetPropagateMouseClicks(true)
+actionButton:SetPropagateMouseMotion(true)
+actionButton:Hide()
 
 local function generateFavoritesMenu(_, root)
     root:SetTag(ADDON_NAME.."-LDB-Favorites")
@@ -36,19 +30,25 @@ local function generateFavoritesMenu(_, root)
                 actionButton:SetAttribute("toy", itemId)
                 actionButton:SetParent(frame)
                 actionButton:SetAllPoints(frame)
-                actionButton:SetFrameStrata("FULLSCREEN_DIALOG")
-                actionButton:SetFrameLevel(600)
+                actionButton:SetFrameStrata("TOOLTIP")
                 actionButton:Show()
 
                 GameTooltip:SetOwner(frame, "ANCHOR_NONE")
-                GameTooltip:SetPoint("TOPLEFT", frame, "TOPRIGHT")
                 GameTooltip:ClearLines()
                 GameTooltip:SetToyByItemID(itemId)
+                local left, _, width = frame:GetRect()
+                local remainingSpaceOnRight = GetScreenWidth() - left - width
+                if remainingSpaceOnRight < GameTooltip:GetWidth() then
+                    GameTooltip:SetPoint("TOPRIGHT", frame, "TOPLEFT") -- on left side
+                else
+                    GameTooltip:SetPoint("TOPLEFT", frame, "TOPRIGHT") -- on right side
+                end
                 GameTooltip:Show()
             end)
             element:SetOnLeave(function()
                 GameTooltip:Hide()
                 actionButton:Hide()
+                actionButton:SetParent(nil)
             end)
             local cooldownTimer = C_Container.GetItemCooldown(itemId)
             if cooldownTimer > 0 then
@@ -105,8 +105,6 @@ ADDON.Events:RegisterCallback("OnLogin", function()
     if not ldb then
         return
     end
-
-    actionButton = buildActionButton()
 
     local menu
 
@@ -206,10 +204,7 @@ ADDON.Events:RegisterCallback("OnLogin", function()
 
     -- force initial update for ElvUI
     -- since ElvUI is loaded before TBE and it doesn't update its panels during registration. :(
-    if ElvUI then
-        local E  = unpack(ElvUI)
-        local DT = E:GetModule('DataTexts')
-        DT:LoadDataTexts()
-    end
+    -- https://github.com/tukui-org/ElvUI/issues/1640
+    local _ = ElvUI and ElvUI[1]:GetModule('DataTexts'):LoadDataTexts()
 
 end, "ldb-plugin")
