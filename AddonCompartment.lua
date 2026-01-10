@@ -1,5 +1,9 @@
 local ADDON_NAME, ADDON = ...
 
+if not AddonCompartmentFrame then
+    return
+end
+
 AddonCompartmentFrame:RegisterAddon({
     text = C_AddOns.GetAddOnMetadata(ADDON_NAME, "Title"),
     icon = C_AddOns.GetAddOnMetadata(ADDON_NAME, "IconTexture"),
