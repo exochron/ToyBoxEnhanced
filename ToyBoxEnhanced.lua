@@ -18,6 +18,11 @@ ADDON.Events:SetUndefinedEventsAllowed(true)
 ADDON.Events:RegisterFrameEventAndCallback("NEW_TOY_ADDED", function(_, ...)
     ADDON.DataProvider:Sort()
 end, 'new toy')
+-- Polyfill for split Unregister behaviour in 12.0
+-- Later: remove after classic has it
+if not ADDON.Events.UnregisterEventsByEventTable then
+    ADDON.Events.UnregisterEventsByEventTable = ADDON.Events.UnregisterEvents
+end
 
 local function ResetAPIFilters()
     C_ToyBox.SetAllSourceTypeFilters(true)
@@ -145,7 +150,7 @@ frame:SetScript("OnEvent", function(_, event, arg1)
                 OnLogin()
                 ADDON.Events:TriggerEvent("OnInit")
                 ADDON.Events:TriggerEvent("OnLogin")
-                ADDON.Events:UnregisterEvents({ "OnInit", "OnLogin" })
+                ADDON.Events:UnregisterEventsByEventTable({ "OnInit", "OnLogin" })
             end
         end)
     end
@@ -169,7 +174,7 @@ EventRegistry:RegisterCallback("CollectionsJournal.TabSet", function(_, _, selec
             ADDON.Events:TriggerEvent("PreLoadUI")
             ADDON.Events:TriggerEvent("OnLoadUI")
             ADDON.Events:TriggerEvent("PostLoadUI")
-            ADDON.Events:UnregisterEvents({ "PreLoadUI", "OnLoadUI", "PostLoadUI" })
+            ADDON.Events:UnregisterEventsByEventTable({ "PreLoadUI", "OnLoadUI", "PostLoadUI" })
 
             ADDON:FilterToys()
             ADDON.initialized = true
