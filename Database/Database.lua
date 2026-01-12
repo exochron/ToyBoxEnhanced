@@ -835,6 +835,10 @@ ADDON.db.source = {
         [115505] = true, -- LeBlanc's Recorder
         [116396] = true, -- LeBlanc's Recorder
 
+        -- MoP classic
+        [265786] = true, -- Demon Hunter's Aspect
+        [266999] = true, -- Swift Yak Pelt
+
         -- Legion
         [137294] = true, -- Dalaran Initiates' Pin
         [136846] = true, -- Familiar Stone
@@ -1089,6 +1093,17 @@ ADDON.db.source = {
         [119215] = true, -- Robo-Gnomebulator
         [122293] = true, -- Trans-Dimensional Bird Whistle
 
+        -- MoP Classic
+        [265774] = true, -- Platinum Boots of Expeditious Retreat
+        [265780] = true, -- Platinum "Little Ale"
+        [265418] = true, -- Platinum Rod of Ambershaping
+        [265419] = true, -- Platinum Potion of Invisibility
+        [265414] = true, -- Platinum Amber
+        [265417] = true, -- Platinum Battle Horn
+        [265415] = true, -- Platinum Vial of Polyformic Acid
+        [265416] = true, -- Platinum Battle Banner
+        [265573] = true, -- Platinum Sacrificial Dagger
+
         -- Legion
         [139773] = true, -- Emerald Winds
         [143660] = true, -- Mrgrglhjorn
@@ -1261,6 +1276,11 @@ ADDON.db.source = {
         [184871] = true, -- Dark Portal - TBC classic Deluxe Edition
         [198647] = true, -- Fishspeaker's Lucky Lure - WotLK classic Epic Edition
         [210467] = true, -- Magical Murkmorpher
+        [247893] = true, -- Fandral's Eternal Seed
+        [248263] = true, -- Azure Sea Boat -- mop classic (chinese?)
+        [255973] = true, -- Sandbox Horse
+        [256141] = true, -- Fortune's Waving Cat
+        [258840] = true, -- Gilded Fountain
     },
 
     ["Promotion"] = {
@@ -1277,6 +1297,9 @@ ADDON.db.source = {
         [260221] = true, -- Naaru's Embrace -- TBC Classic
         [260622] = true, -- Exodar Replica -- TBC Classic
         [263489] = true, -- Naaru's Enfold -- TBC Classic
+        [258129] = true, -- Jade Monument
+        [258135] = true, -- Gilded Coil Spire
+        [258136] = true, -- Azure Thunder Coil Spire
 
         -- Trading Card Game
         [32542] = true, -- Imp in a Ball
@@ -1287,7 +1310,9 @@ ADDON.db.source = {
         [35227] = true, -- Goblin Weather Machine - Prototype 01-B
         [38301] = true, -- D.I.S.C.O.
         [38578] = true, -- The Flag of Ownership
+        [45047] = true, -- Sandbox Tiger
         [45063] = true, -- Foam Sword Rack
+        [46779] = true, -- Path of Cenarius
         [46780] = true, -- Ogre Pinata
         [49703] = true, -- Perpetual Purple Firework
         [49704] = true, -- Carved Ogre Idol
@@ -1465,6 +1490,7 @@ ADDON.db.effect = {
             [68806] = true, -- Kalytha's Haunted Locket
             [71259] = true, -- Leyara's Locket
             [72159] = true, -- Magical Ogre Idol
+            [79769] = true, -- Demon Hunter's Aspect
             [86568] = true, -- Mr. Smite's Brass Compass
             [86589] = true, -- Ai-Li's Skymirror
             [88566] = true, -- Krastinov's Bag of Horrors
@@ -1570,17 +1596,18 @@ ADDON.db.effect = {
             [247893] = true, -- Fandral's Eternal Seed -- chinese mop classic (?)
             [256881] = true, -- Steward's Bauble
             [256893] = true, -- Wretched Dredger's Brand
+            [265786] = true, -- Demon Hunter's Aspect
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
         ["Minor"] = {
             [35227] = true, -- Goblin Weather Machine - Prototype 01-B
             [38233] = true, -- Path of Illidan
+            [46779] = true, -- Path of Cenarius
             [64361] = true, -- Druid and Priest Statue Set
             [69895] = true, -- Green Balloon
             [69896] = true, -- Yellow Balloon
             [75042] = true, -- Flimsy Yellow Balloon
-            [79769] = true, -- Demon Hunter's Aspect
             [86593] = true, -- Hozen Beach Ball
             [87528] = true, -- Honorary Brewmaster Keg
             [88580] = true, -- Ken-Ken's Mask
@@ -1752,6 +1779,7 @@ ADDON.db.effect = {
             [119001] = true, -- Mystery Keg
             [169865] = true, -- Brewfest Chowdown Trophy
             [200869] = true, -- Ohn Lite Branded Horn
+            [265780] = true, -- Platinum "Little Ale"
         },
 
         ["Food/Water"] = {
@@ -1770,6 +1798,7 @@ ADDON.db.effect = {
             [234951] = true, -- Uncracked Cold Ones
             [235288] = true, -- Sha-Warped Tea Set
             [235464] = true, -- Sha-Touched Tea Set
+            [265414] = true, -- Platinum Amber
         },
 
         ["Other"] = {
@@ -2207,6 +2236,7 @@ ADDON.db.effect = {
         -- Can sit in these
         ["Chair"] = {
             [33223] = true, -- Fishing Chair
+            [45047] = true, -- Sandbox Tiger
             [70161] = true, -- Mushroom Chair
             [86596] = true, -- Nat's Fishing Chair
             [97994] = true, -- Darkmoon Seesaw
@@ -2234,6 +2264,7 @@ ADDON.db.effect = {
             [237382] = true, -- Undermine Supply Crate
             [246907] = true, -- Broker Supply Crate
             [246908] = true, -- K'areshi Supply Crate
+            [255973] = true, -- Sandbox Horse
         },
 
         -- Can click on these
@@ -2300,6 +2331,7 @@ ADDON.db.effect = {
             [205908] = true, -- Inherited Wisdom of Senegos
             [206268] = true, -- Ethereal Transmogrifier
             [216893] = true, -- Goblin Town-in-a-Box
+            [258840] = true, -- Gilded Fountain
         },
 
         -- Can attack these
@@ -2624,6 +2656,8 @@ ADDON.db.effect = {
             [209052] = true, -- Brew Barrel
             [224585] = true, -- Hanna's Locket
             [245580] = true, -- Rolling Snowball
+            [265774] = true, -- Platinum Boots of Expeditious Retreat
+            [266999] = true, -- Swift Yak Pelt
         },
 
         ["Swimming"] = {
@@ -2673,8 +2707,7 @@ ADDON.db.effect = {
             [211864] = true, -- Exquisite Love Boat
             [224554] = true, -- Silver Linin' Scepter
             [235801] = true, -- Personal Fishing Barge
-            [242534] = true, -- Azure Sea Skiff
-            [248263] = true, -- Azure Sea Boat -- mop classic (?)
+            [248263] = true, -- Azure Sea Boat -- mop classic (chinese?)
         }
     },
 
@@ -2744,6 +2777,10 @@ ADDON.db.effect = {
             [187051] = true, -- Forgotten Feather
             [224643] = true, -- Pet-Sized Candle
             [226191] = true, -- Web Pet Leash
+        },
+
+        ["Hunter Pet"] = {
+            --[267279] = true, -- Embers of Al'ar
         },
 
         -- replaces regular mount model or adds a minor effect
