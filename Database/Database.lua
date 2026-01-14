@@ -11,11 +11,20 @@ if isClassic then
         ["whitelist"] = { },
     }
 else
-    ADDON.db.Recent = {
-        ["minID"] = 256881,
-        ["blacklist"] = {},
-        ["whitelist"] = {242520,243304,245580},
-    }
+    local build = select(4, GetBuildInfo())
+    if build < 120000 then
+        ADDON.db.Recent = {
+            ["minID"] = 256881,
+            ["blacklist"] = {},
+            ["whitelist"] = {242520,243304,245580},
+        }
+    else
+        ADDON.db.Recent = {
+            ["minID"] = 258963,
+            ["blacklist"] = {},
+            ["whitelist"] = {243146, 249468, 250319, 250320, 250974, 251491, 251633, 251903, 252265, 253629, 256552, 257736,},
+        }
+    end
 end
 
 ADDON.db.worldEvent = {
@@ -448,6 +457,15 @@ ADDON.db.source = {
         [225659] = true, -- Arathi Book Collection
         [234951] = true, -- Uncracked Cold Ones
         [245970] = true, -- P.O.S.T. Master's Express Hearthstone
+
+        -- Midnight
+        [250319] = true, -- Researcher's Shadowgraft
+        [252265] = true, -- Hexed Potatoad Mucus
+        [258963] = true, -- Shroom Jumper's Parachute
+        [259084] = true, -- Gift of the Cycle
+        [264805] = true, -- Brann-O-Vision 3000
+        [267139] = true, -- Hungry Black Hole
+
     },
 
     ["Drop"] = {
@@ -765,6 +783,16 @@ ADDON.db.source = {
         [244470] = true, -- Etheric Victory
         [249713] = true, -- Cartel Transmorpher
         [242520] = true, -- Festival Hot Air Balloon
+
+        -- Midnight
+        [243146] = true, -- Ren'dorei Struggle
+        [253629] = true, -- Personal Key to the Arcantina
+        [257736] = true, -- Lightcalled Hearthstone
+        [263198] = true, -- Valdekar's Special
+        [263871] = true, -- Holy Pet Leash
+        [264413] = true, -- Dominating Victory
+        [267456] = true, -- Lil' Scoots' Pillow
+
     },
 
     ["Vendor"] = {
@@ -928,6 +956,22 @@ ADDON.db.source = {
         [246907] = true, -- Broker Supply Crate
         [246908] = true, -- K'areshi Supply Crate
         [250722] = true, -- Ethereal Stall
+
+        -- Midnight
+        [250974] = true, -- Akil'zon's Updraft
+        [249468] = true, -- Twilight's Blade Top Secret Strategy Training Guide
+        [251633] = true, -- Bursting Bounty Bundle
+        [256552] = true, -- Verdant Rutaani Seed
+        [259240] = true, -- Sin'dorei Wine
+        [262431] = true, -- Bouncy Mushroom
+        [263244] = true, -- Enigmatic Fountain
+        [263933] = true, -- Astalor's Summons
+        [264414] = true, -- Midnight Delver's Flare Gun
+        [264517] = true, -- Galactic Flag of Victory
+        [265100] = true, -- Corewarden's Hearthstone
+        [266370] = true, -- Dundun's Abundant Travel Method
+        [267291] = true, -- Coffer Key Glue
+
     },
 
     ["Instance"] = {
@@ -1082,6 +1126,14 @@ ADDON.db.source = {
         [238850] = true, -- Arathi Entertainer's Flame
         [238852] = true, -- Flame's Radiance Banner
         [239693] = true, -- Radiant Lynx Whistle
+
+        -- Midnight
+        [256552] = true, -- Verdant Rutaani Seed
+        [259240] = true, -- Sin'dorei Wine
+        [263244] = true, -- Enigmatic Fountain
+        [263933] = true, -- Astalor's Summons
+        [264517] = true, -- Galactic Flag of Victory
+
     },
 
     ["Achievement"] = {
@@ -1152,6 +1204,8 @@ ADDON.db.source = {
         [235519] = true, -- Prized Legend's Pennant
         [236769] = true, -- Gallagio Pipeline Rerouter
 
+        -- Midnight
+        [251491] = true, -- Magical Pet Clicker
     },
 
     ["PvP"] = {
@@ -1172,6 +1226,7 @@ ADDON.db.source = {
         [232306] = true, -- Prized Champion's Prestigious Banner -- AWC War Within S2
         [232307] = true, -- Astral Champion's Prestigious Banner -- AWC War Within S3
         [242636] = true, -- Astral Legend's Pennant
+        [264517] = true, -- Galactic Flag of Victory
     },
 
     ["Garrison"] = {
@@ -1373,7 +1428,6 @@ ADDON.db.source = {
 }
 
 if isClassic then
-    ADDON.db.source["Black Market"] = {}
     ADDON.db.source["Trading Post"] = {}
 end
 
@@ -1450,12 +1504,29 @@ ADDON.db.expansion = {
     },
     [10] = { -- War Within
         ["minID"] = 218310,
-        ["maxID"] = 999999,
+        ["maxID"] = 258962,
         [208704] = true, -- Deepdweller's Earthen Hearthstone - War Within Epic Edition
         [208883] = true, -- Sandbox Storm Gryphon - War Within Epic Edition
         [211931] = true, -- Abyss Caller Horn
         [215145] = true, -- Remembrance Stone
         [215147] = true, -- Beautification Iris
+        [263489] = true, -- Naaru's Enfold
+    },
+    [11] = { -- Midnight
+        ["minID"] = 258963,
+        ["maxID"] = 999999,
+        [243146] = true, -- Ren'dorei Struggle
+        [249468] = true, -- Twilight's Blade Top Secret Strategy Training Guide
+        [250319] = true, -- Researcher's Shadowgraft
+        [250320] = true, -- Lightgraft
+        [250974] = true, -- Akil'zon's Updraft
+        [251491] = true, -- Magical Pet Clicker
+        [251633] = true, -- Bursting Bounty Bundle
+        [251903] = true, -- Potatoad Egg
+        [252265] = true, -- Hexed Potatoad Mucus
+        [253629] = true, -- Personal Key to the Arcantina
+        [256552] = true, -- Verdant Rutaani Seed
+        [257736] = true, -- Lightcalled Hearthstone
     }
 }
 
@@ -1597,6 +1668,9 @@ ADDON.db.effect = {
             [256881] = true, -- Steward's Bauble
             [256893] = true, -- Wretched Dredger's Brand
             [265786] = true, -- Demon Hunter's Aspect
+            [252265] = true, -- Hexed Potatoad Mucus
+            [256552] = true, -- Verdant Rutaani Seed
+            
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1704,6 +1778,8 @@ ADDON.db.effect = {
             [246903] = true, -- Guise of the Phase Diver
             [246907] = true, -- Broker Supply Crate
             [246908] = true, -- K'areshi Supply Crate
+            [250319] = true, -- Researcher's Shadowgraft
+            
         },
 
         ["Bigger"] = {
@@ -1735,6 +1811,8 @@ ADDON.db.effect = {
             [173984] = true, -- Scroll of Aeons
             [174830] = true, -- Shadowy Disguise
             [206993] = true, -- Investi-gator's Pocketwatch
+            [243146] = true, -- Ren'dorei Struggle
+            
         },
 
         -- Banners the character wears on their back
@@ -1869,6 +1947,8 @@ ADDON.db.effect = {
             [199337] = true, -- Bag of Furious Winds
             [206043] = true, -- Fyrakk's Frenzy
             [215147] = true, -- Beautification Iris
+            [251491] = true, -- Magical Pet Clicker
+            
         },
 
         ["Summon"] = {
@@ -1916,6 +1996,9 @@ ADDON.db.effect = {
             [209859] = true, -- Festive Trans-Dimensional Bird Whistle
             [254666] = true, -- Exodar Replica
             [260622] = true, -- Exodar Replica (MoP classic)
+            [251633] = true, -- Bursting Bounty Bundle
+            [263244] = true, -- Enigmatic Fountain
+            
         },
     },
 
@@ -2007,6 +2090,9 @@ ADDON.db.effect = {
             [235050] = true, -- Desk-in-a-Box
             [236749] = true, -- Take-Home Torq
             [236751] = true, -- Take-Home Flarendo
+            [259240] = true, -- Sin'dorei Wine
+            [263198] = true, -- Valdekar's Special
+            
         },
 
         ["Corpse"] = {
@@ -2021,6 +2107,7 @@ ADDON.db.effect = {
             [194052] = true, -- Forlorn Funeral Pall
             [200469] = true, -- Khadgar's Disenchanting Rod
             [215145] = true, -- Remembrance Stone
+            [264517] = true, -- Galactic Flag of Victory
         },
 
         ["Roll"] = {
@@ -2310,6 +2397,7 @@ ADDON.db.effect = {
             [183876] = true, -- Quill of Correspondence
             [194885] = true, -- Ohuna Perch
             [239693] = true, -- Radiant Lynx Whistle
+            [264695] = true, -- Interdimensional Parcel Signal
         },
 
         ["NPC"] = {
@@ -2358,6 +2446,8 @@ ADDON.db.effect = {
             [166788] = true, -- Twiddle Twirler: Shredder Blade
             [206696] = true, -- Tricked-Out Thinking Cap
             [238850] = true, -- Arathi Entertainer's Flame
+            [267139] = true, -- Hungry Black Hole
+            
         },
 
         ["Co-op"] = {
@@ -2569,6 +2659,9 @@ ADDON.db.effect = {
             [224554] = true, -- Silver Linin' Scepter
             [226373] = true, -- Everlasting Noggenfogger Elixir
             [242520] = true, -- Festival Hot Air Balloon
+            [250974] = true, -- Akil'zon's Updraft
+            [258963] = true, -- Shroom Jumper's Parachute
+            
         },
 
         -- Unlocks flight paths
@@ -2626,6 +2719,9 @@ ADDON.db.effect = {
             [246565] = true, -- Cosmic Hearthstone
             [260221] = true, -- Naaru's Embrace
             [263489] = true, -- Naaru's Enfold
+            [257736] = true, -- Lightcalled Hearthstone
+            [265100] = true, -- Corewarden's Hearthstone
+            
         },
 
         ["Jump"] = {
@@ -2636,6 +2732,8 @@ ADDON.db.effect = {
             [134023] = true, -- Bottled Tornado
             [139773] = true, -- Emerald Winds
             [140336] = true, -- Brulfist Idol
+            [262431] = true, -- Bouncy Mushroom
+            
         },
 
         -- faster or slower ground movement
@@ -2696,6 +2794,9 @@ ADDON.db.effect = {
             [221966] = true, -- Wormhole Generator: Khaz Algar
             [230850] = true, -- Delve-O-Bot 7001
             [243056] = true, -- Delver's Mana-Bound Ethergate
+            [253629] = true, -- Personal Key to the Arcantina
+            [263933] = true, -- Astalor's Summons
+
         },
 
         ["Water Walking"] = {
@@ -2740,6 +2841,8 @@ ADDON.db.effect = {
         [228914] = true, -- Arachnophile Spectacles
         [228966] = true, -- Starry-Eyed Goggles
         [246905] = true, -- Overtuned K'areshi Goggles
+        [264805] = true, -- Brann-O-Vision 3000
+        
     },
 
     ["Companion"] = {
@@ -2777,6 +2880,8 @@ ADDON.db.effect = {
             [187051] = true, -- Forgotten Feather
             [224643] = true, -- Pet-Sized Candle
             [226191] = true, -- Web Pet Leash
+            [263871] = true, -- Holy Pet Leash
+            
         },
 
         ["Hunter Pet"] = {
