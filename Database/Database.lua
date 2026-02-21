@@ -11,20 +11,12 @@ if isClassic then
         ["whitelist"] = { },
     }
 else
-    local build = select(4, GetBuildInfo())
-    if build < 120000 then
-        ADDON.db.Recent = {
-            ["minID"] = 256881,
-            ["blacklist"] = {},
-            ["whitelist"] = {242520,243304,245580},
-        }
-    else
-        ADDON.db.Recent = {
-            ["minID"] = 258963,
-            ["blacklist"] = {},
-            ["whitelist"] = {243146, 249468, 250319, 250320, 250974, 251491, 251633, 251903, 252265, 253629, 256552, 257736,},
-        }
-    end
+    --local build = select(4, GetBuildInfo())
+    ADDON.db.Recent = {
+        ["minID"] = 258963,
+        ["blacklist"] = {},
+        ["whitelist"] = {243146, 248485, 249468, 250319, 250320, 250974, 251491, 251633, 251903, 252265, 253629, 256552, 257736,},
+    }
 end
 
 ADDON.db.worldEvent = {
@@ -274,6 +266,7 @@ ADDON.db.profession = {
         [221962] = true, -- Defective Escape Pod
         [221964] = true, -- Filmless Camera
         [221966] = true, -- Wormhole Generator: Khaz Algar
+        [248485] = true, -- Wormhole Generator: Quel'Thalas
     },
 
     ["Archaeology"] = {
@@ -282,6 +275,7 @@ ADDON.db.profession = {
         [64373] = true, -- Chalice of the Mountain Kings
         [64383] = true, -- Kaldorei Wind Chimes
         [64456] = true, -- Arrival of the Naaru
+        [64457] = true, -- The Last Relic of Argus
         [64481] = true, -- Blessing of the Old God
         [64482] = true, -- Puzzle Box of Yogg-Saron
         [64646] = true, -- Bones of Transformation
@@ -971,6 +965,7 @@ ADDON.db.source = {
         [265100] = true, -- Corewarden's Hearthstone
         [266370] = true, -- Dundun's Abundant Travel Method
         [267291] = true, -- Coffer Key Glue
+        [264666] = true, -- Rod of Exanguishation
 
     },
 
@@ -1003,6 +998,8 @@ ADDON.db.source = {
         [232302] = true, -- Prized Banner of the Algari -- MDI War Within S2
         [232303] = true, -- Unbound Banner of the Algari -- MDI War Within S3
         [246565] = true, -- Cosmic Hearthstone
+        [264672] = true, -- Cosmic Ritual Stone -- Voidspire
+        [268728] = true, -- Saptor Salve
     },
 
     ["Reputation"] = {
@@ -1206,6 +1203,9 @@ ADDON.db.source = {
 
         -- Midnight
         [251491] = true, -- Magical Pet Clicker
+        [263975] = true, -- Feeling Fielder Mk. 7
+        [264695] = true, -- Interdimensional Parcel Signal
+        [268717] = true, -- Pango Plating
     },
 
     ["PvP"] = {
@@ -1333,7 +1333,6 @@ ADDON.db.source = {
         [210467] = true, -- Magical Murkmorpher
         [247893] = true, -- Fandral's Eternal Seed
         [248263] = true, -- Azure Sea Boat -- mop classic (chinese?)
-        [255973] = true, -- Sandbox Horse
         [256141] = true, -- Fortune's Waving Cat
         [258840] = true, -- Gilded Fountain
     },
@@ -1355,6 +1354,7 @@ ADDON.db.source = {
         [258129] = true, -- Jade Monument
         [258135] = true, -- Gilded Coil Spire
         [258136] = true, -- Azure Thunder Coil Spire
+        [268695] = true, -- Pin-o-Matic Camera
 
         -- Trading Card Game
         [32542] = true, -- Imp in a Ball
@@ -1367,7 +1367,6 @@ ADDON.db.source = {
         [38578] = true, -- The Flag of Ownership
         [45047] = true, -- Sandbox Tiger
         [45063] = true, -- Foam Sword Rack
-        [46779] = true, -- Path of Cenarius
         [46780] = true, -- Ogre Pinata
         [49703] = true, -- Perpetual Purple Firework
         [49704] = true, -- Carved Ogre Idol
@@ -1670,14 +1669,14 @@ ADDON.db.effect = {
             [265786] = true, -- Demon Hunter's Aspect
             [252265] = true, -- Hexed Potatoad Mucus
             [256552] = true, -- Verdant Rutaani Seed
-            
+            [268728] = true, -- Saptor Salve
+            [268717] = true, -- Pango Plating
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
         ["Minor"] = {
             [35227] = true, -- Goblin Weather Machine - Prototype 01-B
             [38233] = true, -- Path of Illidan
-            [46779] = true, -- Path of Cenarius
             [64361] = true, -- Druid and Priest Statue Set
             [69895] = true, -- Green Balloon
             [69896] = true, -- Yellow Balloon
@@ -2351,7 +2350,6 @@ ADDON.db.effect = {
             [237382] = true, -- Undermine Supply Crate
             [246907] = true, -- Broker Supply Crate
             [246908] = true, -- K'areshi Supply Crate
-            [255973] = true, -- Sandbox Horse
         },
 
         -- Can click on these
@@ -2447,7 +2445,8 @@ ADDON.db.effect = {
             [206696] = true, -- Tricked-Out Thinking Cap
             [238850] = true, -- Arathi Entertainer's Flame
             [267139] = true, -- Hungry Black Hole
-            
+            [249468] = true, -- Twilight's Blade Top Secret Strategy Training Guide
+
         },
 
         ["Co-op"] = {
@@ -2772,6 +2771,7 @@ ADDON.db.effect = {
             [30544] = true, -- Ultrasafe Transporter: Toshley's Station
             [43824] = true, -- The Schools of Arcane Magic - Mastery
             [48933] = true, -- Wormhole Generator: Northrend
+            [64457] = true, -- The Last Relic of Argus
             [87215] = true, -- Wormhole Generator: Pandaria
             [95567] = true, -- Kirin Tor Beacon
             [95568] = true, -- Sunreaver Beacon
@@ -2794,8 +2794,10 @@ ADDON.db.effect = {
             [221966] = true, -- Wormhole Generator: Khaz Algar
             [230850] = true, -- Delve-O-Bot 7001
             [243056] = true, -- Delver's Mana-Bound Ethergate
+            [248485] = true, -- Wormhole Generator: Quel'Thalas
             [253629] = true, -- Personal Key to the Arcantina
             [263933] = true, -- Astalor's Summons
+            [266370] = true, -- Dundun's Abundant Travel Method
 
         },
 
@@ -2842,7 +2844,8 @@ ADDON.db.effect = {
         [228966] = true, -- Starry-Eyed Goggles
         [246905] = true, -- Overtuned K'areshi Goggles
         [264805] = true, -- Brann-O-Vision 3000
-        
+        [268695] = true, -- Pin-o-Matic Camera
+
     },
 
     ["Companion"] = {
