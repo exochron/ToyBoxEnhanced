@@ -75,6 +75,7 @@ L["Hallow's End"] = GetCategoryInfo(158)
 L["Love is in the Air"] = GetCategoryInfo(187)
 L["Lunar Festival"] = GetCategoryInfo(160)
 L["Midsummer Fire Festival"] = GetCategoryInfo(161)
+L["Darkspear Dash"] = "Darkspear Dash"
 L["Noblegarden"] = GetCategoryInfo(159)
 L["Pilgrim's Bounty"] = GetCategoryInfo(14981)
 L["Pirates' Day"] = "Pirates' Day"

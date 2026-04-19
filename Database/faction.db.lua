@@ -31,6 +31,7 @@ alliance = {
 [170155] = true, -- Carved Ankoan Charm
 [172223] = true, -- Crashin' Thrashin' Battleship
 [211788] = true, -- Tess's Peacebloom
+[267472] = true, -- Gnomatic Projector
 },
 horde = {
 [45013] = true, -- Thunder Bluff Banner
