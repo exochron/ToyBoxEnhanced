@@ -11,12 +11,20 @@ if isClassic then
         ["whitelist"] = { },
     }
 else
-    --local build = select(4, GetBuildInfo())
-    ADDON.db.Recent = {
-        ["minID"] = 258963,
-        ["blacklist"] = {},
-        ["whitelist"] = {243146, 248485, 249468, 250319, 250320, 250974, 251491, 251633, 251903, 252265, 253629, 256552, 257736,},
-    }
+    local build = select(4, GetBuildInfo())
+    if build < 120005 then
+        ADDON.db.Recent = {
+            ["minID"] = 258963,
+            ["blacklist"] = {},
+            ["whitelist"] = {243146, 248485, 249468, 250319, 250320, 250974, 251491, 251633, 251903, 252265, 253629, 256552, 257736,},
+        }
+    else
+        ADDON.db.Recent = {
+            ["minID"] = 267472,
+            ["blacklist"] = {268695,268717,268728},
+            ["whitelist"] = {267323},
+        }
+    end
 end
 
 ADDON.db.worldEvent = {
@@ -108,6 +116,7 @@ ADDON.db.worldEvent = {
     ["Children's Week"] = {
         [69895] = true, -- Green Balloon
         [69896] = true, -- Yellow Balloon
+        [272287] = true, -- Nap Mat
     },
 
     ["Midsummer Fire Festival"] = {
@@ -120,6 +129,10 @@ ADDON.db.worldEvent = {
         [188699] = true, -- Insulated Dancing Insoles
         [188701] = true, -- Fire Festival Batons
         [206038] = true, -- Flamin' Ring of Flashiness
+    },
+
+    ["Darkspear Dash"] = {
+        [267323] = true, -- Troll Scroll of Rainbow Roll
     },
 
     ["Secrets of Azeroth"] = {
@@ -786,6 +799,7 @@ ADDON.db.source = {
         [263871] = true, -- Holy Pet Leash
         [264413] = true, -- Dominating Victory
         [267456] = true, -- Lil' Scoots' Pillow
+        [267472] = true, -- Gnomatic Projector
 
     },
 
@@ -959,13 +973,15 @@ ADDON.db.source = {
         [259240] = true, -- Sin'dorei Wine
         [262431] = true, -- Bouncy Mushroom
         [263244] = true, -- Enigmatic Fountain
-        [263933] = true, -- Astalor's Summons
+        [263933] = true, -- Preyseeker's Hearthstone
         [264414] = true, -- Midnight Delver's Flare Gun
         [264517] = true, -- Galactic Flag of Victory
         [265100] = true, -- Corewarden's Hearthstone
         [266370] = true, -- Dundun's Abundant Travel Method
         [267291] = true, -- Coffer Key Glue
         [264666] = true, -- Rod of Exanguishation
+        [268456] = true, -- Animated Bench
+        [268455] = true, -- Enchanted Hourglass
 
     },
 
@@ -1000,6 +1016,8 @@ ADDON.db.source = {
         [246565] = true, -- Cosmic Hearthstone
         [264672] = true, -- Cosmic Ritual Stone -- Voidspire
         [268728] = true, -- Saptor Salve
+        [251903] = true, -- Potatoad Egg
+        [272339] = true, -- Umbral Champion's Illustrious Banner -- MDI Midnight S1
     },
 
     ["Reputation"] = {
@@ -1128,7 +1146,7 @@ ADDON.db.source = {
         [256552] = true, -- Verdant Rutaani Seed
         [259240] = true, -- Sin'dorei Wine
         [263244] = true, -- Enigmatic Fountain
-        [263933] = true, -- Astalor's Summons
+        [263933] = true, -- Preyseeker's Hearthstone
         [264517] = true, -- Galactic Flag of Victory
 
     },
@@ -1227,6 +1245,7 @@ ADDON.db.source = {
         [232307] = true, -- Astral Champion's Prestigious Banner -- AWC War Within S3
         [242636] = true, -- Astral Legend's Pennant
         [264517] = true, -- Galactic Flag of Victory
+        [272339] = true, -- Umbral Champion's Illustrious Banner -- AWC Midnight S1
     },
 
     ["Garrison"] = {
@@ -1365,7 +1384,6 @@ ADDON.db.source = {
         [35227] = true, -- Goblin Weather Machine - Prototype 01-B
         [38301] = true, -- D.I.S.C.O.
         [38578] = true, -- The Flag of Ownership
-        [45047] = true, -- Sandbox Tiger
         [45063] = true, -- Foam Sword Rack
         [46780] = true, -- Ogre Pinata
         [49703] = true, -- Perpetual Purple Firework
@@ -1778,7 +1796,8 @@ ADDON.db.effect = {
             [246907] = true, -- Broker Supply Crate
             [246908] = true, -- K'areshi Supply Crate
             [250319] = true, -- Researcher's Shadowgraft
-            
+            [264413] = true, -- Dominating Victory
+
         },
 
         ["Bigger"] = {
@@ -2091,7 +2110,9 @@ ADDON.db.effect = {
             [236751] = true, -- Take-Home Flarendo
             [259240] = true, -- Sin'dorei Wine
             [263198] = true, -- Valdekar's Special
-            
+            [267456] = true, -- Lil' Scoots' Pillow
+            [263975] = true, -- Feeling Fielder Mk. 7
+
         },
 
         ["Corpse"] = {
@@ -2107,6 +2128,8 @@ ADDON.db.effect = {
             [200469] = true, -- Khadgar's Disenchanting Rod
             [215145] = true, -- Remembrance Stone
             [264517] = true, -- Galactic Flag of Victory
+            [264666] = true, -- Rod of Exanguishation
+            [264672] = true, -- Cosmic Ritual Stone
         },
 
         ["Roll"] = {
@@ -2195,6 +2218,7 @@ ADDON.db.effect = {
             [235672] = true, -- Venture Co. Banner
             [238852] = true, -- Flame's Radiance Banner
             [239007] = true, -- Dastardly Banner
+            [272339] = true, -- Umbral Champion's Illustrious Banner
         },
 
         -- Summons a clone of the character
@@ -2302,6 +2326,11 @@ ADDON.db.effect = {
             [245942] = true, -- Sea-Blessed Shrine
             [246227] = true, -- Lightning-Blessed Spire
             [250722] = true, -- Ethereal Stall
+            [258129] = true, -- Jade Monument
+            [258135] = true, -- Gilded Coil Pillar
+            [258136] = true, -- Azure Thunder Coil Pillar
+            [267472] = true, -- Gnomatic Projector
+            [272287] = true, -- Nap Mat
         },
 
         ["Weather"] = {
@@ -2322,7 +2351,6 @@ ADDON.db.effect = {
         -- Can sit in these
         ["Chair"] = {
             [33223] = true, -- Fishing Chair
-            [45047] = true, -- Sandbox Tiger
             [70161] = true, -- Mushroom Chair
             [86596] = true, -- Nat's Fishing Chair
             [97994] = true, -- Darkmoon Seesaw
@@ -2350,6 +2378,7 @@ ADDON.db.effect = {
             [237382] = true, -- Undermine Supply Crate
             [246907] = true, -- Broker Supply Crate
             [246908] = true, -- K'areshi Supply Crate
+            [268456] = true, -- Animated Bench
         },
 
         -- Can click on these
@@ -2418,6 +2447,8 @@ ADDON.db.effect = {
             [206268] = true, -- Ethereal Transmogrifier
             [216893] = true, -- Goblin Town-in-a-Box
             [258840] = true, -- Gilded Fountain
+            [259084] = true, -- Gift of the Cycle
+            [264414] = true, -- Midnight Delver's Flare Gun
         },
 
         -- Can attack these
@@ -2720,6 +2751,7 @@ ADDON.db.effect = {
             [263489] = true, -- Naaru's Enfold
             [257736] = true, -- Lightcalled Hearthstone
             [265100] = true, -- Corewarden's Hearthstone
+            [263933] = true, -- Preyseeker's Hearthstone
             
         },
 
@@ -2755,6 +2787,7 @@ ADDON.db.effect = {
             [245580] = true, -- Rolling Snowball
             [265774] = true, -- Platinum Boots of Expeditious Retreat
             [266999] = true, -- Swift Yak Pelt
+            [267323] = true, -- Troll Scroll of Rainbow Roll
         },
 
         ["Swimming"] = {
@@ -2796,7 +2829,6 @@ ADDON.db.effect = {
             [243056] = true, -- Delver's Mana-Bound Ethergate
             [248485] = true, -- Wormhole Generator: Quel'Thalas
             [253629] = true, -- Personal Key to the Arcantina
-            [263933] = true, -- Astalor's Summons
             [266370] = true, -- Dundun's Abundant Travel Method
 
         },
@@ -2883,12 +2915,14 @@ ADDON.db.effect = {
             [187051] = true, -- Forgotten Feather
             [224643] = true, -- Pet-Sized Candle
             [226191] = true, -- Web Pet Leash
+            [256141] = true, -- Fortune's Waving Cat
             [263871] = true, -- Holy Pet Leash
-            
+
         },
 
         ["Hunter Pet"] = {
             --[267279] = true, -- Embers of Al'ar
+            --[272312] = true, -- Crimson Bloodwater
         },
 
         -- replaces regular mount model or adds a minor effect
