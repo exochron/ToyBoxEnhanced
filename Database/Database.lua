@@ -11,20 +11,11 @@ if isClassic then
         ["whitelist"] = { },
     }
 else
-    local build = select(4, GetBuildInfo())
-    if build < 120005 then
-        ADDON.db.Recent = {
-            ["minID"] = 258963,
-            ["blacklist"] = {},
-            ["whitelist"] = {243146, 248485, 249468, 250319, 250320, 250974, 251491, 251633, 251903, 252265, 253629, 256552, 257736,},
-        }
-    else
-        ADDON.db.Recent = {
-            ["minID"] = 267472,
-            ["blacklist"] = {268695,268717,268728},
-            ["whitelist"] = {267323},
-        }
-    end
+    ADDON.db.Recent = {
+        ["minID"] = 276371,
+        ["blacklist"] = {},
+        ["whitelist"] = {259335,259899,260170,264313,264367},
+    }
 end
 
 ADDON.db.worldEvent = {
@@ -52,6 +43,7 @@ ADDON.db.worldEvent = {
         [246227] = true, -- Lightning-Blessed Spire
         [256881] = true, -- Steward's Bauble
         [256893] = true, -- Wretched Dredger's Brand
+        [259899] = true, -- Ashen Horn of the Fallen Keeper
     },
 
     ["Darkmoon Faire"] = {
@@ -800,6 +792,7 @@ ADDON.db.source = {
         [264413] = true, -- Dominating Victory
         [267456] = true, -- Lil' Scoots' Pillow
         [267472] = true, -- Gnomatic Projector
+        [276371] = true, -- Lightveil Recall Beacon
 
     },
 
@@ -1018,6 +1011,8 @@ ADDON.db.source = {
         [268728] = true, -- Saptor Salve
         [251903] = true, -- Potatoad Egg
         [272339] = true, -- Umbral Champion's Illustrious Banner -- MDI Midnight S1
+        [264313] = true, -- Madcap Redcap -- Sporefall
+        [264367] = true, -- Mycomancer's Hearthspore -- Sporefall
     },
 
     ["Reputation"] = {
@@ -1689,6 +1684,7 @@ ADDON.db.effect = {
             [256552] = true, -- Verdant Rutaani Seed
             [268728] = true, -- Saptor Salve
             [268717] = true, -- Pango Plating
+            [264313] = true, -- Madcap Redcap
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -2108,6 +2104,7 @@ ADDON.db.effect = {
             [235050] = true, -- Desk-in-a-Box
             [236749] = true, -- Take-Home Torq
             [236751] = true, -- Take-Home Flarendo
+            [251903] = true, -- Potatoad Egg
             [259240] = true, -- Sin'dorei Wine
             [263198] = true, -- Valdekar's Special
             [267456] = true, -- Lil' Scoots' Pillow
@@ -2330,6 +2327,7 @@ ADDON.db.effect = {
             [258135] = true, -- Gilded Coil Pillar
             [258136] = true, -- Azure Thunder Coil Pillar
             [267472] = true, -- Gnomatic Projector
+            [268455] = true, -- Enchanted Hourglass
             [272287] = true, -- Nap Mat
         },
 
@@ -2343,6 +2341,7 @@ ADDON.db.effect = {
             [198264] = true, -- Centralized Precipitation Emitter
             [209858] = true, -- Dreamsurge Remnant
             [210975] = true, -- Date Simulation Modulator
+            [259899] = true, -- Ashen Horn of the Fallen Keeper
         }
     },
 
@@ -2710,7 +2709,7 @@ ADDON.db.effect = {
             [187900] = true, -- Scouting Map: The Wonders of Kul Tiras and Zandalar
         },
 
-        -- https://wago.tools/db2/SpellCategories?filter[Category]=1176&page=1
+        -- https://wago.tools/db2/SpellCategories?filter%5BChargeCategory%5D=exact%3A2309&page=1
         ["Hearthstone"] = {
             [54452] = true, -- Ethereal Portal
             [64488] = true, -- The Innkeeper's Daughter
@@ -2752,6 +2751,7 @@ ADDON.db.effect = {
             [257736] = true, -- Lightcalled Hearthstone
             [265100] = true, -- Corewarden's Hearthstone
             [263933] = true, -- Preyseeker's Hearthstone
+            [264367] = true, -- Mycomancer's Hearthstone
             
         },
 
@@ -2830,6 +2830,7 @@ ADDON.db.effect = {
             [248485] = true, -- Wormhole Generator: Quel'Thalas
             [253629] = true, -- Personal Key to the Arcantina
             [266370] = true, -- Dundun's Abundant Travel Method
+            [276371] = true, -- Lightveil Recall Beacon
 
         },
 
@@ -2875,6 +2876,7 @@ ADDON.db.effect = {
         [228914] = true, -- Arachnophile Spectacles
         [228966] = true, -- Starry-Eyed Goggles
         [246905] = true, -- Overtuned K'areshi Goggles
+        [259335] = true, -- Photo Finisher
         [264805] = true, -- Brann-O-Vision 3000
         [268695] = true, -- Pin-o-Matic Camera
 
