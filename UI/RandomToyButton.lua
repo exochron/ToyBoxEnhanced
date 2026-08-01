@@ -44,10 +44,10 @@ local function updateButtonFavorites()
             end
             -- Execute() crashes on too long expressions. (~249 toys)
             actionButton:Execute('toys = newtable(' .. strjoin(',', unpack(toys)) .. ')')
-            actionButton:SetAttribute("type", "toy")
+            actionButton:SetAttributeNoHandler("type", "toy")
         else
             actionButton:Execute('toys = newtable()')
-            actionButton:SetAttribute("type", ATTRIBUTE_NOOP)
+            actionButton:SetAttributeNoHandler("type", ATTRIBUTE_NOOP)
         end
 
         if ADDON.UI.RandomButton then
@@ -60,7 +60,7 @@ local function initActionButton()
     actionButton = _G[CLICK_TARGET_NAME]
     actionButton:WrapScript(actionButton, 'OnClick', [=[
     if #toys > 0 then
-        self:SetAttribute("toy", toys[random(#toys)])
+        self:SetAttributeNoHandler("toy", toys[random(#toys)])
     end
     ]=])
     updateButtonFavorites()
