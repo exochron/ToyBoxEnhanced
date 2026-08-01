@@ -1,9 +1,9 @@
 local ADDON_NAME, ADDON = ...
 
 local actionButton = CreateFrame("Button", nil, nil, "InsecureActionButtonTemplate")
-actionButton:SetAttribute("pressAndHoldAction", 1)
-actionButton:SetAttribute("type", "toy")
-actionButton:SetAttribute("typerelease", "toy")
+actionButton:SetAttributeNoHandler("pressAndHoldAction", 1)
+actionButton:SetAttributeNoHandler("type", "toy")
+actionButton:SetAttributeNoHandler("typerelease", "toy")
 actionButton:RegisterForClicks("LeftButtonUp")
 actionButton:SetPropagateMouseClicks(true)
 actionButton:SetPropagateMouseMotion(true)
@@ -27,7 +27,7 @@ local function generateFavoritesMenu(_, root)
         if name and icon then
             local element = root:CreateButton("|T" .. icon .. ":0|t "..name)
             element:SetOnEnter(function(frame)
-                actionButton:SetAttribute("toy", itemId)
+                actionButton:SetAttributeNoHandler("toy", itemId)
                 actionButton:SetParent(frame)
                 actionButton:SetAllPoints(frame)
                 actionButton:SetFrameStrata("TOOLTIP")
@@ -205,6 +205,6 @@ ADDON.Events:RegisterCallback("OnLogin", function()
     -- force initial update for ElvUI
     -- since ElvUI is loaded before TBE and it doesn't update its panels during registration. :(
     -- https://github.com/tukui-org/ElvUI/issues/1640
-    local _ = ElvUI and ElvUI[1]:GetModule('DataTexts'):LoadDataTexts()
+    local _ = ElvUI and ElvUI[1] and ElvUI[1].GetModule and ElvUI[1]:GetModule('DataTexts'):LoadDataTexts()
 
 end, "ldb-plugin")

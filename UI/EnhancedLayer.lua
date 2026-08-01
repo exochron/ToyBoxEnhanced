@@ -22,7 +22,7 @@ function TBE_ToySpellButton_UpdateButton(self)
     --region overwrite start
     local itemIndex = (ToyBox.EnhancedLayer.PagingFrame:GetCurrentPage() - 1) * ADDON.TOYS_PER_PAGE + self:GetID();
     self.itemID = ADDON.DataProvider:Find(itemIndex) or -1;
-    self:SetAttribute("toy", self.itemID)
+    self:SetAttributeNoHandler("toy", self.itemID)
     --endregion
 
     local toyString = self.name;
