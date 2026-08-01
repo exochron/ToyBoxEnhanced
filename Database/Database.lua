@@ -43,7 +43,9 @@ ADDON.db.worldEvent = {
         [246227] = true, -- Lightning-Blessed Spire
         [256881] = true, -- Steward's Bauble
         [256893] = true, -- Wretched Dredger's Brand
+        [259335] = true, -- Photo Finisher
         [259899] = true, -- Ashen Horn of the Fallen Keeper
+        [260170] = true, -- Oathstone Fragment
     },
 
     ["Darkmoon Faire"] = {
@@ -1898,6 +1900,7 @@ ADDON.db.effect = {
             [21540] = true, -- Elune's Lantern
             [187344] = true, -- Offering Kit Maker
             [202309] = true, -- Defective Doomsday Device
+            [267291] = true, -- Coffer Key Glue
         }
     },
 
@@ -2012,7 +2015,8 @@ ADDON.db.effect = {
             [260622] = true, -- Exodar Replica (MoP classic)
             [251633] = true, -- Bursting Bounty Bundle
             [263244] = true, -- Enigmatic Fountain
-            
+            [259335] = true, -- Photo Finisher
+
         },
     },
 
@@ -2476,6 +2480,7 @@ ADDON.db.effect = {
             [238850] = true, -- Arathi Entertainer's Flame
             [267139] = true, -- Hungry Black Hole
             [249468] = true, -- Twilight's Blade Top Secret Strategy Training Guide
+            [260170] = true, -- Oathstone Fragment
 
         },
 
