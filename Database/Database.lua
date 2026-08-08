@@ -11,11 +11,20 @@ if isClassic then
         ["whitelist"] = { },
     }
 else
-    ADDON.db.Recent = {
-        ["minID"] = 276371,
-        ["blacklist"] = {},
-        ["whitelist"] = {259335,259899,260170,264313,264367},
-    }
+    local build = select(4, GetBuildInfo())
+    if build < 120100 then
+        ADDON.db.Recent = {
+            ["minID"] = 276371,
+            ["blacklist"] = {},
+            ["whitelist"] = {259335,259899,260170,264313,264367},
+        }
+    else
+        ADDON.db.Recent = {
+            ["minID"] = 274817,
+            ["blacklist"] = {276371},
+            ["whitelist"] = {268504},
+        }
+    end
 end
 
 ADDON.db.worldEvent = {
@@ -274,6 +283,7 @@ ADDON.db.profession = {
         [221964] = true, -- Filmless Camera
         [221966] = true, -- Wormhole Generator: Khaz Algar
         [248485] = true, -- Wormhole Generator: Quel'Thalas
+        [275683] = true, -- G-00
     },
 
     ["Archaeology"] = {
@@ -466,6 +476,12 @@ ADDON.db.source = {
         [259084] = true, -- Gift of the Cycle
         [264805] = true, -- Brann-O-Vision 3000
         [267139] = true, -- Hungry Black Hole
+        [268504] = true, -- Malfunctioning Staff
+        [274921] = true, -- Pearl of Jubilation
+        [279054] = true, -- Idol of Blue Water and Blue Sky
+        [277954] = true, -- Jaktu's Cursed Blade
+        [279021] = true, -- Forgotten Memento
+        [279052] = true, -- Ancient Amani Mask
 
     },
 
@@ -654,6 +670,9 @@ ADDON.db.source = {
         [230727] = true, -- Explosive Victory
         [235017] = true, -- Glittering Vaulöt Shard
         [242323] = true, -- Chowdar's Favorite Ribbon
+
+        -- Midnight
+        [276207] = true, -- Preyhunter's Masquerade
     },
 
     ["Quest"] = {
@@ -795,6 +814,7 @@ ADDON.db.source = {
         [267456] = true, -- Lil' Scoots' Pillow
         [267472] = true, -- Gnomatic Projector
         [276371] = true, -- Lightveil Recall Beacon
+        [275988] = true, -- Corrosive Victory
 
     },
 
@@ -977,6 +997,12 @@ ADDON.db.source = {
         [264666] = true, -- Rod of Exanguishation
         [268456] = true, -- Animated Bench
         [268455] = true, -- Enchanted Hourglass
+        [274817] = true, -- Gold Starfish
+        [276189] = true, -- Effigy of Dundun
+        [276229] = true, -- Preyhunter's Trophy Stand
+        [276258] = true, -- Companion Command Crystal
+        [276925] = true, -- Idol of Ula'tek
+        [278557] = true, -- Otoola's Recognition
 
     },
 
@@ -1145,6 +1171,7 @@ ADDON.db.source = {
         [263244] = true, -- Enigmatic Fountain
         [263933] = true, -- Preyseeker's Hearthstone
         [264517] = true, -- Galactic Flag of Victory
+        [276925] = true, -- Idol of Ula'tek
 
     },
 
@@ -1221,6 +1248,8 @@ ADDON.db.source = {
         [263975] = true, -- Feeling Fielder Mk. 7
         [264695] = true, -- Interdimensional Parcel Signal
         [268717] = true, -- Pango Plating
+        [275825] = true, -- Ula'tek's Sssacrificial Rain
+        [280419] = true, -- Cursed Badge of the Soulcoilers
     },
 
     ["PvP"] = {
@@ -1243,6 +1272,7 @@ ADDON.db.source = {
         [242636] = true, -- Astral Legend's Pennant
         [264517] = true, -- Galactic Flag of Victory
         [272339] = true, -- Umbral Champion's Illustrious Banner -- AWC Midnight S1
+        [279590] = true, -- Venomous Champion's Illustrious Banner
     },
 
     ["Garrison"] = {
@@ -1687,6 +1717,11 @@ ADDON.db.effect = {
             [268728] = true, -- Saptor Salve
             [268717] = true, -- Pango Plating
             [264313] = true, -- Madcap Redcap
+            [274921] = true, -- Pearl of Jubilation
+            [276925] = true, -- Idol of Ula'tek
+            [279021] = true, -- Forgotten Memento
+            [280419] = true, -- Cursed Badge of the Soulcoilers
+            [276207] = true, -- Preyhunter's Masquerade
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1795,6 +1830,7 @@ ADDON.db.effect = {
             [246908] = true, -- K'areshi Supply Crate
             [250319] = true, -- Researcher's Shadowgraft
             [264413] = true, -- Dominating Victory
+            [275988] = true, -- Corrosive Victory
 
         },
 
@@ -2220,6 +2256,7 @@ ADDON.db.effect = {
             [238852] = true, -- Flame's Radiance Banner
             [239007] = true, -- Dastardly Banner
             [272339] = true, -- Umbral Champion's Illustrious Banner
+            [279590] = true, -- Venomous Champion's Illustrious Banner
         },
 
         -- Summons a clone of the character
@@ -2333,6 +2370,8 @@ ADDON.db.effect = {
             [267472] = true, -- Gnomatic Projector
             [268455] = true, -- Enchanted Hourglass
             [272287] = true, -- Nap Mat
+            [268504] = true, -- Malfunctioning Staff
+            [276229] = true, -- Preyhunter's Trophy Stand
         },
 
         ["Weather"] = {
@@ -2532,6 +2571,7 @@ ADDON.db.effect = {
             [218308] = true, -- Winter Veil Cracker
             [230924] = true, -- Spotlight Materializer 1000
             [235799] = true, -- Throwin' Sawblade
+            [278557] = true, -- Otoola's Recognition
         }
     },
 
@@ -2800,6 +2840,7 @@ ADDON.db.effect = {
             [129165] = true, -- Barnacle-Encrusted Gem
             [134024] = true, -- Cursed Swabby Helmet
             [200116] = true, -- Everlasting Horn of Lavaswimming
+            [279054] = true, -- Idol of Blue Water and Blue Sky
         },
 
         ["Teleport"] = {
@@ -2924,6 +2965,7 @@ ADDON.db.effect = {
             [226191] = true, -- Web Pet Leash
             [256141] = true, -- Fortune's Waving Cat
             [263871] = true, -- Holy Pet Leash
+            [276258] = true, -- Companion Command Crystal
 
         },
 
