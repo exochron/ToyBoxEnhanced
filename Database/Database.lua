@@ -4,19 +4,15 @@ local isClassic = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
 
 ADDON.db = {}
 
+--local build = select(4, GetBuildInfo())
+ADDON.db.Recent = {
+    ["minID"] = 274817,
+    ["blacklist"] = {276371},
+    ["whitelist"] = {268504},
+}
+
 if isClassic then
-    ADDON.db.Recent = {
-        ["minID"] = 80000,
-        ["blacklist"] = { 198647, 184871, 216893}, -- Fishspeaker's Lucky Lure, Dark Portal, Goblin Town-in-a-Box
-        ["whitelist"] = { },
-    }
-else
-    --local build = select(4, GetBuildInfo())
-    ADDON.db.Recent = {
-        ["minID"] = 274817,
-        ["blacklist"] = {276371},
-        ["whitelist"] = {268504},
-    }
+    ADDON.db.Recent = {}
 end
 
 ADDON.db.worldEvent = {

@@ -519,7 +519,9 @@ local function SetupFilterMenu(_, root)
         return ADDON.settings.filter.notCollected
     end)
 
-    CreateFilter(root, L.FILTER_ONLY_LATEST, SETTING_ONLY_RECENT)
+    if ADDON.isRetail then
+        CreateFilter(root, L.FILTER_ONLY_LATEST, SETTING_ONLY_RECENT)
+    end
     CreateFilter(root, L.FILTER_ONLY_TRADABLE, SETTING_ONLY_TRADABLE)
     if ADDON.settings.filter[SETTING_HIDDEN] or HasUserHiddenToys() then
         CreateFilter(root, L["FILTER_HIDDEN_MANUAL"], SETTING_HIDDEN)
@@ -535,7 +537,9 @@ local function SetupFilterMenu(_, root)
     AddIcon(CreateFilter(faction, FACTION_HORDE, "horde", ADDON.settings.filter[SETTING_FACTION]), ADDON.isRetail and 2173920 or 463451)
     AddIcon(CreateFilter(faction, NPC_NAMES_DROPDOWN_NONE, "noFaction", ADDON.settings.filter[SETTING_FACTION]), 0)
 
-    setupExpansionMenu(root:CreateButton(EXPANSION_FILTER_TEXT))
+    if GetClientDisplayExpansionLevel() > 0 then
+        setupExpansionMenu(root:CreateButton(EXPANSION_FILTER_TEXT))
+    end
 
     root:CreateSpacer()
 
