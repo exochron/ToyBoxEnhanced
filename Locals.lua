@@ -200,3 +200,5 @@ elseif locale == "zhTW" then
     --@localization(locale="zhTW", namespace="Source", format="lua_additive_table", handle-unlocalized=comment)@
     --@localization(locale="zhTW", namespace="Effects", format="lua_additive_table", handle-unlocalized=comment)@
 end
+
+_G["BINDING_NAME_CLICK TBERandomFavoredToy:LeftButton"] = L["RANDOM_TOY_TITLE"]
