@@ -71,6 +71,17 @@ local function initActionButton()
     ADDON.Events:RegisterCallback("OnFavoritesChanged", updateButtonFavorites, "random-favorites")
 end
 
+local function checkClickMacro()
+    local existingName, existingIcon, existingBody = GetMacroInfo(MACRO_NAME)
+    if not InCombatLockdown() then
+        if not existingName and GetNumMacros() < MAX_GLOBAL_MACRO_COUNT then
+            CreateMacro(MACRO_NAME, MACRO_ICON, MACRO_BODY)
+        elseif existingName and (existingIcon ~= MACRO_ICON or nil == string.find(existingBody, MACRO_BODY)) then
+            EditMacro(existingName, nil, MACRO_ICON, MACRO_BODY)
+        end
+    end
+end
+
 local function createDisplayButton()
     local L = ADDON.L
     ADDON.UI.RandomButton = CreateFrame("Button", nil, ToyBox, "TBEUseRandomToyButtonTemplate")
@@ -103,19 +114,15 @@ local function createDisplayButton()
     ADDON.UI.RandomButton:SetScript("OnLeave", function()
         GameTooltip:Hide()
     end);
-end
 
-local function checkClickMacro()
-    local existingName, existingIcon, existingBody = GetMacroInfo(MACRO_NAME)
-    if not InCombatLockdown() then
-        if not existingName and GetNumMacros() < MAX_GLOBAL_MACRO_COUNT then
-            CreateMacro(MACRO_NAME, MACRO_ICON, MACRO_BODY)
-        elseif existingName and (existingIcon ~= MACRO_ICON or nil == string.find(existingBody, MACRO_BODY)) then
-            EditMacro(existingName, nil, MACRO_ICON, MACRO_BODY)
+    ADDON.UI.RandomButton:SetScript("OnDragStart", function()
+        if not InCombatLockdown() then
+            checkClickMacro()
+            ClearCursor()
+            PickupMacro(MACRO_NAME)
         end
-    end
+    end)
 end
 
-ADDON.Events:RegisterCallback("OnLogin", checkClickMacro, "random-macro")
 ADDON.Events:RegisterCallback("OnLogin", initActionButton, "random-init")
 ADDON.Events:RegisterCallback("OnLoadUI", createDisplayButton, "random-button")
