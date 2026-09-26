@@ -11,20 +11,12 @@ if isClassic then
         ["whitelist"] = { },
     }
 else
-    local build = select(4, GetBuildInfo())
-    if build < 120100 then
-        ADDON.db.Recent = {
-            ["minID"] = 276371,
-            ["blacklist"] = {},
-            ["whitelist"] = {259335,259899,260170,264313,264367},
-        }
-    else
-        ADDON.db.Recent = {
-            ["minID"] = 274817,
-            ["blacklist"] = {276371},
-            ["whitelist"] = {268504},
-        }
-    end
+    --local build = select(4, GetBuildInfo())
+    ADDON.db.Recent = {
+        ["minID"] = 274817,
+        ["blacklist"] = {276371},
+        ["whitelist"] = {268504},
+    }
 end
 
 ADDON.db.worldEvent = {
