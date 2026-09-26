@@ -176,35 +176,57 @@ local function CenterDropdownButton(elementData)
     end)
 end
 
---region ALL and None
 local function AddAllAndNone(root, settings)
-    CenterDropdownButton(root:CreateButton(ALL, function()
-        SetAllSubFilters(settings, true)
+    local allAndNone = root:CreateButton(ALL, function(data)
+        SetAllSubFilters(settings, data)
         return MenuResponse.Refresh
-    end))
-    CenterDropdownButton(root:CreateButton(NONE, function()
-        SetAllSubFilters(settings, false)
-        return MenuResponse.Refresh
-    end))
+    end)
+    allAndNone:SetData(false)
+    allAndNone:AddInitializer(function(button, description)
+        local highlight = button.highlight
+
+        local fontString = button.fontString
+        fontString:SetJustifyH("CENTER")
+        fontString:ClearAllPoints()
+        fontString:SetPoint("LEFT")
+        fontString:SetPoint("RIGHT", button, "CENTER")
+        fontString:HookScript("OnEnter", function()
+            description:SetData(true)
+            highlight:SetAllPoints(button.fontString)
+            highlight:Show()
+        end)
+        fontString:HookScript("OnLeave", function()
+            description:SetData(false)
+            highlight:Hide()
+        end)
+        fontString:SetMouseClickEnabled(false) -- using onEnter also enables mouse clicks. we don't actually want that.
+
+        local fontString2 = MenuVariants.CreateFontString(button);
+        button.fontString2 = fontString2
+        fontString2:SetTextToFit(NONE)
+        fontString2:SetJustifyH("CENTER")
+        fontString2:ClearAllPoints()
+        fontString2:SetPoint("LEFT", button, "CENTER")
+        fontString2:SetPoint("RIGHT")
+        fontString2:HookScript("OnEnter", function()
+            highlight:SetAllPoints(fontString2)
+            highlight:Show()
+        end)
+        fontString2:HookScript("OnLeave", function()
+            highlight:Hide()
+        end)
+        fontString2:SetMouseClickEnabled(false)
+    end)
+    allAndNone:AddResetter(function(button)
+        button.fontString:SetScript("OnEnter", nil)
+        button.fontString:SetScript("OnLeave", nil)
+        button.fontString2:SetScript("OnEnter", nil)
+        button.fontString2:SetScript("OnLeave", nil)
+        button.fontString2 = nil
+    end)
 
     root:QueueSpacer()
 end
-local function registerVerticalLayoutHook()
-    hooksecurefunc(AnchorUtil, "VerticalLayout", function(frames, initialAnchor, padding)
-        if #frames > 3 and ToyBox and ToyBox:IsShown() then
-            local first = frames[1]
-            local second = frames[2]
-            if first.fontString and first.fontString:GetText() == ALL and second.fontString and second.fontString:GetText() == NONE then
-                first:SetSize(first:GetWidth() / 2, first:GetHeight())
-                second:SetSize(second:GetWidth() / 2, second:GetHeight())
-
-                second:SetPoint("TOPLEFT", first, "TOPRIGHT", padding, 0)
-                frames[3]:SetPoint("TOPLEFT", first, "BOTTOMLEFT", 0, -padding)
-            end
-        end
-    end)
-end
---endregion
 
 local function CreateSortRadio(root, text, sortValue)
     local sortSettings = ADDON.settings[SETTING_SORT]
@@ -572,7 +594,5 @@ ADDON.Events:RegisterCallback("OnLoadUI", function()
     skinElvUI(filterDropdown)
 
     ADDON.UI.FilterDropdown = filterDropdown
-
-    registerVerticalLayoutHook()
 
 end, "filter-menu")
