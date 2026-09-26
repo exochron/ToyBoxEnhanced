@@ -150,7 +150,8 @@ local function FilterTradableToys(itemId)
 end
 
 local function FilterRecentToys(itemId)
-    return not ADDON.settings.filter.onlyRecent
+    return ADDON.isClassic
+            or not ADDON.settings.filter.onlyRecent
             or (ADDON.db.Recent.minID <= itemId and not tContains(ADDON.db.Recent.blacklist, itemId))
             or tContains(ADDON.db.Recent.whitelist, itemId)
 end
