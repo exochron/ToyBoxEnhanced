@@ -9,15 +9,21 @@ actionButton:SetPropagateMouseClicks(true)
 actionButton:SetPropagateMouseMotion(true)
 actionButton:Hide()
 
+local function loadFavoriteToys()
+    local _, _, favoredToys = ADDON.Api:GetFavoriteProfile()
+    local toys = CopyTable(favoredToys)
+    toys = tFilter(toys, function(itemId)
+        return PlayerHasToy(itemId) and C_ToyBox.IsToyUsable(itemId)
+    end, true)
+
+    return toys
+end
+
 local function generateFavoritesMenu(_, root)
     root:SetTag(ADDON_NAME.."-LDB-Favorites")
     root:SetScrollMode(GetScreenHeight() - 100)
 
-    local _, _, favoredToys = ADDON.Api:GetFavoriteProfile()
-    local sortedToys = CopyTable(favoredToys)
-    sortedToys = tFilter(sortedToys, function(itemId)
-        return PlayerHasToy(itemId)
-    end, true)
+    local sortedToys = loadFavoriteToys()
     table.sort(sortedToys, function(a, b)
         return (C_Item.GetItemNameByID(a) or "") < (C_Item.GetItemNameByID(b) or "")
     end)
@@ -128,10 +134,7 @@ ADDON.Events:RegisterCallback("OnLogin", function()
             if ADDON.initialized then
                 menu = OpenMenu(tooltipProxy, generateFavoritesMenu)
             else
-                local _, _, favoredToys = ADDON.Api:GetFavoriteProfile()
-                favoredToys = tFilter(favoredToys, function(itemId)
-                    return PlayerHasToy(itemId)
-                end, true)
+                local favoredToys = loadFavoriteToys()
                 ADDON:LoadItemsIntoCache(favoredToys, function()
                     menu = OpenMenu(tooltipProxy, generateFavoritesMenu)
                 end)
