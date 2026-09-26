@@ -60,7 +60,7 @@ local function initActionButton()
     actionButton = _G[CLICK_TARGET_NAME]
     actionButton:WrapScript(actionButton, 'OnClick', [=[
     if #toys > 0 then
-        self:SetAttributeNoHandler("toy", toys[random(#toys)])
+        self:SetAttribute("toy", toys[random(#toys)])
     end
     ]=])
     updateButtonFavorites()
