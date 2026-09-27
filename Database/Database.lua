@@ -803,6 +803,7 @@ ADDON.db.source = {
         [267472] = true, -- Gnomatic Projector
         [276371] = true, -- Lightveil Recall Beacon
         [275988] = true, -- Corrosive Victory
+        [280201] = true, -- Book of Storytime
 
     },
 
@@ -1389,6 +1390,7 @@ ADDON.db.source = {
         [258135] = true, -- Gilded Coil Spire
         [258136] = true, -- Azure Thunder Coil Spire
         [268695] = true, -- Pin-o-Matic Camera
+        [280541] = true, -- Shen'dorei Windwell -- Forever Heroic Pack
 
         -- Trading Card Game
         [32542] = true, -- Imp in a Ball
@@ -1710,6 +1712,7 @@ ADDON.db.effect = {
             [279021] = true, -- Forgotten Memento
             [280419] = true, -- Cursed Badge of the Soulcoilers
             [276207] = true, -- Preyhunter's Masquerade
+            [276189] = true, -- Effigy of Dundun
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1819,6 +1822,7 @@ ADDON.db.effect = {
             [250319] = true, -- Researcher's Shadowgraft
             [264413] = true, -- Dominating Victory
             [275988] = true, -- Corrosive Victory
+            [279052] = true, -- Ancient Amani Mask
 
         },
 
@@ -1963,6 +1967,7 @@ ADDON.db.effect = {
         ["Vision"] = {
             [122121] = true, -- Darkmoon Gazer
             [153253] = true, -- S.F.E. Interceptor
+            [280201] = true, -- Book of Storytime
         },
 
         ["Other"] = {
@@ -2137,6 +2142,9 @@ ADDON.db.effect = {
             [263198] = true, -- Valdekar's Special
             [267456] = true, -- Lil' Scoots' Pillow
             [263975] = true, -- Feeling Fielder Mk. 7
+            [274817] = true, -- Gold Starfish
+            [275683] = true, -- G-00
+            [277954] = true, -- Jaktu's Cursed Blade
 
         },
 
@@ -2155,6 +2163,7 @@ ADDON.db.effect = {
             [264517] = true, -- Galactic Flag of Victory
             [264666] = true, -- Rod of Exanguishation
             [264672] = true, -- Cosmic Ritual Stone
+            [275825] = true, -- Ula'tek's Sssacrificial Rain
         },
 
         ["Roll"] = {
@@ -2360,6 +2369,7 @@ ADDON.db.effect = {
             [272287] = true, -- Nap Mat
             [268504] = true, -- Malfunctioning Staff
             [276229] = true, -- Preyhunter's Trophy Stand
+            [280541] = true, -- Shen'dorei Windwell
         },
 
         ["Weather"] = {

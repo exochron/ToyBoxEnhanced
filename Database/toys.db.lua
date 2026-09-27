@@ -1129,8 +1129,10 @@ ADDON.db.ingameList = {
 [272287] = false, -- Nap Mat
 [272312] = false, -- Crimson Bloodwater
 [272339] = false, -- Umbral Champion's Illustrious Banner
+[274730] = false, -- Tuskarr Ice Fishing Tent
 [274817] = false, -- Gold Starfish
 [274921] = false, -- Pearl of Jubilation
+[274967] = false, -- Varian's Dragon Throne
 [275683] = false, -- G-00
 [275825] = false, -- Ula'tek's Sssacrificial Rain
 [275988] = false, -- Corrosive Victory
@@ -1148,4 +1150,6 @@ ADDON.db.ingameList = {
 [279590] = false, -- Venomous Champion's Illustrious Banner
 [280201] = false, -- Book of Storytime
 [280419] = false, -- Cursed Badge of the Soulcoilers
+[280541] = false, -- Shen'dorei Windwell
+[281681] = false, -- Varian's Dragon Spirit
 }
