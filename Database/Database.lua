@@ -1390,7 +1390,12 @@ ADDON.db.source = {
         [258135] = true, -- Gilded Coil Spire
         [258136] = true, -- Azure Thunder Coil Spire
         [268695] = true, -- Pin-o-Matic Camera
+        [267279] = true, -- Embers of Al'ar -- chinese promo event
+        [272312] = true, -- Crimson Bloodwater -- chinese promo event
+        [274730] = true, -- Tuskarr Ice Fishing Tent -- chinese shop
+        [274967] = true, -- Varian's Dragon Throne -- chinese promo event
         [280541] = true, -- Shen'dorei Windwell -- Forever Heroic Pack
+        [281681] = true, -- Varian's Dragon Spirit -- chinese shop
 
         -- Trading Card Game
         [32542] = true, -- Imp in a Ball
@@ -2145,7 +2150,7 @@ ADDON.db.effect = {
             [274817] = true, -- Gold Starfish
             [275683] = true, -- G-00
             [277954] = true, -- Jaktu's Cursed Blade
-
+            [281681] = true, -- Varian's Dragon Spirit
         },
 
         ["Corpse"] = {
@@ -2368,6 +2373,8 @@ ADDON.db.effect = {
             [268455] = true, -- Enchanted Hourglass
             [272287] = true, -- Nap Mat
             [268504] = true, -- Malfunctioning Staff
+            [274730] = true, -- Tuskarr Ice Fishing Tent
+            [274967] = true, -- Varian's Dragon Throne
             [276229] = true, -- Preyhunter's Trophy Stand
             [280541] = true, -- Shen'dorei Windwell
         },
