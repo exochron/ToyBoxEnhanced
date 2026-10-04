@@ -118,8 +118,12 @@ ADDON.Events:RegisterCallback("OnLogin", function()
     local tooltipProxy = CreateFrame("Frame")
     tooltipProxy:Hide()
 
-    tooltipProxy:HookScript("OnShow", function()
+    tooltipProxy:HookScript("OnShow", function(self)
         menu = nil
+        if (self:GetParent() and (not self:GetParent():IsShown() or 0 == self:GetParent():GetEffectiveAlpha())) then
+            return
+        end
+
         if not ADDON.Api:HasFavorites() then
             local L = ADDON.L
             GameTooltip:SetOwner(tooltipProxy, "ANCHOR_NONE")
@@ -184,7 +188,11 @@ ADDON.Events:RegisterCallback("OnLogin", function()
         icon = "Interface\\Icons\\Trade_Archaeology_ChestofTinyGlassAnimals",
         tooltip = tooltipProxy,
 
-        OnClick = function(_, button)
+        OnClick = function(self, button)
+            if (not self:IsShown() or 0 == self:GetEffectiveAlpha()) then
+                return
+            end
+
             if button == "RightButton" then
                 GameTooltip:Hide()
                 menu = OpenMenu(tooltipProxy, generateProfileMenu)
