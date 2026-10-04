@@ -48,10 +48,10 @@ local function DatabaseTest()
                 and not ContainsItem(ADDON.db.profession, itemId)
                 and not ContainsItem(ADDON.db.worldEvent, itemId)
         then
-            print("New toy (by Source): " .. itemId .. " " .. (GetItemInfo(itemId) or ''))
+            print("New toy (by Source): " .. itemId .. " " .. (C_Item.GetItemInfo(itemId) or ''))
         end
         if not ContainsItem(ADDON.db.effect, itemId) then
-            print("New toy (by Effect): " .. itemId .. " " .. (GetItemInfo(itemId) or ''))
+            print("New toy (by Effect): " .. itemId .. " " .. (C_Item.GetItemInfo(itemId) or ''))
         end
     end
 
