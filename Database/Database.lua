@@ -4,12 +4,20 @@ local isClassic = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE
 
 ADDON.db = {}
 
---local build = select(4, GetBuildInfo())
-ADDON.db.Recent = {
-    ["minID"] = 274817,
-    ["blacklist"] = {276371},
-    ["whitelist"] = {268504},
-}
+local build = select(4, GetBuildInfo())
+if build < 120105 then
+    ADDON.db.Recent = {
+        ["minID"] = 274817,
+        ["blacklist"] = {276371},
+        ["whitelist"] = {268504},
+    }
+else
+    ADDON.db.Recent = {
+        ["minID"] = 280820,
+        ["blacklist"] = {281681},
+        ["whitelist"] = {275039},
+    }
+end
 
 if isClassic then
     ADDON.db.Recent = {}
@@ -470,6 +478,10 @@ ADDON.db.source = {
         [277954] = true, -- Jaktu's Cursed Blade
         [279021] = true, -- Forgotten Memento
         [279052] = true, -- Ancient Amani Mask
+        [280821] = true, -- Trail Halazzi
+        [280822] = true, -- Nalorakk's Strength Charm
+        [280823] = true, -- Feathers of Akil'zon
+        [280825] = true, -- Rite of Jan'alai's Flame
 
     },
 
@@ -661,6 +673,9 @@ ADDON.db.source = {
 
         -- Midnight
         [276207] = true, -- Preyhunter's Masquerade
+        [280820] = true, -- Loa-Blessed Victory
+        [281615] = true, -- Shadeweaver's Hearthstone
+        [284159] = true, -- Libram of the Matriarch
     },
 
     ["Quest"] = {
@@ -804,6 +819,8 @@ ADDON.db.source = {
         [276371] = true, -- Lightveil Recall Beacon
         [275988] = true, -- Corrosive Victory
         [280201] = true, -- Book of Storytime
+        [281136] = true, -- Hiveborne Hearthstone
+        [286643] = true, -- Kinduru's Spririting Quill
 
     },
 
@@ -987,6 +1004,7 @@ ADDON.db.source = {
         [268456] = true, -- Animated Bench
         [268455] = true, -- Enchanted Hourglass
         [274817] = true, -- Gold Starfish
+        [275039] = true, -- Curse of Aqir
         [276189] = true, -- Effigy of Dundun
         [276229] = true, -- Preyhunter's Trophy Stand
         [276258] = true, -- Companion Command Crystal
@@ -1828,6 +1846,9 @@ ADDON.db.effect = {
             [264413] = true, -- Dominating Victory
             [275988] = true, -- Corrosive Victory
             [279052] = true, -- Ancient Amani Mask
+            [280820] = true, -- Loa-Blessed Victory
+            [280821] = true, -- Trail Halazzi
+            [280825] = true, -- Rite of Jan'alai's Flame
 
         },
 
@@ -2802,7 +2823,9 @@ ADDON.db.effect = {
             [265100] = true, -- Corewarden's Hearthstone
             [263933] = true, -- Preyseeker's Hearthstone
             [264367] = true, -- Mycomancer's Hearthstone
-            
+            [281136] = true, -- Hiveborne Hearthstone
+            [281615] = true, -- Shadeweaver's Hearthstone
+
         },
 
         ["Jump"] = {
@@ -2882,6 +2905,7 @@ ADDON.db.effect = {
             [253629] = true, -- Personal Key to the Arcantina
             [266370] = true, -- Dundun's Abundant Travel Method
             [276371] = true, -- Lightveil Recall Beacon
+            [286643] = true, -- Kinduru's Spiriting Quill
 
         },
 
