@@ -96,7 +96,7 @@ local function createDisplayButton()
         S:HandleItemButton(ADDON.UI.RandomButton, true)
     end
 
-    if ToyBox.progressBar:IsShown() then -- classic
+    if ToyBox.progressBar and ToyBox.progressBar:IsShown() then -- classic
         ADDON.UI.RandomButton:SetPoint("CENTER", ToyBox, "TOP", "-125", "-42")
     end
 
