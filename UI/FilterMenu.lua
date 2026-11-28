@@ -423,6 +423,7 @@ local function SetupSourceMenu(root)
     end
 
     local sourceOrder = {
+        "Talebound",
         "Treasure",
         "Drop",
         "Quest",
@@ -441,6 +442,7 @@ local function SetupSourceMenu(root)
         "Unavailable",
     }
     local sourceIcons = {
+        ["Talebound"] = 7815705,
         ["Treasure"] = 1064187,
         ["Drop"] = 133639,
         ["Quest"] = 236669,

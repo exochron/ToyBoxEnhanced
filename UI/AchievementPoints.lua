@@ -3,7 +3,12 @@ local _, ADDON = ...
 local function CreateAchievementPoints()
     local TOY_ACHIEVEMENT_CATEGORY = 15247
 
-    ToyBox.progressBar:SetShown(false)
+    if ToyBox.progressBar then
+        ToyBox.progressBar:SetShown(false)
+    end
+    if ToyBox.ProgressTracker then
+        ToyBox.ProgressTracker:SetShown(false)
+    end
 
     local frame = CreateFrame("Button", nil, ToyBox)
 

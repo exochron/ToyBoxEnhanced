@@ -4,7 +4,7 @@ local locale = GetLocale()
 
 ADDON.L = {}
 local L = ADDON.L
-local GetSpellName = C_Spell.GetSpellName or GetSpellInfo
+local GetSpellName = C_Spell.GetSpellName
 
 L["COMPARTMENT_TOOLTIP"] = "|cffeda55fLeft-Click|r to toggle showing the Toy Box.\n|cffeda55fRight-Click|r to open addon options."
 L["FAVOR_DISPLAYED"] = "All Displayed"
@@ -53,6 +53,7 @@ L["Black Market"] = BLACK_MARKET_AUCTION_HOUSE
 L["Promotion"] = BATTLE_PET_SOURCE_10
 L["Shop"] = BATTLE_PET_SOURCE_8
 L["Unavailable"] = "No more available"
+L["Talebound"] = GetCategoryInfo(15625)
 
 -- Professions
 L["Archaeology"] = PROFESSIONS_ARCHAEOLOGY
@@ -107,6 +108,7 @@ L["Dismount"] = BINDING_NAME_DISMOUNT
 L["Effect"] = "Effect"
 L["Emote"] = EMOTE
 L["Environment"] = ENVIRONMENT_SUBHEADER
+L["Fight Companion"] = "Fight Companion"
 L["Firework"] = GetSpellName(25465)
 L["Fishing"] = PROFESSIONS_FISHING
 L["Fly/Fall"] = "Fly/Fall"

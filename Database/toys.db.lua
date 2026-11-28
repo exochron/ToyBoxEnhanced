@@ -1160,6 +1160,12 @@ ADDON.db.ingameList = {
 [281136] = false, -- Hiveborne Hearthstone
 [281615] = false, -- Shadeweaver's Hearthstone
 [281681] = false, -- Varian's Dragon Spirit
+[281928] = false, -- Visage of the Damned
 [284159] = false, -- Libram of the Matriarch
+[284220] = false, -- Shifty Chest
+[284572] = false, -- Rexxar's Companion Transformation
 [286643] = false, -- Kinduru's Spiriting Quill
+[286660] = false, -- Throw Bow
+[288899] = false, -- Hexed Tiny Tome
+[288912] = false, -- Wood-Cursed Hearthstone
 }
