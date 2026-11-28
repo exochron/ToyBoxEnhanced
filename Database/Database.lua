@@ -1722,28 +1722,29 @@ ADDON.db.effect = {
             [233202] = true, -- G.O.L.E.M, Jr.
             [234950] = true, -- Atomic Regoblinator
             [235017] = true, -- Glittering Vault Shard
+            [243304] = true, -- Jubilant Snowman Costume
+            [244792] = true, -- Etheric Brannmorpher
             [245567] = true, -- K'aresh Memory Crystal
             [245631] = true, -- Royal Visage
             [245942] = true, -- Sea-Blessed Shrine
             [246227] = true, -- Lightning-Blessed Spire
-            [244792] = true, -- Etheric Brannmorpher
-            [249713] = true, -- Cartel Transmorpher
-            [243304] = true, -- Jubilant Snowman Costume
             [247893] = true, -- Fandral's Eternal Seed -- chinese mop classic (?)
-            [256881] = true, -- Steward's Bauble
-            [256893] = true, -- Wretched Dredger's Brand
-            [265786] = true, -- Demon Hunter's Aspect
+            [249713] = true, -- Cartel Transmorpher
             [252265] = true, -- Hexed Potatoad Mucus
             [256552] = true, -- Verdant Rutaani Seed
-            [268728] = true, -- Saptor Salve
-            [268717] = true, -- Pango Plating
+            [256881] = true, -- Steward's Bauble
+            [256893] = true, -- Wretched Dredger's Brand
             [264313] = true, -- Madcap Redcap
+            [265786] = true, -- Demon Hunter's Aspect
+            [268717] = true, -- Pango Plating
+            [268728] = true, -- Saptor Salve
             [274921] = true, -- Pearl of Jubilation
+            [275039] = true, -- Curse of the Aqir
+            [276189] = true, -- Effigy of Dundun
+            [276207] = true, -- Preyhunter's Masquerade
             [276925] = true, -- Idol of Ula'tek
             [279021] = true, -- Forgotten Memento
             [280419] = true, -- Cursed Badge of the Soulcoilers
-            [276207] = true, -- Preyhunter's Masquerade
-            [276189] = true, -- Effigy of Dundun
         },
 
         -- Add to or slightly change the existing character model, keeping the same model
@@ -1831,8 +1832,8 @@ ADDON.db.effect = {
             [217725] = true, -- Essence of Yu'lon
             [217726] = true, -- Fortitude of Niuzao
             [220777] = true, -- Cherry Blossom Trail
-            [223146] = true, -- Satchel of Stormborn Seeds
             [221964] = true, -- Filmless Camera
+            [223146] = true, -- Satchel of Stormborn Seeds
             [224552] = true, -- Cave Spelunker's Torch
             [225547] = true, -- Toxic Victory
             [228413] = true, -- Lampyridae Caller
@@ -1856,7 +1857,10 @@ ADDON.db.effect = {
             [279052] = true, -- Ancient Amani Mask
             [280820] = true, -- Loa-Blessed Victory
             [280821] = true, -- Trail Halazzi
+            [280822] = true, -- Nalorakk's Strength Charm
+            [280823] = true, -- Feathers of Akil'zon
             [280825] = true, -- Rite of Jan'alai's Flame
+            [284159] = true, -- Libram of the Matriarch
 
         },
 
@@ -2606,6 +2610,7 @@ ADDON.db.effect = {
             [218308] = true, -- Winter Veil Cracker
             [230924] = true, -- Spotlight Materializer 1000
             [235799] = true, -- Throwin' Sawblade
+            [275039] = true, -- Curse of the Aqir
             [278557] = true, -- Otoola's Recognition
             [286660] = true, -- Throw Bow
         }
